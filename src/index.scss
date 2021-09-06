@@ -1,0 +1,13 @@
+  .emoji-wrap li{
+    transition: 0.3s ease;
+  }
+  .emoji-wrap li:hover{
+    transform: scale(1.2);
+  }
+ 
+  .theme-dark {
+    .nav-header .headerScrolChange {  background-color: #293145 !important;}
+}
+  .theme-light {
+    .nav-header .headerScrolChange {  background-color: white !important;}
+}
