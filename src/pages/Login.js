@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
-
+import { connect } from 'react-redux'; 
+import ACTIONS from '../store/actions/index.js';
 import { Link, withRouter } from 'react-router-dom'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -7,10 +8,17 @@ import AuthApi from '../api/Auth';
 import { GoogleLogin } from 'react-google-login-component';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
-let validationSchemaLogin = Yup.object({
-    email: Yup.string().required('Email is Required.').email('Email is not valid.'),
-    password: Yup.string().required('Password is Required.').min(6, 'Must be greater then 6 characters.'),
-})
+
+
+
+ 
+
+
+
+    let validationSchemaLogin = Yup.object({
+        email: Yup.string().required('Email is Required.').email('Email is not valid.'),
+        password: Yup.string().required('Password is Required.').min(6, 'Must be greater then 6 characters.'),
+    })
 
 class Login extends Component {
     constructor(props) {
@@ -70,11 +78,16 @@ class Login extends Component {
                                                 ApiError: "",
                                             })
                                             AuthApi.login(values).then(res => {
+                                                if(res.data.Error==false){ 
+                                                    localStorage.setItem("token", res.data.token)
+                                                    this.props.removePosts()
+                                                    this.props.loadProfile(res.data.userProfile)
+                                                    this.props.history.push("/")
+                                                }
                                                 this.setState({
                                                     apiLoader: false,
                                                 })
-                                                localStorage.setItem("token", res.data.token)
-                                                this.props.history.push("/")
+                                              
                                             }).catch(error => {
                                                 console.log("error api ",error);
                                                 if (error.response.data.Error==true){
@@ -170,4 +183,21 @@ class Login extends Component {
     }
 }
 
-export default withRouter(Login);
+
+const mapStateToProps = (state) => {
+    return { 
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        removePosts: (data) => {
+            dispatch(ACTIONS.removePosts(data))
+        },
+        loadProfile: (data) => {
+            dispatch(ACTIONS.loadProfile(data))
+        },
+       
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login))

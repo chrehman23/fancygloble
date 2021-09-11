@@ -6,18 +6,18 @@ const instance = axios.create({
 
 
 
-instance.interceptors.response.use(function (response) {
-   // Any status code that lie within the range of 2xx cause this function to trigger
-   // Do something with response data
-   console.log("aaaa", response)
-   if (response.data.token==false){
-      // localStorage.clear()
-      // window.location = "/"
-   }
+instance.interceptors.response.use(function (response) { 
+   console.log("response", response)
    return response;
-}, function (error) {
-   // Any status codes that falls outside the range of 2xx cause this function to trigger
-   // Do something with response error
+}, function (error) { 
+   if (error.response && error.response.status == 401 && error.response.data.token == false) {
+      localStorage.clear()
+      window.location = "/login"
+   } 
+   if (!error.response) {
+      localStorage.clear();
+      window.location = "/maintenance"
+   } 
    return Promise.reject(error);
 });
 

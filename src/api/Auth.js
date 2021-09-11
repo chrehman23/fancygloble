@@ -1,4 +1,6 @@
 import axios from "../axios";
+
+
 let AuthApi = {
    login: (data) => {
       return axios({
@@ -7,18 +9,24 @@ let AuthApi = {
          method: "post",
       })
    },
+   UserRegister: (data) => {
+      return axios({
+         url: "/api/users/UserRegister",
+         data,
+         method: "post",
+      })
+   },
+   getUserProfile: (data) => {
+      return axios({
+         url: "/api/users/getUserProfile",
+         data,
+         method: "get",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         }
+      })
+   },
 
-
-   // adminUpdatePasssword: (data) => {
-   //    return axios({
-   //       url: "/api/adminUpdatePasssword",
-   //       data,
-   //       method: "post",
-   //       headers: {
-   //          authorization: "Bearer " + localStorage.getItem("token"),
-   //       }
-   //    })
-   // },
 
 }
 export default AuthApi
