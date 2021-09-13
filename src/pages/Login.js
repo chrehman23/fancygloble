@@ -12,7 +12,8 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 
 
  
-
+// import io from 'socket.io-client';
+// let socket = io.connect(process.env.REACT_APP_BASE_URL)
 
 
     let validationSchemaLogin = Yup.object({
@@ -79,6 +80,7 @@ class Login extends Component {
                                             })
                                             AuthApi.login(values).then(res => {
                                                 if(res.data.Error==false){ 
+                                                    // socket.emit("login",res.data._id)
                                                     localStorage.setItem("token", res.data.token)
                                                     this.props.removePosts()
                                                     this.props.loadProfile(res.data.userProfile)

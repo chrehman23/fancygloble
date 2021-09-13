@@ -5,9 +5,13 @@ import PostSound from '../public/assets/sounds/post_sound.mp3'
 import io from 'socket.io-client';
 let socket = io.connect(process.env.REACT_APP_BASE_URL)
  
+// server-side
+// socket.on("connect", () => {
+//    console.log("socket.id",socket.id); // x8WIv7-mJelg7on_ALbx
+// });
+
+
 socket.on("sendFriendRequest", (data) => { 
-   console.log("req", data)
-   // return
    // **************************************
    let profileID = getuserProfile()._id 
    if (profileID == data.datas._id) {
@@ -57,6 +61,9 @@ socket.on("addPost", (data) => {
    }else{
       console.log("storeData == your are not firend")
    }   
+});
+socket.on("hi", (data) => {
+ console.log(data)
 });
 
 

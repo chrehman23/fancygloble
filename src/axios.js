@@ -11,11 +11,11 @@ instance.interceptors.response.use(function (response) {
    return response;
 }, function (error) { 
    if (error.response && error.response.status == 401 && error.response.data.token == false) {
-      localStorage.clear()
+      localStorage.removeItem('token')
       window.location = "/login"
    } 
    if (!error.response) {
-      localStorage.clear();
+      localStorage.removeItem('token')
       window.location = "/maintenance"
    } 
    return Promise.reject(error);
