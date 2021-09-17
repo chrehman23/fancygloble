@@ -1,5 +1,5 @@
 // React Required
-import React, { Component } from 'react'; 
+import React, { Component } from 'react';
 import './socket'
 import { connect } from 'react-redux';
 import ACTIONS from './store/actions/index.js';
@@ -7,6 +7,10 @@ import { withRouter } from 'react-router';
 // Create Import File
 import './main.scss';
 import './index.scss';
+
+
+ 
+import "../public/assets/css/style.css" ;
 
 // Common Layout
 import Demo from './demo/Demo';
@@ -63,13 +67,13 @@ class App extends Component {
 
     }
   }
-  componentDidMount(){
-   
+  componentDidMount() {
+
 
     let token = localStorage.getItem("token")
     if (!token) {
       this.props.history.push("/login")
-    }else{
+    } else {
       window.scrollTo(0, 0)
       AuthApi.getUserProfile().then(res => {
         if (res.data.Error == false) {
@@ -101,7 +105,7 @@ class App extends Component {
     return (
       <BrowserRouter >
         <Switch>
-          <Route exact path={`/maintenance`} component={Maintenance } />
+          <Route exact path={`/maintenance`} component={Maintenance} />
           <Route exact path={`/login`} component={Login} />
           <Route exact path={`/register`} component={Register} />
           <Route exact path={`/forgot`} component={Forgot} />
@@ -151,7 +155,7 @@ class App extends Component {
     );
   }
 }
- 
+
 const mapStateToProps = (state) => {
   return {
     Posts: state.Posts,
