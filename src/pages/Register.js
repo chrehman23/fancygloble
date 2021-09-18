@@ -37,7 +37,14 @@ class Register extends Component {
                 <div className="main-wrap">
                     <div className="nav-header bg-transparent shadow-none border-0">
                         <div className="nav-top w-100">
-                            <Link to="/"><i className="feather-zap text-success display1-size me-2 ms-0"></i><span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </Link>
+                            <Link to="/">
+                                <img src='assets/images/logo2.png' style={{ height: "150px" }} />
+                                {/* <i className="feather-zap text-success display2-size me-3 ms-0"></i>
+                        <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
+                            Sociala.
+                        </span> */}
+                            </Link>
+                            {/* <Link to="/"><i className="feather-zap text-success display1-size me-2 ms-0"></i><span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </Link> */}
                             <button className="nav-menu me-0 ms-auto"></button>
 
                             <Link to="/login" className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">Login</Link>
