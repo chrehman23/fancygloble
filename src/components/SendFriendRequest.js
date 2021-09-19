@@ -89,6 +89,7 @@ class SendFriendRequest extends Component {
                         <div className="card-body d-block w-100 ps-3 pe-3 pb-4 text-center">
                             <figure className="overflow-hidden avatar ms-auto me-auto mb-0 position-relative w65 z-index-1"><img src={`${user.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${user.profile_photo}` : "assets/images/user.png"}`} alt="avater" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
                             <div className="clearfix w-100"></div>
+                            {/* {user._id} */}
                             <h4 className="fw-700 font-xsss mt-3 mb-0">{user.name} </h4>
                             <p className="fw-500 font-xssss text-grey-500 mt-0 mb-3">{user.user_name}</p>
                             {/* <pre className='text-left'> {frindStatus}</pre> */}

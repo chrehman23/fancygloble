@@ -80,6 +80,7 @@ class Createpost extends Component {
             <div className="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
                 <div className="card-body p-0 "
                     onClick={() => {
+                        // window.location.reload(false) 
                         this.setState({ createPost: !this.state.createPost })
                     }}
                 >
@@ -147,7 +148,6 @@ class Createpost extends Component {
                                         className='btn btn-secondary '>Post</button>
                                 </div>
                             )}
-
 
                             {/* <a href="#activity" className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i className="font-md text-warning feather-camera me-2"></i><span className="d-none-xs">Feeling/Activity</span></a> */}
                             <div className={`ms-auto pointer ${menuClass} d-none`} id="dropdownMenu4" data-bs-toggle="dropdown" aria-expanded="false" onClick={this.toggleOpen}><i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></div>

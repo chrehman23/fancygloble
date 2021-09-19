@@ -75,7 +75,7 @@ class App extends Component {
       this.props.history.push("/login")
     } else {
       window.scrollTo(0, 0)
-      AuthApi.getUserProfile().then(res => {
+      AuthApi.getUserProfileByToken().then(res => {
         if (res.data.Error == false) {
           this.props.loadProfile(res.data.profile)
         }

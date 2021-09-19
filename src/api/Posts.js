@@ -21,6 +21,28 @@ let Posts = {
 
       })
    },
+   getCommentsByPost: (data) => {
+      return axios({
+         url: "/api/users/getCommentsByPost",
+         method: "post",
+         data,
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+
+      })
+   },
+   commentOnPost: (data) => {
+      return axios({
+         url: "/api/users/commentOnPost",
+         method: "post",
+         data,
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+
+      })
+   },
 
 
 }

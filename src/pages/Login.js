@@ -9,7 +9,7 @@ import { GoogleLogin } from 'react-google-login-component';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
 
-
+import socketConnection from '../socketConnection'
 
  
 // import io from 'socket.io-client';
@@ -87,7 +87,7 @@ class Login extends Component {
                                             })
                                             AuthApi.login(values).then(res => {
                                                 if(res.data.Error==false){ 
-                                                    // socket.emit("login",res.data._id)
+                                                    socketConnection.emit("login",res.data._id)
                                                     localStorage.setItem("token", res.data.token)
                                                     this.props.removePosts()
                                                     this.props.loadProfile(res.data.userProfile)

@@ -81,8 +81,9 @@ class Home extends Component {
                   {!this.state.postApiLoader && this.props.Posts.map(data => {
                     return (
                       <Postview
-                        id="32"
+                        id={data._id}
                         key={data._id}
+                        allData={data}
                         // postvideo="https://youtu.be/c3C8yCkVApE"
                         postimage={data.post_images && data.post_images[0] && data.post_images[0].picture}
                         avater={data.created_by && data.created_by.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${data.created_by && data.created_by.profile_photo}` : "assets/images/user.png"}
@@ -90,7 +91,8 @@ class Home extends Component {
 
                         time={moment(data.created_at).fromNow(true)}
                         des={data.description}
-                        commentCount={data.comments}
+                        commentCount={data.comments_count}
+                        // comments={data.comments}
                       />
                     )
                   })}

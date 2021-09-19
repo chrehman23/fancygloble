@@ -18,7 +18,17 @@ let AuthApi = {
    },
    getUserProfile: (data) => {
       return axios({
-         url: "/api/users/getUserProfile",
+         url: `/api/users/getUserProfile/${data}`,
+         data,
+         method: "get",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         }
+      })
+   },
+   getUserProfileByToken: (data) => {
+      return axios({
+         url: "/api/users/getUserProfileByToken",
          data,
          method: "get",
          headers: {

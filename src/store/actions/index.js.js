@@ -48,6 +48,18 @@ let Actions = {
       payload: false,
     };
   }, 
+  addcomments : (data) => {
+    return {
+      type: ACTIONTYPES.ADD_COMMENTS,
+      payload: data,
+    };
+  }, 
+  addcomment : (data) => {
+    return {
+      type: ACTIONTYPES.ADD_COMMENT,
+      payload: data,
+    };
+  }, 
 
 
 }
