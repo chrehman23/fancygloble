@@ -51,6 +51,7 @@ class SendFriendRequest extends Component {
             console.log(error)
         })
     }
+    
     unfriendFriendRequest=(id)=>{
         this.setState({ apiLoader:true})
         let data = {

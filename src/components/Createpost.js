@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import postImage from '../../public/assets/images/post.png'
 import PostApi from '../api/Posts';
-import ApiLoader from '../components/ApiLoader'; 
+import ApiLoader from '../components/ApiLoader';
 import PostSound from '../../public/assets/sounds/post_sound.mp3'
- 
+
 
 
 
@@ -12,7 +12,7 @@ import { withRouter } from 'react-router';
 import ACTIONS from '../store/actions/index.js';
 
 class Createpost extends Component {
-    constructor(props){
+    constructor(props) {
         super()
         this.state = {
             isOpen: false,
@@ -22,10 +22,13 @@ class Createpost extends Component {
             description: "",
             post_images: "",
             profileImageURL: "",
-        }; 
-     
+
+            paidPost: false,
+            paidPostamount: 0,
+        };
+
     }
- 
+
 
     toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
 
@@ -34,16 +37,19 @@ class Createpost extends Component {
         data.append('created_at', new Date())
         data.append('description', this.state.description)
         data.append('post_images', this.state.post_images)
-        this.setState({ postApiLoader:true})
+ 
+        data.append('paid_amount', this.state.paidPostamount)
+        
+        this.setState({ postApiLoader: true })
         PostApi.addPostByUser(data).then(res => {
             if (res.data.Error == false) {
                 new Audio(PostSound).play();
-                window.scrollTo(0, this.props.scrolHight) 
+                window.scrollTo(0, this.props.scrolHight)
                 this.props.createPost(res.data.post)
                 let notification = {
                     name: res.data.post.posted_by.name,
                     profile: res.data.post.posted_by.profile_photo,
-                    des:"You created a post.",
+                    des: "You created a post.",
                     time: new Date()
                 }
                 this.props.addnotificaions(notification)
@@ -52,11 +58,14 @@ class Createpost extends Component {
                     post_images: "",
                     profileImageURL: "",
                     createPost: false,
+
+                    paidPost: false,
+                    paidPostamount: 0,
                 })
             }
-            this.setState({ postApiLoader: false})
-        }).catch(error=>{
-            this.setState({ postApiLoader: false})
+            this.setState({ postApiLoader: false })
+        }).catch(error => {
+            this.setState({ postApiLoader: false })
         })
 
 
@@ -105,6 +114,30 @@ class Createpost extends Component {
                                 }}
                                 name="message" className="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
                         </div>
+                        {!this.state.paidPost && (
+                            <div  >
+                                <p className='font-xssss text-grey-500 fw-500 mb-0'>Need paid post. <span
+                                    onClick={() => {
+                                        this.setState({ paidPost: true })
+                                    }}
+                                className='text-primary font-xssss fw-500 cursor-pointer'>Click to add amount.</span></p>
+                            </div>
+                        )}
+                        {this.state.paidPost && (
+                            <div  >
+                                <p className='font-xssss text-grey-500 fw-500 mb-0'>Paid post amount. <span
+                                    onClick={() => {
+                                        this.setState({ paidPost: false })
+                                    }}
+                                     className='text-primary font-xssss fw-500 cursor-pointer'>Cancel paid post.</span></p>
+                                <input type='number'
+                                    value={this.state.paidPostamount}
+                                onChange={(e)=>{
+                                    this.setState({ paidPostamount :e.target.value})
+                                }}
+                                className='font-xssss text-grey-500 fw-500 paidPostAmount' />
+                            </div>
+                        )} 
                         <div className="card-body d-flex align-items-center p-0 mt-2">
                             <input type='file' id="post_images"
                                 // value={this.state.post_images}
@@ -179,7 +212,7 @@ class Createpost extends Component {
     }
 }
 
- 
+
 
 
 
@@ -191,7 +224,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        
+
         createPost: (data) => {
             dispatch(ACTIONS.addPost(data))
         },

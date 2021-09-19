@@ -43,6 +43,28 @@ let Posts = {
 
       })
    },
+   emojisByPost: (data) => {
+      return axios({
+         url: "/api/users/emojisByPost",
+         method: "post",
+         data,
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+
+      })
+   },
+   emojiOnPost: (data) => {
+      return axios({
+         url: "/api/users/emojiOnPost",
+         method: "post",
+         data,
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+
+      })
+   },
 
 
 }
