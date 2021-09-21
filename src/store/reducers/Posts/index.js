@@ -9,6 +9,8 @@ const Posts = (state = initialState, action) => {
       return action.payload
     case constant.ADD_POST:
       return [action.payload, ...state]
+    case constant.ADD_NEW_POSTS:
+      return state.concat(action.payload)
     case constant.ADD_COMMENTS:
       let filterdIndex = state.findIndex(data => data._id == action.payload.post_id);
       state[filterdIndex].comments = action.payload.comments

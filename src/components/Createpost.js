@@ -37,7 +37,7 @@ class Createpost extends Component {
         data.append('created_at', new Date())
         data.append('description', this.state.description)
         data.append('post_images', this.state.post_images)
- 
+       
         data.append('paid_amount', this.state.paidPostamount)
         
         this.setState({ postApiLoader: true })

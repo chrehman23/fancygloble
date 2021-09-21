@@ -60,6 +60,12 @@ let Actions = {
       payload: data,
     };
   }, 
+  newPosts : (data) => {
+    return {
+      type: ACTIONTYPES.ADD_NEW_POSTS,
+      payload: data,
+    };
+  }, 
 
 
 }

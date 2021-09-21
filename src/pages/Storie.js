@@ -97,10 +97,10 @@ class Storie extends Component {
                             <div className="row">
                                 <div className="col-xl-12">
                                     
-                                    <Pagetitle title="Stories"/>
+                                    <Pagetitle title="Events"/>
                                     
                                     <div className="row ps-2 pe-1">
-                                        {storyList.map((value , index) => (
+                                        {false && storyList.map((value , index) => (
 
                                         <div key={index} className="col-md-3 col-xss-6 pe-2 ps-2">
                                             <div className="card h300 d-block border-0 shadow-xss rounded-3 bg-gradiant-bottom overflow-hidden mb-3 bg-image-cover" style={{backgroundImage: `url("assets/images/${value.bgImage}")`}}>

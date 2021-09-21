@@ -7,7 +7,8 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import AuthApi from '../api/Auth';
 
-
+import Logo from '../../public/assets/images/logo2.png'
+import Logo2 from '../../public/assets/images/Logo3.png'
 
 const formikValidateSchema = Yup.object().shape({
     name: Yup.string().required('Name is required').min(4, "Name should grater then 4 digits."),
@@ -38,7 +39,7 @@ class Register extends Component {
                     <div className="nav-header bg-transparent shadow-none border-0">
                         <div className="nav-top w-100">
                             <Link to="/">
-                                <img src='assets/images/logo2.png' style={{ height: "150px" }} />
+                                <img src={Logo} style={{ height: "150px" }} />
                                 {/* <i className="feather-zap text-success display2-size me-3 ms-0"></i>
                         <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
                             Sociala.
@@ -55,8 +56,7 @@ class Register extends Component {
 
                     <div className="row">
                         <div className="col-xl-5 d-none d-xl-block p-0   bg-image-cover bg-no-repeat"
-                            style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}>
-
+                            style={{ backgroundImage: `url(${Logo2})` }}>
                         </div>
                         <div className="col-xl-7  h-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
                             <div className="card shadow-none border-0 ms-auto me-auto login-card">
@@ -157,14 +157,14 @@ class Register extends Component {
 
                                                 <div className="form-group icon-input mb-0 mt-3">
                                                     <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-                                                    <Field id="password" name="password" className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Password" />
+                                                    <Field type='password' id="password" name="password" className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Password" />
 
                                                 </div>
                                                 <small className='text-danger'><b><ErrorMessage name="password" /></b></small>
                                                 <div className="form-group icon-input mb-0 mt-3">
 
                                                     <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-                                                    <Field id="password_confirmation" name="password_confirmation" className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Confirm Password" />
+                                                    <Field type='password' id="password_confirmation" name="password_confirmation" className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Confirm Password" />
 
                                                 </div>
                                                 <small className='text-danger'><b><ErrorMessage name="password_confirmation" /></b></small>

@@ -3,7 +3,8 @@ let Posts = {
    getPostsByuser: (data) => {
       return axios({
          url: "/api/users/getPostsByuser",
-         method: "get",
+         data,
+         method: "post",
          headers: {
             authorization: "Bearer " + localStorage.getItem("token"),
          },

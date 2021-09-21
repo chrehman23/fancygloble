@@ -15,8 +15,11 @@ class Comments extends Component {
             isOpen: false,
             comments: [],
             commentinput: "",
-            commentloader: true,
+            commentloader: false,
             commentapi: false,
+
+            commentPage: 1,
+            noMoreComments: false,
 
         };
 
@@ -31,7 +34,7 @@ class Comments extends Component {
                 created_at: new Date(),
             }
 
-          
+
             PostApi.commentOnPost(data).then(res => {
                 console.log(res.data)
                 new Audio(PostSound).play();
@@ -53,17 +56,31 @@ class Comments extends Component {
     }
 
     componentDidMount() {
+        this.getComments()
+    }
+
+    getComments = () => {
         let data = {
-            post_id: this.props._id
+            post_id: this.props._id,
+            page: this.state.commentPage
         }
+        this.setState({ commentloader: true })
         PostApi.getCommentsByPost(data).then(res => {
             console.log(res.data)
             this.props.addcomments({
-                post_id: this.props._id ,
-                comments:res.data.comments
+                post_id: this.props._id,
+                comments: res.data.comments,
             })
+            if (res.data.comments.length == 0 || res.data.comments.length < 10) {
+                this.setState({ noMoreComments: true })
+            }
+           
 
-            this.setState({ comments: res.data.comments, commentloader: false })
+            this.setState({
+                comments: this.state.comments.concat(res.data.comments),
+                commentloader: false,
+                commentPage: this.state.commentPage + 1
+            })
         }).catch(error => {
             console.log(error)
         })
@@ -108,15 +125,13 @@ class Comments extends Component {
                     {/* {JSON.stringify(this.state.comments,null,2)} */}
 
 
-                    {this.state.commentloader && (
-                        <div className='text-grey-500 fw-500 font-xssss lh-4 pr-2 text-center my-3'>Loading....</div>
-                    )}
+
                     {!this.state.commentloader && this.state.comments && !this.state.comments.length && (
                         <div className='text-grey-500 fw-500 font-xssss lh-4 pr-2 text-center my-3'>No Comment found</div>
                     )}
                     {/* <pre> {JSON.stringify(this.state.comments, null, 2)}</pre> */}
-                    
-                    {!this.state.commentloader && this.state.comments.map(data => {
+
+                    {this.state.comments.map(data => {
                         return (
                             <div className='px-2'>
                                 <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3"  >
@@ -130,6 +145,17 @@ class Comments extends Component {
                     })}
 
                     {/* ************************************** */}
+                    {this.state.commentloader && (
+                        <div className='text-grey-500 fw-500 font-xssss lh-4 pr-2 text-center my-3'>Loading....</div>
+                    )}
+                    {/* ************************************** */}
+                    {!this.state.noMoreComments && !this.state.commentloader && this.state.comments && this.state.comments.length >= 10 && (
+                        <div className='text-grey-500 fw-500 font-xssss lh-4 pr-2 text-center my-3 cursor-pointer'
+                            onClick={() => {
+                                this.getComments()
+                            }}
+                        >Load more</div>
+                    )}
 
                     {/* ************************************** */}
 

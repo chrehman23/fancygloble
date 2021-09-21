@@ -5,7 +5,7 @@ import Rightchat from '../components/Rightchat';
 import Load from '../components/Load';
 import Appfooter from '../components/Appfooter';
 import Popupchat from '../components/Popupchat';
-
+import Pagetitle from '../components/Pagetitle';
 import { Player } from 'video-react';
 
 const videoList = [
@@ -49,7 +49,10 @@ class Videos extends Component {
                         <div className="middle-sidebar-left pe-0">
                             <div className="row justify-content-center">
                                 <div className="col-lg-10">
-                                    {videoList.map((value , index) => (
+                                    <Pagetitle title="Courses" />
+                                </div>
+                                <div className="col-lg-10">
+                                    {false &&videoList.map((value , index) => (
                                     <div key={index} className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
                                         <div className="card-body p-0 d-flex">
                                             <figure className="avatar me-3"><img src={`assets/images/${value.avater}`} alt="video" className="shadow-sm rounded-circle w45" /></figure>
@@ -74,7 +77,7 @@ class Videos extends Component {
                                     </div>
                                     ))}
 
-                                    <Load />
+                                    {/* <Load /> */}
                                 </div>
                             </div>
                         </div>

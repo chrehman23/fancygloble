@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { connect } from 'react-redux'; 
+import { connect } from 'react-redux';
 import ACTIONS from '../store/actions/index.js';
 import { Link, withRouter } from 'react-router-dom'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
@@ -8,18 +8,20 @@ import AuthApi from '../api/Auth';
 import { GoogleLogin } from 'react-google-login-component';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
+import Logo from '../../public/assets/images/logo2.png'
+import Logo2 from '../../public/assets/images/Logo3.png'
 
 import socketConnection from '../socketConnection'
 
- 
+
 // import io from 'socket.io-client';
 // let socket = io.connect(process.env.REACT_APP_BASE_URL)
 
 
-    let validationSchemaLogin = Yup.object({
-        email: Yup.string().required('Email is Required.').email('Email is not valid.'),
-        password: Yup.string().required('Password is Required.').min(6, 'Must be greater then 6 characters.'),
-    })
+let validationSchemaLogin = Yup.object({
+    email: Yup.string().required('Email is Required.').email('Email is not valid.'),
+    password: Yup.string().required('Password is Required.').min(6, 'Must be greater then 6 characters.'),
+})
 
 class Login extends Component {
     constructor(props) {
@@ -54,7 +56,7 @@ class Login extends Component {
                     <div className="nav-header bg-transparent shadow-none border-0">
                         <div className="nav-top w-100">
                             <Link to="/">
-                                <img src='assets/images/logo2.png' style={{ height: "150px" }} />
+                                <img src={Logo} style={{ height: "150px" }} />
                                 {/* <i className="feather-zap text-success display2-size me-3 ms-0"></i>
                         <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
                             Sociala.
@@ -69,7 +71,7 @@ class Login extends Component {
                     </div>
                     <div className="row">
                         <div className="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
-                            style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}></div>
+                            style={{ backgroundImage: `url(${Logo2})` }}></div>
                         <div className="col-xl-7 vh-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
                             <div className="card shadow-none border-0 ms-auto me-auto login-card">
                                 <div className="card-body rounded-0 text-left">
@@ -86,9 +88,10 @@ class Login extends Component {
                                                 ApiError: "",
                                             })
                                             AuthApi.login(values).then(res => {
-                                                if(res.data.Error==false){ 
-                                                    socketConnection.emit("login",res.data._id)
+                                                if (res.data.Error == false) {
+                                                    socketConnection.emit("login", res.data._id)
                                                     localStorage.setItem("token", res.data.token)
+
                                                     this.props.removePosts()
                                                     this.props.loadProfile(res.data.userProfile)
                                                     this.props.history.push("/")
@@ -96,21 +99,21 @@ class Login extends Component {
                                                 this.setState({
                                                     apiLoader: false,
                                                 })
-                                              
+
                                             }).catch(error => {
-                                                console.log("error api ",error);
-                                                if (error.response.data.Error==true){
+                                                console.log("error api ", error);
+                                                if (error.response.data.Error == true) {
                                                     this.setState({
                                                         apiLoader: false,
                                                         ApiError: error.response.data.msg
                                                     })
-                                                }else{
+                                                } else {
                                                     this.setState({
                                                         apiLoader: false,
                                                         ApiError: "Server error."
                                                     })
                                                 }
-                                               
+
                                             })
                                         }}
                                     >
@@ -123,8 +126,15 @@ class Login extends Component {
                                             <small className='text-danger'><b><ErrorMessage name="email" /></b></small>
                                             <div className="form-group icon-input mb-0 mt-3">
                                                 <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-                                                <Field id="password" name="password" className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Password" />
+                                                <Field id="password" type='password' name="password" className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Password" />
 
+                                                {/* <input
+                                                    type="password"
+                                                    name="changepassword"
+                                                    onBlur={handleBlur}
+                                                    onChange={handleChange}
+                                                    value={values.changepassword}
+                                                /> */}
                                             </div>
                                             <small className='text-danger'><b><ErrorMessage name="password" /></b></small>
                                             <div className="form-check text-left mb-3">
@@ -194,7 +204,7 @@ class Login extends Component {
 
 
 const mapStateToProps = (state) => {
-    return { 
+    return {
     }
 }
 
@@ -206,7 +216,7 @@ const mapDispatchToProps = (dispatch) => {
         loadProfile: (data) => {
             dispatch(ACTIONS.loadProfile(data))
         },
-       
+
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login))

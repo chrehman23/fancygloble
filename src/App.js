@@ -11,6 +11,7 @@ import './index.scss';
 
  
 import "../public/assets/css/style.css" ;
+import "../public/assets/css/feather.css" ;
 
 // Common Layout
 import Demo from './demo/Demo';
@@ -83,7 +84,10 @@ class App extends Component {
 
       if (this.props.Posts.length == 0) {
         this.setState({ postApiLoader: true });
-        PostApi.getPostsByuser().then(res => {
+        let data = {
+          page: 1
+        }
+        PostApi.getPostsByuser(data).then(res => {
           if (res.data.Error == false) {
             this.setState({
               // posts: res.data.posts,
