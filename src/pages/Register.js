@@ -9,6 +9,7 @@ import AuthApi from '../api/Auth';
 
 import Logo from '../../public/assets/images/logo2.png'
 import Logo2 from '../../public/assets/images/Logo3.png'
+import logIcon from '../../public/assets/images/logIcon.png'
 
 const formikValidateSchema = Yup.object().shape({
     name: Yup.string().required('Name is required').min(4, "Name should grater then 4 digits."),
@@ -39,7 +40,7 @@ class Register extends Component {
                     <div className="nav-header bg-transparent shadow-none border-0">
                         <div className="nav-top w-100">
                             <Link to="/">
-                                <img src={Logo} style={{ height: "150px" }} />
+                                <img src={logIcon} style={{ height: "50px" }} />
                                 {/* <i className="feather-zap text-success display2-size me-3 ms-0"></i>
                         <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
                             Sociala.
@@ -55,9 +56,11 @@ class Register extends Component {
 
 
                     <div className="row">
-                        <div className="col-xl-5 d-none d-xl-block p-0   bg-image-cover bg-no-repeat"
-                            style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}>
+                        <div className="col-xl-5 d-none d-xl-block p-0    bg-no-repeat"
+                            // bg-image-cover style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}
+                            >
 
+                            <img src={Logo} className='w-100 mt-5 pt-5' />
                         </div>
                         <div className="col-xl-7  h-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
                             <div className="card shadow-none border-0 ms-auto me-auto login-card">
