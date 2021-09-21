@@ -56,7 +56,8 @@ class Register extends Component {
 
                     <div className="row">
                         <div className="col-xl-5 d-none d-xl-block p-0   bg-image-cover bg-no-repeat"
-                            style={{ backgroundImage: `url(${Logo2})` }}>
+                            style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}>
+
                         </div>
                         <div className="col-xl-7  h-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
                             <div className="card shadow-none border-0 ms-auto me-auto login-card">

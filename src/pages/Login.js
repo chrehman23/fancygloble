@@ -71,7 +71,7 @@ class Login extends Component {
                     </div>
                     <div className="row">
                         <div className="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
-                            style={{ backgroundImage: `url(${Logo2})` }}></div>
+                            style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}></div>
                         <div className="col-xl-7 vh-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
                             <div className="card shadow-none border-0 ms-auto me-auto login-card">
                                 <div className="card-body rounded-0 text-left">
