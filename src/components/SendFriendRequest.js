@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import ACTIONS from '../store/actions/index.js.js'
@@ -11,7 +11,7 @@ class SendFriendRequest extends Component {
 
     constructor(props) {
         super();
-        this.state = { 
+        this.state = {
             apiLoader: false,
         }
     }
@@ -20,49 +20,49 @@ class SendFriendRequest extends Component {
 
 
 
-    sendFrindRe=(id)=>{
-        this.setState({ apiLoader:true})
+    sendFrindRe = (id) => {
+        this.setState({ apiLoader: true })
         let data = {
-            friend_id: id, 
+            user_id: id,
         }
-        UserApi.sendFriendRequest(data).then(res=>{
+        UserApi.sendFollowingRequest(data).then(res => {
             console.log(res)
             this.setState({ apiLoader: false })
             this.props.updateProfileFriends(res.data.profile)
-                new Audio(PostSound).play();
-        }).catch(error=>{
+            new Audio(PostSound).play();
+        }).catch(error => {
             this.setState({ apiLoader: false })
             console.log(error)
         })
     }
 
-    acceptFriendRequest=(id)=>{
-        this.setState({ apiLoader:true})
+    acceptFriendRequest = (id) => {
+        this.setState({ apiLoader: true })
         let data = {
-            friend_id: id, 
+            friend_id: id,
         }
-        UserApi.acceptFriendRequest(data).then(res=>{
+        UserApi.acceptFriendRequest(data).then(res => {
             console.log(res)
             this.setState({ apiLoader: false })
             this.props.updateProfileFriends(res.data.profile)
-                new Audio(PostSound).play();
-        }).catch(error=>{
+            new Audio(PostSound).play();
+        }).catch(error => {
             this.setState({ apiLoader: false })
             console.log(error)
         })
     }
-    
-    unfriendFriendRequest=(id)=>{
-        this.setState({ apiLoader:true})
+
+    cancelFollowingRequest = (id) => {
+        this.setState({ apiLoader: true })
         let data = {
-            friend_id: id, 
+            user_id: id,
         }
-        UserApi.unfriendFriendRequest(data).then(res=>{
+        UserApi.cancelFollowingRequest(data).then(res => {
             console.log(res)
             this.setState({ apiLoader: false })
             this.props.updateProfileFriends(res.data.profile)
-                new Audio(PostSound).play();
-        }).catch(error=>{
+            new Audio(PostSound).play();
+        }).catch(error => {
             this.setState({ apiLoader: false })
             console.log(error)
         })
@@ -75,20 +75,26 @@ class SendFriendRequest extends Component {
 
     render() {
         let frindStatus = ""
-        let {user} = this.props;
+        let { user } = this.props;
         let indexStatus = -1;
-         indexStatus = this.props.friends &&  this.props.friends.findIndex(data => data.friend_id.user_name == user.user_name)
-        if (indexStatus>=0){
-            frindStatus = this.props.friends[indexStatus].status
+        indexStatus = this.props.followings && this.props.followings.findIndex(data => data.user_id.user_name == user.user_name)
+        if (indexStatus >= 0) {
+            frindStatus = "followings"
         }
-        
+        let indexStatus2 = -1;
+        indexStatus2 = this.props.followers && this.props.followers.findIndex(data => data.user_id.user_name == user.user_name)
+        if (indexStatus2 >= 0) {
+            frindStatus = "followers"
+        }
+
         return (
-          <>
-               
-                <div  className="col-md-3 col-sm-4 pe-2 ps-2">
+            <>
+                {/* {frindStatus} */}
+
+                <div className="col-md-3 col-sm-4 pe-2 ps-2">
                     <div className="card d-block border-0 shadow-xss rounded-3 overflow-hidden mb-3">
                         <div className="card-body d-block w-100 ps-3 pe-3 pb-4 text-center">
-                            <figure className="overflow-hidden avatar ms-auto me-auto mb-0 position-relative w65 z-index-1"><img src={`${user.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${user.profile_photo}` : "assets/images/user.png"}`} alt="avater" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
+                            <figure className="overflow-hidden imagelgresponsive avatar ms-auto me-auto mb-0 position-relative  z-index-1"><img src={`${user.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${user.profile_photo}` : "assets/images/user.png"}`} alt="avater" className="float-right p-0 bg-white rounded-circle   shadow-xss" /></figure>
                             <div className="clearfix w-100"></div>
                             {/* {user._id} */}
                             <h4 className="fw-700 font-xsss mt-3 mb-0">{user.name} </h4>
@@ -98,15 +104,15 @@ class SendFriendRequest extends Component {
                             {this.state.apiLoader && (<button className="rounded  btn btn-sm btn-primary  text-white">Loading...</button>)}
                             {!this.state.apiLoader && (
                                 <>
-                                    {frindStatus == "request_sent" && (
+                                    {/* {frindStatus == "request_sent" && (
                                         <button className="rounded btn btn-primary text-white"
                                         
                                             onClick={() => {
                                                 this.unfriendFriendRequest(user._id)
                                             }}  
                                         >Cencal Request</button>
-                                    )}
-                                    {frindStatus == "request_recived" && (
+                                    )} */}
+                                    {/* {frindStatus == "request_recived" && (
                                         <div className='d-flex justify-content-between'>
                                             <button className="rounded  btn btn-sm btn-success  text-white"
                                              onClick={() => {
@@ -119,38 +125,39 @@ class SendFriendRequest extends Component {
                                                 }}
                                             >Delete</button>
                                         </div>
-                                    )}
-                                    {frindStatus == "Friend" && (
+                                    )} */}
+                                    {frindStatus !== "" && (
                                         <button className="rounded btn btn-warning text-white"
-                                        onClick={()=>{
-                                            this.unfriendFriendRequest(user._id)
-                                        }}
-                                        >Unfriend</button>
+                                            onClick={() => {
+                                                this.cancelFollowingRequest(user._id)
+                                            }}
+                                        >{frindStatus}</button>
                                     )}
                                     {frindStatus == "" && (
                                         <button className="rounded btn btn-success text-white"
                                             onClick={() => {
                                                 this.sendFrindRe(user._id);
                                             }}
-                                        >Add Friend</button>
+                                        >Follow</button>
                                     )}
                                 </>
                             )}
-                    
-                           
+
+
                         </div>
                     </div>
                 </div>
-          </>
-       
+            </>
+
         );
     }
 }
 
- const mapStateToProps = (state) => { 
+const mapStateToProps = (state) => {
     // let friends = state.UserProfile.profile.friends && state.UserProfile.profile.friends.filter(data => data.status == "friend");
     return {
-        friends: state.UserProfile.profile.friends
+        followings: state.UserProfile.profile.followings,
+        followers: state.UserProfile.profile.followers
     }
 }
 
@@ -159,7 +166,7 @@ const mapDispatchToProps = (dispatch) => {
         updateProfileFriends: (data) => {
             dispatch(ACTIONS.updateProfileFriends(data))
         },
- 
+
     }
 }
 

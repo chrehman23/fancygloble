@@ -17,16 +17,20 @@ import Events from '../components/Events';
 import Postview from '../components/Postview';
 import Load from '../components/Load';
 import moment from 'moment'
+
+
+
+import PostLists from '../components/PostLists'
 class Userpage extends Component {
     constructor(props) {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         window.scrollTo(0, 0)
     }
 
-  
+
     render() {
         return (
             <Fragment>
@@ -56,33 +60,12 @@ class Userpage extends Component {
                                         <ProfilecardThree Profile={this.props.Profile} />
                                     </div>
                                     <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0">
-                                        <Profiledetail />
+                                        <Profiledetail about={this.props.Profile.about} />
                                         <Profilephoto />
                                         <Events />
                                     </div>
                                     <div className="col-xl-8 col-xxl-9 col-lg-8">
-                                        <Createpost scrolHight={500}/>
-                                        {/* {this.state.postApiLoader && (<Load />)} */}
-                                        {this.props.Posts.map(data => {
-                                            return (
-                                                <Postview
-                                                    id={data._id}
-                                                    key={data._id}
-                                                    allData={data}
-                                                    // postvideo="https://youtu.be/c3C8yCkVApE"
-                                                    postimage={data.post_images && data.post_images[0] && data.post_images[0].picture}
-                                                    avater={data.created_by && data.created_by.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${data.created_by && data.created_by.profile_photo}` : "assets/images/user.png"}
-                                                    user={data.posted_by && data.posted_by.name}
-
-                                                    time={moment(data.created_at).fromNow(true)}
-                                                    des={data.description}
-                                                    commentCount={data.comments_count}
-                                                />
-                                            )
-                                        })}
-
-
-
+                                        <PostLists/>
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +92,7 @@ class Userpage extends Component {
     }
 }
 
-const mapStateToProps = (state) => { 
+const mapStateToProps = (state) => {
     return {
         ProfileLoading: state.UserProfile.loading,
         Profile: state.UserProfile.profile,

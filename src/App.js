@@ -20,6 +20,8 @@ import Home from './pages/Home';
 import Badge from './pages/Badge';
 import Group from './pages/Group';
 import Storie from './pages/Storie';
+
+import Events from './pages/Events';
 import Member from './pages/Member';
 import Users from './pages/Users';
 import Email from './pages/Email';
@@ -48,6 +50,7 @@ import Chat from './pages/Chat';
 import Live from './pages/Live';
 import Job from './pages/Job';
 import Event from './pages/Event';
+import AddEvent from './pages/AddEvent';
 import Hotel from './pages/Hotel';
 import Videos from './pages/Videos';
 import Comingsoon from './pages/Comingsoon';
@@ -87,17 +90,17 @@ class App extends Component {
         let data = {
           page: 1
         }
-        PostApi.getPostsByuser(data).then(res => {
-          if (res.data.Error == false) {
-            this.setState({
-              // posts: res.data.posts,
-              postApiLoader: false,
-            })
-            this.props.addPosts(res.data.posts)
-          } else {
-            console.log("Posts api error.")
-          }
-        })
+        // PostApi.getPostsByuser(data).then(res => {
+        //   if (res.data.Error == false) {
+        //     this.setState({
+        //       // posts: res.data.posts,
+        //       postApiLoader: false,
+        //     })
+        //     this.props.addPosts(res.data.posts)
+        //   } else {
+        //     console.log("Posts api error.")
+        //   }
+        // })
       }
 
     }
@@ -118,6 +121,8 @@ class App extends Component {
 
           <Route exact path={`/defaultbadge`} component={Badge} />
           <Route exact path={`/defaultgroup`} component={Group} />
+          <Route exact path={`/events`} component={Events} />
+          <Route exact path={`/add-event`} component={AddEvent} />
           <Route exact path={`/defaultstorie`} component={Storie} />
           <Route exact path={`/defaultemailbox`} component={Email} />
           <Route exact path={`/defaultemailopen`} component={Emailopen} />

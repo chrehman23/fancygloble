@@ -14684,7 +14684,7 @@ body:not(.theme-full) .main-content .middle-sidebar-bottom.header-padding {
   top: 19px;
 }
 .form-group.icon-input input {
-  padding-left: 35px;
+  padding-left: 20px;
 }
 .form-group.icon-right-input {
   position: relative;
@@ -14725,7 +14725,7 @@ body:not(.theme-full) .main-content .middle-sidebar-bottom.header-padding {
   line-height: 60px;
   display: block;
   border: 2px #eee solid;
-  border-radius: 7px;
+  border-radius: 20px;
 }
 .form-group .style2-input::-webkit-input-placeholder {
   font-size: 14px;

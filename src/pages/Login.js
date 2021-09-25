@@ -8,7 +8,7 @@ import AuthApi from '../api/Auth';
 import { GoogleLogin } from 'react-google-login-component';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
-import Logo from '../../public/assets/images/logo2.png'
+import Logo from '../../public/assets/images/Logo3.png'
 import Logo2 from '../../public/assets/images/Logo3.png'
 import logIcon from '../../public/assets/images/logIcon.png'
 
@@ -71,10 +71,12 @@ class Login extends Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-xl-5 d-none d-xl-block p-0 vh-100  bg-no-repeat"
+                        <div className="col-xl-5 d-none d-xl-block p-0 vh-100 pt-5 bg-no-repeat"
                             // bg-image-cover   style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}
                             >
-                                <img src={Logo}  className='w-100 mt-5 pt-5'/>
+                                <br/>
+                                <br/>
+                                <img src={Logo}  className='w-100 px-5  mt-5 pt-5'/>
                             </div>
                         <div className="col-xl-7 vh-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
                             <div className="card shadow-none border-0 ms-auto me-auto login-card">
@@ -122,15 +124,15 @@ class Login extends Component {
                                         }}
                                     >
                                         <Form>
-                                            <div className="form-group icon-input mb-0">
-                                                <i className="font-sm ti-email text-grey-500 pe-0"></i>
-                                                <Field id="email" name="email" className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address" />
+                                            <div className="form-group icon-input mb-0 rounded-circle">
+                                                {/* <i className="font-sm ti-email text-grey-500 pe-0"></i> */}
+                                                <Field id="email" name="email" className="style2-input  form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address" />
 
                                             </div>
                                             <small className='text-danger'><b><ErrorMessage name="email" /></b></small>
                                             <div className="form-group icon-input mb-0 mt-3">
-                                                <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-                                                <Field id="password" type='password' name="password" className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Password" />
+                                                {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
+                                                <Field id="password" type='password' name="password" className="style2-input  form-control text-grey-900 font-xsss fw-600" placeholder="Password" />
 
                                                 {/* <input
                                                     type="password"
@@ -144,7 +146,7 @@ class Login extends Component {
                                             <div className="form-check text-left mb-3">
                                                 <input type="checkbox" className="form-check-input mt-2" id="exampleCheck5" />
                                                 <label className="form-check-label font-xsss text-grey-500">Remember me</label>
-                                                <Link to="/forgot" className="fw-600 font-xsss text-grey-700 mt-1 float-right">Forgot your Password?</Link>
+                                                {/* <Link to="/forgot" className="fw-600 font-xsss text-grey-700 mt-1 float-right">Forgot your Password?</Link> */}
                                             </div>
                                             <small className='text-danger my-3 '><b>{this.state.ApiError}</b></small>
                                             <div className="col-sm-12 p-0 text-left mt-2">

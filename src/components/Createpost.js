@@ -4,9 +4,9 @@ import PostApi from '../api/Posts';
 import ApiLoader from '../components/ApiLoader';
 import PostSound from '../../public/assets/sounds/post_sound.mp3'
 
+import BlurBackground from '../../public/assets/images/blur.jpg'
 
-
-
+// import vedio from './../../public/assets/WhatsApp Video 2020-08-26 at 12.18.47 PM.mp4'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import ACTIONS from '../store/actions/index.js';
@@ -20,11 +20,14 @@ class Createpost extends Component {
             postApiLoader: false,
 
             description: "",
-            post_images: "",
-            profileImageURL: "",
+            post_images: [],
+            profileImageURL: [],
 
             paidPost: false,
             paidPostamount: 0,
+
+            vedioUrl: "",
+            vedioFile: ""
         };
 
     }
@@ -36,10 +39,12 @@ class Createpost extends Component {
         let data = new FormData();
         data.append('created_at', new Date())
         data.append('description', this.state.description)
-        data.append('post_images', this.state.post_images)
-       
+        data.append('video_url', this.state.vedioFile)
+        let postPictures = this.state.post_images
+        for (let i = 0; i < postPictures.length; i++) {
+            data.append('post_images', postPictures[i])
+        }
         data.append('paid_amount', this.state.paidPostamount)
-        
         this.setState({ postApiLoader: true })
         PostApi.addPostByUser(data).then(res => {
             if (res.data.Error == false) {
@@ -61,6 +66,9 @@ class Createpost extends Component {
 
                     paidPost: false,
                     paidPostamount: 0,
+
+                    vedioUrl: "",
+                    vedioFile: ""
                 })
             }
             this.setState({ postApiLoader: false })
@@ -75,16 +83,33 @@ class Createpost extends Component {
         let reader = new FileReader();
         reader.onloadend = () => {
             this.setState({
-                post_images: file,
-                profileImageURL: reader.result,
+                post_images: [...this.state.post_images, file],
+                profileImageURL: [...this.state.profileImageURL, reader.result],
+            }, () => {
+                // console.log(this.state.profileImageURL)
             });
         };
         reader.readAsDataURL(file);
     };
+    readVideo(event) {
+        let file = event.currentTarget.files[0]
+        if (event.target.files && event.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                // videoSrc.src = e.target.result
+                // videoTag.load()
+                this.setState({
+                    vedioUrl: e.target.result,
+                    vedioFile: file,
+                })
+            }.bind(this)
 
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
     render() {
-        const menuClass = `${this.state.isOpen ? " show" : ""}`;
 
+        const menuClass = `${this.state.isOpen ? " show" : ""}`;
         return (
             <div className="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
                 <div className="card-body p-0 "
@@ -95,16 +120,98 @@ class Createpost extends Component {
                 >
                     <div className="font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center cursor-pointer">{!this.state.createPost && (<i className="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>)}Create Post</div>
                 </div>
+
+                {this.state.vedioUrl && (
+                    <div className="card-body d-block p-0 mb-3 mt-3">
+                        <div className='row'>
+                            <div className='col-12'>
+                                <video className='vedioPlayer' controls autoplay>
+                                    <source src={this.state.vedioUrl} type="video/mp4" />
+                                    Your browser does not support HTML5 video.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+
                 {this.state.createPost && (
                     <>
-                        <div className="card-body d-block p-0 mb-3 mt-2">
-                            {this.state.profileImageURL && (
-                                <div className="row ps-2 pe-2 ">
-                                    <div className="col-sm-12 border rounded p-0"><img src={this.state.profileImageURL} className="rounded-3 w-100" alt="post" /></div>
-                                </div>
-                            )}
+                        {/* {JSON.stringify(this.state.profileImageURL.length)} */}
+                        {this.state.profileImageURL && (
 
-                        </div>
+                            <div className="card-body d-block p-0 mb-3 ">
+                                <div className="row ">
+                                    {this.state.profileImageURL.length == 1 && (
+                                        <div className="col-sm-12 p-1">
+                                            <div className='maltiImgesUpload' >
+                                                <div>
+                                                    <img src={this.state.profileImageURL[0]} className="" alt="post" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    )}
+                                    {/* **************************** */}
+                                    {this.state.profileImageURL.length == 2 && (
+                                        <div className="col-sm-12 p-1 ">
+                                            <div className='maltiImgesUpload2' >
+                                                <div>
+                                                    <img src={this.state.profileImageURL[0]} className="" alt="post" />
+                                                </div>
+                                                <div>
+                                                    <img src={this.state.profileImageURL[1]} className="" alt="post" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {/* **************************** */}
+                                    {this.state.profileImageURL.length == 3 && (
+                                        <div className="col-sm-12 p-1">
+                                            <div className='maltiImgesUpload3' >
+                                                <div>
+                                                    <img src={this.state.profileImageURL[0]} className="" alt="post" />
+                                                </div>
+                                                <div className='d-flex flex-column'>
+                                                    <div>
+                                                        <img src={this.state.profileImageURL[1]} className="" alt="post" />
+                                                    </div>
+                                                    <div>
+                                                        <img src={this.state.profileImageURL[2]} className="" alt="post" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {/* ******************** */}
+                                    {this.state.profileImageURL.length > 3 && (
+                                        <div className="col-sm-12 p-1">
+                                            <div className='maltiImgesUpload4' >
+                                                <div>
+                                                    <img src={this.state.profileImageURL[0]} className="" alt="post" />
+                                                </div>
+                                                <div className='d-flex flex-column'>
+                                                    <div>
+                                                        <img src={this.state.profileImageURL[1]} className="" alt="post" />
+                                                    </div>
+                                                    <div className='moreImges'>
+                                                        <img src={this.state.profileImageURL[2]} className="" alt="post" />
+                                                        {this.state.profileImageURL.length > 3 && (
+                                                            <div>
+                                                                <div><span>{this.state.profileImageURL.length - 3} More</span></div>
+                                                            </div>
+                                                        )}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {/* ****************************** */}
+
+                                </div>
+                            </div>
+                        )}
                         <div className="card-body p-0 mt-1 position-relative">
                             <figure className="avatar position-absolute ms-2 mt-1 top-5"><img src="assets/images/user.png" alt="icon" className="shadow-sm rounded-circle w30" /></figure>
                             <textarea
@@ -120,7 +227,7 @@ class Createpost extends Component {
                                     onClick={() => {
                                         this.setState({ paidPost: true })
                                     }}
-                                className='text-primary font-xssss fw-500 cursor-pointer'>Click to add amount.</span></p>
+                                    className='text-primary font-xssss fw-500 cursor-pointer'>Click to add amount.</span></p>
                             </div>
                         )}
                         {this.state.paidPost && (
@@ -129,18 +236,17 @@ class Createpost extends Component {
                                     onClick={() => {
                                         this.setState({ paidPost: false })
                                     }}
-                                     className='text-primary font-xssss fw-500 cursor-pointer'>Cancel paid post.</span></p>
+                                    className='text-primary font-xssss fw-500 cursor-pointer'>Cancel paid post.</span></p>
                                 <input type='number'
                                     value={this.state.paidPostamount}
-                                onChange={(e)=>{
-                                    this.setState({ paidPostamount :e.target.value})
-                                }}
-                                className='font-xssss text-grey-500 fw-500 paidPostAmount' />
+                                    onChange={(e) => {
+                                        this.setState({ paidPostamount: e.target.value })
+                                    }}
+                                    className='font-xssss text-grey-500 fw-500 paidPostAmount' />
                             </div>
-                        )} 
+                        )}
                         <div className="card-body d-flex align-items-center p-0 mt-2">
                             <input type='file' id="post_images"
-                                // value={this.state.post_images}
                                 onChange={(e) => {
                                     if (e.target.value) {
                                         if (e.currentTarget.files[0].type.split('/')[0] == "image") {
@@ -148,37 +254,72 @@ class Createpost extends Component {
                                             this.profileImageChangeHandler(file);
                                         } else {
                                             this.setState({
-                                                post_images: "",
-                                                profileImageURL: "",
+                                                post_images: [],
+                                                profileImageURL: [],
                                             })
                                         }
 
                                     } else {
                                         this.setState({
-                                            post_images: "",
-                                            profileImageURL: "",
+                                            post_images: [],
+                                            profileImageURL: [],
                                         })
                                     }
 
 
                                 }}
                                 className='d-none' />
-                            {/* <a href="#video" className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i className="font-md text-danger feather-video me-2"></i><span className="d-none-xs">Live Video</span></a> */}
-                            <div
-                                onClick={() => {
-                                    document.getElementById("post_images").click();
+                            <input type='file' id="post_vedio"
+                                // value={this.state.post_images}
+                                onChange={(e) => {
+                                    this.setState({
+                                        vedioUrl: "",
+                                    })
+                                    if (e.target.value) {
+                                        if (e.currentTarget.files[0].type.split('/')[0] == "video") {
+                                            this.readVideo(e);
+                                        } else {
+                                            this.setState({
+                                                vedioUrl: "",
+                                                vedioFile: ""
+                                            })
+                                        }
+
+                                    } else {
+                                        this.setState({
+                                            vedioUrl: "",
+                                            vedioFile: ""
+                                        })
+                                    }
+
+
                                 }}
-                                className="d-flex align-items-center cursor-pointer font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i className="font-md text-success feather-image me-2"></i><span className="d-none-xs">Photo/Video</span></div>
+                                className='d-none' />
+                            {!this.state.profileImageURL.length && (
+                                <div onClick={() => { document.getElementById("post_vedio").click() }}
+                                    className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i className="font-md text-danger feather-video me-2"></i><span className="d-none-xs">Live Video</span></div>
+                            )}
+
+
+                            {!this.state.vedioUrl && (
+                                <div onClick={() => { document.getElementById("post_images").click() }}
+                                    className="d-flex align-items-center cursor-pointer font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4">
+                                    <i className="font-md text-success feather-image me-2"></i>
+                                    <span className="d-none-xs">Photo/Video</span>
+                                </div>
+
+                            )}
+
                             {this.state.postApiLoader && (
                                 <div className='ms-auto'>
                                     <ApiLoader />
                                 </div>
                             )}
-                            {!this.state.postApiLoader && (this.state.description || this.state.post_images) && (
+                            {!this.state.postApiLoader && (this.state.description || this.state.post_images.length > 0 || this.state.vedioUrl) && (
                                 <div className='ms-auto'>
                                     <button
                                         onClick={this.addPost}
-                                        className='btn btn-secondary '>Post</button>
+                                        className='btn btn-secondary'>Post</button>
                                 </div>
                             )}
 

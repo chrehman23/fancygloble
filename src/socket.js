@@ -28,12 +28,11 @@ socketConnection.on("sendFriendRequest", (data) => {
 
       store.dispatch(ACTIONS.socketUpdateProfile(data.Profile));
       if (data.request_id) {
-         let whosend = data.Profile.friends.filter(list => list.friend_id._id == data.request_id)
- 
+         let whosend = data.Profile.followers.filter(list => list.user_id._id == data.request_id)
          if (whosend.length) {
             let notification = {
-               name: whosend[0].friend_id.name,
-               profile: whosend[0].friend_id.profile_photo,
+               name: whosend[0].user_id.name,
+               profile: whosend[0].user_id.profile_photo,
                des: data.msg,
                time: data.Profile.created_at,
             } 
@@ -48,11 +47,12 @@ socketConnection.on("sendFriendRequest", (data) => {
 
 
 socketConnection.on("addPost", (data) => {
+   console.log("newpost",data)
    // **************************************
    let profileID = getuserProfile()._id
-   let friends = getuserProfile().friends.map(data => { return data.friend_id._id })
+   let followers = getuserProfile().followings.map(data => { return data.user_id._id })
    // **************************************
-   if (profileID !== data.posted_by._id && friends.includes(data.posted_by._id)) {
+   if (profileID !== data.posted_by._id && followers.includes(data.posted_by._id)) {
       new Audio(PostSound).play();
       store.dispatch(ACTIONS.addPost(data))
 
@@ -60,7 +60,7 @@ socketConnection.on("addPost", (data) => {
       let notification = {
          name: data.posted_by.name,
          profile: data.posted_by.profile_photo,
-         des: "Your friend created a post.",
+         des: "Your Follower created a post.",
          time: data.created_at
       }
       store.dispatch(ACTIONS.addnotificaion(notification)) 

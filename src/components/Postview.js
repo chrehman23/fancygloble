@@ -66,14 +66,16 @@ class Postview extends Component {
         return (
             <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
                 <div className="card-body p-0 d-flex">
-                    <figure className="avatar me-3"><img src={avater} alt="avater" className="shadow-sm rounded-circle w45" /></figure>
+                    <figure className="avatar imagesmresponsive me-3"><img src={avater} alt="avater" className="shadow-sm rounded-circle" /></figure>
                     <h4 className="fw-700 text-grey-900 font-xssss mt-1 text-capitalize"> {user} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500 text-capitalize"> {time} ago</span></h4>
-                    <div className="ms-auto pointer"><i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></div>
+                    <div className="ms-auto pointer d-none"><i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></div>
 
                 </div>
 
+              
 
-                {allData.paid_status && (
+
+                {!allData.user_paid && (
                     <>
                         {!this.state.cardAtive && (
                             <div className="card-body d-block p-0 mb-3">
@@ -122,23 +124,104 @@ class Postview extends Component {
                         )}
                     </>
                 )}
-                {!allData.paid_status && (
+                {allData.user_paid && (
                     <>
-                        {postvideo ?
-                            <div className="card-body p-0 mb-3 rounded-3 overflow-hidden uttam-die">
-                                <a href="/defaultvideo" className="video-btn">
-                                    <video autoPlay loop className="float-right w-100">
-                                        <source src={`assets/images/${postvideo}`} type="video/mp4" />
-                                    </video>
-                                </a>
-                            </div>
+                        {postvideo ?(
+                            <>
+                                {allData.url_status && (
+                                    <div className="card-body d-block p-0 mb-3 mt-3">
+                                        <div className='row'>
+                                            <div className='col-12'>
+                                                <video className='vedioPlayer' controls autoplay>
+                                                    <source src={`${process.env.REACT_APP_BASE_URL}/${allData.video_url}`} type="video/mp4" />
+                                                    Your browser does not support HTML5 video.
+                                                </video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}</>
+                        )
                             : ''}
-                        {postimage ?
+                        {postimage ? (
                             <div className="card-body d-block p-0 mb-3">
                                 <div className="row ps-2 pe-2">
-                                    <div className="col-sm-12 p-1"><img src={`${process.env.REACT_APP_BASE_URL}/${postimage}`} className="rounded-3 w-100" alt="post" /></div>
+
+                                    {postimage.length == 1 && (
+                                        <div className="col-sm-12 p-1">
+                                            <div className='maltiImgesUpload' >
+                                                <div>
+                                                    <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[0].picture}`} className="" alt="post" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* **************************** */}
+                                    {postimage.length == 2 && (
+                                        <div className="col-sm-12 p-1 ">
+                                            <div className='maltiImgesUpload2' >
+                                                <div>
+                                                    <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[0].picture}`} className="" alt="post" />
+                                                </div>
+                                                <div>
+                                                    <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[1].picture}`} className="" alt="post" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {/* **************************** */}
+
+                                    {postimage.length == 3 && (
+                                        <div className="col-sm-12 p-1">
+                                            <div className='maltiImgesUpload3' >
+                                                <div>
+                                                    <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[0].picture}`} className="" alt="post" />
+                                                </div>
+                                                <div className='d-flex flex-column'>
+                                                    <div>
+                                                        <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[1].picture}`} className="" alt="post" />
+                                                    </div>
+                                                    <div>
+                                                        <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[2].picture}`} className="" alt="post" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* ******************** */}
+                                    {postimage.length > 3 && (
+                                        <div className="col-sm-12 p-1">
+                                            <div className='maltiImgesUpload4' >
+                                                <div>
+                                                    <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[0].picture}`} className="" alt="post" />
+                                                </div>
+                                                <div className='d-flex flex-column'>
+                                                    <div>
+                                                        <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[1].picture}`} className="" alt="post" />
+                                                    </div>
+                                                    <div className='moreImges'>
+                                                        <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[2].picture}`} className="" alt="post" />
+                                                        {postimage.length > 3 && (
+                                                            <div>
+                                                                <div><span>{postimage.length - 3} More</span></div>
+                                                            </div>
+                                                        )}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    )}
+
+                                    {/* ****************************** */}
+                                  
                                 </div>
                             </div>
+                        )
+                           
                             : ''}
 
 
@@ -147,55 +230,7 @@ class Postview extends Component {
                     </>
                 )}
 
-                <div className="card-body d-block p-0 mb-3 d-none">
-                    <div className="row ">
-                        <div className="col-sm-12 p-1">
-                            <div className='maltiImgesUpload2' >
-                                <div>
-                                <img src={BlurBackground} className="" alt="post" />
-                                </div>
-                                <div>
-                                <img src={BlurBackground} className="" alt="post" />
-                                </div> 
-                            </div>
-                        </div>
-                        <div className="col-sm-12 p-1">
-                            <div className='maltiImgesUpload3' >
-                                <div>
-                                <img src={BlurBackground} className="" alt="post" />
-                                </div>
-                               <div className='d-flex flex-column'>
-                                    <div>
-                                        <img src={BlurBackground} className="" alt="post" />
-                                    </div>
-                                    <div>
-                                        <img src={BlurBackground} className="" alt="post" />
-                                    </div>
-                               </div>
-                            </div>
-                        </div>
-                        <div className="col-sm-12 p-1">
-                            <div className='maltiImgesUpload4' >
-                                <div>
-                                <img src={BlurBackground} className="" alt="post" />
-                                </div>
-                               <div className='d-flex flex-column'>
-                                    <div>
-                                        <img src={BlurBackground} className="" alt="post" />
-                                    </div>
-                                    <div className='moreImges'>
-                                        <img src={BlurBackground} className="" alt="post" />
-                                        <div>
-                                            <div><span>1 More</span></div>
-                                        </div>
-                                    </div>
-                               </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
+               
                 <div className="card-body p-0 me-lg-5">
                     <p className="fw-500 text-grey-500 lh-26 font-xssss w-100 mb-2">{des} </p>
                     {/* {JSON.stringify(allData.paid_status, null, 2)} */}

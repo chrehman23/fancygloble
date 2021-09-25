@@ -34,6 +34,7 @@ let UsersApi = {
          }
       })
    },
+   
    unfriendFriendRequest: (data) => { 
       return axios({
          url: "/api/users/unfriendFriendRequest",
@@ -44,7 +45,28 @@ let UsersApi = {
          }
       })
    },
- 
+   cancelFollowingRequest: (data) => {
+      return axios({
+         url: "/api/users/cancelFollowingRequest",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         }
+      })
+   },
+
+   sendFollowingRequest: (data) => {
+      data.requested_at = new Date();
+      return axios({
+         url: "/api/users/sendFollowingRequest",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         }
+      })
+   },
 
 }
 export default UsersApi

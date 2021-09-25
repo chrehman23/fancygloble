@@ -13,7 +13,7 @@ import logIcon from '../../public/assets/images/logIcon.png'
 
 const formikValidateSchema = Yup.object().shape({
     name: Yup.string().required('Name is required').min(4, "Name should grater then 4 digits."),
-    user_name: Yup.string().required('User name is required').min(4, "User name should grater then 4 digits.").max(8, "User name should less then 8 digits."),
+    user_name: Yup.string().required('User name is required').min(4, "User name should grater then 4 digits.").max(12, "User name should less then 12 digits."),
     email: Yup.string().required('Email is required.').email('Email is not valid.'),
     password: Yup.string().required("Password is required.").min(6, "Password should 6 digits."),
     password_confirmation: Yup.string().when("password", {
@@ -56,11 +56,13 @@ class Register extends Component {
 
 
                     <div className="row">
-                        <div className="col-xl-5 d-none d-xl-block p-0    bg-no-repeat"
+                        <div className="col-xl-5 d-none d-xl-block p-0 pt-5   bg-no-repeat"
                             // bg-image-cover style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}
                             >
 
-                            <img src={Logo} className='w-100 mt-5 pt-5' />
+                            <br />
+                            <br />
+                            <img src={Logo2} className='w-100 px-5  mt-5 pt-5' />
                         </div>
                         <div className="col-xl-7  h-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
                             <div className="card shadow-none border-0 ms-auto me-auto login-card">
@@ -82,7 +84,7 @@ class Register extends Component {
                                                 ApiError: "",
                                             })
                                             let data = {...values}
-                                            data.user_name = `@${data.user_name}`
+                                            // data.user_name = `@${data.user_name}`
                                             console.log(data)
                                             AuthApi.UserRegister(data).then(res => {
                                                 console.log(res) 
@@ -135,15 +137,15 @@ class Register extends Component {
 
                                             <Form>
                                                 <div className="form-group icon-input mb-0 ">
-                                                    <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                                                    <Field id="name" name="name" className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Name" />
+                                                    {/* <i className="font-sm ti-user text-grey-500 pe-0"></i> */}
+                                                    <Field id="name" name="name" className="style2-input   form-control text-grey-900 font-xsss fw-600" placeholder="Your Name" />
 
                                                 </div> 
                                                 <small className='text-danger'><b><ErrorMessage name="name" /></b></small>
 
                                                 <div className="form-group icon-input mb-0 mt-3">
-                                                    <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                                                    <Field id="user_name" name="user_name" className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="User Name" />
+                                                    {/* <i className="font-sm ti-user text-grey-500 pe-0"></i> */}
+                                                    <Field id="user_name" name="user_name" className="style2-input   form-control text-grey-900 font-xsss fw-600" placeholder="User Name" />
                                                     {values.user_name ? (
                                                         <span>
                                                             @<b>{values.user_name}</b> will be your account name
@@ -153,22 +155,22 @@ class Register extends Component {
                                                 <small className='text-danger'><b><ErrorMessage name="user_name" /></b></small>
 
                                                 <div className="form-group icon-input mb-0 mt-3">
-                                                    <i className="font-sm ti-email text-grey-500 pe-0"></i>
-                                                    <Field id="email" name="email" className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address" />
+                                                    {/* <i className="font-sm ti-email text-grey-500 pe-0"></i> */}
+                                                    <Field id="email" name="email" className="style2-input   form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address" />
 
                                                 </div>
                                                 <small className='text-danger'><b><ErrorMessage name="email" /></b></small>
 
                                                 <div className="form-group icon-input mb-0 mt-3">
-                                                    <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-                                                    <Field type='password' id="password" name="password" className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Password" />
+                                                    {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
+                                                    <Field type='password' id="password" name="password" className="style2-input   form-control text-grey-900 font-xsss fw-600" placeholder="Password" />
 
                                                 </div>
                                                 <small className='text-danger'><b><ErrorMessage name="password" /></b></small>
                                                 <div className="form-group icon-input mb-0 mt-3">
 
-                                                    <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-                                                    <Field type='password' id="password_confirmation" name="password_confirmation" className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Confirm Password" />
+                                                    {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
+                                                    <Field type='password' id="password_confirmation" name="password_confirmation" className="style2-input   form-control text-grey-900 font-xsss fw-600" placeholder="Confirm Password" />
 
                                                 </div>
                                                 <small className='text-danger'><b><ErrorMessage name="password_confirmation" /></b></small>

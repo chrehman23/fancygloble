@@ -15,7 +15,7 @@ class ProfilecardThree extends Component {
                     <img className='w-100 h-100 image-conver' src={`${this.props.Profile.profile_cover ? `${process.env.REACT_APP_BASE_URL}/${this.props.Profile.profile_cover}`:"https://via.placeholder.com/1200x250.png"}`} alt="avater" />
                     </div>
                 <div className="card-body p-0 position-relative">
-                    <figure className="avatar position-absolute w100 z-index-1" style={{ top: '-40px', left: '30px' }}><img src={`${this.props.Profile.profile_cover ? `${process.env.REACT_APP_BASE_URL}/${this.props.Profile.profile_photo}` : "assets/images/user.png"}`} alt="avater" className="float-right p-1 bg-white rounded-circle w-100" /></figure>
+                    <figure className="avatar imagelgresponsive position-absolute z-index-1" style={{ top: '-40px', left: '30px' }}><img src={`${this.props.Profile.profile_cover ? `${process.env.REACT_APP_BASE_URL}/${this.props.Profile.profile_photo}` : "assets/images/user.png"}`} alt="avater" className="float-right p-1 bg-white rounded-circle w-100" /></figure>
                     <h4 className="fw-700 font-sm mt-2 mb-lg-5 mb-4 pl-15">{this.props.Profile.name} <span className="fw-500 font-xssss text-grey-500 mt-1 mb-3 d-block">{this.props.Profile.user_name}</span></h4>
                     <div className="d-flex align-items-center justify-content-center position-absolute-md right-15 top-0 me-2">
                         <Link to="/users" className="d-none d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">Add Friend</Link>

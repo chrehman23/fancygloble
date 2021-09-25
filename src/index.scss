@@ -102,13 +102,30 @@ padding: 10px;
 border-radius: 10px;
 }
 
+// .maltiImgesUpload{
+//   display: flex;
+// }
+.maltiImgesUpload > div{
+  height: 350px;
+  width: 100%;
+  overflow: hidden;
+  border: 2px #f1f1f1 solid;
+}
+.maltiImgesUpload > div img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  cursor: pointer;
+}
 .maltiImgesUpload2{
   display: flex;
 }
 .maltiImgesUpload2 > div{
-  height: 200px;
+  height: 250px;
+   width: 50%;
   overflow: hidden;
-  border: 2px solid white;
+  border: 2px #f1f1f1 solid;
 }
 .maltiImgesUpload2 > div img{
   height: 100%;
@@ -121,28 +138,28 @@ border-radius: 10px;
   display: flex;
 }
 .maltiImgesUpload3 > div {
-  flex-grow: 1;
+width: 50%;
 }
 .maltiImgesUpload3 > div  img{
   height: 100%;
   width: 100%;
    object-fit: cover;
   object-position: center;
-   border: 2px solid white;
+   border: 2px #f1f1f1 solid;
    cursor: pointer;
 }
 .maltiImgesUpload4{
   display: flex;
 }
 .maltiImgesUpload4 > div {
-  flex-grow: 1;
+  width: 50%;
 }
 .maltiImgesUpload4 > div  img{
   height: 100%;
   width: 100%;
    object-fit: cover;
   object-position: center;
-   border: 2px solid white;
+   border: 2px #f1f1f1 solid;
    cursor: pointer;
 }
 .maltiImgesUpload4 .moreImges{
@@ -158,7 +175,7 @@ position: relative
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.446);
-  border: 2px solid white;
+  border: 2px #f1f1f1 solid;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -168,6 +185,36 @@ position: relative
 color: white;
 padding: 5px 10px;
 font-size: 22px;
+}
+
+.imagelgresponsive{
+  width: 100px !important;
+  height: 100px !important;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.imagelgresponsive img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.imagesmresponsive{
+  width: 45px !important;
+  height: 45px !important;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.imagesmresponsive img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.vedioPlayer{
+  width: 100%;
+  max-height: 350px;
 }
 
 // *****************************************************
