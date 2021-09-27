@@ -216,5 +216,44 @@ font-size: 22px;
   width: 100%;
   max-height: 350px;
 }
+.nav-header{
+z-index: 9999;
+}
+.editebtn{
+  position: absolute;
+  top: 0px ;
+  right: -5px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ .baner{
+  top:3px;
+  right: 5px !important;
+  // bottom: 0px;
+}
+
+.editeProfileImage{
+  width: 100px !important;
+  height: 100px !important;
+  overflow: hidden !important;
+  border-radius: 20px !important;
+}
+.editeProfileImage > img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+.dateTimepicker .react-datetimerange-picker__wrapper{
+  border:none !important
+}
 
 // *****************************************************

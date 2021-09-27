@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react"; 
+import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';
 import ACTIONS from '../store/actions/index.js';
 import { Link, withRouter } from 'react-router-dom'
@@ -16,6 +16,7 @@ const formikValidateSchema = Yup.object().shape({
     user_name: Yup.string().required('User name is required').min(4, "User name should grater then 4 digits.").max(12, "User name should less then 12 digits."),
     email: Yup.string().required('Email is required.').email('Email is not valid.'),
     password: Yup.string().required("Password is required.").min(6, "Password should 6 digits."),
+    termsAndConditions: Yup.boolean().oneOf([true], 'Accept Terms & Conditions is required'),
     password_confirmation: Yup.string().when("password", {
         is: val => (val && val.length > 0 ? true : false),
         then: Yup.string().oneOf(
@@ -57,8 +58,8 @@ class Register extends Component {
 
                     <div className="row">
                         <div className="col-xl-5 d-none d-xl-block p-0 pt-5   bg-no-repeat"
-                            // bg-image-cover style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}
-                            >
+                        // bg-image-cover style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}
+                        >
 
                             <br />
                             <br />
@@ -76,18 +77,19 @@ class Register extends Component {
                                             email: '',
                                             password: '',
                                             password_confirmation: '',
+                                            termsAndConditions:false
                                         }}
                                         validationSchema={formikValidateSchema}
-                                        onSubmit={async (values) => { 
+                                        onSubmit={async (values) => {
                                             this.setState({
                                                 apiLoader: true,
                                                 ApiError: "",
                                             })
-                                            let data = {...values}
+                                            let data = { ...values }
                                             // data.user_name = `@${data.user_name}`
                                             console.log(data)
                                             AuthApi.UserRegister(data).then(res => {
-                                                console.log(res) 
+                                                console.log(res)
                                                 if (res.data.Error == false) {
                                                     localStorage.setItem("token", res.data.token)
                                                     this.props.removePosts()
@@ -100,20 +102,20 @@ class Register extends Component {
 
                                             }).catch(error => {
                                                 console.log("error api ", error);
-                                                
+
                                                 if (error.response.data.Error == true) {
-                                                    if (error.response.data.msg ="Validation errors."){
+                                                    if (error.response.data.msg = "Validation errors.") {
                                                         this.setState({
                                                             apiLoader: false,
                                                             ApiError: error.response.data.validation
                                                         })
-                                                    }else{
+                                                    } else {
                                                         this.setState({
                                                             apiLoader: false,
                                                             ApiError: [error.response.data.msg]
                                                         })
                                                     }
-                                                 
+
                                                 } else {
                                                     this.setState({
                                                         apiLoader: false,
@@ -140,7 +142,7 @@ class Register extends Component {
                                                     {/* <i className="font-sm ti-user text-grey-500 pe-0"></i> */}
                                                     <Field id="name" name="name" className="style2-input   form-control text-grey-900 font-xsss fw-600" placeholder="Your Name" />
 
-                                                </div> 
+                                                </div>
                                                 <small className='text-danger'><b><ErrorMessage name="name" /></b></small>
 
                                                 <div className="form-group icon-input mb-0 mt-3">
@@ -175,11 +177,12 @@ class Register extends Component {
                                                 </div>
                                                 <small className='text-danger'><b><ErrorMessage name="password_confirmation" /></b></small>
 
+                                                <div className="form-check text-left my-3 ">
+                                                    <Field type='checkbox' name="termsAndConditions" className="form-check-input cursor-pointer" />
 
-
-
-
-                                                {/* <small className='text-danger my-3 '><b>{JSON.stringify(this.state.ApiError,null,2)}</b></small> */}
+                                                    <label className="form-check-label font-xsss text-grey-500">Accept <a href="https://sites.google.com/view/globalfansy/home/terms-conditions" target="_blank">Term and Conditions </a></label>
+                                                </div>
+                                                <small className='text-danger'><b><ErrorMessage name="termsAndConditions" /></b></small>
                                                 <small className='text-danger my-3 '><b>{this.state.ApiError}</b></small>
                                                 <div className="col-sm-12 p-0 text-left mt-2">
                                                     <div className="form-group mb-1">
@@ -209,7 +212,7 @@ class Register extends Component {
         );
     }
 }
- 
+
 const mapStateToProps = (state) => {
     return {
     }

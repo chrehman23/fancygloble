@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import ACTIONS from '../store/actions/index.js' 
 import PostSound from '../../public/assets/sounds/post_sound.mp3'
-
+import domiImage from '../../public/assets/images/user.png'
 import UserApi from '../api/Users'
 
 class Friends extends Component {
@@ -62,9 +62,9 @@ class Friends extends Component {
                             return (
                                 <div className="wrap" key={index}>
                                     <div className="card-body d-flex pt-0 ps-4 pe-4 pb-0 bor-0">
-                                        <figure className="avatar me-3"><img src={`${value.user_id.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${value.user_id.profile_photo}` : "assets/images/user.png"}`} alt="avater" className="shadow-sm rounded-circle w45" /></figure>
+                                        <figure className="avatar me-3"><img src={`${value.user_id && value.user_id.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${value.user_id && value.user_id.profile_photo}` : domiImage}`} alt="avater" className="shadow-sm rounded-circle w45" /></figure>
                                         {/* <h4 className="fw-700 text-grey-900 font-xssss mt-1">{value.user_id.name} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{value.friend} mutual friends</span></h4> */}
-                                        <h4 className="fw-700 text-grey-900 font-xssss mt-1">{value.user_id.name} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{value.user_id.user_name}</span></h4>
+                                        <h4 className="fw-700 text-grey-900 font-xssss mt-1">{value.user_id && value.user_id.name} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{value.user_id  && value.user_id.user_name}</span></h4>
                                     </div>
                                     <div className="card-body d-flex align-items-center d-none justify-content-between pt-0 ps-4 pe-4 pb-4">
                                         {this.state.apiLoader && ("Loading...")}
@@ -102,9 +102,9 @@ class Friends extends Component {
                             return (
                                 <div className="wrap" key={index}>
                                     <div className="card-body d-flex pt-0 ps-4 pe-4 pb-0 bor-0">
-                                        <figure className="avatar me-3"><img src={`${value.user_id.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${value.user_id.profile_photo}` : "assets/images/user.png"}`} alt="avater" className="shadow-sm rounded-circle w45" /></figure>
+                                        <figure className="avatar me-3"><img src={`${value.user_id && value.user_id.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${value.user_id && value.user_id.profile_photo}` : "assets/images/user.png"}`} alt="avater" className="shadow-sm rounded-circle w45" /></figure>
                                         {/* <h4 className="fw-700 text-grey-900 font-xssss mt-1">{value.user_id.name} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{value.friend} mutual friends</span></h4> */}
-                                        <h4 className="fw-700 text-grey-900 font-xssss mt-1">{value.user_id.name} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{value.user_id.user_name}</span></h4>
+                                        <h4 className="fw-700 text-grey-900 font-xssss mt-1">{value.user_id && value.user_id.name} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{value.user_id && value.user_id.user_name}</span></h4>
                                     </div>
                                     <div className="card-body d-flex align-items-center d-none justify-content-between pt-0 ps-4 pe-4 pb-4">
                                         {this.state.apiLoader && ("Loading...")}

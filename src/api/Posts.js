@@ -66,6 +66,17 @@ let Posts = {
 
       })
    },
+   getPost: (data) => {
+      return axios({
+         url: `/api/users/getPost?post_id=${data}`,
+         method: "get",
+         data,
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+
+      })
+   },
 
 
 }

@@ -8,14 +8,36 @@ import Rightchat from '../components/Rightchat';
 import Appfooter from '../components/Appfooter';
 import Popupchat from '../components/Popupchat';
 
-
+import backgroundImage from '../../public/assets/images/product.png'
 import { connect } from 'react-redux';
 import ACTIONS from '../store/actions/index.js.js';
 import { Link, withRouter } from 'react-router-dom'
 
-let validationSchemaLogin = Yup.object({
-    email: Yup.string().required('Email is Required.').email('Email is not valid.'),
-    password: Yup.string().required('Password is Required.').min(6, 'Must be greater then 6 characters.'),
+import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker'
+
+import Events from '../api/Events'
+
+let validationSchemaEvent = Yup.object({
+    title: Yup.string().required('Title is required.'),
+    event_type: Yup.string().required('Event type is required.'),
+    paid_status: Yup.string().required('Paid/Fee is required.'),
+    dateTime: Yup.array().min(1, 'Start date and end date is required.').required('Start date and end date is required.'),
+    thumbnail: Yup.string().required('Thumbnail is required.'),
+    seats_status: Yup.string().required('Event status is required.'),
+
+    paid_amount: Yup.string().when("paid_status", {
+        is: val => (val && val == 'Paid' ? true : false),
+        then: Yup.string().required('Event paid amount is required.'),
+    }),
+    location: Yup.string().when("event_type", {
+        is: val => (val && val !== "Physical" ? false : true),
+        then: Yup.string().required('Location is required.'),
+    }),
+    event_seats: Yup.string().when("seats_status", {
+        is: val => (val && val !== "Limited" ? false : true),
+        then: Yup.string().required('Event seats is required.'),
+    }),
+    // password: Yup.string().required('Password is Required.').min(6, 'Must be greater then 6 characters.'),
 })
 
 class AddEvents extends Component {
@@ -23,7 +45,11 @@ class AddEvents extends Component {
     constructor(props) {
         super();
         this.state = {
-            loader:true,
+            loader: true,
+            value: "",
+            thumbnail: "",
+            serverError: "",
+
         }
     }
 
@@ -32,11 +58,11 @@ class AddEvents extends Component {
     }
 
     componentDidUpdate(prevProps, prevState,) {
-  
+
     }
 
     render() {
- 
+
         return (
             <Fragment>
                 <Header />
@@ -47,27 +73,55 @@ class AddEvents extends Component {
                     <div className="middle-sidebar-bottom">
                         <div className="middle-sidebar-left">
                             <div className="middle-wrap">
+
                                 {/* **************** */}
 
                                 {!this.props.profileLoading && (
                                     <Formik
                                         initialValues={{
-                                            // isPrivate: this.props.profile.isPrivate,
-                                            // about: this.props.profile.about,
-                                            // bio: this.props.profile.bio,
-                                            // profile_photo: this.props.profile.profile_photo,
-                                            // profile_cover: this.props.profile.profile_cover,
-                                            // paypalEmail: this.props.profile.paypalEmail,
-                                            // name: this.props.profile.name,
-                                            // phone: this.props.profile.phone,
-                                            // email: this.props.profile.email,
+                                            title: '',
+                                            event_type: '',
+                                            location: '',
+                                            paid_amount: '',
+                                            paid_status: '',
+                                            dateTime: "",
+                                            seats_status: "",
+                                            event_seats: "",
+                                            thumbnail: ""
+
                                         }}
-                                        validationSchema={validationSchemaLogin}
+                                        validationSchema={validationSchemaEvent}
                                         onSubmit={(values, { setSubmitting }) => {
-                                            setTimeout(() => {
-                                                alert(JSON.stringify(values, null, 2));
+
+
+                                            let data = new FormData();
+                                            data.append('title', values.title)
+                                            data.append('event_type', values.event_type)
+                                            data.append('location', values.location)
+                                            data.append('paid_amount', values.paid_amount) 
+                                            data.append('paid_status', values.paid_status)
+                                            data.append('start_date', new Date(values.dateTime[0]))
+                                            data.append('end_date', new Date(values.dateTime[1]))
+                                            data.append('seats_status', values.seats_status)
+                                            data.append('event_seats', values.event_seats)
+                                            data.append('thumbnail', values.thumbnail)
+
+                                            Events.addEvent(data).then(res => {
+                                                console.log(res)
+                                                if (res.data.Error == false) { 
+                                                    this.props.history.push("/events") 
+                                                } else {
+                                                    this.setState({ serverError: res.data.msg })
+                                                }
                                                 setSubmitting(false);
-                                            }, 400);
+                                            }).catch(error => {
+                                                console.log(error)
+                                                if (error.response.data.Error==true){
+                                                    this.setState({ serverError: error.response.data.msg })
+                                                }
+                                                setSubmitting(false);
+                                            })
+                                           
                                         }}
                                     >
                                         {({
@@ -87,143 +141,247 @@ class AddEvents extends Component {
                                                     <h4 className="font-xs text-white fw-600 ms-4 mb-0 mt-2">Add Event</h4>
                                                 </div>
 
-                                                <div className="card w-100   overflow-hidden border-0    d-none    ">
+                                                <div className="card w-100   overflow-hidden border-0      ">
                                                     <div className="card-body position-relative h150 bg-image-cover bg-image-center"
-                                                        style={{ backgroundImage: `url("https://via.placeholder.com/1200x250.png")` }}></div>
-                                                    <div className="card-body d-block pt-4 text-center">
-                                                        <figure className="avatar mt--6 position-relative w75 z-index-1 w100 z-index-1 ms-auto me-auto"><img src="assets/images/user.png" alt="avater" className="p-1 bg-white rounded-xl w-100" /></figure>
-                                                        {/* <h4 className="font-xs ls-1 fw-700 text-grey-900">Surfiya Zakir <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">@surfiyazakir22</span></h4> */}
+                                                        style={{ backgroundImage: `url("${this.state.thumbnail ? this.state.thumbnail : backgroundImage}")` }}>
+                                                        <span className='editebtn baner'
+                                                            onClick={() => { document.getElementById("thumbnail").click() }}
+                                                        ><i className="font-sm ti-pencil-alt text-grey-500 pe-0 "></i></span>
                                                     </div>
+
+
+                                                    <input type='file' name='profile_photo' id="thumbnail"
+                                                        onChange={(e) => {
+                                                            if (e.target.value) {
+                                                                if (e.currentTarget.files[0].type.split('/')[0] == "image") {
+                                                                    const file = e.currentTarget.files[0];
+                                                                    let reader = new FileReader();
+                                                                    reader.onloadend = () => {
+                                                                        setFieldValue("thumbnail", file)
+                                                                        this.setState({
+                                                                            thumbnail: reader.result,
+                                                                        }, () => {
+                                                                            // console.log(this.state.profileImageURL)
+                                                                        });
+                                                                    };
+                                                                    reader.readAsDataURL(file);
+                                                                } else {
+                                                                    setFieldValue("thumbnail", '')
+                                                                    this.setState({
+                                                                        profileImage: '',
+                                                                    })
+                                                                }
+
+                                                            } else {
+                                                                setFieldValue("thumbnail", '')
+                                                                this.setState({
+                                                                    profileImage: '',
+                                                                })
+                                                            }
+
+
+                                                        }}
+                                                        className='d-none' />
+
 
 
                                                 </div>
                                                 <div className="card-body p-lg-5 p-4 pt-n-5 pt-0 w-100 border-0 ">
-
-
                                                     <form onSubmit={handleSubmit}>
                                                         <div className="row">
                                                             <div className="col-lg-12 mb-3">
-                                                                <div className="form-group">
-                                                                    <label className="mont-font fw-600 font-xsss mb-2">Title</label>
-                                                                   
-                                                                    <Field id="name" name="name" className="form-control" placeholder="Event title" />
-
-                                                                    <ErrorMessage
-                                                                        name='name'
-                                                                        component="small"
-                                                                        className="text-danger"
-                                                                    />
-
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-lg-6 mb-3">
-                                                                <div className="form-group">
-                                                                    <label className="mont-font fw-600 font-xsss mb-2">Start Date</label>
-                                                                    <Field id="email" name="email" className="form-control" placeholder="Event start date" />
-
-                                                                    <ErrorMessage
-                                                                        name='email'
-                                                                        component="small"
-                                                                        className="text-danger"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-lg-6 mb-3">
-                                                                <div className="form-group">
-                                                                    <label className="mont-font fw-600 font-xsss mb-2">End Date</label>
-                                                                    <Field id="email" name="email" className="form-control" placeholder="Event end date" />
-
-                                                                    <ErrorMessage
-                                                                        name='email'
-                                                                        component="small"
-                                                                        className="text-danger"
-                                                                    />
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div className="row">
-
-                                                            <div className="col-lg-6 mb-3">
-                                                                <div className="form-group">
-                                                                    <label className="mont-font fw-600 font-xsss mb-2">Event Type</label>
-                                                                    
-                                                                    <Field id="paypalEmail" name="paypalEmail" className="form-control" placeholder="Event type" />
-
-                                                                    <ErrorMessage
-                                                                        name='paypalEmail'
-                                                                        component="small"
-                                                                        className="text-danger"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-lg-6 mb-3">
-                                                                <div className="form-group">
-                                                                    <label className="mont-font fw-600 font-xsss mb-2">Thumbnail</label>
-                                                                    
-                                                                    <Field id="paypalEmail" type='file' name="paypalEmail" className="form-control" placeholder="Thumbnail of event" />
-
-                                                                    <ErrorMessage
-                                                                        name='paypalEmail'
-                                                                        component="small"
-                                                                        className="text-danger"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-lg-6 mb-3">
-                                                                <div className="form-group">
-                                                                    <label className="mont-font fw-600 font-xsss mb-2">Paid/Free</label>
-                                                                    
-                                                                    <Field id="paypalEmail" name="paypalEmail" className="form-control" placeholder="Event Fee" />
-
-                                                                    <ErrorMessage
-                                                                        name='paypalEmail'
-                                                                        component="small"
-                                                                        className="text-danger"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-lg-6 mb-3">
-                                                                <div className="form-group">
-                                                                    <label className="mont-font fw-600 font-xsss mb-2">Limited/Unlimited</label>
-                                                                    
-                                                                    <Field id="paypalEmail" name="paypalEmail" className="form-control" placeholder="Event Seats" />
-
-                                                                    <ErrorMessage
-                                                                        name='paypalEmail'
-                                                                        component="small"
-                                                                        className="text-danger"
-                                                                    />
-                                                                </div>
+                                                                <ErrorMessage
+                                                                    name='thumbnail'
+                                                                    component="small"
+                                                                    className="text-danger"
+                                                                />
                                                             </div>
                                                             <div className="col-lg-12 mb-3">
                                                                 <div className="form-group">
-                                                                    <label className="mont-font fw-600 font-xsss mb-2">Location</label>
-                                                                    
-                                                                    <Field id="paypalEmail" name="paypalEmail" className="form-control" placeholder="Event location" />
+                                                                    <label className="mont-font fw-600 font-xsss mb-2">Title</label>
 
+                                                                    <Field id="title" name="title" className="form-control" placeholder="Event title" />
                                                                     <ErrorMessage
-                                                                        name='paypalEmail'
+                                                                        name='title'
+                                                                        component="small"
+                                                                        className="text-danger"
+                                                                    />
+
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-lg-12 mb-3">
+                                                                {/* {JSON.stringify(this.state.value)} */}
+                                                                <div className="form-group">
+                                                                    <label className="mont-font fw-600 font-xsss mb-2">Start Date/End Date</label>
+                                                                    <DateTimeRangePicker
+                                                                        // dateTtime={true}
+                                                                        // format="D-M-Y h:mm a"
+                                                                        minDate={new Date()}
+                                                                        className='form-control dateTimepicker'
+                                                                        onChange={(e) => {
+                                                                            console.log(e)
+                                                                            if(e==null){
+                                                                                setFieldValue("dateTime", [])
+                                                                            }else{
+                                                                                setFieldValue("dateTime", e)
+                                                                            }
+                                                                            this.setState({ value: e })
+                                                                        }}
+                                                                        value={this.state.value}
+                                                                    />
+                                                                    <ErrorMessage
+                                                                        name='dateTime'
                                                                         component="small"
                                                                         className="text-danger"
                                                                     />
                                                                 </div>
                                                             </div>
 
- 
 
-                                                        
                                                         </div>
+
                                                         <div className="row">
-                                                            <div className="col-lg-12 d-flex justify-content-end">
-                                                                <button type="submit" disabled={true} className="btn btn-primary">Add Event</button>
+
+                                                            <div className="col-lg-4 mb-3">
+                                                                <div className="form-group">
+                                                                    <label className="mont-font fw-600 font-xsss mb-2">Event Type</label>
+
+                                                                    <select className="form-control" placeholder="Event type"
+                                                                        onChange={(e) => {
+                                                                            setFieldValue("event_type", e.target.value)
+                                                                        }}
+                                                                    >
+                                                                        <option value=''>Select Event Type</option>
+                                                                        <option value='Physical'>Physical</option>
+                                                                        <option value='Stream'>Stream</option>
+                                                                    </select>
+                                                                    <ErrorMessage
+                                                                        name='event_type'
+                                                                        component="small"
+                                                                        className="text-danger"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div className={`${values.seats_status == "Limited" ? "col-lg-4" : "col-lg-8"} mb-3`}>
+                                                                <div className="form-group">
+                                                                    <label className="mont-font fw-600 font-xsss mb-2">Limited/Unlimited</label>
+                                                                    <select className="form-control" placeholder="Event type"
+                                                                        onChange={(e) => {
+                                                                            setFieldValue("seats_status", e.target.value)
+                                                                        }}
+                                                                    >
+                                                                        <option value=''>Select Limited/Unlimited</option>
+                                                                        <option value='Unlimited'>Unlimited</option>
+                                                                        <option value='Limited'>Limited</option>
+                                                                    </select>
+                                                                    <ErrorMessage
+                                                                        name='seats_status'
+                                                                        component="small"
+                                                                        className="text-danger"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            {values.seats_status == "Limited" && (
+                                                                <div className="col-lg-4 mb-3">
+                                                                    <div className="form-group">
+                                                                        <label className="mont-font fw-600 font-xsss mb-2">Event seats</label>
+
+                                                                        <Field id="event_seats" name="event_seats" type='number' className="form-control" placeholder="Event Seats" />
+
+                                                                        <ErrorMessage
+                                                                            name='event_seats'
+                                                                            component="small"
+                                                                            className="text-danger"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            )}
+
+                                                            {values.event_type == 'Physical' && (
+                                                                <div className="col-lg-12 mb-3">
+                                                                    <div className="form-group">
+                                                                        <label className="mont-font fw-600 font-xsss mb-2">Location</label>
+
+                                                                        <Field id="location" name="location" className="form-control" placeholder="Event location" />
+
+                                                                        <ErrorMessage
+                                                                            name='location'
+                                                                            component="small"
+                                                                            className="text-danger"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                            <div className="col-lg-6 mb-3">
+                                                                <div className="form-group">
+                                                                    <label className="mont-font fw-600 font-xsss mb-2">Paid/Free</label>
+
+                                                                    <select className="form-control" placeholder="Event type"
+                                                                        onChange={(e) => {
+                                                                            setFieldValue("paid_status", e.target.value)
+                                                                        }}
+                                                                    >
+                                                                        <option value=''>Select Paid/Free</option>
+                                                                        <option value='Free'>Free</option>
+                                                                        <option value='Paid'>Paid</option>
+                                                                    </select>
+                                                                    <ErrorMessage
+                                                                        name='paid_status'
+                                                                        component="small"
+                                                                        className="text-danger"
+                                                                    />
+                                                                </div>
                                                             </div>
 
+                                                            {values.paid_status == "Paid" && (
+
+                                                                <div className="col-lg-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <label className="mont-font fw-600 font-xsss mb-2">Paid Amount</label>
+
+                                                                        <Field type="number" name="paid_amount" className="form-control" placeholder="Payment Amount" />
+
+                                                                        <ErrorMessage
+                                                                            name='paid_amount'
+                                                                            component="small"
+                                                                            className="text-danger"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            )}
 
                                                         </div>
+                                                        {this.state.serverError && (
+                                                            <div className="row">
+                                                                <div className="col-lg-12">
+                                                                    <div className='alert alert-danger'>
+                                                                        {this.state.serverError}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                        {isSubmitting && (
+                                                            <div className="row">
+                                                                <div className="col-lg-12 d-flex justify-content-end">
+                                                                    <button type="button" className="btn btn-primary">Loading...</button>
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                        {!isSubmitting && (
+                                                            <div className="row">
+                                                                <div className="col-lg-12 d-flex justify-content-end">
+                                                                    <button type="submit" className="btn btn-primary">Add Event</button>
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                      
+                                                        
 
                                                     </form>
+                                                    <br/>
+                                                    <br/>
+                                                    <br/>
+                                                    <br/>
                                                 </div>
                                             </div>
 

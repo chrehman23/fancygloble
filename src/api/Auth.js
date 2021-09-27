@@ -16,6 +16,16 @@ let AuthApi = {
          method: "post",
       })
    },
+   updateUserProfile: (data) => {
+      return axios({
+         url: "/api/users/updateUserProfile",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         }
+      })
+   },
    getUserProfile: (data) => {
       return axios({
          url: `/api/users/getUserProfile/${data}`,
@@ -34,6 +44,13 @@ let AuthApi = {
          headers: {
             authorization: "Bearer " + localStorage.getItem("token"),
          }
+      })
+   },
+   socialLogin: (data) => {
+      return axios({
+         url: "/api/users/socialLogin",
+         data,
+         method: "post",
       })
    },
 

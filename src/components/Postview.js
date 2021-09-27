@@ -5,6 +5,8 @@ import PostApi from '../api/Posts'
 import PostSound from '../../public/assets/sounds/post_sound.mp3';
 
 
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 import BlurBackground from '../../public/assets/images/blur.jpg'
 
 class Postview extends Component {
@@ -15,6 +17,7 @@ class Postview extends Component {
         commentsCount: 0,
         EmojisCount: 0,
         cardAtive: false,
+        copyClip: false,
     };
 
     toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
@@ -56,6 +59,8 @@ class Postview extends Component {
         }
     }
 
+
+
     render() {
 
         const { user, time, des, avater, postimage, postvideo, id, allData, commentCount } = this.props;
@@ -72,7 +77,7 @@ class Postview extends Component {
 
                 </div>
 
-              
+
 
 
                 {!allData.user_paid && (
@@ -126,7 +131,7 @@ class Postview extends Component {
                 )}
                 {allData.user_paid && (
                     <>
-                        {postvideo ?(
+                        {postvideo ? (
                             <>
                                 {allData.url_status && (
                                     <div className="card-body d-block p-0 mb-3 mt-3">
@@ -217,20 +222,20 @@ class Postview extends Component {
                                     )}
 
                                     {/* ****************************** */}
-                                  
+
                                 </div>
                             </div>
                         )
-                           
+
                             : ''}
 
 
-                       
+
 
                     </>
                 )}
 
-               
+
                 <div className="card-body p-0 me-lg-5">
                     <p className="fw-500 text-grey-500 lh-26 font-xssss w-100 mb-2">{des} </p>
                     {/* {JSON.stringify(allData.paid_status, null, 2)} */}
@@ -287,9 +292,11 @@ class Postview extends Component {
                         <i className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i>
                         <span className="d-none-xs">Share</span>
                     </div>
-                    <div className={`dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg right-0 ${menuClass}`} aria-labelledby={`dropdownMenu${id}`}>
-                        <h4 className="fw-700 font-xss text-grey-900 d-flex align-items-center">Share <i className="feather-x ms-auto font-xssss btn-round-xs bg-greylight text-grey-900 me-2"></i></h4>
-                        <div className="card-body p-0 d-flex">
+                    <div
+                 
+                    className={`dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg right-0 ${menuClass}`} aria-labelledby={`dropdownMenu${id}`} style={{ minWidth: '300px' }}>
+                        <h4 className="fw-700 font-xss text-grey-900 d-flex align-items-center">Share <i onClick={this.toggleOpen} className="feather-x cursor-pointer ms-auto font-xssss btn-round-xs bg-greylight text-grey-900 me-2"></i></h4>
+                        <div className="card-body p-0 d-flex d-none">
                             <ul className="d-flex align-items-center justify-content-between mt-2">
                                 <li className="me-1"><span className="btn-round-lg pointer bg-facebook"><i className="font-xs ti-facebook text-white"></i></span></li>
                                 <li className="me-1"><span className="btn-round-lg pointer bg-twiiter"><i className="font-xs ti-twitter-alt text-white"></i></span></li>
@@ -298,7 +305,7 @@ class Postview extends Component {
                                 <li><span className="btn-round-lg pointer bg-pinterest"><i className="font-xs ti-pinterest text-white"></i></span></li>
                             </ul>
                         </div>
-                        <div className="card-body p-0 d-flex">
+                        <div className="card-body p-0 d-flex d-none">
                             <ul className="d-flex align-items-center justify-content-between mt-2">
                                 <li className="me-1"><span className="btn-round-lg pointer bg-tumblr"><i className="font-xs ti-tumblr text-white"></i></span></li>
                                 <li className="me-1"><span className="btn-round-lg pointer bg-youtube"><i className="font-xs ti-youtube text-white"></i></span></li>
@@ -308,8 +315,22 @@ class Postview extends Component {
                             </ul>
                         </div>
                         <h4 className="fw-700 font-xssss mt-4 text-grey-500 d-flex align-items-center mb-3">Copy Link</h4>
-                        <i className="feather-copy position-absolute right-35 mt-3 font-xs text-grey-500"></i>
-                        <input type="text" placeholder="https://socia.be/1rGxjoJKVF0" className="bg-grey text-grey-500 font-xssss border-0 lh-32 p-2 font-xssss fw-600 rounded-3 w-100 theme-dark-bg" />
+                        <div className='d-flex justify-content-between rounded-3 bg-grey'>
+                            <div> 
+                                <input type="text" placeholder={`${window.location.hostname}/post/${id}`} disabled className="  text-grey-500 font-xssss border-0 lh-32 p-2 pr-3 font-xssss fw-600  w-100 theme-dark-bg" />
+                            </div>
+                            <div>
+                                <CopyToClipboard text={`${window.location.hostname}/post/${id}`}>
+                                    <i
+                                        onClick={() => {
+                                            this.setState({ copyClip: true })
+                                            // this.toggleOpen()
+                                        }}
+                                        className={`${this.state.copyClip ? "ti-check-box text-success" : "feather-copy"} position-absolute cursor-pointer right-35 mt-3 font-xs text-grey-500`}></i>
+                                </CopyToClipboard>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 

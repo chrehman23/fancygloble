@@ -14,6 +14,7 @@ import logIcon from '../../public/assets/images/logIcon.png'
 
 import socketConnection from '../socketConnection'
 
+import BtnLoader from '../components/ApiLoader'
 
 // import io from 'socket.io-client';
 // let socket = io.connect(process.env.REACT_APP_BASE_URL)
@@ -29,7 +30,9 @@ class Login extends Component {
         super();
         this.state = {
             apiLoader: false,
-            ApiError: ""
+            ApiError: "",
+            google_facebook_login_loader:false,
+            google_facebook_login_error:''
         }
         this.responseGoogle = this.responseGoogle.bind(this)
     }
@@ -41,7 +44,44 @@ class Login extends Component {
         }
     }
     responseGoogle(googleUser) {
-        console.log("googleUser", googleUser)
+        let data = googleUser.dt
+         console.log(data)
+        let googleres = {
+            email : data.Ot,
+            // name : data.Se,
+            password: data.fT,
+            account_type:"google"
+        }
+        console.log("googleUser", googleres)
+
+        this.setState({ 
+            google_facebook_login_loader: true,
+            google_facebook_login_error:"",
+        })
+
+        AuthApi.socialLogin(googleres).then(res=>{
+            // console.log(res)
+            if(res.data.Error==false){
+                socketConnection.emit("login", res.data.userProfile._id)
+                localStorage.setItem("token", res.data.token)
+
+                this.props.removePosts()
+                this.props.loadProfile(res.data.userProfile)
+                this.props.history.push("/")
+            }else{
+                this.setState({ google_facebook_login_error: res.data.msg })
+            }
+
+            this.setState({ google_facebook_login_loader: false })
+        }).catch(error=>{
+            // console.log(error)
+            if(error.response.Error==true){
+
+                this.setState({ google_facebook_login_error: error.response.msg })
+            }
+            this.setState({ google_facebook_login_loader: false })
+        })
+
     }
     responseFacebook = (response) => {
         console.log(response);
@@ -71,7 +111,7 @@ class Login extends Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-xl-5 d-none d-xl-block p-0 vh-100 pt-5 bg-no-repeat"
+                        <div className="col-xl-5 d-none d-xl-block p-0  pt-5 bg-no-repeat"
                             // bg-image-cover   style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}
                             >
                                 <br/>
@@ -143,8 +183,8 @@ class Login extends Component {
                                                 /> */}
                                             </div>
                                             <small className='text-danger'><b><ErrorMessage name="password" /></b></small>
-                                            <div className="form-check text-left mb-3">
-                                                <input type="checkbox" className="form-check-input mt-2" id="exampleCheck5" />
+                                            <div className="form-check text-left my-3">
+                                                <input type="checkbox" className="form-check-input " id="exampleCheck5" />
                                                 <label className="form-check-label font-xsss text-grey-500">Remember me</label>
                                                 {/* <Link to="/forgot" className="fw-600 font-xsss text-grey-700 mt-1 float-right">Forgot your Password?</Link> */}
                                             </div>
@@ -160,16 +200,22 @@ class Login extends Component {
                                                 </div>
                                                 <h6 className="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Dont have account <Link to="/register" className="fw-700 ms-1">Register</Link></h6>
                                             </div>
+                                           
                                         </Form>
                                     </Formik>
                                     {/* ************************************* */}
-                                    <div className="col-sm-12 p-0 text-center mt-2">
+                                  
+                                    <div className={`col-sm-12 p-0 text-center mt-2 d-flex justify-content-center align-items-center ${!this.state.google_facebook_login_loader ? "d-none" : ""}`} style={{ height: '200px' }}>
+                                        <BtnLoader />
+                                    </div>
+                                    <div className={`col-sm-12 p-0 text-center mt-2 ${this.state.google_facebook_login_loader?"d-none":""}`}>
                                         <h6 className="mb-0 d-inline-block bg-white fw-500 font-xsss text-grey-500 mb-3">Or, Sign in with your social account </h6>
-
+                                        <p> <small className='text-danger mt-3 '><b>{this.state.google_facebook_login_error}</b></small></p>
+                                     
                                         <GoogleLogin
-                                            socialId={"apike"}
+                                            socialId={process.env.REACT_APP_GOOGLE_LOGIN_KEY}
                                             className="google-login"
-                                            redirectUri={"https://local.com"}
+                                            redirectUri={"http://localhost:3000/login"}
                                             fetchBasicProfile={true}
                                             responseHandler={this.responseGoogle}
                                             className='w-100 bg-transparent border-0'

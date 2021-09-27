@@ -9,6 +9,7 @@ import Load from '../components/Load';
 import moment from 'moment'
 
 import Createpost from '../components/Createpost';
+import avatar from '../../public/assets/images/user.png';
 
 
 
@@ -76,7 +77,7 @@ export class PostLists extends Component {
                      allData={data}
                      postvideo={data.url_status}
                      postimage={data.post_images}
-                     avater={data.created_by && data.created_by.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${data.created_by && data.created_by.profile_photo}` : "assets/images/user.png"}
+                     avater={data.created_by && data.created_by.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${data.created_by && data.created_by.profile_photo}` : avatar}
                      user={data.posted_by && data.posted_by.name}
 
                      time={moment(data.created_at).fromNow(true)}

@@ -64,6 +64,8 @@ import AuthApi from './api/Auth';
 import PostApi from './api/Posts';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import Post from './pages/Post'
+
 class App extends Component {
   constructor(props) {
     super();
@@ -86,10 +88,10 @@ class App extends Component {
       })
 
       if (this.props.Posts.length == 0) {
-        this.setState({ postApiLoader: true });
-        let data = {
-          page: 1
-        }
+        // this.setState({ postApiLoader: true });
+        // let data = {
+        //   page: 1
+        // }
         // PostApi.getPostsByuser(data).then(res => {
         //   if (res.data.Error == false) {
         //     this.setState({
@@ -118,6 +120,7 @@ class App extends Component {
           <Route exact path={`/forgot`} component={Forgot} />
           <Route exact path={`/`} component={Home} />
           <Route exact path={`/home`} component={Home} />
+          <Route exact path={`/post/:id`} component={Post} />
 
           <Route exact path={`/defaultbadge`} component={Badge} />
           <Route exact path={`/defaultgroup`} component={Group} />
