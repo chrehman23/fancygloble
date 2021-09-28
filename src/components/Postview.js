@@ -122,6 +122,7 @@ class Postview extends Component {
                                                 <button className='btn btn-primary '>Pay</button>
                                             </div>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
