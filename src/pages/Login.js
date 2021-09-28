@@ -8,9 +8,17 @@ import AuthApi from '../api/Auth';
 import { GoogleLogin } from 'react-google-login-component';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
-import Logo from '../../public/assets/images/Logo3.png'
+
+import Logo from '../../public/assets/images/logo2.png'
 import Logo2 from '../../public/assets/images/Logo3.png'
-import logIcon from '../../public/assets/images/logIcon.png'
+import logIcon from '../../public/assets/images/logIcon.png';
+import backgroundLogin from '../../public/assets/images/loginSo.jpg';
+
+import loignImage1 from '../../public/assets/images/login image/login1.jpg'
+import loignImage2 from '../../public/assets/images/login image/login2.jpg'
+import loignImage3 from '../../public/assets/images/login image/login3.jpg'
+import loignImage4 from '../../public/assets/images/login image/login4.jpg'
+import loignImage5 from '../../public/assets/images/login image/login5.jpg'
 
 import socketConnection from '../socketConnection'
 
@@ -31,8 +39,8 @@ class Login extends Component {
         this.state = {
             apiLoader: false,
             ApiError: "",
-            google_facebook_login_loader:false,
-            google_facebook_login_error:''
+            google_facebook_login_loader: false,
+            google_facebook_login_error: ''
         }
         this.responseGoogle = this.responseGoogle.bind(this)
     }
@@ -45,37 +53,37 @@ class Login extends Component {
     }
     responseGoogle(googleUser) {
         let data = googleUser.dt
-         console.log(data)
+        console.log(data)
         let googleres = {
-            email : data.Ot,
-            // name : data.Se,
+            email: data.Ot,
+            name : data.Se,
             password: data.fT,
-            account_type:"google"
+            account_type: "google"
         }
         console.log("googleUser", googleres)
 
-        this.setState({ 
+        this.setState({
             google_facebook_login_loader: true,
-            google_facebook_login_error:"",
+            google_facebook_login_error: "",
         })
 
-        AuthApi.socialLogin(googleres).then(res=>{
+        AuthApi.socialLogin(googleres).then(res => {
             // console.log(res)
-            if(res.data.Error==false){
+            if (res.data.Error == false) {
                 socketConnection.emit("login", res.data.userProfile._id)
                 localStorage.setItem("token", res.data.token)
 
                 this.props.removePosts()
                 this.props.loadProfile(res.data.userProfile)
                 this.props.history.push("/")
-            }else{
+            } else {
                 this.setState({ google_facebook_login_error: res.data.msg })
             }
 
             this.setState({ google_facebook_login_loader: false })
-        }).catch(error=>{
+        }).catch(error => {
             // console.log(error)
-            if(error.response.Error==true){
+            if (error.response.Error == true) {
 
                 this.setState({ google_facebook_login_error: error.response.msg })
             }
@@ -95,9 +103,9 @@ class Login extends Component {
             <Fragment>
                 <div className="main-wrap">
                     <div className="nav-header bg-transparent shadow-none border-0">
-                        <div className="nav-top w-100">
-                            <Link to="/">
-                                <img src={logIcon} style={{ height: "50px" }} />
+                        <div className="nav-top w-100 justify-content-start ">
+                            <Link to="/" className='loginbgImageControl'>
+                                <img src={Logo2} style={{ height: "60px" }} />
                                 {/* <i className="feather-zap text-success display2-size me-3 ms-0"></i>
                         <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
                             Sociala.
@@ -106,22 +114,20 @@ class Login extends Component {
                             {/* <Link to="/"><i className="feather-zap text-success display1-size me-2 ms-0"></i><span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </Link> */}
                             <button className="nav-menu me-0 ms-auto"></button>
 
-                            <Link to="/login" className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">Login</Link>
-                            <Link to="/register" className="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">Register</Link>
+                            {/* <Link to="/login" className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">Login</Link> */}
+                            {/* <Link to="/register" className="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">Register</Link> */}
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-xl-5 d-none d-xl-block p-0  pt-5 bg-no-repeat"
-                            // bg-image-cover   style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}
-                            >
-                                <br/>
-                                <br/>
-                                <img src={Logo}  className='w-100 px-5  mt-5 pt-5'/>
-                            </div>
-                        <div className="col-xl-7 vh-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
-                            <div className="card shadow-none border-0 ms-auto me-auto login-card">
-                                <div className="card-body rounded-0 text-left">
-                                    <h2 className="fw-700 display1-size display2-md-size mb-3">Login into <br />your account</h2>
+                    <div className="row backgroundImageControler h-100" style={{ backgroundImage: `url(${loignImage5})`,marginLeft:"0px" }}>
+                        <div className="col-xl-7 d-none d-xl-block p-0 "
+                        // bg-image-cover style={{ backgroundImage: `url(${backgroundLogin})` }}
+                        >
+                            {/* <img src={loignImage4} className='loginBackGroundImage' /> */}
+                        </div>
+                        <div className="col-xl-5 loginScreenCover h-100 align-items-center d-flex   rounded-3 overflow-hidden">
+                            <div className="card shadow-none border-0 bg-transparent ms-auto me-auto login-card">
+                                <div className="card-body  rounded-0 text-left">
+                                    <h2 className="fw-700 display1-size display2-md-size mb-3 text-white">Login into <br />your account</h2>
                                     <Formik
                                         initialValues={{
                                             email: '',
@@ -185,8 +191,8 @@ class Login extends Component {
                                             <small className='text-danger'><b><ErrorMessage name="password" /></b></small>
                                             <div className="form-check text-left my-3">
                                                 <input type="checkbox" className="form-check-input " id="exampleCheck5" />
-                                                <label className="form-check-label font-xsss text-grey-500">Remember me</label>
-                                                {/* <Link to="/forgot" className="fw-600 font-xsss text-grey-700 mt-1 float-right">Forgot your Password?</Link> */}
+                                                <label className="form-check-label font-xsss text-white">Remember me</label>
+                                                <Link to="/forgot" className="fw-600 font-xsss     float-right text-white">Forgot your Password?</Link>
                                             </div>
                                             <small className='text-danger my-3 '><b>{this.state.ApiError}</b></small>
                                             <div className="col-sm-12 p-0 text-left mt-2">
@@ -198,20 +204,20 @@ class Login extends Component {
                                                         <button type='submit' className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Login</button>
                                                     )}
                                                 </div>
-                                                <h6 className="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Dont have account <Link to="/register" className="fw-700 ms-1">Register</Link></h6>
+                                                <h6 className=" font-xsss fw-500 mt-0 mb-0 lh-32 text-white">Dont have account <Link to="/register" className="fw-700 ms-1">Register</Link></h6>
                                             </div>
-                                           
+
                                         </Form>
                                     </Formik>
                                     {/* ************************************* */}
-                                  
+
                                     <div className={`col-sm-12 p-0 text-center mt-2 d-flex justify-content-center align-items-center ${!this.state.google_facebook_login_loader ? "d-none" : ""}`} style={{ height: '200px' }}>
                                         <BtnLoader />
                                     </div>
-                                    <div className={`col-sm-12 p-0 text-center mt-2 ${this.state.google_facebook_login_loader?"d-none":""}`}>
-                                        <h6 className="mb-0 d-inline-block bg-white fw-500 font-xsss text-grey-500 mb-3">Or, Sign in with your social account </h6>
+                                    <div className={`col-sm-12 p-0 text-center mt-2 ${this.state.google_facebook_login_loader ? "d-none" : ""}`}>
+                                        <h6 className="mb-0 d-inline-block   fw-500 font-xsss  mb-3 text-white">Or, Sign in with your social account </h6>
                                         <p> <small className='text-danger mt-3 '><b>{this.state.google_facebook_login_error}</b></small></p>
-                                     
+
                                         <GoogleLogin
                                             socialId={process.env.REACT_APP_GOOGLE_LOGIN_KEY}
                                             className="google-login"
@@ -223,7 +229,7 @@ class Login extends Component {
                                             <div className="form-group mb-1"><div className="form-control text-left style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2"><img src="assets/images/icon-1.png" alt="icon" className="ms-2 w40 mb-1 me-5" /> Sign in with Google</div></div>
 
                                         </GoogleLogin>
-                                        <FacebookLogin
+                                        {/* <FacebookLogin
                                             appId="1088597931155576"
                                             autoLoad={false}
                                             fields="name,email,picture"
@@ -241,7 +247,7 @@ class Login extends Component {
                                                     </div>
                                                 </div>
                                             )}
-                                        />
+                                        /> */}
 
                                     </div>
                                 </div>
