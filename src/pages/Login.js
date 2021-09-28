@@ -221,7 +221,7 @@ class Login extends Component {
                                         <GoogleLogin
                                             socialId={process.env.REACT_APP_GOOGLE_LOGIN_KEY}
                                             className="google-login"
-                                            redirectUri={"https://master.d3gqmduw2r7u7n.amplifyapp.com/login"}
+                                            redirectUri={"https://dev.d3gqmduw2r7u7n.amplifyapp.com/login"}
                                             fetchBasicProfile={true}
                                             responseHandler={this.responseGoogle}
                                             className='w-100 bg-transparent border-0'
