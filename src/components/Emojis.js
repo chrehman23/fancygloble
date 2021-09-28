@@ -85,16 +85,17 @@ class Emojis extends Component {
 
                                         <span class="text-grey-400 font-xsssss fw-600 float-right mt-1 text-capitalize ">{moment(data.created_at).fromNow(true)} Ago </span>
                                     </h5>
-                                    <h6 class="text-grey-500 fw-500 font-xssss lh-4 d-flex align-items-center">
+                                    {/* <h6 class="text-grey-500 fw-500 font-xssss lh-4 d-flex align-items-center emojiImages"> */}
                                         {/* ***************************************************************** */}
                                      
-                                        {data.reaction_id == 1 && (<img src={icon1} alt='icon' />)}
-                                        {data.reaction_id == 2 && (<img src={icon2} alt='icon' />)}
-                                        {data.reaction_id == 3 && (<img src={icon3} alt='icon' />)}
-                                        {data.reaction_id == 4 && (<img src={icon4} alt='icon' />)}
-                                        {data.reaction_id == 5 && (<img src={icon5} alt='icon' />)} 
+                                        {data.reaction_id == 1 && (<img src={icon1} className='emojiImages' alt='icon' />)}
+                                        {data.reaction_id == 2 && (<img src={icon2} className='emojiImages' alt='icon' />)}
+                                        {data.reaction_id == 3 && (<img src={icon3} className='emojiImages' alt='icon' />)}
+                                        {data.reaction_id == 4 && (<img src={icon4} className='emojiImages' alt='icon' />)}
+                                        {data.reaction_id == 5 && (<img src={icon5} className='emojiImages' alt='icon' />)} 
                                         {/* ***************************************************************** */}
-                                        <span className='mt-1  ml-2' >  </span></h6>
+                                        {/* <span className='mt-1  ml-2' >  </span> */}
+                                        {/* </h6> */}
                                 </div>
                             </div>
                         )
