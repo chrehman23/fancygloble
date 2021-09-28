@@ -9,7 +9,17 @@ import AuthApi from '../api/Auth';
 
 import Logo from '../../public/assets/images/logo2.png'
 import Logo2 from '../../public/assets/images/Logo3.png'
-import logIcon from '../../public/assets/images/logIcon.png'
+import logIcon from '../../public/assets/images/logIcon.png';
+
+
+
+import backgroundLogin from '../../public/assets/images/loginSo.jpg';
+
+import loignImage1 from '../../public/assets/images/login image/login1.jpg'
+import loignImage2 from '../../public/assets/images/login image/login2.jpg'
+import loignImage3 from '../../public/assets/images/login image/login3.jpg'
+import loignImage4 from '../../public/assets/images/login image/login4.jpg'
+import loignImage5 from '../../public/assets/images/login image/login5.jpg'
 
 const formikValidateSchema = Yup.object().shape({
     name: Yup.string().required('Name is required').min(4, "Name should grater then 4 digits."),
@@ -39,9 +49,9 @@ class Register extends Component {
             <Fragment>
                 <div className="main-wrap">
                     <div className="nav-header bg-transparent shadow-none border-0">
-                        <div className="nav-top w-100">
+                        <div className="nav-top justify-content-start w-100">
                             <Link to="/">
-                                <img src={logIcon} style={{ height: "50px" }} />
+                                <img src={Logo2} style={{ height: "60px" }} />
                                 {/* <i className="feather-zap text-success display2-size me-3 ms-0"></i>
                         <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
                             Sociala.
@@ -50,25 +60,25 @@ class Register extends Component {
                             {/* <Link to="/"><i className="feather-zap text-success display1-size me-2 ms-0"></i><span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </Link> */}
                             <button className="nav-menu me-0 ms-auto"></button>
 
-                            <Link to="/login" className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">Login</Link>
-                            <Link to="/register" className="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">Register</Link>
+                            {/* <Link to="/login" className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">Login</Link> */}
+                            {/* <Link to="/register" className="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">Register</Link> */}
                         </div>
                     </div>
 
 
-                    <div className="row">
-                        <div className="col-xl-5 d-none d-xl-block p-0 pt-5   bg-no-repeat"
+                    <div className="row backgroundImageControler" style={{ backgroundImage: `url(${loignImage5})`, marginLeft: "0px" }}>
+                        <div className="col-xl-7 d-none d-xl-block p-0 pt-5   bg-no-repeat"
                         // bg-image-cover style={{ backgroundImage: `url("https://via.placeholder.com/800x950.png")` }}
                         >
 
                             <br />
                             <br />
-                            <img src={Logo2} className='w-100 px-5  mt-5 pt-5' />
+                            {/* <img src={Logo2} className='w-100 px-5  mt-5 pt-5' /> */}
                         </div>
-                        <div className="col-xl-7  h-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
-                            <div className="card shadow-none border-0 ms-auto me-auto login-card">
+                        <div className="col-xl-5 loginScreenCover   align-items-center d-flex   rounded-3 overflow-hidden">
+                            <div className="card bg-transparent shadow-none border-0 ms-auto me-auto login-card">
                                 <div className="card-body rounded-0 text-left">
-                                    <h2 className="fw-700 display1-size display2-md-size mb-4">Create <br />your account</h2>
+                                    <h2 className="fw-700 display1-size text-white display2-md-size mb-4">Create <br />your account</h2>
                                     <Formik
                                         initialValues={{
                                             name: '',
@@ -149,7 +159,7 @@ class Register extends Component {
                                                     {/* <i className="font-sm ti-user text-grey-500 pe-0"></i> */}
                                                     <Field id="user_name" name="user_name" className="style2-input   form-control text-grey-900 font-xsss fw-600" placeholder="User Name" />
                                                     {values.user_name ? (
-                                                        <span>
+                                                        <span className='text-white'>
                                                             @<b>{values.user_name}</b> will be your account name
                                                         </span>
                                                     ) : ""}
@@ -180,7 +190,7 @@ class Register extends Component {
                                                 <div className="form-check text-left my-3 ">
                                                     <Field type='checkbox' name="termsAndConditions" className="form-check-input cursor-pointer" />
 
-                                                    <label className="form-check-label font-xsss text-grey-500">Accept <a href="https://sites.google.com/view/globalfansy/home/terms-conditions" target="_blank">Term and Conditions </a></label>
+                                                    <label className="form-check-label font-xsss text-white">Accept <a href="https://sites.google.com/view/globalfansy/home/terms-conditions" target="_blank"><u><b>Term and Conditions </b></u></a></label>
                                                 </div>
                                                 <small className='text-danger'><b><ErrorMessage name="termsAndConditions" /></b></small>
                                                 <small className='text-danger my-3 '><b>{this.state.ApiError}</b></small>
@@ -193,7 +203,7 @@ class Register extends Component {
                                                             <button type='submit' className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Register</button>
                                                         )}
                                                     </div>
-                                                    <h6 className="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Already have account <Link to="/login" className="fw-700 ms-1">Login</Link></h6>
+                                                    <h6 className=" font-xsss fw-500 mt-0 mb-0 lh-32 text-white">Already have account <Link to="/login" className="fw-700 ms-1">Login</Link></h6>
                                                 </div>
                                             </Form>
                                         )}

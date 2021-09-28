@@ -1,24 +1,23 @@
-  .emoji-wrap li{
-    transition: 0.3s ease;
-  }
-  .emoji-wrap li:hover{
-    transform: scale(1.2);
-  }
-  .image-conver{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
+.emoji-wrap li {
+  transition: 0.3s ease;
+}
+.emoji-wrap li:hover {
+  transform: scale(1.2);
+}
+.image-conver {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
 
-  .lds-ring {
+.lds-ring {
   display: inline-block;
   position: relative;
   width: 22px;
-  height: 22px; 
+  height: 22px;
 }
 .lds-ring div {
-  
   box-sizing: border-box;
   display: block;
   position: absolute;
@@ -47,15 +46,18 @@
     transform: rotate(360deg);
   }
 }
- 
-  .theme-dark {
-    .nav-header .headerScrolChange {  background-color: #293145 !important;}
+
+.theme-dark {
+  .nav-header .headerScrolChange {
+    background-color: #293145 !important;
+  }
 }
-  .theme-light {
-    .nav-header .headerScrolChange {  background-color: white !important;}
+.theme-light {
+  .nav-header .headerScrolChange {
+    background-color: white !important;
+  }
 }
 
- 
 // *****************************************************
 // .commentsCard{
 //   display: flex;
@@ -72,20 +74,20 @@
 //   height: 50px;
 // }
 .commentInput {
-    width: 100%;
-    border: none;
-    color: #ddd;
-    outline: none !important;
-    padding-right: 11px;
+  width: 100%;
+  border: none;
+  color: #ddd;
+  outline: none !important;
+  padding-right: 11px;
 }
-.paidPostAmount{
+.paidPostAmount {
   padding: 5px !important;
   width: 100%;
   border: 2px #f1f1f1 solid;
   border-radius: 5px;
   outline: none !important;
 }
-.paidPostSeciton{
+.paidPostSeciton {
   position: absolute;
   top: 0;
   left: 0;
@@ -95,80 +97,86 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
-.paidPostSeciton > div{
-background-color: yellow;
-padding: 10px;
-border-radius: 10px;
+.paidPostSeciton > div {
+  position: absolute;
+  bottom: 0px;
+
+  background-color: yellow;
+  padding: 20px;
+  // border-radius: 10px;
+  width: 100%;
+  // margin: 5px 10px;
 }
 
 // .maltiImgesUpload{
 //   display: flex;
 // }
-.maltiImgesUpload > div{
+.maltiImgesUpload > div {
   height: 350px;
   width: 100%;
   overflow: hidden;
   border: 2px #f1f1f1 solid;
 }
-.maltiImgesUpload > div img{
+.maltiImgesUpload > div img {
   height: 100%;
   width: 100%;
   object-fit: cover;
   object-position: center;
   cursor: pointer;
 }
-.maltiImgesUpload2{
+.maltiImgesUpload2 {
   display: flex;
 }
-.maltiImgesUpload2 > div{
+.maltiImgesUpload2 > div {
   height: 250px;
-   width: 50%;
+  width: 50%;
   overflow: hidden;
   border: 2px #f1f1f1 solid;
 }
-.maltiImgesUpload2 > div img{
+.maltiImgesUpload2 > div img {
   height: 100%;
   width: 100%;
   object-fit: cover;
   object-position: center;
   cursor: pointer;
 }
-.maltiImgesUpload3{
+.maltiImgesUpload3 {
   display: flex;
 }
 .maltiImgesUpload3 > div {
-width: 50%;
+  width: 50%;
 }
-.maltiImgesUpload3 > div  img{
+.maltiImgesUpload3 > div img {
   height: 100%;
   width: 100%;
-   object-fit: cover;
+  object-fit: cover;
   object-position: center;
-   border: 2px #f1f1f1 solid;
-   cursor: pointer;
+  border: 2px #f1f1f1 solid;
+  cursor: pointer;
 }
-.maltiImgesUpload4{
+.maltiImgesUpload4 {
   display: flex;
 }
 .maltiImgesUpload4 > div {
   width: 50%;
 }
-.maltiImgesUpload4 > div  img{
+.maltiImgesUpload4 > div img {
   height: 100%;
   width: 100%;
-   object-fit: cover;
+  object-fit: cover;
   object-position: center;
-   border: 2px #f1f1f1 solid;
-   cursor: pointer;
+  border: 2px #f1f1f1 solid;
+  cursor: pointer;
 }
-.maltiImgesUpload4 .moreImges{
-position: relative
+.maltiImgesUpload4 .moreImges {
+  position: relative;
 }
-.maltiImgesUpload4 .moreImges{
-position: relative
+.maltiImgesUpload4 .moreImges {
+  position: relative;
 }
-.maltiImgesUpload4 .moreImges > div{
+.maltiImgesUpload4 .moreImges > div {
   position: absolute;
   top: 0;
   right: 0;
@@ -180,48 +188,48 @@ position: relative
   justify-content: center;
   align-items: center;
 }
-.maltiImgesUpload4 .moreImges > div span{
-// background-color: chartreuse;
-color: white;
-padding: 5px 10px;
-font-size: 22px;
+.maltiImgesUpload4 .moreImges > div span {
+  // background-color: chartreuse;
+  color: white;
+  padding: 5px 10px;
+  font-size: 22px;
 }
 
-.imagelgresponsive{
+.imagelgresponsive {
   width: 100px !important;
   height: 100px !important;
   overflow: hidden;
   border-radius: 50%;
 }
-.imagelgresponsive img{
+.imagelgresponsive img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
-.imagesmresponsive{
+.imagesmresponsive {
   width: 45px !important;
   height: 45px !important;
   overflow: hidden;
   border-radius: 50%;
 }
-.imagesmresponsive img{
+.imagesmresponsive img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.vedioPlayer{
+.vedioPlayer {
   width: 100%;
   max-height: 350px;
 }
-.nav-header{
-z-index: 9999;
+.nav-header {
+  z-index: 9999;
 }
-.editebtn{
+.editebtn {
   position: absolute;
-  top: 0px ;
+  top: 0px;
   right: -5px;
   cursor: pointer;
   background-color: white;
@@ -234,26 +242,100 @@ z-index: 9999;
   align-items: center;
 }
 
- .baner{
-  top:3px;
+.baner {
+  top: 3px;
   right: 5px !important;
   // bottom: 0px;
 }
 
-.editeProfileImage{
+.editeProfileImage {
   width: 100px !important;
   height: 100px !important;
   overflow: hidden !important;
   border-radius: 20px !important;
 }
-.editeProfileImage > img{
+.editeProfileImage > img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
   object-position: center !important;
 }
-.dateTimepicker .react-datetimerange-picker__wrapper{
-  border:none !important
+.dateTimepicker .react-datetimerange-picker__wrapper {
+  border: none !important;
 }
+.loginBackGroundImage {
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.loginbgImageControl {
+  position: relative;
+  // max-height: 100vh;
+  z-index: 9;
+}
+.loginbgImageControl::before {
+  // position: absolute;
+  // content: "";
+  // top: -50px;
+  // left: -10px;
+  // width: 200px;
+  // height: 150px;
+  // background-color: white;
+  // z-index: -1;
+  // border-bottom-right-radius: 50%;
+  // transform: rotate(-5deg);
+}
+.loginScreenCover{
+ background-color: #46237ab4;
+  min-height: 100vh;
+}
+
+.backgroundImageControler {
+  background-color: #cccccc;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+}
+
+.primary-color-text {
+  color: #46237a;
+}
+.primary-color-bg {
+  background-color: #46237a;
+}
+
+.smImageControlerRs{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.smImageControlerRs img{ 
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.bgthwh{
+  background-color: #46237a !important;
+  color: white !important; 
+  border-color: #46237a !important;
+}
+.emojisPictures{
+  display: flex;
+}
+.emojisPictures > li{
+  width: 30px;
+  // padding: 2px;
+}
+.emojisPictures > li img{
+  width: 95%;
+  // padding: 2px;
+}
+ 
 
 // *****************************************************

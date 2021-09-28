@@ -5,6 +5,7 @@ import ApiLoader from '../components/ApiLoader';
 import PostSound from '../../public/assets/sounds/post_sound.mp3'
 
 import BlurBackground from '../../public/assets/images/blur.jpg'
+import usreProfilePic from '../../public/assets/images/user.png'
 
 // import vedio from './../../public/assets/WhatsApp Video 2020-08-26 at 12.18.47 PM.mp4'
 import { connect } from 'react-redux';
@@ -27,9 +28,18 @@ class Createpost extends Component {
             paidPostamount: 0,
 
             vedioUrl: "",
-            vedioFile: ""
+            vedioFile: "",
+
+            lastTaged: "",
+            tagedSearchList: [],
+            tagedSearchListFilterd: []
         };
 
+    }
+
+    componentDidMount() {
+        console.log("frinedn", this.props.TagsSearchFollowers)
+        console.log("frinedn", this.props.TagsSearchFollowings)
     }
 
 
@@ -79,6 +89,8 @@ class Createpost extends Component {
 
     }
 
+
+
     profileImageChangeHandler = (file) => {
         let reader = new FileReader();
         reader.onloadend = () => {
@@ -107,6 +119,52 @@ class Createpost extends Component {
             reader.readAsDataURL(event.target.files[0]);
         }
     }
+
+
+    getTags = (e) => {
+        let description = e.target.value;
+        let worldList = description.split(" ");
+        // console.log("check ", worldList)
+        let lastObject = worldList.pop()
+        let lastUser
+        if (lastObject.includes('@')) {
+            lastUser = lastObject.replace("@", '');
+            if (lastUser !== "") {
+                if (this.state.lastTaged !== lastUser) {
+                    this.setState({ lastTaged: lastUser });
+                    // console.log(lastUser)
+                    let usersList = this.state.tagedSearchList
+                    let filtersusers = usersList.filter(data => data.name.toLowerCase().includes(lastUser.toLowerCase()))
+                    // console.log("filtersusers", filtersusers)
+                    this.setState({ tagedSearchListFilterd: filtersusers })
+                    let userOnlyName = filtersusers.map(data => data.name);
+                    // console.log("ss", userOnlyName)
+                }
+            }
+        } else {
+            this.setState({ tagedSearchListFilterd: [] })
+        }
+
+
+
+
+
+    }
+
+    addFullLastTag = (targetName) => {
+        let description = this.state.description;
+        let worldList = description.split(" ");
+        worldList.pop();
+        worldList.push(`@${targetName} `)
+        console.log(worldList)
+        this.setState({
+            description: worldList.join(' '),
+            tagedSearchListFilterd: [],
+        })
+        document.getElementById("description").focus();
+    }
+
+
     render() {
 
         const menuClass = `${this.state.isOpen ? " show" : ""}`;
@@ -115,7 +173,13 @@ class Createpost extends Component {
                 <div className="card-body p-0 "
                     onClick={() => {
                         // window.location.reload(false) 
-                        this.setState({ createPost: !this.state.createPost })
+                        let follers = this.props.TagsSearchFollowers.map(data => data.user_id)
+                        let follers2 = this.props.TagsSearchFollowings.map(data => data.user_id)
+                        let usresList = follers.concat(follers2)
+                        this.setState({
+                            createPost: !this.state.createPost,
+                            tagedSearchList: usresList
+                        })
                     }}
                 >
                     <div className="font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center cursor-pointer">{!this.state.createPost && (<i className="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>)}Create Post</div>
@@ -215,11 +279,46 @@ class Createpost extends Component {
                         <div className="card-body p-0 mt-1 position-relative">
                             <figure className="avatar position-absolute ms-2 mt-1 top-5"><img src="assets/images/user.png" alt="icon" className="shadow-sm rounded-circle w30" /></figure>
                             <textarea
+                                id="description"
                                 value={this.state.description}
                                 onChange={(e) => {
+                                    this.getTags(e)
                                     this.setState({ description: e.target.value })
                                 }}
                                 name="message" className="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
+                        </div>
+                        <div>
+                            {this.state.tagedSearchListFilterd && this.state.tagedSearchListFilterd.length > 0  && (
+                                <div>
+                                    <p><b>Tag to</b></p>
+                                    {this.state.tagedSearchListFilterd && this.state.tagedSearchListFilterd.length==0 && "<b>No List found.</b>"}
+                                    {this.state.tagedSearchListFilterd.map((data, index) => {
+                                        return (
+                                            <>
+
+                                                <div
+                                                    key={index}
+                                                    onClick={() => {
+                                                        this.addFullLastTag(data.name)
+                                                    }}
+                                                    className='cursor-pointer'
+                                                    >
+                                                    <div className='px-2'>
+                                                        <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3"  >
+                                                            <img src={data.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${data.profile_photo}` : usreProfilePic} alt="user" class="w40 position-absolute left-0" />
+                                                            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">{data.name}</h5>
+                                                            <h6 class="text-grey-500 fw-500 font-xssss lh-4">{data.user_name}</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )
+                                    })}
+                                </div>
+
+                            )}
+                           
+                          
                         </div>
                         {!this.state.paidPost && (
                             <div  >
@@ -359,7 +458,9 @@ class Createpost extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        // Posts: state.Posts,
+        Posts: state.Posts,
+        TagsSearchFollowers: state.UserProfile.profile.followers,
+        TagsSearchFollowings: state.UserProfile.profile.followings,
     }
 }
 

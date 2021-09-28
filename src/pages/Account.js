@@ -18,7 +18,7 @@ import ApiLoader from '../components/ApiLoader';
 
 
 let validationSchemaLogin = Yup.object({ 
-    name: Yup.string().required('Name is required.').min(3, 'Must be greater then 3 characters.').max(12, 'Must be less then 12 characters.'),
+    name: Yup.string().required('Name is required.').min(3, 'Must be greater then 3 characters.'),
     paypalEmail: Yup.string().email('Email is not valid.'),
 })
 

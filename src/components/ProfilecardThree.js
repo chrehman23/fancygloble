@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import { Link } from 'react-router-dom';
 
 import BackGroundImage from '../../public/assets/images/group.png'
+import UserProfileImage from '../../public/assets/images/user.png'
 
 
 class ProfilecardThree extends Component {
@@ -12,7 +13,7 @@ class ProfilecardThree extends Component {
         return (
             <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
                 <div className="card-body h250 p-0 rounded-xxl overflow-hidden m-3" style={{height:'200px'}}>
-                    <img className='w-100 h-100 image-conver' src={`${this.props.Profile.profile_cover ? `${process.env.REACT_APP_BASE_URL}/${this.props.Profile.profile_cover}`:"https://via.placeholder.com/1200x250.png"}`} alt="avater" />
+                    <img className='w-100 h-100 image-conver' src={`${this.props.Profile.profile_cover ? `${process.env.REACT_APP_BASE_URL}/${this.props.Profile.profile_cover}`:UserProfileImage}`} alt="avater" />
                     </div>
                 <div className="card-body p-0 position-relative">
                     <figure className="avatar imagelgresponsive position-absolute z-index-1" style={{ top: '-40px', left: '30px' }}><img src={`${this.props.Profile.profile_cover ? `${process.env.REACT_APP_BASE_URL}/${this.props.Profile.profile_photo}` : "assets/images/user.png"}`} alt="avater" className="float-right p-1 bg-white rounded-circle w-100" /></figure>

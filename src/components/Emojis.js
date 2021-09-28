@@ -5,7 +5,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import ACTIONS from '../store/actions/index.js.js';
 
-
+import icon1 from '../../public/assets/iconss/1.svg'
+import icon2 from '../../public/assets/iconss/2.svg'
+import icon3 from '../../public/assets/iconss/3.svg'
+import icon4 from '../../public/assets/iconss/4.svg'
+import icon5 from '../../public/assets/iconss/5.svg'
 
 import moment from 'moment'
 class Emojis extends Component {
@@ -83,14 +87,12 @@ class Emojis extends Component {
                                     </h5>
                                     <h6 class="text-grey-500 fw-500 font-xssss lh-4 d-flex align-items-center">
                                         {/* ***************************************************************** */}
-                                        {data.reaction_id == 1 && (<i className="em em---1"></i>)}
-                                        {data.reaction_id == 2 && (<i className="em em-angry"></i>)}
-                                        {data.reaction_id == 3 && (<i className="em em-anguished"></i>)}
-                                        {data.reaction_id == 4 && (<i className="em em-astonished"></i>)}
-                                        {data.reaction_id == 5 && (<i className="em em-blush"></i>)}
-                                        {data.reaction_id == 6 && (<i className="em em-clap"></i>)}
-                                        {data.reaction_id == 7 && (<i className="em em-cry"></i>)}
-                                        {data.reaction_id == 8 && (<i className="em em-full_moon_with_face"></i>)}
+                                     
+                                        {data.reaction_id == 1 && (<img src={icon1} alt='icon' />)}
+                                        {data.reaction_id == 2 && (<img src={icon2} alt='icon' />)}
+                                        {data.reaction_id == 3 && (<img src={icon3} alt='icon' />)}
+                                        {data.reaction_id == 4 && (<img src={icon4} alt='icon' />)}
+                                        {data.reaction_id == 5 && (<img src={icon5} alt='icon' />)} 
                                         {/* ***************************************************************** */}
                                         <span className='mt-1  ml-2' >  </span></h6>
                                 </div>
