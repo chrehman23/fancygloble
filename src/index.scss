@@ -287,8 +287,8 @@
   // border-bottom-right-radius: 50%;
   // transform: rotate(-5deg);
 }
-.loginScreenCover{
- background-color: #46237ab4;
+.loginScreenCover {
+  background-color: #46237ab4;
   min-height: 100vh;
 }
 
@@ -307,38 +307,126 @@
   background-color: #46237a;
 }
 
-.smImageControlerRs{
+.smImageControlerRs {
   width: 45px;
   height: 45px;
   border-radius: 50%;
   overflow: hidden;
+  margin-right: 10px;
 }
-.smImageControlerRs img{ 
+.smImageControlerRs img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.bgthwh{
+.bgthwh {
   background-color: #46237a !important;
-  color: white !important; 
+  color: white !important;
   border-color: #46237a !important;
 }
-.emojisPictures{
+.emojisPictures {
   display: flex;
 }
-.emojisPictures > li{
+.emojisPictures > li {
   width: 30px;
   // padding: 2px;
 }
-.emojisPictures > li img{
+.emojisPictures > li img {
   width: 95%;
   // padding: 2px;
 }
- 
-.emojiImages{
+
+.emojiImages {
   width: 26px;
+}
+
+.slectedPictures {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.slectedPictures > div {
+  width: 20%;
+  height: 100px;
+  padding: 2px;
+  position: relative;
+}
+.slectedPictures > div > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 5px;
+}
+.slectedPictures > div span {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  background-color: #46237a !important;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+}
+
+.postModalHeader {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  // background-color: red;
+}
+.postModalHeader  > div:first-child{
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+}
+.postModalHeader  > div:first-child  > div:first-child{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+.postModalHeader  > div:first-child  > div:first-child img{
+  width: 100%;
+  height: 100%;
+object-fit: cover;
+object-position: center;
+}
+.postModalHeader  > div:first-child h4{
+  font-weight: bold;
+  text-transform: capitalize;
+  margin-bottom: 0px;
+}
+.postmodalContainer{
+  max-height: 70vh;
+ 
+}
+
+.postModalSlider .slider-wrapper img{
+  height: 100%;
+  width: auto !important;
+}
+.postModalSlider .slider-wrapper li div{
+  height: 65vh; 
+  background-color: rgba(36, 36, 35, 0.631) !important; 
+}
+ 
+.postModalSlider .thumbs-wrapper {
+display: none;
+}
+
+.commentsContainer{
+  height: 300px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 // *****************************************************

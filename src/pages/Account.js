@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import { Formik, ErrorMessage, Field } from 'formik';
 import * as Yup from 'yup';
 
+
+
 import Header from '../components/Header';
 import Leftnav from '../components/Leftnav';
 import Rightchat from '../components/Rightchat';
@@ -17,7 +19,7 @@ import backgroundImage from '../../public/assets/images/product.png'
 import ApiLoader from '../components/ApiLoader';
 
 
-let validationSchemaLogin = Yup.object({ 
+let validationSchemaLogin = Yup.object({
     name: Yup.string().required('Name is required.').min(3, 'Must be greater then 3 characters.'),
     paypalEmail: Yup.string().email('Email is not valid.'),
 })
@@ -27,12 +29,14 @@ class Account extends Component {
     constructor(props) {
         super();
         this.state = {
-            loader:true,
+            loader: true,
 
-            profileImage:"",
-            banerImage:"",
-            profileUpdated:false,
-           
+            profileImage: "",
+            banerImage: "",
+            profileUpdated: false,
+
+            fileError: ""
+
         }
     }
 
@@ -42,14 +46,14 @@ class Account extends Component {
 
     componentDidUpdate(prevProps, prevState,) {
         // if (this.props.profile !== prevProps.profile) {
-            
+
         // }
     }
 
-   
+
 
     render() {
- 
+
         return (
             <Fragment>
                 <Header />
@@ -83,9 +87,13 @@ class Account extends Component {
                                             data.append('isPrivate', values.isPrivate)
                                             data.append('about', values.about)
                                             data.append('bio', values.bio)
-                                            data.append('user_name', values.user_name)
-                                            data.append('profile_photo', values.profile_photo)
-                                            data.append('profile_cover', values.profile_cover)
+                                            data.append('user_name', values.user_name);
+                                            if (values.profile_photo!==""){
+                                                data.append('profile_photo', values.profile_photo)
+                                            }
+                                            if (values.profile_cover!==""){
+                                                data.append('profile_cover', values.profile_cover)
+                                            }
                                             data.append('paypalEmail', values.paypalEmail)
                                             data.append('name', values.name)
                                             data.append('phone', values.phone)
@@ -94,14 +102,17 @@ class Account extends Component {
                                             // return
                                             this.setState({ profileUpdated: false })
 
-                                            AuthApi.updateUserProfile(data).then(res=>{
+                                            AuthApi.updateUserProfile(data).then(res => {
                                                 console.log(res)
                                                 setSubmitting(false);
-                                                this.setState({ profileUpdated:true})
-                                            }).catch(error=>{
+                                                if(res.data.Error==false){
+                                                    this.props.loadProfile(res.data.profile)
+                                                }
+                                                this.setState({ profileUpdated: true })
+                                            }).catch(error => {
                                                 console.log(error)
                                             })
-                                            
+
                                         }}
                                     >
                                         {({
@@ -125,25 +136,35 @@ class Account extends Component {
                                                     <input type='file' name='profile_photo' id="profile_Image"
                                                         onChange={(e) => {
                                                             if (e.target.value) {
-                                                                if (e.currentTarget.files[0].type.split('/')[0] == "image") {
-                                                                    const file = e.currentTarget.files[0];
-                                                                    let reader = new FileReader();
-                                                                    reader.onloadend = () => { 
-                                                                        setFieldValue("profile_photo", file)
-                                                                        this.setState({
-                                                                             profileImage: reader.result,
-                                                                        }, () => {
-                                                                            // console.log(this.state.profileImageURL)
-                                                                        });
-                                                                    };
-                                                                    reader.readAsDataURL(file);
-                                                                } else {
-                                                                    setFieldValue("profile_photo", '')
+                                                                let mb = parseInt((e.currentTarget.files[0].size / (1024 * 1024)).toFixed(2));
+                                                                // console.log("mb", typeof mb)
+                                                                if (mb > 1) {
                                                                     this.setState({
-                                                                        profileImage: '',
+                                                                        fileError: "File size should less then 1MB",
                                                                     })
-                                                                }
+                                                                } else {
 
+                                                                    if (e.currentTarget.files[0].type.split('/')[0] == "image") {
+                                                                        const file = e.currentTarget.files[0];
+                                                                        let reader = new FileReader();
+                                                                        reader.onloadend = () => {
+                                                                            setFieldValue("profile_photo", file)
+                                                                            this.setState({
+                                                                                profileImage: reader.result,
+                                                                            }, () => {
+                                                                                // console.log(this.state.profileImageURL)
+                                                                            });
+                                                                        };
+                                                                        reader.readAsDataURL(file);
+                                                                    } else {
+                                                                        setFieldValue("profile_photo", '')
+                                                                        this.setState({
+                                                                            profileImage: '',
+                                                                            fileError: "File format does not supported.Upload file in JPG/JPEG/PNG format."
+
+                                                                        })
+                                                                    }
+                                                                }
                                                             } else {
                                                                 setFieldValue("profile_photo", '')
                                                                 this.setState({
@@ -154,14 +175,17 @@ class Account extends Component {
 
                                                         }}
                                                         className='d-none' />
-
-
-                                                 
-
-
                                                     <input type='file' id="baner_Image"
                                                         onChange={(e) => {
                                                             if (e.target.value) {
+                                                                let mb = parseInt((e.currentTarget.files[0].size / (1024 * 1024)).toFixed(2));
+                                                                // console.log("mb", typeof mb)
+                                                                if (mb > 1) {
+                                                                    this.setState({
+                                                                        fileError: "File size should less then 1MB",
+                                                                    })
+                                                                } else {
+
                                                                 if (e.currentTarget.files[0].type.split('/')[0] == "image") {
                                                                     const file = e.currentTarget.files[0];
                                                                     let reader = new FileReader();
@@ -179,8 +203,10 @@ class Account extends Component {
                                                                     setFieldValue("profile_cover", '')
                                                                     this.setState({
                                                                         banerImage: '',
+                                                                        fileError: "File format does not supported.Upload file in JPG/JPEG/PNG format."
                                                                     })
                                                                 }
+                                                            }
 
                                                             } else {
                                                                 setFieldValue("profile_cover", '')
@@ -196,14 +222,14 @@ class Account extends Component {
 
                                                     <div className="card w-100   overflow-hidden border-0        ">
                                                         <div className="card-body position-relative h150 bg-image-cover bg-image-center"
-                                                            style={{ backgroundImage: `url("${this.state.banerImage ? this.state.banerImage : values.profile_cover ? `${process.env.REACT_APP_BASE_URL}/${values.profile_cover}` :backgroundImage}")` }}>
+                                                            style={{ backgroundImage: `url("${this.state.banerImage ? this.state.banerImage : values.profile_cover ? `${process.env.REACT_APP_BASE_URL}/${values.profile_cover}` : backgroundImage}")` }}>
                                                             <span className='editebtn baner'
                                                                 onClick={() => { document.getElementById("baner_Image").click() }}
                                                             ><i className="font-sm ti-pencil-alt text-grey-500 pe-0 "></i></span>
                                                         </div>
                                                         <div className="card-body d-block pt-4 text-center">
                                                             <figure className="avatar editeProfileImage mt--6 position-relative  z-index-1 z-index-1 ms-auto me-auto postion-relative ">
-                                                                <img src={this.state.profileImage ? this.state.profileImage : values.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${values.profile_photo}` :"assets/images/user.png"} alt="avater" className="p-1 bg-white rounded-xl w-100" />
+                                                                <img src={this.state.profileImage ? this.state.profileImage : values.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${values.profile_photo}` : "assets/images/user.png"} alt="avater" className="p-1 bg-white rounded-xl w-100" />
                                                                 <span
                                                                     onClick={() => { document.getElementById("profile_Image").click() }}
                                                                     className='editebtn'><i className="font-sm ti-pencil-alt text-grey-500 pe-0 "></i></span>
@@ -213,13 +239,22 @@ class Account extends Component {
 
 
                                                     </div>
+
                                                     <div className="card-body p-lg-5 p-4 pt-n-5 pt-0 w-100 border-0 ">
+                                                        <div className="row">
+                                                            <div className="col-lg-12 mb-3">
+                                                                {this.state.fileError && (
+                                                                    <p className='text-danger ml-3 font-weight-bold'><small>{this.state.fileError}</small></p>
+                                                                )}
+                                                            </div>
+                                                        </div>
 
                                                         {/* {JSON.stringify(values)} */}
 
                                                         <form onSubmit={handleSubmit}>
                                                             <div className="row">
                                                                 <div className="col-lg-6 mb-3">
+
                                                                     <div className="form-group">
                                                                         <label className="mont-font fw-600 font-xsss mb-2">Name</label>
 
@@ -336,12 +371,12 @@ class Account extends Component {
                                                                         </div>
                                                                     </div>
                                                                 )}
-                                                               
+
                                                                 <div className="col-lg-12 d-flex justify-content-end">
                                                                     {!isSubmitting && (
-                                                                    <button type="submit" disabled={isSubmitting} className="btn btn-primary">Update</button>
+                                                                        <button type="submit" disabled={isSubmitting} className="btn btn-primary">Update</button>
                                                                     )}
-                                                                    {isSubmitting && (<ApiLoader/>)}
+                                                                    {isSubmitting && (<ApiLoader />)}
                                                                 </div>
 
 
@@ -352,8 +387,8 @@ class Account extends Component {
                                                 </div>
 
 
-                                          </form>
-                                          )}
+                                            </form>
+                                        )}
                                     </Formik>
 
                                 )}
@@ -385,9 +420,9 @@ const mapDispatchToProps = (dispatch) => {
         // removePosts: (data) => {
         //     dispatch(ACTIONS.removePosts(data))
         // },
-        // loadProfile: (data) => {
-        //     dispatch(ACTIONS.loadProfile(data))
-        // },
+        loadProfile: (data) => {
+            dispatch(ACTIONS.loadProfile(data))
+        },
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Account))

@@ -32,7 +32,9 @@ class Createpost extends Component {
 
             lastTaged: "",
             tagedSearchList: [],
-            tagedSearchListFilterd: []
+            tagedSearchListFilterd: [],
+
+            fileError: ""
         };
 
     }
@@ -164,6 +166,17 @@ class Createpost extends Component {
         document.getElementById("description").focus();
     }
 
+    removeImage = (index) => {
+        let imagesList = this.state.profileImageURL;
+        imagesList.splice(index, 1);
+        let imagesList2 = this.state.post_images;
+        imagesList2.splice(index, 1);
+        this.setState({
+            profileImageURL: imagesList,
+            post_images: imagesList2,
+        })
+    }
+
 
     render() {
 
@@ -277,7 +290,7 @@ class Createpost extends Component {
                             </div>
                         )}
                         <div className="card-body p-0 mt-1 position-relative">
-                            <figure className="avatar position-absolute ms-2 mt-1 top-5"><img src="assets/images/user.png" alt="icon" className="shadow-sm rounded-circle w30" /></figure>
+                            {/* <figure className="avatar position-absolute ms-2 mt-1 top-5"><img src="assets/images/user.png" alt="icon" className="shadow-sm rounded-circle w30" /></figure> */}
                             <textarea
                                 id="description"
                                 value={this.state.description}
@@ -285,27 +298,28 @@ class Createpost extends Component {
                                     this.getTags(e)
                                     this.setState({ description: e.target.value })
                                 }}
-                                name="message" className="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
+                                name="message" className="h100 bor-0 w-100 rounded-xxl p-2   font-xssss text-grey-600 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
                         </div>
                         <div>
-                            {this.state.tagedSearchListFilterd && this.state.tagedSearchListFilterd.length > 0  && (
-                                <div>
+                            {this.state.tagedSearchListFilterd && this.state.tagedSearchListFilterd.length > 0 && (
+                                <div className='border-bottom'>
                                     <p><b>Tag to</b></p>
-                                    {this.state.tagedSearchListFilterd && this.state.tagedSearchListFilterd.length==0 && "<b>No List found.</b>"}
+                                    {this.state.tagedSearchListFilterd && this.state.tagedSearchListFilterd.length == 0 && "<b>No List found.</b>"}
                                     {this.state.tagedSearchListFilterd.map((data, index) => {
                                         return (
                                             <>
-
                                                 <div
                                                     key={index}
                                                     onClick={() => {
                                                         this.addFullLastTag(data.name)
                                                     }}
-                                                    className='cursor-pointer'
-                                                    >
-                                                    <div className='px-2'>
-                                                        <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3"  >
-                                                            <img src={data.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${data.profile_photo}` : usreProfilePic} alt="user" class="w40 position-absolute left-0" />
+                                                    className='cursor-pointer px-2'
+                                                    style={{ minWidth: '300px' }} key={index}>
+                                                    <div class="card bg-transparent-card w-100 align-items-center align-items-center d-flex flex-row border-0 mb-3"  >
+                                                        <div className='smImageControlerRs'>
+                                                            <img src={data.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${data.profile_photo}` : usreProfilePic} alt="user" className="" />
+                                                        </div>
+                                                        <div className='flex-grow-1'>
                                                             <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">{data.name}</h5>
                                                             <h6 class="text-grey-500 fw-500 font-xssss lh-4">{data.user_name}</h6>
                                                         </div>
@@ -317,8 +331,8 @@ class Createpost extends Component {
                                 </div>
 
                             )}
-                           
-                          
+
+
                         </div>
                         {!this.state.paidPost && (
                             <div  >
@@ -347,16 +361,29 @@ class Createpost extends Component {
                         <div className="card-body d-flex align-items-center p-0 mt-2">
                             <input type='file' id="post_images"
                                 onChange={(e) => {
+                                    this.setState({
+                                        fileError: "",
+                                    })
                                     if (e.target.value) {
-                                        if (e.currentTarget.files[0].type.split('/')[0] == "image") {
-                                            const file = e.currentTarget.files[0];
-                                            this.profileImageChangeHandler(file);
-                                        } else {
+                                        let mb = parseInt((e.currentTarget.files[0].size / (1024 * 1024)).toFixed(2));
+                                        // console.log("mb", typeof mb)
+                                        if (mb > 1) {
                                             this.setState({
-                                                post_images: [],
-                                                profileImageURL: [],
+                                                fileError: "File size should less then 1MB",
                                             })
+                                        } else {
+                                            if (e.currentTarget.files[0].type.split('/')[0] == "image") {
+                                                const file = e.currentTarget.files[0];
+                                                this.profileImageChangeHandler(file);
+                                            } else {
+                                                this.setState({
+                                                    post_images: [],
+                                                    profileImageURL: [],
+                                                    fileError: "File format does not supported.Upload file in JPG/JPEG/PNG format."
+                                                })
+                                            }
                                         }
+
 
                                     } else {
                                         this.setState({
@@ -375,13 +402,24 @@ class Createpost extends Component {
                                         vedioUrl: "",
                                     })
                                     if (e.target.value) {
-                                        if (e.currentTarget.files[0].type.split('/')[0] == "video") {
-                                            this.readVideo(e);
-                                        } else {
+                                        let mb = parseInt((e.currentTarget.files[0].size / (1024 * 1024)).toFixed(2));
+                                        // console.log("mb", typeof mb)
+                                        if (mb > 1) {
                                             this.setState({
-                                                vedioUrl: "",
-                                                vedioFile: ""
+                                                fileError: "File size should less then 1MB",
                                             })
+                                        } else {
+
+                                            if (e.currentTarget.files[0].type.split('/')[0] == "video") {
+                                                this.readVideo(e);
+                                            } else {
+                                                this.setState({
+                                                    vedioUrl: "",
+                                                    vedioFile: "",
+                                                    fileError: "File format does not supported.Upload file in MP4 format."
+                                                })
+                                            }
+
                                         }
 
                                     } else {
@@ -396,7 +434,7 @@ class Createpost extends Component {
                                 className='d-none' />
                             {!this.state.profileImageURL.length && (
                                 <div onClick={() => { document.getElementById("post_vedio").click() }}
-                                    className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i className="font-md text-danger feather-video me-2"></i><span className="d-none-xs">Live Video</span></div>
+                                    className="d-flex align-items-center font-xssss cursor-pointer fw-600 ls-1 text-grey-700 text-dark pe-4"><i className="font-md text-danger feather-video me-2"></i><span className="d-none-xs">Video</span></div>
                             )}
 
 
@@ -404,7 +442,7 @@ class Createpost extends Component {
                                 <div onClick={() => { document.getElementById("post_images").click() }}
                                     className="d-flex align-items-center cursor-pointer font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4">
                                     <i className="font-md text-success feather-image me-2"></i>
-                                    <span className="d-none-xs">Photo/Video</span>
+                                    <span className="d-none-xs">Photos</span>
                                 </div>
 
                             )}
@@ -442,8 +480,27 @@ class Createpost extends Component {
                                     <h4 className="fw-600 mb-0 text-grey-900 font-xssss mt-0 me-4 pointer">Unfollow Group <span className="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span></h4>
                                 </div>
                             </div>
-
                         </div>
+                        {/* *******************slected pictures************************** */}
+                        {this.state.fileError && (
+                            <p className='text-danger font-weight-bold'><small>{this.state.fileError}</small></p>
+                        )}
+                        {this.state.profileImageURL && this.state.profileImageURL.length > 0 && (
+                            <div className='slectedPictures'>
+                                {this.state.profileImageURL.map((data, index) => {
+                                    return (
+                                        <div key={index}><img src={data} alt='Edit image' /><span
+                                            onClick={() => {
+                                                this.removeImage(index)
+                                            }}
+                                        >x</span></div>
+                                    )
+                                })}
+
+                            </div>
+
+                        )}
+
 
                     </>
                 )}

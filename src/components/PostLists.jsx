@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import { Modal } from 'react-bootstrap'
+
+import Comments from './Comments';
+import Emojis from './Emojis';
 
 import ACTIONS from '../store/actions/index.js';
 import PostApi from '../api/Posts';
@@ -11,7 +15,11 @@ import moment from 'moment'
 import Createpost from '../components/Createpost';
 import avatar from '../../public/assets/images/user.png';
 
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
+
+import defaultProfilePhoto from '../../public/assets/images/user.png'
 
 export class PostLists extends Component {
    constructor() {
@@ -19,7 +27,15 @@ export class PostLists extends Component {
       this.state = {
          postApiLoader: false,
          posts: [],
-         noPost: false
+         noPost: false,
+
+         PostViewModal: false,
+         postModalDetails:{},
+
+         comments: true,
+         Emojis: false,
+         
+         commentsCount: 0,
       }
    }
 
@@ -63,6 +79,17 @@ export class PostLists extends Component {
          }
       })
    }
+
+   modalPostView = (post) => {
+      console.log(post)
+      this.setState({
+          PostViewModal: true,
+         postModalDetails:post
+       })
+   }
+   updateComentsCount=()=>{
+      this.setState({ commentsCount: this.state.commentsCount+1})
+   }
    render() {
       return (
          <>
@@ -72,6 +99,7 @@ export class PostLists extends Component {
             {this.props.Posts.map(data => {
                return (
                   <Postview
+                     modalPostView={this.modalPostView}
                      id={data._id}
                      key={data._id}
                      allData={data}
@@ -111,7 +139,76 @@ export class PostLists extends Component {
                   </div>
                </div>
             )}
-            
+
+
+            {/* post View Modal  */}
+            <Modal
+               show={this.state.PostViewModal}
+               size='xl'
+               onHide={() => this.setState({ PostViewModal: false })}
+               dialogClassName="modal-90w"
+               aria-labelledby="example-custom-modal-styling-title"
+            >
+               <Modal.Header>
+                  <div className='postModalHeader'>
+                     <div>
+                        <div><img src={this.state.postModalDetails && this.state.postModalDetails.posted_by && this.state.postModalDetails.posted_by.profile_photo !== "" ? `${process.env.REACT_APP_BASE_URL}/${this.state.postModalDetails.posted_by.profile_photo}` : defaultProfilePhoto } alt='Image' /></div>
+                        <div>
+                           <h4>{this.state.postModalDetails.posted_by && this.state.postModalDetails.posted_by.name}</h4>
+                           <small>{this.state.postModalDetails.posted_by && this.state.postModalDetails.posted_by.user_name}</small>
+                        </div>
+                     </div>
+                     <div>
+                        <p className='text-grey-500'>{moment(this.state.postModalDetails && this.state.postModalDetails.created_at).fromNow(true)} ago</p>
+                     </div>
+                  </div>
+
+               </Modal.Header>
+               <Modal.Body>
+                  {this.state.PostViewModal && (
+                     <div className='postmodalContainer'>
+                        {/* {JSON.stringify(this.state.postModalDetails)} */}
+                        <div className='row'>
+                           <div className='col-md-8'>
+                              {this.state.postModalDetails && this.state.postModalDetails.image_status  && (
+                                 <div className='postModalSlider'>
+                                    <Carousel
+                                       autoPlay={false}
+                                    >
+                                       {this.state.postModalDetails.post_images.map((data,index)=>{
+                                          return(
+                                             <div>
+                                                <img src={`${process.env.REACT_APP_BASE_URL}/${data.picture}`} />
+                                             </div>
+                                          )
+                                       })}
+                                       
+                                    </Carousel>
+                                 </div>
+
+                              )}
+                              </div>
+                           <div className='col-md-4'>
+                              <p><b>Comments({this.state.postModalDetails && this.state.postModalDetails.comments_count + this.state.commentsCount})</b></p>
+                              {this.state.comments && (
+                                 <Comments
+                                    _id={this.state.postModalDetails._id}
+                                    // comments={this.props.comments}
+                                    updateComentsCount={this.updateComentsCount}
+                                 />
+                              )}
+                              {/* {this.state.Emojis && (
+                                 <Emojis _id={this.state.postModalDetails._id} />
+                              )} */}
+                           </div>
+                        </div>
+                     </div>
+
+                  )}
+                   </Modal.Body>
+            </Modal>
+            {/* ******************************************* */}
+
 
          </>
       )

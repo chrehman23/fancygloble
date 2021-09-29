@@ -84,7 +84,7 @@ class Postview extends Component {
                             <button className='btn-sm btn btn-primary bgthwh'>Paid post</button>
                         </div>
                     )}
-                  
+
                     <div className="ms-auto pointer d-none"><i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></div>
 
                 </div>
@@ -99,7 +99,7 @@ class Postview extends Component {
                                 <div className="row ps-2 pe-2 ">
                                     <div className="col-sm-12 p-1 ">
                                         <div className='position-relative overflow-hidden'>
-                                        <img src={BlurBackground} className="rounded-3 w-100" alt="post" />
+                                            <img src={BlurBackground} className="rounded-3 w-100" alt="post" />
                                             <div className='paidPostSeciton'
                                                 onClick={() => {
                                                     this.setState({ cardAtive: true })
@@ -111,9 +111,9 @@ class Postview extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                    
+
                                     </div>
-                                   
+
                                 </div>
                             </div>
 
@@ -123,7 +123,7 @@ class Postview extends Component {
                                 <div className="row ps-2 pe-2 ">
                                     <div className="col-sm-12 p-1">
                                         <div className='position-relative overflow-hidden'>
-                                        <img src={BlurBackground} className="rounded-3 w-100" alt="post" />
+                                            <img src={BlurBackground} className="rounded-3 w-100" alt="post" />
                                             <div className='paidPostSeciton'>
                                                 <div className='d-flex align-items-center flex-column justify-content-center'>
                                                     <p className='mb-0 fw-500   lh-26 font-xssss'>Payment amount €{allData.paid_amount}</p>
@@ -140,9 +140,9 @@ class Postview extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
-                                  
+
                                 </div>
                             </div>
 
@@ -168,7 +168,11 @@ class Postview extends Component {
                         )
                             : ''}
                         {postimage ? (
-                            <div className="card-body d-block p-0 mb-3">
+                            <div className="card-body d-block p-0 mb-3"
+                                onClick={() => {
+                                    this.props.modalPostView(allData)
+                                }}
+                            >
                                 <div className="row ps-2 pe-2">
 
                                     {postimage.length == 1 && (
@@ -262,7 +266,7 @@ class Postview extends Component {
                     {/* <a href="/defaultvideo" className="fw-600 text-primary ms-2">See more</a> */}
                 </div>
 
-                <div className="card-body d-flex p-0 mr-2" style={{marginRight:'5px'}}>
+                <div className="card-body d-flex p-0 mr-2" style={{ marginRight: '5px' }}>
                     <div className="emoji-bttn pointer d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2"
                         onClick={() => {
                             this.toggleActive()
@@ -272,15 +276,15 @@ class Postview extends Component {
                             })
                         }}
                     ><i className="feather-thumbs-up  text-dark text-white bgthwh  btn-round-sm font-xs"></i>
-                     {/* <i className="feather-heart text-white bg-red-gradiant mr-1 btn-round-xs font-xss"></i> */}
-                     </div>
+                        {/* <i className="feather-heart text-white bg-red-gradiant mr-1 btn-round-xs font-xss"></i> */}
+                    </div>
                     <div className={`emoji-wrap pointer ${emojiClass}`}>
                         <ul className="emojisPictures list-inline mb-0">
-                            <li onClick={() => this.emojiOnPost(1)}><img src={icon1} alt='icon'/></li>
-                            <li onClick={() => this.emojiOnPost(2)}><img src={icon2} alt='icon'/></li>
-                            <li onClick={() => this.emojiOnPost(3)}><img src={icon3} alt='icon'/></li>
-                            <li onClick={() => this.emojiOnPost(4)}><img src={icon4} alt='icon'/></li>
-                            <li onClick={() => this.emojiOnPost(5)}><img src={icon5} alt='icon'/></li>
+                            <li onClick={() => this.emojiOnPost(1)}><img src={icon1} alt='icon' /></li>
+                            <li onClick={() => this.emojiOnPost(2)}><img src={icon2} alt='icon' /></li>
+                            <li onClick={() => this.emojiOnPost(3)}><img src={icon3} alt='icon' /></li>
+                            <li onClick={() => this.emojiOnPost(4)}><img src={icon4} alt='icon' /></li>
+                            <li onClick={() => this.emojiOnPost(5)}><img src={icon5} alt='icon' /></li>
                             {/* <li className="emoji list-inline-item" onClick={() => this.emojiOnPost(1)}><i className="em em---1"></i> </li>
                             <li className="emoji list-inline-item" onClick={() => this.emojiOnPost(2)}><i className="em em-angry"></i></li>
                             <li className="emoji list-inline-item" onClick={() => this.emojiOnPost(3)}><i className="em em-anguished"></i> </li>
@@ -304,7 +308,7 @@ class Postview extends Component {
                         <span className="d-none-xss p1x-1 pr-3">{this.props.allData && this.props.allData.emoji_count + this.state.EmojisCount} {" "}</span>
                     </div>
                     <div className="d-flex cursor-pointer align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss ml-2"
-                    style={{marginLeft:"5px"}}
+                        style={{ marginLeft: "5px" }}
                         onClick={() => {
                             this.setState({
                                 comments: !this.state.comments,
@@ -314,15 +318,15 @@ class Postview extends Component {
                         }}
                     >
                         <i className="feather-message-circle text-white   bgthwh btn-round-sm font-xs"></i>
-                        <span className="d-none-xss " style={{marginLeft:"5px"}}>{this.props.commentCount + this.state.commentsCount} Comment</span>
+                        <span className="d-none-xss " style={{ marginLeft: "5px" }}>{this.props.commentCount + this.state.commentsCount} Comment</span>
                     </div>
                     <div className={`pointer ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss ${menuClass}`} id={`dropdownMenu${id}`} data-bs-toggle="dropdown" aria-expanded="false" onClick={this.toggleOpen}>
                         <i className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i>
                         <span className="d-none-xs">Share</span>
                     </div>
                     <div
-                 
-                    className={`dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg right-0 ${menuClass}`} aria-labelledby={`dropdownMenu${id}`} style={{ minWidth: '300px' }}>
+
+                        className={`dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg right-0 ${menuClass}`} aria-labelledby={`dropdownMenu${id}`} style={{ minWidth: '300px' }}>
                         <h4 className="fw-700 font-xss text-grey-900 d-flex align-items-center">Share <i onClick={this.toggleOpen} className="feather-x cursor-pointer ms-auto font-xssss btn-round-xs bg-greylight text-grey-900 me-2"></i></h4>
                         <div className="card-body p-0 d-flex d-none">
                             <ul className="d-flex align-items-center justify-content-between mt-2">
@@ -344,7 +348,7 @@ class Postview extends Component {
                         </div>
                         <h4 className="fw-700 font-xssss mt-4 text-grey-500 d-flex align-items-center mb-3">Copy Link</h4>
                         <div className='d-flex justify-content-between rounded-3 bg-grey'>
-                            <div> 
+                            <div>
                                 <input type="text" placeholder={`${window.location.hostname}/post/${id}`} disabled className="  text-grey-500 font-xssss border-0 lh-32 p-2 pr-3 font-xssss fw-600  w-100 theme-dark-bg" />
                             </div>
                             <div>
