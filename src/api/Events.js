@@ -11,6 +11,16 @@ let Posts = {
 
       })
    },
+   searchEvents: (data) => {
+      return axios({
+         url: "/api/users/searchEvents",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
    getEvents: (data) => {
       return axios({
          url: "/api/users/getEvents",
@@ -22,9 +32,10 @@ let Posts = {
 
       })
    },
-   searchEvents: (data) => {
+   getGoingEvents: (data) => {
+    
       return axios({
-         url: "/api/users/searchEvents",
+         url: "/api/users/getGoingEvents",
          data,
          method: "post",
          headers: {
@@ -33,7 +44,41 @@ let Posts = {
 
       })
    },
- 
+   ownEvents: (data) => {
+      return axios({
+         url: "/api/users/ownEvents",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+
+      })
+   },
+   goingtoEvent: (data) => {
+      data.created_at = new Date();
+      return axios({
+         url: "/api/users/goingtoEvent",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+
+      })
+   },
+   usersGoingToEvent: (data) => {
+      return axios({
+         url: "/api/users/usersGoingToEvent",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+
+      })
+   },
+
 
 
 }

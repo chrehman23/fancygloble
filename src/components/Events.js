@@ -1,27 +1,27 @@
 import React,{Component} from 'react';
 
 const eventsList = [
-    // {
-    //     date: '13',
-    //     month:'APR',
-    //     status:'bg-warning',
-    //     name: 'Meeting with clients',
-    //     location: '41 madison ave, floor 24 new work, NY 10010',
-    // },
-    // {
-    //     date: '22',
-    //     month:'APR',
-    //     status:'bg-primary',
-    //     name: 'Developer Programe',
-    //     location: '41 madison ave, floor 24 new work, NY 10010',
-    // },
-    // {
-    //     date: '30',
-    //     month:'APR',
-    //     status:'bg-success',
-    //     name: 'Aniversary Event',
-    //     location: '41 madison ave, floor 24 new work, NY 10010',
-    // },
+    {
+        date: '13',
+        month:'APR',
+        status:'bg-warning',
+        name: 'Meeting with clients',
+        location: '41 madison ave, floor 24 new work, NY 10010',
+    },
+    {
+        date: '22',
+        month:'APR',
+        status:'bg-primary',
+        name: 'Developer Programe',
+        location: '41 madison ave, floor 24 new work, NY 10010',
+    },
+    {
+        date: '30',
+        month:'APR',
+        status:'bg-success',
+        name: 'Aniversary Event',
+        location: '41 madison ave, floor 24 new work, NY 10010',
+    },
 ]
 
 class Events extends Component {

@@ -89,7 +89,11 @@ class Postview extends Component {
 
                 </div>
 
-
+                <div className="card-body p-0 me-lg-5">
+                    <p className="fw-500  lh-26 font-xssss w-100 mb-2">{des} </p>
+                    {/* {JSON.stringify(allData.paid_status, null, 2)} */}
+                    {/* <a href="/defaultvideo" className="fw-600 text-primary ms-2">See more</a> */}
+                </div>
 
 
                 {!allData.user_paid && (
@@ -260,11 +264,7 @@ class Postview extends Component {
                 )}
 
 
-                <div className="card-body p-0 me-lg-5">
-                    <p className="fw-500  lh-26 font-xssss w-100 mb-2">{des} </p>
-                    {/* {JSON.stringify(allData.paid_status, null, 2)} */}
-                    {/* <a href="/defaultvideo" className="fw-600 text-primary ms-2">See more</a> */}
-                </div>
+             
 
                 <div className="card-body d-flex p-0 mr-2" style={{ marginRight: '5px' }}>
                     <div className="emoji-bttn pointer d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2"

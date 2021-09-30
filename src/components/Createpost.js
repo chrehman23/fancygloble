@@ -154,6 +154,7 @@ class Createpost extends Component {
     }
 
     addFullLastTag = (targetName) => {
+        // @[a - z]*
         let description = this.state.description;
         let worldList = description.split(" ");
         worldList.pop();
@@ -197,23 +198,71 @@ class Createpost extends Component {
                 >
                     <div className="font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center cursor-pointer">{!this.state.createPost && (<i className="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>)}Create Post</div>
                 </div>
-
-                {this.state.vedioUrl && (
-                    <div className="card-body d-block p-0 mb-3 mt-3">
-                        <div className='row'>
-                            <div className='col-12'>
-                                <video className='vedioPlayer' controls autoplay>
-                                    <source src={this.state.vedioUrl} type="video/mp4" />
-                                    Your browser does not support HTML5 video.
-                                </video>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-
                 {this.state.createPost && (
                     <>
+
+                        <div className="card-body p-0 mt-1 position-relative">
+                            {/* <figure className="avatar position-absolute ms-2 mt-1 top-5"><img src="assets/images/user.png" alt="icon" className="shadow-sm rounded-circle w30" /></figure> */}
+                            <textarea
+                                id="description"
+                                value={this.state.description}
+                                onChange={(e) => {
+                                    this.getTags(e)
+                                    this.setState({ description: e.target.value })
+                                }}
+                                name="message" className="h100 bor-0 w-100 rounded-xxl p-2   font-xssss text-grey-600 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
+                        </div>
+                        <div>
+                            {this.state.tagedSearchListFilterd && this.state.tagedSearchListFilterd.length > 0 && (
+                                <div className='border-bottom'>
+                                    <p><b>Tag to</b></p>
+                                    {this.state.tagedSearchListFilterd && this.state.tagedSearchListFilterd.length == 0 && "<b>No List found.</b>"}
+                                    {this.state.tagedSearchListFilterd.map((data, index) => {
+                                        return (
+                                            <>
+                                                <div
+                                                    key={index}
+                                                    onClick={() => {
+                                                        this.addFullLastTag(data.name)
+                                                    }}
+                                                    className='cursor-pointer px-2'
+                                                    style={{ minWidth: '300px' }} key={index}>
+                                                    <div class="card bg-transparent-card w-100 align-items-center align-items-center d-flex flex-row border-0 mb-3"  >
+                                                        <div className='smImageControlerRs'>
+                                                            <img src={data.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${data.profile_photo}` : usreProfilePic} alt="user" className="" />
+                                                        </div>
+                                                        <div className='flex-grow-1'>
+                                                            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">{data.name}</h5>
+                                                            <h6 class="text-grey-500 fw-500 font-xssss lh-4">{data.user_name}</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )
+                                    })}
+                                </div>
+
+                            )}
+
+
+                        </div>
+
+
+                        {this.state.vedioUrl && (
+                            <div className="card-body d-block p-0 mb-3 mt-3">
+                                <div className='row'>
+                                    <div className='col-12'>
+                                        <video className='vedioPlayer' controls autoplay>
+                                            <source src={this.state.vedioUrl} type="video/mp4" />
+                                            Your browser does not support HTML5 video.
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+
+
                         {/* {JSON.stringify(this.state.profileImageURL.length)} */}
                         {this.state.profileImageURL && (
 
@@ -289,51 +338,6 @@ class Createpost extends Component {
                                 </div>
                             </div>
                         )}
-                        <div className="card-body p-0 mt-1 position-relative">
-                            {/* <figure className="avatar position-absolute ms-2 mt-1 top-5"><img src="assets/images/user.png" alt="icon" className="shadow-sm rounded-circle w30" /></figure> */}
-                            <textarea
-                                id="description"
-                                value={this.state.description}
-                                onChange={(e) => {
-                                    this.getTags(e)
-                                    this.setState({ description: e.target.value })
-                                }}
-                                name="message" className="h100 bor-0 w-100 rounded-xxl p-2   font-xssss text-grey-600 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
-                        </div>
-                        <div>
-                            {this.state.tagedSearchListFilterd && this.state.tagedSearchListFilterd.length > 0 && (
-                                <div className='border-bottom'>
-                                    <p><b>Tag to</b></p>
-                                    {this.state.tagedSearchListFilterd && this.state.tagedSearchListFilterd.length == 0 && "<b>No List found.</b>"}
-                                    {this.state.tagedSearchListFilterd.map((data, index) => {
-                                        return (
-                                            <>
-                                                <div
-                                                    key={index}
-                                                    onClick={() => {
-                                                        this.addFullLastTag(data.name)
-                                                    }}
-                                                    className='cursor-pointer px-2'
-                                                    style={{ minWidth: '300px' }} key={index}>
-                                                    <div class="card bg-transparent-card w-100 align-items-center align-items-center d-flex flex-row border-0 mb-3"  >
-                                                        <div className='smImageControlerRs'>
-                                                            <img src={data.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${data.profile_photo}` : usreProfilePic} alt="user" className="" />
-                                                        </div>
-                                                        <div className='flex-grow-1'>
-                                                            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">{data.name}</h5>
-                                                            <h6 class="text-grey-500 fw-500 font-xssss lh-4">{data.user_name}</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </>
-                                        )
-                                    })}
-                                </div>
-
-                            )}
-
-
-                        </div>
                         {!this.state.paidPost && (
                             <div  >
                                 <p className='font-xssss text-grey-500 fw-500 mb-0'>Need paid post. <span
@@ -503,7 +507,8 @@ class Createpost extends Component {
 
 
                     </>
-                )}
+                )
+                }
             </div>
         );
     }
