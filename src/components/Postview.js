@@ -162,7 +162,7 @@ class Postview extends Component {
                                         <div className='row'>
                                             <div className='col-12'>
                                                 <video className='vedioPlayer' controls autoplay>
-                                                    <source src={`${process.env.REACT_APP_BASE_URL}/${allData.video_url}`} type="video/mp4" />
+                                                    <source src={`${allData.video_url}`} type="video/mp4" />
                                                     Your browser does not support HTML5 video.
                                                 </video>
                                             </div>
@@ -183,7 +183,7 @@ class Postview extends Component {
                                         <div className="col-sm-12 p-1">
                                             <div className='maltiImgesUpload' >
                                                 <div>
-                                                    <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[0].picture}`} className="" alt="post" />
+                                                    <img src={`${postimage[0].picture}`} className="" alt="post" />
                                                 </div>
 
                                             </div>
@@ -195,10 +195,10 @@ class Postview extends Component {
                                         <div className="col-sm-12 p-1 ">
                                             <div className='maltiImgesUpload2' >
                                                 <div>
-                                                    <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[0].picture}`} className="" alt="post" />
+                                                    <img src={`${postimage[0].picture}`} className="" alt="post" />
                                                 </div>
                                                 <div>
-                                                    <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[1].picture}`} className="" alt="post" />
+                                                    <img src={`${postimage[1].picture}`} className="" alt="post" />
                                                 </div>
                                             </div>
                                         </div>
@@ -209,14 +209,14 @@ class Postview extends Component {
                                         <div className="col-sm-12 p-1">
                                             <div className='maltiImgesUpload3' >
                                                 <div>
-                                                    <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[0].picture}`} className="" alt="post" />
+                                                    <img src={`${postimage[0].picture}`} className="" alt="post" />
                                                 </div>
                                                 <div className='d-flex flex-column'>
                                                     <div>
-                                                        <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[1].picture}`} className="" alt="post" />
+                                                        <img src={`${postimage[1].picture}`} className="" alt="post" />
                                                     </div>
                                                     <div>
-                                                        <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[2].picture}`} className="" alt="post" />
+                                                        <img src={`${postimage[2].picture}`} className="" alt="post" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -228,14 +228,14 @@ class Postview extends Component {
                                         <div className="col-sm-12 p-1">
                                             <div className='maltiImgesUpload4' >
                                                 <div>
-                                                    <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[0].picture}`} className="" alt="post" />
+                                                    <img src={`${postimage[0].picture}`} className="" alt="post" />
                                                 </div>
                                                 <div className='d-flex flex-column'>
                                                     <div>
-                                                        <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[1].picture}`} className="" alt="post" />
+                                                        <img src={`${postimage[1].picture}`} className="" alt="post" />
                                                     </div>
                                                     <div className='moreImges'>
-                                                        <img src={`${process.env.REACT_APP_BASE_URL}/${postimage[2].picture}`} className="" alt="post" />
+                                                        <img src={`${postimage[2].picture}`} className="" alt="post" />
                                                         {postimage.length > 3 && (
                                                             <div>
                                                                 <div><span>{postimage.length - 3} More</span></div>

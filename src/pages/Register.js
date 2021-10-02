@@ -27,7 +27,7 @@ const formikValidateSchema = Yup.object().shape({
     email: Yup.string().required('Email is required.').email('Email is not valid.'),
     password: Yup.string().required("Password is required.").min(6, "Password should 6 digits."),
     termsAndConditions: Yup.boolean().oneOf([true], 'Accept Terms & Conditions is required'),
-    password_confirmation: Yup.string().when("password", {
+    password_confirmation: Yup.string().required("password confirmation is required.").min(6, "password confirmation should 6 digits.").when("password", {
         is: val => (val && val.length > 0 ? true : false),
         then: Yup.string().oneOf(
             [Yup.ref("password")],

@@ -139,7 +139,7 @@ class Comments extends Component {
                                     <div className='px-2'>
                                         <div class="card bg-transparent-card w-100 align-items-center d-flex flex-row border-0 mb-3"  >
                                             <div className='smImageControlerRs'>
-                                                <img src={data.comment_by && data.comment_by.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${data.comment_by && data.comment_by.profile_photo}` : userDefaultImage} alt="user" className="" />
+                                                <img src={data.comment_by && data.comment_by.profile_photo ? `${data.comment_by && data.comment_by.profile_photo}` : userDefaultImage} alt="user" className="" />
                                            </div>
                                             <div className='flex-grow-1'> 
                                                 <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">{data.comment_by && data.comment_by.name}

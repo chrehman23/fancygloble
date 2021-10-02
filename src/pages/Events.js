@@ -259,7 +259,7 @@ class Events extends Component {
                                                 <div key={index} className="col-lg-4 col-md-6 pe-2 ps-2">
                                                     <div className="card p-3 bg-white w-100 hover-card border-0 shadow-xss rounded-xxl border-0 mb-3 overflow-hidden ">
                                                         <div className="card-image w-100" style={{ height: "200px" }}>
-                                                            <img src={value.thumbnail && `${process.env.REACT_APP_BASE_URL}/${value.thumbnail[0] && value.thumbnail[0].picture}`} alt="event" className="w-100 rounded-3" />
+                                                            <img src={value.thumbnail && `${value.thumbnail[0] && value.thumbnail[0].picture}`} alt="event" className="w-100 rounded-3" />
                                                         </div>
                                                         <div className="card-body d-flex ps-0 pe-0 pb-0">
                                                             <div className="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg"><h4 className="fw-700 font-lg ls-3 text-grey-900 mb-0">
@@ -318,7 +318,7 @@ class Events extends Component {
                     <Modal.Header>
                         <div className='postModalHeader'>
                             <div>
-                                <div><img src={this.state.eventModalDetails && this.state.eventModalDetails.posted_by && this.state.eventModalDetails.posted_by.profile_photo !== "" ? `${process.env.REACT_APP_BASE_URL}/${this.state.eventModalDetails.posted_by.profile_photo}` : defaultProfilePhoto} alt='Image' /></div>
+                                <div><img src={this.state.eventModalDetails && this.state.eventModalDetails.posted_by && this.state.eventModalDetails.posted_by.profile_photo !== "" ? `${this.state.eventModalDetails.posted_by.profile_photo}` : defaultProfilePhoto} alt='Image' /></div>
                                 <div>
                                     <h4>{this.state.eventModalDetails.posted_by && this.state.eventModalDetails.posted_by.name}</h4>
                                     <small>{this.state.eventModalDetails.posted_by && this.state.eventModalDetails.posted_by.user_name}</small>
@@ -345,7 +345,7 @@ class Events extends Component {
                                                         return (
                                                             <div>
                                                                 {/* <img src={defaultProfilePhoto} /> */}
-                                                                <img src={`${process.env.REACT_APP_BASE_URL}/${data.picture}`} />
+                                                                <img src={`${data.picture}`} />
                                                             </div>
                                                         )
                                                     })}

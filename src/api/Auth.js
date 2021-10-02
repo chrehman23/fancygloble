@@ -53,6 +53,27 @@ let AuthApi = {
          method: "post",
       })
    },
+   sendResetPasswordOtp: (data) => {
+      return axios({
+         url: "/api/users/sendResetPasswordOtp",
+         data,
+         method: "post",
+      })
+   },
+   otpVerification: (data) => {
+      return axios({
+         url: "/api/users/otpVerification",
+         data,
+         method: "post",
+      })
+   },
+   resetPassword: (data) => {
+      return axios({
+         url: "/api/users/resetPassword",
+         data,
+         method: "post",
+      })
+   },
 
 
 }

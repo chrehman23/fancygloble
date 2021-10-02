@@ -113,7 +113,7 @@ class Home extends Component {
                       allData={this.state.post}
                       postvideo={this.state.post.url_status}
                       postimage={this.state.post.post_images}
-                      avater={this.state.post.created_by && this.state.post.created_by.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${this.state.post.created_by && this.state.post.created_by.profile_photo}` : "assets/images/user.png"}
+                      avater={this.state.post.created_by && this.state.post.created_by.profile_photo ? `${this.state.post.created_by && this.state.post.created_by.profile_photo}` : "assets/images/user.png"}
                       user={this.state.post.posted_by && this.state.post.posted_by.name}
 
                       time={moment(this.state.post.created_at).fromNow(true)}

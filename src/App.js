@@ -22,6 +22,7 @@ import Group from './pages/Group';
 import Storie from './pages/Storie';
 
 import Events from './pages/Events';
+import UpdatePassword from './pages/ChangePassword';
 import Member from './pages/Member';
 import Users from './pages/Users';
 import Email from './pages/Email';
@@ -78,7 +79,7 @@ class App extends Component {
 
     let token = localStorage.getItem("token")
     if (!token) {
-      this.props.history.push("/login")
+      // this.props.history.push("/login")
     } else {
       window.scrollTo(0, 0)
       AuthApi.getUserProfileByToken().then(res => {
@@ -118,6 +119,7 @@ class App extends Component {
           <Route exact path={`/login`} component={Login} />
           <Route exact path={`/register`} component={Register} />
           <Route exact path={`/forgot`} component={Forgot} />
+          <Route exact path={`/reset-password/:email/:otp`} component={UpdatePassword} />
           <Route exact path={`/`} component={Home} />
           <Route exact path={`/home`} component={Home} />
           <Route exact path={`/post/:id`} component={Post} />

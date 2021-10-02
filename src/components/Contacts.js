@@ -34,7 +34,7 @@ class Contacts extends Component {
                         {this.props.friends.map((value, index) => {
                             return (
                                 <div key={index} className="card-body bg-transparent-card d-flex p-3 bg-greylight ms-3 me-3 rounded-3 mb-3">
-                                    <figure className="avatar me-2 mb-0"><img src={`${value.friend_id.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${value.friend_id.profile_photo}` : "assets/images/user.png"}`} alt="avater" className="shadow-sm rounded-circle w45" /></figure>
+                                    <figure className="avatar me-2 mb-0"><img src={`${value.friend_id.profile_photo ? `${value.friend_id.profile_photo}` : "assets/images/user.png"}`} alt="avater" className="shadow-sm rounded-circle w45" /></figure>
                                     {/* <h4 className="fw-700 text-grey-900 font-xssss mt-2">{value.name} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{value.friend} mutual friends</span></h4> */}
                                     <h4 className="fw-700 text-grey-900 font-xssss mt-2">{value.friend_id.name}</h4>
                                     {/* <a href="/defaultmember" className="btn-round-sm bg-white ms-auto mt-2"><span className="feather-chevron-right font-xss text-grey-900"></span></a> */}

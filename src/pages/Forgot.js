@@ -1,13 +1,38 @@
-import React, { Component , Fragment } from "react";
-import {Link} from 'react-router-dom'
+import React, { Component, Fragment } from "react";
+import { Link } from 'react-router-dom'
 import Logo2 from '../../public/assets/images/Logo3.png'
 
+import AuthApi from "../api/Auth";
 import loignImage5 from '../../public/assets/images/login image/login5.jpg'
 
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+
+let validationSchemaLogin = Yup.object({
+    email: Yup.string().required('Email is Required.').email('Email is not valid.'),
+})
 class Forgot extends Component {
+    constructor(props) {
+        super();
+        this.state = {
+            apiLoader: false,
+            ApiError: "",
+        }
+    }
+
+    sendResetPasswordOtp = () => {
+        let data = {
+            emaill: "mrahma9pk@gmail.com"
+        }
+        AuthApi.sendResetPasswordOtp(data).then(res => {
+            console.log(res.data)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
     render() {
         return (
-            <Fragment> 
+            <Fragment>
                 <div className="main-wrap">
                     <div className="nav-header bg-transparent shadow-none border-0">
                         <div className="nav-top w-100 justify-content-start ">
@@ -38,34 +63,73 @@ class Forgot extends Component {
                         <div className="col-xl-5 vh-100 align-items-center d-flex   loginScreenCover rounded-3 overflow-hidden">
                             <div className="card bg-transparent shadow-none border-0 ms-auto me-auto login-card">
                                 <div className="card-body bg-transparent rounded-0 text-left">
-                                    <h2 className="fw-700 display1-size display2-md-size mb-4 text-white">Change <br />your password</h2>                        
-                                    <form>
-                                        
-                                        
-                                        <div className="form-group icon-input  ">
-                                            <input type="email" className="style2-input   form-control text-grey-900 font-xss ls-3" placeholder="Enter Email" />
-                                            {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
-                                        </div>
-                                        
-                                        <div className="form-check text-left mb-3">
-                                            {/* <input type="checkbox" className="form-check-input mt-2" id="exampleCheck4" /> */}
-                                            {/* <label className="form-check-label font-xsss text-grey-500">Accept Term and Conditions</label> */}
-                                        </div>
+                                    <h2 className="fw-700 display1-size display2-md-size mb-4 text-white">Reset <br />your password</h2>
+                                    <Formik
+                                        initialValues={{
+                                            email: '',
+                                        }}
+                                        validationSchema={validationSchemaLogin}
+                                        onSubmit={async (values) => {
+                                            this.setState({
+                                                apiLoader: true,
+                                                ApiError: "",
+                                            })
+                                            AuthApi.sendResetPasswordOtp(values).then(res => {
+                                                if (res.data.Error == false) {
+                                                    this.setState({
+                                                        apiLoader: false,
+                                                        ApiError: res.data.msg
+                                                    })
+                                                }
+                                                this.setState({
+                                                    apiLoader: false,
+                                                })
 
-                                       
-                                    </form>
-                                    
-                                    <div className="col-sm-12 p-0 text-left">
-                                        <div className="form-group mb-1"><Link to="/login" className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Reset Password</Link></div>
-                                        
-                                    </div>
-                                    <h6 className=" font-xsss fw-500 mt-0 mb-3 lh-32 text-white">Already have account <Link to="/login" className="fw-700 ms-1">Login</Link></h6>
+                                            }).catch(error => {
+                                                console.log("error api ", error);
+                                                if (error.response.data.Error == true) {
+                                                    this.setState({
+                                                        apiLoader: false,
+                                                        ApiError: error.response.data.msg
+                                                    })
+                                                } else {
+                                                    this.setState({
+                                                        apiLoader: false,
+                                                        ApiError: "Server error."
+                                                    })
+                                                }
 
-                                    
+                                            })
+                                        }}
+                                    >
+                                        <Form>
+                                            <div className="form-group icon-input mb-0 rounded-circle">
+                                                {/* <i className="font-sm ti-email text-grey-500 pe-0"></i> */}
+                                                <Field id="email" name="email" className="style2-input  form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address" />
+
+                                            </div>
+                                            <small className='text-white'><b><ErrorMessage name="email" /></b></small>
+                                         
+                                            <small className='text-white my-3 '><b>{this.state.ApiError}</b></small>
+                                            <div className="col-sm-12 p-0 text-left mt-5">
+                                                <div className="form-group mb-1">
+                                                    {this.state.apiLoader && (
+                                                        <button type="button" className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Loading....</button>
+                                                    )}
+                                                    {!this.state.apiLoader && (
+                                                        <button type='submit' className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Reset Password</button>
+                                                    )}
+                                                </div>
+                                                <h6 className=" font-xsss fw-500 mt-0 mb-0 mt-4 lh-32 text-white">Already have account <Link to="/login" className="fw-700 ms-1">Login</Link></h6>
+                                            </div>
+
+                                        </Form>
+                                    </Formik>
+                                    {/* ************************************* */}
                                 </div>
-                            </div> 
+                            </div>
                         </div>
-                        
+
                     </div>
 
                 </div>

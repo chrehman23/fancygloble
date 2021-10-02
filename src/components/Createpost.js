@@ -136,7 +136,7 @@ class Createpost extends Component {
                     this.setState({ lastTaged: lastUser });
                     // console.log(lastUser)
                     let usersList = this.state.tagedSearchList
-                    let filtersusers = usersList.filter(data => data.name.toLowerCase().includes(lastUser.toLowerCase()))
+                    let filtersusers = usersList.filter(data => data.name.includes(lastUser))
                     // console.log("filtersusers", filtersusers)
                     this.setState({ tagedSearchListFilterd: filtersusers })
                     let userOnlyName = filtersusers.map(data => data.name);
@@ -229,7 +229,7 @@ class Createpost extends Component {
                                                     style={{ minWidth: '300px' }} key={index}>
                                                     <div class="card bg-transparent-card w-100 align-items-center align-items-center d-flex flex-row border-0 mb-3"  >
                                                         <div className='smImageControlerRs'>
-                                                            <img src={data.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${data.profile_photo}` : usreProfilePic} alt="user" className="" />
+                                                            <img src={data.profile_photo ? `${data.profile_photo}` : usreProfilePic} alt="user" className="" />
                                                         </div>
                                                         <div className='flex-grow-1'>
                                                             <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">{data.name}</h5>

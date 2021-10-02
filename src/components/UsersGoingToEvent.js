@@ -70,7 +70,7 @@ class UsersGoingToEvent extends Component {
                         return (
                             <div className='px-2'>
                                 <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3"  >
-                                    <img src={data.user_id && data.user_id.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${data.user_id && data.user_id.profile_photo}` : defalultImage} alt="user" class="w40 position-absolute left-0" />
+                                    <img src={data.user_id && data.user_id.profile_photo ? `${data.user_id && data.user_id.profile_photo}` : defalultImage} alt="user" class="w40 position-absolute left-0" />
                                     <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">
                                         {data.user_id && data.user_id.name}
 

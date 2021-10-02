@@ -105,7 +105,7 @@ export class PostLists extends Component {
                      allData={data}
                      postvideo={data.url_status}
                      postimage={data.post_images}
-                     avater={data.created_by && data.created_by.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${data.created_by && data.created_by.profile_photo}` : avatar}
+                     avater={data.created_by && data.created_by.profile_photo ? `${data.created_by && data.created_by.profile_photo}` : avatar}
                      user={data.posted_by && data.posted_by.name}
 
                      time={moment(data.created_at).fromNow(true)}
@@ -152,7 +152,7 @@ export class PostLists extends Component {
                <Modal.Header>
                   <div className='postModalHeader'>
                      <div>
-                        <div><img src={this.state.postModalDetails && this.state.postModalDetails.posted_by && this.state.postModalDetails.posted_by.profile_photo !== "" ? `${process.env.REACT_APP_BASE_URL}/${this.state.postModalDetails.posted_by.profile_photo}` : defaultProfilePhoto } alt='Image' /></div>
+                        <div><img src={this.state.postModalDetails && this.state.postModalDetails.posted_by && this.state.postModalDetails.posted_by.profile_photo !== "" ? `${this.state.postModalDetails.posted_by.profile_photo}` : defaultProfilePhoto } alt='Image' /></div>
                         <div>
                            <h4>{this.state.postModalDetails.posted_by && this.state.postModalDetails.posted_by.name}</h4>
                            <small>{this.state.postModalDetails.posted_by && this.state.postModalDetails.posted_by.user_name}</small>
@@ -178,7 +178,7 @@ export class PostLists extends Component {
                                        {this.state.postModalDetails.post_images.map((data,index)=>{
                                           return(
                                              <div>
-                                                <img src={`${process.env.REACT_APP_BASE_URL}/${data.picture}`} />
+                                                <img src={`${data.picture}`} />
                                              </div>
                                           )
                                        })}

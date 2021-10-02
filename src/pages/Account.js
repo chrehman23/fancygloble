@@ -222,14 +222,14 @@ class Account extends Component {
 
                                                     <div className="card w-100   overflow-hidden border-0        ">
                                                         <div className="card-body position-relative h150 bg-image-cover bg-image-center"
-                                                            style={{ backgroundImage: `url("${this.state.banerImage ? this.state.banerImage : values.profile_cover ? `${process.env.REACT_APP_BASE_URL}/${values.profile_cover}` : backgroundImage}")` }}>
+                                                            style={{ backgroundImage: `url("${this.state.banerImage ? this.state.banerImage : values.profile_cover ? `${values.profile_cover}` : backgroundImage}")` }}>
                                                             <span className='editebtn baner'
                                                                 onClick={() => { document.getElementById("baner_Image").click() }}
                                                             ><i className="font-sm ti-pencil-alt text-grey-500 pe-0 "></i></span>
                                                         </div>
                                                         <div className="card-body d-block pt-4 text-center">
                                                             <figure className="avatar editeProfileImage mt--6 position-relative  z-index-1 z-index-1 ms-auto me-auto postion-relative ">
-                                                                <img src={this.state.profileImage ? this.state.profileImage : values.profile_photo ? `${process.env.REACT_APP_BASE_URL}/${values.profile_photo}` : "assets/images/user.png"} alt="avater" className="p-1 bg-white rounded-xl w-100" />
+                                                                <img src={this.state.profileImage ? this.state.profileImage : values.profile_photo ? `${values.profile_photo}` : "assets/images/user.png"} alt="avater" className="p-1 bg-white rounded-xl w-100" />
                                                                 <span
                                                                     onClick={() => { document.getElementById("profile_Image").click() }}
                                                                     className='editebtn'><i className="font-sm ti-pencil-alt text-grey-500 pe-0 "></i></span>
