@@ -24,6 +24,8 @@ import socketConnection from '../socketConnection'
 
 import BtnLoader from '../components/ApiLoader'
 
+import googleImage from '../../public/assets/images/icon-1.png'
+
 // import io from 'socket.io-client';
 // let socket = io.connect(process.env.REACT_APP_BASE_URL)
 
@@ -227,7 +229,8 @@ class Login extends Component {
                                             responseHandler={this.responseGoogle}
                                             className='w-100 bg-transparent border-0'
                                         >
-                                            <div className="form-group mb-1"><div className="form-control text-left style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2"><img src="assets/images/icon-1.png" alt="icon" className="ms-2 w40 mb-1 me-5" /> Sign in with Google</div></div>
+                                            <div className="form-group mb-1"><div className="form-control text-left style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2">
+                                                <img src={googleImage} alt="icon" className="ms-2 w40 mb-1 me-5" /> Sign in with Google</div></div>
 
                                         </GoogleLogin>
                                         {/* <FacebookLogin
