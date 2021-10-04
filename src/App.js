@@ -58,6 +58,7 @@ import Comingsoon from './pages/Comingsoon';
 
 import Grouppage from './pages/Grouppage';
 import Userpage from './pages/Userpage';
+import UserProfile from './pages/UserProfile';
 import Authorpage from './pages/Authorpage';
 import Hotelsingle from './pages/Hotelsingle';
 import Analytics from './pages/Analytics';
@@ -123,6 +124,7 @@ class App extends Component {
           <Route exact path={`/`} component={Home} />
           <Route exact path={`/home`} component={Home} />
           <Route exact path={`/post/:id`} component={Post} />
+          <Route exact path={`/user/:user_name`} component={UserProfile} />
 
           <Route exact path={`/defaultbadge`} component={Badge} />
           <Route exact path={`/defaultgroup`} component={Group} />

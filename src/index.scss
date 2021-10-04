@@ -459,3 +459,16 @@ display: none;
   object-fit: cover;
   object-position: center;
 }
+
+.imageControlermd{
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+}
+.imageControlermd > img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  object-position: center;
+}

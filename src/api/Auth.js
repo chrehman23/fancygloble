@@ -74,6 +74,13 @@ let AuthApi = {
          method: "post",
       })
    },
+   getUserProfileByUserName: (data) => {
+      return axios({
+         url: `/api/users/getUserProfileByUserName?user_name=${data}`,
+         data,
+         method: "post",
+      })
+   },
 
 
 }

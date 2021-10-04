@@ -16,15 +16,20 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import BlurBackground from '../../public/assets/images/blur.jpg'
 
 class Postview extends Component {
-    state = {
-        isOpen: false,
-        comments: false,
-        Emojis: false,
-        commentsCount: 0,
-        EmojisCount: 0,
-        cardAtive: false,
-        copyClip: false,
-    };
+    constructor() {
+        super();
+        this.state = {
+            isOpen: false,
+            comments: false,
+            Emojis: false,
+            commentsCount: 0,
+            EmojisCount: 0,
+            cardAtive: false,
+            copyClip: false,
+        };
+        // this.addLinks = this.addLinks.bind(this);
+    }
+
 
     toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
     toggleActive = () => this.setState({ isActive: !this.state.isActive });
@@ -66,6 +71,18 @@ class Postview extends Component {
     }
 
 
+    addLinks = (tags, hash_tags, description) => {
+        for (let i = 0; i < tags.length; i++) {
+            description = description.replaceAll(tags[i].name, `<a href='/user/${tags[i].user_name}' target='_blank'>${tags[i].name}</a> `)
+        }
+        for (let i = 0; i < hash_tags.length; i++) {
+            description = description.replaceAll(hash_tags[i], `<a href='#${hash_tags[i]}'>${hash_tags[i]}</a> `)
+        }
+        return description
+
+    }
+
+
 
     render() {
 
@@ -88,11 +105,12 @@ class Postview extends Component {
                     <div className="ms-auto pointer d-none"><i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></div>
 
                 </div>
+                {/* {JSON.stringify(allData.tag_users,null,2)} */}
 
                 <div className="card-body p-0 me-lg-5">
-                    <p className="fw-500  lh-26 font-xssss w-100 mb-2">{des} </p>
-                    {/* {JSON.stringify(allData.paid_status, null, 2)} */}
-                    {/* <a href="/defaultvideo" className="fw-600 text-primary ms-2">See more</a> */}
+                    <p className="fw-500  lh-26 font-xssss w-100 mb-2"
+                        dangerouslySetInnerHTML={{ __html: this.addLinks(allData.tag_users, allData.hash_tags, des) }}
+                    />
                 </div>
 
 
@@ -264,7 +282,7 @@ class Postview extends Component {
                 )}
 
 
-             
+
 
                 <div className="card-body d-flex p-0 mr-2" style={{ marginRight: '5px' }}>
                     <div className="emoji-bttn pointer d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2"

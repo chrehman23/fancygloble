@@ -16,7 +16,7 @@ instance.interceptors.response.use(function (response) {
    } 
    if (!error.response) {
       localStorage.removeItem('token')
-      window.location = "/maintenance"
+      // window.location = "/maintenance"
    } 
    return Promise.reject(error);
 });

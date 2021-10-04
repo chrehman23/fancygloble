@@ -34,7 +34,9 @@ class Createpost extends Component {
             tagedSearchList: [],
             tagedSearchListFilterd: [],
 
-            fileError: ""
+            fileError: "",
+
+            tag_users:[]
         };
 
     }
@@ -50,7 +52,18 @@ class Createpost extends Component {
     addPost = () => {
         let data = new FormData();
         data.append('created_at', new Date())
+        data.append('tag_users', JSON.stringify(this.state.tag_users))
         data.append('description', this.state.description)
+        // *************************************************
+        let descriptionList = this.state.description.split(" ");
+        let hash_tags = [];
+        for (let i = 0; i < descriptionList.length; i++) { 
+            if (descriptionList[i].includes('#') && descriptionList[i].length>1){
+                hash_tags.push(descriptionList[i])
+            }
+        }
+        data.append('hash_tags', JSON.stringify(hash_tags))
+        // *************************************************
         data.append('video_url', this.state.vedioFile)
         let postPictures = this.state.post_images
         for (let i = 0; i < postPictures.length; i++) {
@@ -153,14 +166,19 @@ class Createpost extends Component {
 
     }
 
-    addFullLastTag = (targetName) => {
+    addFullLastTag = (targetName,user_name) => {
         // @[a - z]*
         let description = this.state.description;
         let worldList = description.split(" ");
         worldList.pop();
-        worldList.push(`@${targetName} `)
-        console.log(worldList)
+        worldList.push(`@${targetName} `) 
+        let tag_users = this.state.tag_users;
+        tag_users.push({
+            name: `@${targetName} `,
+            user_name: user_name
+        })
         this.setState({
+            tag_users: tag_users,
             description: worldList.join(' '),
             tagedSearchListFilterd: [],
         })
@@ -177,6 +195,8 @@ class Createpost extends Component {
             post_images: imagesList2,
         })
     }
+
+ 
 
 
     render() {
@@ -195,7 +215,7 @@ class Createpost extends Component {
                             tagedSearchList: usresList
                         })
                     }}
-                >
+                > 
                     <div className="font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center cursor-pointer">{!this.state.createPost && (<i className="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>)}Create Post</div>
                 </div>
                 {this.state.createPost && (
@@ -223,7 +243,7 @@ class Createpost extends Component {
                                                 <div
                                                     key={index}
                                                     onClick={() => {
-                                                        this.addFullLastTag(data.name)
+                                                        this.addFullLastTag(data.name,data.user_name)
                                                     }}
                                                     className='cursor-pointer px-2'
                                                     style={{ minWidth: '300px' }} key={index}>

@@ -98,6 +98,7 @@ class Register extends Component {
                                             let data = { ...values }
                                             // data.user_name = `@${data.user_name}`
                                             console.log(data)
+                                            data.user_name.replace(" ", "")
                                             AuthApi.UserRegister(data).then(res => {
                                                 console.log(res)
                                                 if (res.data.Error == false) {
@@ -160,7 +161,7 @@ class Register extends Component {
                                                     <Field id="user_name" name="user_name" className="style2-input   form-control text-grey-900 font-xsss fw-600" placeholder="User Name" />
                                                     {values.user_name ? (
                                                         <span className='text-white'>
-                                                            @<b>{values.user_name}</b> will be your account name
+                                                            @<b>{values.user_name.replace(" ","")}</b> will be your account name
                                                         </span>
                                                     ) : ""}
                                                 </div>
