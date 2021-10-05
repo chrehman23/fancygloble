@@ -5,7 +5,7 @@ import { Modal } from 'react-bootstrap'
 
 import Comments from './Comments';
 import Emojis from './Emojis';
-
+import PostSound from '../../public/assets/sounds/post_sound.mp3'
 import ACTIONS from '../store/actions/index.js';
 import PostApi from '../api/Posts';
 import Postview from '../components/Postview';
@@ -106,6 +106,14 @@ export class PostLists extends Component {
                setTimeout(() => {
                   this.setState({ purchaseLoader: false })
                }, 10);
+               new Audio(PostSound).play();
+               let notification = {
+                  name: res.data.paidPost.created_by.name,
+                  profile: res.data.paidPost.created_by.profile_photo,
+                  des: res.data.msg,
+                  time: new Date()
+               }
+               this.props.addnotificaions(notification)
             } 
          }).catch(error => {
             this.setState({ purchaseLoader: false })
@@ -258,6 +266,9 @@ const mapDispatchToProps = (dispatch) => {
       addPaidPost: (data) => {
          dispatch(ACTIONS.addPaidPost(data))
       },
+      addnotificaions: (data) => {
+         dispatch(ACTIONS.addnotificaion(data))
+      }
 
    }
 
