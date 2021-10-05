@@ -66,6 +66,12 @@ let Actions = {
       payload: data,
     };
   }, 
+  addPaidPost : (data) => { 
+    return {
+      type: ACTIONTYPES.ADD_PAID_POST,
+      payload: data,
+    };
+  }, 
 
 
 }

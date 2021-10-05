@@ -4,6 +4,9 @@ import Emojis from './Emojis';
 import PostApi from '../api/Posts'
 import PostSound from '../../public/assets/sounds/post_sound.mp3';
 
+
+ 
+
 import icon1 from '../../public/assets/iconss/1.svg'
 import icon2 from '../../public/assets/iconss/2.svg'
 import icon3 from '../../public/assets/iconss/3.svg'
@@ -26,6 +29,7 @@ class Postview extends Component {
             EmojisCount: 0,
             cardAtive: false,
             copyClip: false,
+            purchaseLoader:false,
         };
         // this.addLinks = this.addLinks.bind(this);
     }
@@ -84,6 +88,7 @@ class Postview extends Component {
 
 
 
+
     render() {
 
         const { user, time, des, avater, postimage, postvideo, id, allData, commentCount } = this.props;
@@ -121,7 +126,7 @@ class Postview extends Component {
                                 <div className="row ps-2 pe-2 ">
                                     <div className="col-sm-12 p-1 ">
                                         <div className='position-relative overflow-hidden'>
-                                            <img src={BlurBackground} className="rounded-3 w-100" alt="post" />
+                                            <img src='assets/images/blur.jpg' className="rounded-3 w-100" alt="post" />
                                             <div className='paidPostSeciton'
                                                 onClick={() => {
                                                     this.setState({ cardAtive: true })
@@ -145,19 +150,31 @@ class Postview extends Component {
                                 <div className="row ps-2 pe-2 ">
                                     <div className="col-sm-12 p-1">
                                         <div className='position-relative overflow-hidden'>
-                                            <img src={BlurBackground} className="rounded-3 w-100" alt="post" />
+                                            <img src='assets/images/blur.jpg' className="rounded-3 w-100" alt="post" />
                                             <div className='paidPostSeciton'>
                                                 <div className='d-flex align-items-center flex-column justify-content-center'>
                                                     <p className='mb-0 fw-500   lh-26 font-xssss'>Payment amount €{allData.paid_amount}</p>
-                                                    <div className='w-100'>
+                                                    {/* <div className='w-100'>
                                                         <input type='text' className='commentInput text-grey-500 fw-500 font-xssss lh-4 p-2 bg-transparent ' placeholder='xxx xxx xxx xxx' />
                                                     </div>
                                                     <div className='d-flex'>
                                                         <input type='text' className='commentInput text-grey-500 fw-500 font-xssss lh-4 p-2 bg-transparent' placeholder='PIN' />
                                                         <input type='text' className='commentInput text-grey-500 fw-500 font-xssss lh-4 p-2 bg-transparent' placeholder='Exp' />
-                                                    </div>
+                                                    </div> */}
                                                     <div className='text-right w-100'>
-                                                        <button className='btn btn-primary '>Pay</button>
+                                                        {this.state.purchaseLoader && (
+                                                            <button className='btn btn-primary '
+                                                            >Loading...</button>
+                                                        )}
+                                                        {!this.state.purchaseLoader && (
+                                                            <button className='btn btn-primary '
+                                                                onClick={() => {
+                                                                    this.setState({ purchaseLoader: true })
+                                                                    this.props.purchasePost(id);
+                                                                }}
+                                                            >Pay</button>
+                                                        )}
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -384,10 +401,6 @@ class Postview extends Component {
                     </div>
                 </div>
 
-
-
-
-
                 {this.state.comments && (
                     <Comments
                         _id={id}
@@ -402,9 +415,14 @@ class Postview extends Component {
             </div>
         );
 
+      
+
 
     }
 }
 
-export default Postview;
+
+ 
+export default Postview
+
 

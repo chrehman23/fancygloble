@@ -77,6 +77,17 @@ let Posts = {
 
       })
    },
+   purchasePost: (data) => {
+      return axios({
+         url: `/api/users/purchasePost`,
+         method: "post",
+         data,
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+
+      })
+   },
 
 
 }

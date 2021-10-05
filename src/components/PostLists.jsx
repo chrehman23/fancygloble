@@ -36,6 +36,7 @@ export class PostLists extends Component {
          Emojis: false,
          
          commentsCount: 0,
+         purchaseLoader:false,
       }
    }
 
@@ -90,15 +91,39 @@ export class PostLists extends Component {
    updateComentsCount=()=>{
       this.setState({ commentsCount: this.state.commentsCount+1})
    }
+
+
+   purchasePost = (postId) => {
+      if (postId) {
+         let data = {
+            post_id: postId
+         } 
+         PostApi.purchasePost(data).then(res => {
+            console.log(res.data)
+            if (res.data.Error == false) {
+               this.props.addPaidPost(res.data.paidPost)
+               this.setState({ purchaseLoader: true })
+               setTimeout(() => {
+                  this.setState({ purchaseLoader: false })
+               }, 10);
+            } 
+         }).catch(error => {
+            this.setState({ purchaseLoader: false })
+            console.log(error)
+         })
+      }
+
+   }
    render() {
       return (
          <>
             <Createpost scrolHight={100} />
 
 
-            {this.props.Posts.map(data => {
+            {!this.state.purchaseLoader && this.props.Posts.map(data => {
                return (
                   <Postview
+                     purchasePost={this.purchasePost}
                      modalPostView={this.modalPostView}
                      id={data._id}
                      key={data._id}
@@ -229,6 +254,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       newPosts: (data) => {
          dispatch(ACTIONS.newPosts(data))
+      },
+      addPaidPost: (data) => {
+         dispatch(ACTIONS.addPaidPost(data))
       },
 
    }
