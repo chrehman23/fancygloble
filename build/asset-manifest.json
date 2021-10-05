@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.c478b0a8.chunk.css",
-    "main.js": "/static/js/main.2d87dcbf.chunk.js",
-    "main.js.map": "/static/js/main.2d87dcbf.chunk.js.map",
+    "main.css": "/static/css/main.513df383.chunk.css",
+    "main.js": "/static/js/main.991b102d.chunk.js",
+    "main.js.map": "/static/js/main.991b102d.chunk.js.map",
     "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
     "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
     "static/css/2.12571791.chunk.css": "/static/css/2.12571791.chunk.css",
-    "static/js/2.4a3b4ae2.chunk.js": "/static/js/2.4a3b4ae2.chunk.js",
-    "static/js/2.4a3b4ae2.chunk.js.map": "/static/js/2.4a3b4ae2.chunk.js.map",
+    "static/js/2.8b0bc4b4.chunk.js": "/static/js/2.8b0bc4b4.chunk.js",
+    "static/js/2.8b0bc4b4.chunk.js.map": "/static/js/2.8b0bc4b4.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.07c24ace9d839843cd1837b7d43739e5.js": "/precache-manifest.07c24ace9d839843cd1837b7d43739e5.js",
+    "precache-manifest.268ab1d0d9ca5e2ee9c6e9f6045b46a3.js": "/precache-manifest.268ab1d0d9ca5e2ee9c6e9f6045b46a3.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.12571791.chunk.css.map": "/static/css/2.12571791.chunk.css.map",
-    "static/css/main.c478b0a8.chunk.css.map": "/static/css/main.c478b0a8.chunk.css.map",
+    "static/css/main.513df383.chunk.css.map": "/static/css/main.513df383.chunk.css.map",
     "static/media/1.svg": "/static/media/1.57609717.svg",
     "static/media/2.svg": "/static/media/2.5bc2a5cd.svg",
     "static/media/3.svg": "/static/media/3.ba021ddd.svg",
@@ -31,6 +31,7 @@
     "static/media/logo.png": "/static/media/logo.149388be.png",
     "static/media/logo2.png": "/static/media/logo2.e09cd6d3.png",
     "static/media/post_sound.mp3": "/static/media/post_sound.f9433acd.mp3",
-    "static/media/main.scss": "/static/media/slick.f97e3bbf.svg"
+    "static/media/main.scss": "/static/media/slick.f97e3bbf.svg",
+    "static/media/themify-icons.css": "/static/media/themify.e23a7dca.ttf"
   }
 }
