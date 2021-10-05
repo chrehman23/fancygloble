@@ -51,7 +51,7 @@ class Register extends Component {
                     <div className="nav-header bg-transparent shadow-none border-0">
                         <div className="nav-top justify-content-start w-100">
                             <Link to="/">
-                                <img src={Logo2} style={{ height: "60px" }} />
+                                <img src="assets/images/Logo3.png" style={{ height: "60px" }} />
                                 {/* <i className="feather-zap text-success display2-size me-3 ms-0"></i>
                         <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
                             Sociala.
