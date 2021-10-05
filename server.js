@@ -8,6 +8,6 @@ app.get('/*', function (req, res) {
    return res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(8080, () => {
-   console.log(`React ap listening on 8080`);
+app.listen(3000, () => {
+   console.log(`React ap listening on 3000`);
 });
