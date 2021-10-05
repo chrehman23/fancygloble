@@ -13,6 +13,7 @@ import './index.scss';
 import "../public/assets/css/style.css" ;
 import "../public/assets/css/feather.css" ;
 import "../public/assets/css/themify-icons.css" ; //icons
+// import "./assets/fontawesome-pro/css/all.min.css" ; //icons
 
 // Common Layout
 import Demo from './demo/Demo';
