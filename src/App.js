@@ -51,6 +51,7 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Chat from './pages/Chat';
 import Live from './pages/Live';
+import LiveView from './pages/LiveView';
 import Job from './pages/Job';
 import Event from './pages/Event';
 import AddEvent from './pages/AddEvent';
@@ -128,11 +129,14 @@ class App extends Component {
           <Route exact path={`/post/:id`} component={Post} />
           <Route exact path={`/user/:user_name`} component={UserProfile} />
 
+          <Route exact path={`/defaultlive`} component={Live} />
+          <Route exact path={`/live-view/:id`} component={LiveView} />
+          <Route exact path={`/defaultstorie`} component={Storie} />
+
           <Route exact path={`/defaultbadge`} component={Badge} />
           <Route exact path={`/defaultgroup`} component={Group} />
           <Route exact path={`/events`} component={Events} />
           <Route exact path={`/add-event`} component={AddEvent} />
-          <Route exact path={`/defaultstorie`} component={Storie} />
           <Route exact path={`/defaultemailbox`} component={Email} />
           <Route exact path={`/defaultemailopen`} component={Emailopen} />
           <Route exact path={`/defaultsettings`} component={Settings} />
@@ -158,7 +162,7 @@ class App extends Component {
           <Route exact path={`/cart`} component={Cart} />
           <Route exact path={`/checkout`} component={Checkout} />
           <Route exact path={`/defaultmessage`} component={Chat} />
-          <Route exact path={`/defaultlive`} component={Live} />
+       
 
           <Route exact path={`/defaultjob`} component={Job} />
           <Route exact path={`/defaultevent`} component={Event} />

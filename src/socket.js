@@ -17,6 +17,7 @@ socketConnection.on("connect", () => {
    }
 });
 
+ 
 
 socketConnection.on("sendFriendRequest", (data) => {
    // **************************************

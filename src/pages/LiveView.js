@@ -20,17 +20,7 @@ var rtc = {
     params: {}
 };
 
-// Options for joining a channel
-var option = {
-    appID: "3bafbaf2769949c2917f7b86647d9954",
-    channel: "Admin",
-    // channel: "testch`annelName",
-    uid: null,
-    token: "0063bafbaf2769949c2917f7b86647d9954IAA1xPN7j2nPMqItcDGBDhrDDSBBO1Y0KDE0X0mVcWHx93Iiz0kAAAAAIgCLsw7gyzJgYQQAAQDP5F5hAgDP5F5hAwDP5F5hBADP5F5h",
-    // token: "0063bafbaf2769949c2917f7b86647d9954IACB5yuF7+7VLMEmORYVxVtFqusH7YyDSxQnXS/SEVmTv0dZp/YAAAAAIgA93NsA9/5eYQQAAQCHu11hAgCHu11hAwCHu11hBACHu11h",
-    key: '',
-    secret: ''
-}
+
 
 let live1
 
@@ -40,40 +30,59 @@ class Live extends Component {
         this.client = {};
         this.stream = {};
         this.state = {
+            loadingApi: false,
             token: "",
             channelName: '',
             uid: null,
 
-            goLive: false,
-            goLiveLoader: false,
-            strimeLiveStatus: false,
-            goLiveAnimationBtn: false,
+            hostDisable:false,
 
         };
     }
+
     componentDidMount() {
+        this.setState({ loadingApi: true, })
+        let { id } = this.props.match.params
+        let data = {
+            stream_id: id
+        }
+        StreamApi.streamDetails(data).then(res => {
+            if (res.data.Error == false) {
+                this.setState({
+                    loadingApi: false,
+                    token: res.data.stream.stream_token,
+                    channelName: res.data.stream.chanal_name
+                }, () => {
+                    this.joinChannel("audience")
+                })
+
+            }
+
+            console.log(res.data)
+        }).catch(error => {
+            console.log(error)
+        })
+
     }
 
 
     joinChannel = (role) => {
-        let thisReact = this
-        // ********************************
         var option = {
             appID: process.env.REACT_APP_AGORA_APP_KEY,
+            // channel: this.props.,
             channel: this.state.channelName,
-            token: this.state.token,
             uid: null,
+            token: this.state.token,
             key: '',
             secret: ''
         }
 
-        console.log(option)
-        // ********************************
         // Create a client
         rtc.client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
         // Initialize the client
         rtc.client.init(option.appID, function () {
             console.log("init success");
+
 
             // Join a channel
             rtc.client.join(option.token ?
@@ -81,44 +90,15 @@ class Live extends Component {
                 option.channel, option.uid ? +option.uid : null, function (uid) {
                     console.log("join channel: " + option.channel + " success, uid: " + uid);
                     rtc.params.uid = uid;
-                    if (role === "host") {
-                        rtc.client.setClientRole("host");
-                        // Create a local stream
-                        rtc.localStream = AgoraRTC.createStream({
-                            streamID: rtc.params.uid,
-                            audio: true,
-                            video: true,
-                            screen: false,
-                        })
 
-                        // Initialize the local stream
-                        rtc.localStream.init(function () {
-                            console.log("init local stream success");
-                            document.getElementById("local_stream").innerHTML = "";
-                            rtc.localStream.play("local_stream");
-                            thisReact.setState({ goLive: true, strimeLiveStatus: true, })
-                            thisReact.goLiveAnimationBtn()
-                            rtc.client.publish(rtc.localStream, function (err) {
-                                console.log("publish failed");
-                                thisReact.setState({ goLive: true, strimeLiveStatus: false })
-                                console.error(err);
-                            })
-                        }, function (err) {
-                            console.error("init local stream failed ", err);
-                        });
-
-                        rtc.client.on("connection-state-change", function (evt) {
-                            console.log("audience", evt)
-                        })
-
-
-                    }
                     if (role === "audience") {
+                        document.getElementById("remote_video_").innerHTML = "";
                         rtc.client.on("connection-state-change", function (evt) {
                             console.log("audience", evt)
                         })
 
                         rtc.client.on("stream-added", function (evt) {
+                            document.getElementById("remote_video_").innerHTML = "";
                             var remoteStream = evt.stream;
                             var id = remoteStream.getId();
                             if (id !== rtc.params.uid) {
@@ -129,27 +109,29 @@ class Live extends Component {
                             console.log('stream-added remote-uid: ', id);
                         });
 
-                        rtc.client.on("stream-removed", function (evt) {
+                        rtc.client.on("stream-removed", function (evt) { 
+                            document.getElementById("remote_video_").innerHTML = "";
                             var remoteStream = evt.stream;
                             var id = remoteStream.getId();
                             console.log('stream-removed remote-uid: ', id);
                         });
+                     
 
-                        rtc.client.on("stream-subscribed", function (evt) {
+                        rtc.client.on("stream-subscribed", function (evt) { 
                             var remoteStream = evt.stream;
                             var id = remoteStream.getId();
                             remoteStream.play("remote_video_");
                             console.log('stream-subscribed remote-uid: ', id);
                         })
 
-                        rtc.client.on("stream-unsubscribed", function (evt) {
+                        rtc.client.on("stream-unsubscribed", function (evt) { 
                             var remoteStream = evt.stream;
                             var id = remoteStream.getId();
                             remoteStream.pause("remote_video_");
                             console.log('stream-unsubscribed remote-uid: ', id);
                         })
                     }
-                }, function (err) {
+                }, function (err) { 
                     console.error("client join failed", err)
                 })
 
@@ -158,15 +140,6 @@ class Live extends Component {
         });
     }
 
-    leaveEventHost = (params) => {
-        rtc.client.unpublish(rtc.localStream, function (err) {
-            console.log("publish failed");
-            console.error(err);
-        })
-        rtc.client.leave(function (ev) {
-            console.log(ev)
-        })
-    }
 
     leaveEventAudience = (params) => {
         rtc.client.leave(function () {
@@ -178,37 +151,7 @@ class Live extends Component {
         })
     }
 
-    goLiveAnimationBtn = () => {
-        live1 = setInterval(() => {
-            if (this.state.strimeLiveStatus == false) {
-                this.setState({ goLiveAnimationBtn: false });
-                clearInterval(live1);
-            } else {
-                if (this.state.goLiveAnimationBtn == true) {
-                    this.setState({ goLiveAnimationBtn: false })
-                } else {
-                    this.setState({ goLiveAnimationBtn: true })
-                }
-            }
-        }, 1000);
-    }
-
-    createStream = () => {
-        StreamApi.goLive().then(res => {
-            console.log(res)
-            if (res.data.Error == false) {
-                this.setState({
-                    token: res.data.stream.stream_token,
-                    channelName: res.data.stream.chanal_name
-                }, () => {
-                    this.joinChannel('host')
-                })
-
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-    }
+   
 
     render() {
         let { data } = this.state
@@ -218,87 +161,33 @@ class Live extends Component {
                 <Leftnav />
                 <Rightchat />
 
+
+
                 <div className="main-content right-chat-active">
                     <div className="middle-sidebar-bottom">
                         <div className="middle-sidebar-left pe-0" style={{ maxWidth: "100%" }}>
                             <div className="row">
                                 <div className="col-xl-8 col-xxl-9 col-lg-8">
-                                    {/* *********************************************** */}
-                                    {!this.state.goLiveLoader && !this.state.goLive && (
-                                        <div className='d-flex bg-greylight rounded mx-2 align-items-center justify-content-center'
-                                            style={{ width: "100%", height: '100%' }}
-                                        >
-                                            <button
-                                                onClick={() => {
-                                                    this.setState({ goLiveLoader: true }, () => {
-                                                        this.createStream()
-                                                    })
-                                                }}
-                                                className='btn btn-danger'>Go Live</button>
+                                    {this.state.loadingApi && (
+                                        <div className='d-flex justify-content-center align-items-center w-100' style={{ height: "400px" }} >
+                                            lading..
                                         </div>
                                     )}
-                                    {this.state.goLiveLoader && !this.state.goLive && (
-                                        <div className='d-flex bg-greylight rounded mx-2 align-items-center justify-content-center'
-                                            style={{ width: "100%", height: '100%' }}
-                                        >
-                                            <button className='btn btn-danger'>Loading....</button>
-                                        </div>
-                                    )}
-                                    <div className={`vedioStrimingsContainer ${this.state.goLive ? "" : "d-none"}`}>
-                                        <div className='liveBtn'>
+                                    <div className={`vedioStrimingsContainer ${this.state.loadingApi ? "d-none" : ""}`}>
+                                        {/* <div className='liveBtn'>
                                             <button className='btn btn-danger lookingAud '>
                                                 <i className="ti-eye mt-1  pr-2"></i> 33
                                             </button>
-                                            {this.state.goLive &&
-                                                this.state.strimeLiveStatus &&
-                                                this.state.goLiveAnimationBtn && (
-                                                    <button className='btn btn-danger ml-2'>Live</button>
-                                                )}
+                                            <button className='btn btn-danger ml-2'>Live</button>
+                                        </div> */}
 
-
-                                        </div>
-
-                                        {/* <button className='btn btn-danger goLiveTimer'>
-                                            <DateCountdown dateTo='January 01, 2023 00:00:00 GMT+03:00' callback={() => alert('Hello')} />
-                                        </button> */}
-
-
-
-                                        <div id="local_stream" className="local_stream" />
-                                        {this.state.strimeLiveStatus && (
-                                            <div className='liveBtnEnd'
-                                                onClick={() => {
-
-                                                    this.setState({ strimeLiveStatus: false }, () => {
-                                                        this.goLiveAnimationBtn()
-                                                        this.leaveEventHost('host');
-                                                    })
-                                                }}
-                                            >
-                                                <button className='btn btn-danger'>End</button>
-                                            </div>
-                                        )}
-
-                                        {!this.state.strimeLiveStatus && (
-                                            <div className='liveBtnEnd'
-                                                onClick={() => {
-                                                    this.setState({ strimeLiveStatus: true }, () => {
-                                                        this.joinChannel('host')
-                                                    })
-                                                }}
-                                            >
-                                                <button className='btn btn-danger'>Go Live</button>
-                                            </div>
-                                        )}
-
-                                        {/* <div id="remote_video_" style={{ width: "100%", height: "100%" }}  /> */}
+                                        <div id="remote_video_" className='w-100 h-100' />
                                     </div>
 
+
+                                   
                                     {/* **************************************************************** */}
-                                    {/* <button onClick={() => this.joinChannel('host')}>Join Channel as Host</button>
-                                    <button onClick={() => this.joinChannel('audience')}>Join Channel as Audience</button>
-                                    <button onClick={() => this.leaveEventHost('host')}>Leave Event Host</button>
-                                    <button onClick={() => this.leaveEventAudience('audience')}>Leave Event Audience</button> */}
+
 
                                     {/* **************************************************************** */}
                                     <div className="card border-0 mb-0 rounded-3 overflow-hidden chat-wrapper bg-image-center bg-image-cover d-none"

@@ -382,48 +382,47 @@
   width: 100%;
   // background-color: red;
 }
-.postModalHeader  > div:first-child{
+.postModalHeader > div:first-child {
   display: flex !important;
   justify-content: space-between;
   align-items: center;
 }
-.postModalHeader  > div:first-child  > div:first-child{
+.postModalHeader > div:first-child > div:first-child {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   overflow: hidden;
   margin-right: 10px;
 }
-.postModalHeader  > div:first-child  > div:first-child img{
+.postModalHeader > div:first-child > div:first-child img {
   width: 100%;
   height: 100%;
-object-fit: cover;
-object-position: center;
+  object-fit: cover;
+  object-position: center;
 }
-.postModalHeader  > div:first-child h4{
+.postModalHeader > div:first-child h4 {
   font-weight: bold;
   text-transform: capitalize;
   margin-bottom: 0px;
 }
-.postmodalContainer{
+.postmodalContainer {
   max-height: 70vh;
- 
 }
 
-.postModalSlider .slider-wrapper img{
+.postModalSlider .slider-wrapper img {
   height: 100%;
   width: auto !important;
 }
-.postModalSlider .slider-wrapper li div{
-  height: 65vh; 
-  background-color: rgba(36, 36, 35, 0.631) !important; 
-}
- 
-.postModalSlider .thumbs-wrapper {
-display: none;
+.postModalSlider .slider-wrapper li div {
+  height: 65vh;
+  background-color: rgba(36, 36, 35, 0.631) !important;
 }
 
-.commentsContainer{
+.postModalSlider .thumbs-wrapper {
+  display: none;
+}
+
+.commentsContainer {
   height: 300px;
   overflow: hidden;
   overflow-y: scroll;
@@ -431,44 +430,82 @@ display: none;
 
 // *****************************************************
 
-
-.eventsTabs{
+.eventsTabs {
   display: flex;
   margin-left: -30px;
 }
-.eventsTabs > div{
-  padding:20px 0px;
+.eventsTabs > div {
+  padding: 20px 0px;
   margin-left: 30px;
   font-weight: bold;
-  cursor: pointer; 
+  cursor: pointer;
 }
-.eventsTabs.smtabs > div{
-  padding:5px 0px !important;
+.eventsTabs.smtabs > div {
+  padding: 5px 0px !important;
 }
-.eventsTabs > div.active{
+.eventsTabs > div.active {
   border-bottom: 2px solid black;
 }
 
-.eventCard{
+.eventCard {
   width: 100%;
   height: 200px;
 }
-.eventCard > img{
+.eventCard > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.imageControlermd{
+.imageControlermd {
   width: 100px !important;
   height: 100px !important;
   border-radius: 50% !important;
   overflow: hidden !important;
 }
-.imageControlermd > img{
+.imageControlermd > img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover;
   object-position: center;
 }
+
+// *****************
+.vedioStrimingsContainer {
+  position: relative;
+}
+.vedioStrimingsContainer .liveBtn {
+  position: absolute;
+  display: flex;
+  top: 10px;
+  left: 10px;
+  z-index: 9;
+}
+.vedioStrimingsContainer .goLiveTimer {
+  position: absolute;
+  display: flex;
+  top: 10px;
+  right: 10px;
+  z-index: 9;
+}
+.vedioStrimingsContainer .liveBtn > button {
+  margin-left: 5px;
+}
+
+.vedioStrimingsContainer .liveBtnEnd {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: -50px;
+  z-index: 99;
+}
+.vedioStrimingsContainer {
+  height: 500px !important;
+  padding: 5px;
+}
+.local_stream {
+  height: 75vh !important;
+  width: auto !important;
+}
+// *****************
