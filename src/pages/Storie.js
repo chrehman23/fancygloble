@@ -53,7 +53,26 @@ class Storie extends Component {
                             <div className="row">
                                 <div className="col-xl-12">
 
-                                    <Pagetitle title="Streaming" />
+ 
+                                    <div className="card shadow-xss w-100 d-block d-flex border-0 p-4 mb-3">
+                                        <h2 className="fw-700 mb-0  mt-0 font-md text-grey-900 d-flex justify-content-between align-items-center">
+                                            <div className='d-none d-md-block'>Streaming</div>
+                                            <div className='d-flex align-items-center justify-content-end w-100 '>
+                                                <div>
+                                                    <button className='btn btn-danger'
+                                                        onClick={() => {
+                                                            this.props.history.push('/defaultlive')
+                                                        }}
+                                                    >Go Live</button>
+                                                </div>
+                                                <div>
+ 
+                                                </div>
+                                            </div>
+
+
+                                        </h2>
+                                    </div>
                                     <div className="row ps-2 pe-1">
                                         {this.state.Streams.map((data, index) => (
                                             <div
