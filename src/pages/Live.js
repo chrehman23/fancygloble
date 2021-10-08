@@ -6,7 +6,7 @@ import Appfooter from '../components/Appfooter';
 import Popupchat from '../components/Popupchat';
 
 import DateCountdown from 'react-date-countdown-timer';
-
+import socketConnection from '../socketConnection'
 import AgoraRTC from "agora-rtc-sdk";
 
 import StreamApi from '../api/Streams'
@@ -49,6 +49,9 @@ class Live extends Component {
             strimeLiveStatus: false,
             goLiveAnimationBtn: false,
 
+            StreamDetails_id:"",
+            StreamDetails:{}
+
         };
     }
     componentDidMount() {
@@ -90,14 +93,13 @@ class Live extends Component {
                             video: true,
                             screen: false,
                         })
-
                         // Initialize the local stream
                         rtc.localStream.init(function () {
                             console.log("init local stream success");
                             document.getElementById("local_stream").innerHTML = "";
                             rtc.localStream.play("local_stream");
+
                             thisReact.setState({ goLive: true, strimeLiveStatus: true, })
-                            thisReact.goLiveAnimationBtn()
                             rtc.client.publish(rtc.localStream, function (err) {
                                 console.log("publish failed");
                                 thisReact.setState({ goLive: true, strimeLiveStatus: false })
@@ -179,16 +181,11 @@ class Live extends Component {
     }
 
     goLiveAnimationBtn = () => {
-        live1 = setInterval(() => {
-            if (this.state.strimeLiveStatus == false) {
-                this.setState({ goLiveAnimationBtn: false });
-                clearInterval(live1);
+        setInterval(() => {
+            if (this.state.goLiveAnimationBtn == true) {
+                this.setState({ goLiveAnimationBtn: false })
             } else {
-                if (this.state.goLiveAnimationBtn == true) {
-                    this.setState({ goLiveAnimationBtn: false })
-                } else {
-                    this.setState({ goLiveAnimationBtn: true })
-                }
+                this.setState({ goLiveAnimationBtn: true })
             }
         }, 1000);
     }
@@ -199,7 +196,9 @@ class Live extends Component {
             if (res.data.Error == false) {
                 this.setState({
                     token: res.data.stream.stream_token,
-                    channelName: res.data.stream.chanal_name
+                    channelName: res.data.stream.chanal_name,
+                    StreamDetails:res.data.stream,
+                    StreamDetails_id:res.data.stream._id,
                 }, () => {
                     this.joinChannel('host')
                 })
@@ -208,6 +207,13 @@ class Live extends Component {
         }).catch(error => {
             console.log(error)
         })
+    }
+
+    leaveStream = (id) => {
+        socketConnection.emit("remove_stream", this.state.StreamDetails_id)
+    }
+    aginStreamLive = () => {
+        socketConnection.emit("gain_stream_live", this.state.StreamDetails)
     }
 
     render() {
@@ -231,6 +237,7 @@ class Live extends Component {
                                             <button
                                                 onClick={() => {
                                                     this.setState({ goLiveLoader: true }, () => {
+                                                        this.goLiveAnimationBtn()
                                                         this.createStream()
                                                     })
                                                 }}
@@ -246,9 +253,9 @@ class Live extends Component {
                                     )}
                                     <div className={`vedioStrimingsContainer ${this.state.goLive ? "" : "d-none"}`}>
                                         <div className='liveBtn'>
-                                            <button className='btn btn-danger lookingAud '>
+                                            {/* <button className='btn btn-danger lookingAud '>
                                                 <i className="ti-eye mt-1  pr-2"></i> 33
-                                            </button>
+                                            </button> */}
                                             {this.state.goLive &&
                                                 this.state.strimeLiveStatus &&
                                                 this.state.goLiveAnimationBtn && (
@@ -268,9 +275,8 @@ class Live extends Component {
                                         {this.state.strimeLiveStatus && (
                                             <div className='liveBtnEnd'
                                                 onClick={() => {
-
                                                     this.setState({ strimeLiveStatus: false }, () => {
-                                                        this.goLiveAnimationBtn()
+                                                        this.leaveStream();
                                                         this.leaveEventHost('host');
                                                     })
                                                 }}
@@ -283,6 +289,7 @@ class Live extends Component {
                                             <div className='liveBtnEnd'
                                                 onClick={() => {
                                                     this.setState({ strimeLiveStatus: true }, () => {
+                                                        this.aginStreamLive()
                                                         this.joinChannel('host')
                                                     })
                                                 }}

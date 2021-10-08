@@ -21,22 +21,23 @@ class Storie extends Component {
     componentDidMount() {
 
 
-        socketConnection.on('newStream',data=>{ 
+        socketConnection.on('newStream', data => {
             this.setState({
                 Streams: [data, ...this.state.Streams]
             })
         })
+       
 
-        // StreamApi.liveStreamList().then(res => {
-        //     console.log(res)
-        //     if (res.data.Error == false) {
-        //         this.setState({
-        //             Streams: res.data.streams
-        //         })
-        //     }
-        // }).catch(error => {
-        //     console.log(error)
-        // })
+        StreamApi.liveStreamList().then(res => {
+            console.log(res)
+            if (res.data.Error == false) {
+                this.setState({
+                    Streams: res.data.streams
+                })
+            }
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     render() {
@@ -56,7 +57,7 @@ class Storie extends Component {
                                     <div className="row ps-2 pe-1">
                                         {this.state.Streams.map((data, index) => (
                                             <div
-                                                onClick={() => { 
+                                                onClick={() => {
                                                     this.props.history.push(`/live-view/${data._id}`)
                                                 }}
                                                 key={index} className="col-md-3 col-xss-6 pe-2 ps-2 cursor-pointer">
