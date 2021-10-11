@@ -359,13 +359,13 @@ class Postview extends Component {
                         <i className="feather-message-circle text-white   bgthwh btn-round-sm font-xs"></i>
                         <span className="d-none-xss " style={{ marginLeft: "5px" }}>{this.props.commentCount + this.state.commentsCount} Comment</span>
                     </div>
-                    <div className={`pointer ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss ${menuClass}`} id={`dropdownMenu${id}`} data-bs-toggle="dropdown" aria-expanded="false" onClick={this.toggleOpen}>
+                    <div className={`pointer ms-auto d-none d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss ${menuClass}`} id={`dropdownMenu${id}`} data-bs-toggle="dropdown" aria-expanded="false" onClick={this.toggleOpen}>
                         <i className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i>
                         <span className="d-none-xs">Share</span>
                     </div>
                     <div
 
-                        className={`dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg right-0 ${menuClass}`} aria-labelledby={`dropdownMenu${id}`} style={{ minWidth: '300px' }}>
+                        className={`dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg right-0 ${menuClass}`} aria-labelledby={`dropdownMenu${id}`} style={{ minWidth: '300px',zIndex:99 }}>
                         <h4 className="fw-700 font-xss text-grey-900 d-flex align-items-center">Share <i onClick={this.toggleOpen} className="feather-x cursor-pointer ms-auto font-xssss btn-round-xs bg-greylight text-grey-900 me-2"></i></h4>
                         <div className="card-body p-0 d-flex d-none">
                             <ul className="d-flex align-items-center justify-content-between mt-2">
