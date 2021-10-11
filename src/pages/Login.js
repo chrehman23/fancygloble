@@ -224,7 +224,7 @@ class Login extends Component {
                                         <GoogleLogin
                                             socialId={process.env.REACT_APP_GOOGLE_LOGIN_KEY}
                                             className="google-login"
-                                            redirectUri={"http://dev.globalfansy.com:3000/login"}
+                                            redirectUri={"https://development.globalfansy.com/login"}
                                             fetchBasicProfile={true}
                                             responseHandler={this.responseGoogle}
                                             className='w-100 bg-transparent border-0'
