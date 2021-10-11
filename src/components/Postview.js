@@ -3,7 +3,7 @@ import Comments from './Comments';
 import Emojis from './Emojis';
 import PostApi from '../api/Posts'
 import PostSound from '../../public/assets/sounds/post_sound.mp3';
-
+ 
 
  
 
@@ -17,7 +17,11 @@ import icon5 from '../../public/assets/iconss/5.svg'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import BlurBackground from '../../public/assets/images/blur.jpg'
+import AOS from "aos";
+import "aos/dist/aos.css";
 
+
+AOS.init();
 class Postview extends Component {
     constructor() {
         super();
@@ -97,7 +101,7 @@ class Postview extends Component {
         const emojiClass = `${this.state.isActive ? " active" : ""}`;
 
         return (
-            <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+            <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3" data-aos="zoom-in-up">
                 <div className="card-body p-0 d-flex">
                     <figure className="avatar imagesmresponsive me-3"><img src={avater} alt="avater" className="shadow-sm rounded-circle" /></figure>
                     <h4 className="fw-700 text-grey-900 font-xssss mt-1 text-capitalize"> {user} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500 text-lowercase"> {time} ago</span></h4>
@@ -187,12 +191,12 @@ class Postview extends Component {
 
                         )}
                     </>
-                )}
+                )} 
                 {allData.user_paid && (
                     <>
                         {postvideo ? (
                             <>
-                                {allData.url_status && (
+                                {allData.url_status && allData.video_url !== "" &&  (
                                     <div className="card-body d-block p-0 mb-3 mt-3">
                                         <div className='row'>
                                             <div className='col-12'>

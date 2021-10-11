@@ -21,50 +21,11 @@ import defaultProfilePhoto from '../../public/assets/images/user.png'
 
 import UsersGoingToEvent from '../components/UsersGoingToEvent'
 
-// const eventList = [
-//     {
-//         imageUrl: 'hotel.png',
-//         title: 'Right here Right Now -  Comedy ',
-//         location: 'Goa, Mumbai',
-//         date: '22',
-//         month: 'FEB',
-//     },
-//     {
-//         imageUrl: 'hotel.png',
-//         title: 'Open Mic-Stand up Comedy and Poetry',
-//         location: 'Goa, Mumbai',
-//         date: '22',
-//         month: 'FEB',
-//     },
-//     {
-//         imageUrl: 'hotel.png',
-//         title: 'Mohd Suhels Guide to the Galaxy',
-//         location: 'Goa, Mumbai',
-//         date: '22',
-//         month: 'FEB',
-//     },
-//     {
-//         imageUrl: 'hotel.png',
-//         title: 'Charlotte De Witte India Tour',
-//         location: 'Goa, Mumbai',
-//         date: '31',
-//         month: 'APR',
-//     },
-//     {
-//         imageUrl: 'hotel.png',
-//         title: 'A Stand-up Comedy Show by Rahul',
-//         location: 'Goa, Mumbai',
-//         date: '04',
-//         month: 'MAR',
-//     },
-//     {
-//         imageUrl: 'hotel.png',
-//         title: 'Sunburn Holi Weekend 2021  ',
-//         location: 'Goa, Mumbai',
-//         date: '22',
-//         month: 'FEB',
-//     },
-// ]
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+
+AOS.init();
 
 class Events extends Component {
 
@@ -234,7 +195,7 @@ class Events extends Component {
                                             <div className={this.state.eventsTabs == 3 ? "active" : ""} onClick={() => this.changeTabs(3)}>Own Evnts</div>
                                             <div className={this.state.eventsTabs == 2 ? "active" : ""} onClick={() => this.changeTabs(2)}>Going</div>
                                         </div>
-                                    </div>
+                                    </div> 
 
                                     {this.state.inputSearch.length > 0 && (
 
@@ -243,7 +204,7 @@ class Events extends Component {
                                     )}
                                     {this.state.loader && <Load />}
                                     {!this.state.loader && this.state.events.length == 0 && (
-                                        <div className="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3">
+                                        <div className="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3" >
                                             <div className="snippet mt-2 ms-auto me-auto" data-title=".dot-typing">
                                                 <div className="stage">
                                                     <p className='mb-0'><b>No Event found.</b></p>
@@ -256,7 +217,7 @@ class Events extends Component {
                                     <div className="row ps-2 pe-1">
                                         {!this.state.loader && this.state.events.map((value, index) => (
                                             <>
-                                                <div key={index} className="col-lg-4 col-md-6 pe-2 ps-2">
+                                                <div key={index} className="col-lg-4 col-md-6 pe-2 ps-2" data-aos="zoom-in-up">
                                                     <div className="card p-3 bg-white w-100 hover-card border-0 shadow-xss rounded-xxl border-0 mb-3 overflow-hidden ">
                                                         <div className="card-image w-100" style={{ height: "200px" }}>
                                                             <img src={value.thumbnail && `${value.thumbnail[0] && value.thumbnail[0].picture}`} alt="event" className="w-100 rounded-3" />

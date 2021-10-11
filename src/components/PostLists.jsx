@@ -18,8 +18,10 @@ import avatar from '../../public/assets/images/user.png';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
-
+import ContentLoader, { Facebook } from 'react-content-loader'
 import defaultProfilePhoto from '../../public/assets/images/user.png'
+import { Waypoint } from 'react-waypoint';
+
 
 export class PostLists extends Component {
    constructor() {
@@ -54,31 +56,34 @@ export class PostLists extends Component {
 
 
    getPosts = () => {
-      this.setState({ postApiLoader: true });
-      let pageNum = parseInt(localStorage.getItem('post_page'))
-      let data = {
-         page: pageNum
-      }
-      PostApi.getPostsByuser(data).then(res => {
-         if (res.data.Error == false) {
-            this.setState({
-               postApiLoader: false,
-            })
-            localStorage.setItem('post_page', pageNum + 1)
-            if (res.data.posts.length == 0 && res.data.posts.length < 10) {
-               this.setState({ noPost: true })
-            }
-
-            if (pageNum > 1) {
-               this.props.newPosts(res.data.posts)
-            } else {
-               this.props.addPosts(res.data.posts)
-            }
-
-         } else {
-            console.log("Posts api error.")
+      if (this.state.postApiLoader==false){
+         this.setState({ postApiLoader: true });
+         let pageNum = parseInt(localStorage.getItem('post_page'))
+         let data = {
+            page: pageNum
          }
-      })
+         PostApi.getPostsByuser(data).then(res => {
+            if (res.data.Error == false) {
+               this.setState({
+                  postApiLoader: false,
+               })
+               localStorage.setItem('post_page', pageNum + 1)
+               if (res.data.posts.length == 0 && res.data.posts.length < 10) {
+                  this.setState({ noPost: true })
+               }
+
+               if (pageNum > 1) {
+                  this.props.newPosts(res.data.posts)
+               } else {
+                  this.props.addPosts(res.data.posts)
+               }
+
+            } else {
+               console.log("Posts api error.")
+            }
+         })
+      }
+    
    }
 
    modalPostView = (post) => {
@@ -148,8 +153,35 @@ export class PostLists extends Component {
                   />
                )
             })}
+            
 
-            {this.state.postApiLoader && (<Load />)}
+            {this.state.postApiLoader && (
+               <>
+                  <div className='card w-100   shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3'>
+                     <Facebook />
+               </div>
+                  <div className='card w-100   shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3'>
+                     <Facebook />
+               </div>
+                  <div className='card w-100   shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3'>
+                     <Facebook />
+               </div>
+                  <div className='card w-100   shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3'>
+                     <Facebook />
+               </div>
+                  <div className='card w-100   shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3'>
+                     <Facebook />
+               </div>
+                  <div className='card w-100   shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3'>
+                     <Facebook />
+               </div>
+                  <div className='card w-100   shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3'>
+                     <Facebook />
+               </div>
+                 
+                  
+               </>
+            )}
 
             {!this.state.noPost && !this.state.postApiLoader && (
 
@@ -172,6 +204,17 @@ export class PostLists extends Component {
                   </div>
                </div>
             )}
+
+            {!this.state.postApiLoader && !this.state.noPost && (
+               <Waypoint
+                  onEnter={() => {
+                     this.getPosts()
+                  }}
+
+               />
+            )}
+
+          
 
 
             {/* post View Modal  */}
