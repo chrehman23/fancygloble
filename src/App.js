@@ -13,7 +13,7 @@ import './index.scss';
 import "../public/assets/css/style.css" ;
 import "../public/assets/css/feather.css" ;
 import "../public/assets/css/themify-icons.css" ; //icons
-// import "./assets/fontawesome-pro/css/all.min.css" ; //icons
+import "./assets/fontawesome-pro/css/all.min.css" ; //icons
 
 // Common Layout
 import Demo from './demo/Demo';
@@ -58,6 +58,7 @@ import AddEvent from './pages/AddEvent';
 import Hotel from './pages/Hotel';
 import Videos from './pages/Videos';
 import Comingsoon from './pages/Comingsoon';
+import AddCourses from './pages/AddCourses';
 
 import Grouppage from './pages/Grouppage';
 import Userpage from './pages/Userpage';
@@ -128,6 +129,7 @@ class App extends Component {
           <Route exact path={`/home`} component={Home} />
           <Route exact path={`/post/:id`} component={Post} />
           <Route exact path={`/user/:user_name`} component={UserProfile} />
+          <Route exact path={`/add-course`} component={AddCourses} />
 
           <Route exact path={`/defaultlive`} component={Live} />
           <Route exact path={`/live-view/:id`} component={LiveView} />
@@ -153,7 +155,7 @@ class App extends Component {
           <Route exact path={`/defaultnotification`} component={Notification} />
           <Route exact path={`/helpbox`} component={Helpbox} />
 
-          <Route exact path={`/notfound`} component={Notfound} />
+        
 
           <Route exact path={`/shop1`} component={ShopOne} />
           <Route exact path={`/shop2`} component={ShopTwo} />
@@ -172,6 +174,7 @@ class App extends Component {
           <Route exact path={`/authorpage`} component={Authorpage} />
           <Route exact path={`/comingsoon`} component={Comingsoon} />
           <Route exact path={`/defaulthoteldetails`} component={Hotelsingle} />
+          <Route component={Notfound} />
         </Switch>
       </BrowserRouter>
     );

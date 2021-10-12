@@ -43,7 +43,8 @@ class Events extends Component {
             goingtoEventLoader: false,
             goingtoEventMsg: '',
 
-            eventsTabsModal:1
+            eventsTabsModal: 1,
+            eventsTabsModalTabs: 1,
 
         }
     }
@@ -195,7 +196,7 @@ class Events extends Component {
                                             <div className={this.state.eventsTabs == 3 ? "active" : ""} onClick={() => this.changeTabs(3)}>Own Evnts</div>
                                             <div className={this.state.eventsTabs == 2 ? "active" : ""} onClick={() => this.changeTabs(2)}>Going</div>
                                         </div>
-                                    </div> 
+                                    </div>
 
                                     {this.state.inputSearch.length > 0 && (
 
@@ -246,7 +247,8 @@ class Events extends Component {
                                                                         eventModalDetails: value,
                                                                         EventViewModal: true,
                                                                         goingtoEventMsg: "",
-                                                                        eventsTabsModal:1
+                                                                        eventsTabsModal: 1,
+                                                                        eventsTabsModalTabs: 1,
                                                                     })
                                                                 }}>
                                                                 <button className='btn btn-primary'>View</button>
@@ -297,7 +299,21 @@ class Events extends Component {
                                 {/* {JSON.stringify(this.state.eventModalDetails)} */}
                                 <div className='row'>
                                     <div className='col-md-8'>
-                                        {this.state.eventModalDetails && this.state.eventModalDetails.image_status && (
+
+                                        {this.state.eventsTabsModalTabs == 2 && this.state.eventModalDetails && this.state.eventModalDetails.url_status && (
+                                            <div className="card-body d-block p-0 mb-3 mt-3">
+                                                <div className='row'>
+                                                    <div className='col-12'>
+                                                        <video className='vedioPlayer' controls autoplay>
+                                                            <source src={this.state.eventModalDetails && this.state.eventModalDetails.video_url} type="video/mp4" />
+                                                            Your browser does not support HTML5 video.
+                                                        </video>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {this.state.eventsTabsModalTabs == 1 && this.state.eventModalDetails && this.state.eventModalDetails.image_status && (
                                             <div className='postModalSlider'>
                                                 <Carousel
                                                     autoPlay={false}
@@ -321,7 +337,7 @@ class Events extends Component {
                                             <div className={this.state.eventsTabsModal == 1 ? "active" : ""} onClick={() => this.setState({ eventsTabsModal: 1 })} >Events Details</div>
                                             <div className={this.state.eventsTabsModal == 2 ? "active" : ""} onClick={() => this.setState({ eventsTabsModal: 2 })}>Going Members</div>
                                         </div>
-                                        {this.state.eventsTabsModal == 1  && (
+                                        {this.state.eventsTabsModal == 1 && (
                                             <>
                                                 <table className='table '>
                                                     {this.state.eventModalDetails.event_type == "Physical" && (
@@ -398,18 +414,25 @@ class Events extends Component {
                                                         )}
                                                     </div>
                                                 )}
+                                                {this.state.eventModalDetails && this.state.eventModalDetails.video_url !== '' && (
+                                                    <div className='eventsTabs smtabs mb-3 mt-5'>
+                                                        <div className={this.state.eventsTabsModalTabs == 2 ? "active" : ""} onClick={() => this.setState({ eventsTabsModalTabs: 2 })}>Video</div>
+                                                        <div className={this.state.eventsTabsModalTabs == 1 ? "active" : ""} onClick={() => this.setState({ eventsTabsModalTabs: 1 })} >Pictures</div>
+                                                    </div>
+                                                )}
+
                                             </>
                                         )}
 
                                         {this.state.eventsTabsModal == 2 && (
                                             <>
-                                            {/* comments onmodal */}
-                                                <UsersGoingToEvent _id={this.state.eventModalDetails._id}/>
+                                                {/* comments onmodal */}
+                                                <UsersGoingToEvent _id={this.state.eventModalDetails._id} />
                                             </>
                                         )}
 
 
-                                     
+
 
 
 

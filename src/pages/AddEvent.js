@@ -22,7 +22,7 @@ let validationSchemaEvent = Yup.object({
     event_type: Yup.string().required('Event type is required.'),
     paid_status: Yup.string().required('Paid/Fee is required.'),
     dateTime: Yup.array().min(1, 'Start date and end date is required.').required('Start date and end date is required.'),
-    thumbnail: Yup.string().required('Thumbnail is required.'),
+    thumbnail: Yup.array().required('Thumbnail is required.'),
     seats_status: Yup.string().required('Event status is required.'),
 
     paid_amount: Yup.string().when("paid_status", {
@@ -47,14 +47,46 @@ class AddEvents extends Component {
         this.state = {
             loader: true,
             value: "",
-            thumbnail: "",
+            thumbnail: [],
+            thumbnailObject: [],
+            fileError:"",
             serverError: "",
+            vedioUrl:'',
+            vedioFile:'',
 
         }
     }
 
     componentDidMount() {
 
+    }
+
+    removeImage = (index) => {
+        let imagesList = this.state.thumbnail;
+        imagesList.splice(index, 1); 
+        let imagesList2 = this.state.thumbnailObject;
+        imagesList2.splice(index, 1);
+        this.setState({    
+            thumbnail: imagesList,
+            thumbnailObject: imagesList2,
+            
+        })
+    }
+    readVideo(event) {
+        let file = event.currentTarget.files[0]
+        if (event.target.files && event.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                // videoSrc.src = e.target.result
+                // videoTag.load()
+                this.setState({
+                    vedioUrl: e.target.result,
+                    vedioFile: file,
+                })
+            }.bind(this)
+
+            reader.readAsDataURL(event.target.files[0]);
+        }
     }
 
     componentDidUpdate(prevProps, prevState,) {
@@ -92,7 +124,7 @@ class AddEvents extends Component {
                                         }}
                                         validationSchema={validationSchemaEvent}
                                         onSubmit={(values, { setSubmitting }) => {
-
+                                            console.log(values)
 
                                             let data = new FormData();
                                             data.append('title', values.title)
@@ -104,7 +136,13 @@ class AddEvents extends Component {
                                             data.append('end_date', new Date(values.dateTime[1]))
                                             data.append('seats_status', values.seats_status)
                                             data.append('event_seats', values.event_seats)
-                                            data.append('thumbnail', values.thumbnail)
+                                            data.append('video_url', this.state.vedioFile)
+                                            // data.append('thumbnail', values.thumbnail)
+                                            let images = values.thumbnail
+
+                                            for (let i = 0; i < images.length; i++) {
+                                                data.append('thumbnail', images[i])
+                                            }
 
                                             Events.addEvent(data).then(res => {
                                                 console.log(res)
@@ -142,38 +180,44 @@ class AddEvents extends Component {
                                                 </div>
 
                                                 <div className="card w-100   overflow-hidden border-0      ">
-                                                    <div className="card-body position-relative h150 bg-image-cover bg-image-center"
-                                                        style={{ backgroundImage: `url("${this.state.thumbnail ? this.state.thumbnail : backgroundImage}")` }}>
-                                                        <span className='editebtn baner'
-                                                            onClick={() => { document.getElementById("thumbnail").click() }}
-                                                        ><i className="font-sm ti-pencil-alt text-grey-500 pe-0 "></i></span>
-                                                    </div>
+                                                    
 
 
                                                     <input type='file' name='profile_photo' id="thumbnail"
                                                         onChange={(e) => {
                                                             if (e.target.value) {
+                                                                let mb = parseInt((e.currentTarget.files[0].size / (1024 * 1024)).toFixed(2));
+                                                                if (mb > 1) {
+                                                                    this.setState({
+                                                                        fileError: "File size should less then 1MB",
+                                                                    })
+                                                                } else {
                                                                 if (e.currentTarget.files[0].type.split('/')[0] == "image") {
                                                                     const file = e.currentTarget.files[0];
                                                                     let reader = new FileReader();
                                                                     reader.onloadend = () => {
-                                                                        setFieldValue("thumbnail", file)
+                                                                        setFieldValue("thumbnail", [...this.state.thumbnailObject, file])
                                                                         this.setState({
-                                                                            thumbnail: reader.result,
+                                                                            thumbnail: [...this.state.thumbnail, reader.result],
+                                                                            thumbnailObject: [...this.state.thumbnailObject,file],
+                                                                            fileError:""
                                                                         }, () => {
                                                                             // console.log(this.state.profileImageURL)
                                                                         });
                                                                     };
                                                                     reader.readAsDataURL(file);
                                                                 } else {
-                                                                    setFieldValue("thumbnail", '')
+                                                                    // setFieldValue("thumbnail", '')
                                                                     this.setState({
                                                                         profileImage: '',
+                                                                        fileError: "",
+                                                                        fileError: "File format does not supported.Upload file in JPG/JPEG/PNG format."
                                                                     })
+                                                                }
                                                                 }
 
                                                             } else {
-                                                                setFieldValue("thumbnail", '')
+                                                                // setFieldValue("thumbnail", '')
                                                                 this.setState({
                                                                     profileImage: '',
                                                                 })
@@ -184,10 +228,107 @@ class AddEvents extends Component {
                                                         className='d-none' />
 
 
+                                                    <input type='file' id="post_vedio"
+                                                        // value={this.state.post_images}
+                                                        onChange={(e) => {
+                                                            this.setState({
+                                                                vedioUrl: "",
+                                                            })
+                                                            if (e.target.value) {
+                                                                let mb = parseInt((e.currentTarget.files[0].size / (1024 * 1024)).toFixed(2));
+                                                                // console.log("mb", typeof mb)
+                                                                if (mb > 1) {
+                                                                    this.setState({
+                                                                        fileError: "File size should less then 1MB",
+                                                                    })
+                                                                } else {
+
+                                                                    if (e.currentTarget.files[0].type.split('/')[0] == "video") {
+                                                                        this.readVideo(e);
+                                                                    } else {
+                                                                        this.setState({
+                                                                            vedioUrl: "",
+                                                                            vedioFile: "",
+                                                                            fileError: "File format does not supported.Upload file in MP4 format."
+                                                                        })
+                                                                    }
+
+                                                                }
+
+                                                            } else {
+                                                                this.setState({
+                                                                    vedioUrl: "",
+                                                                    vedioFile: ""
+                                                                })
+                                                            }
+
+
+                                                        }}
+                                                        className='d-none' />
+
+
+
 
                                                 </div>
                                                 <div className="card-body p-lg-5 p-4 pt-n-5 pt-0 w-100 border-0 ">
+                                                    <div className="row">
+                                                        {this.state.thumbnail.map((data,index)=>{
+                                                            return (
+                                                              <div className="col-md-6" 
+                                                              key={index}
+                                                                    onClick={async() => {
+                                                                       await this.removeImage(index) 
+                                                                        console.log(this.state.thumbnailObject)
+                                                                       setTimeout(() => {
+                                                                           if(this.state.thumbnailObject.length==0){
+                                                                               setFieldValue("thumbnail", '')
+                                                                            }else{
+                                                                               setFieldValue("thumbnail", this.state.thumbnailObject)
+                                                                           }
+                                                                       }, 500);
+                                                                    }}
+                                                              >
+                                                                    <div className="evetImagePre">
+                                                                        <img src={data} alt="" />
+                                                                    </div>
+                                                              </div>
+                                                            )
+                                                        })}
+                                                    </div> 
                                                     <form onSubmit={handleSubmit}>
+                                                        <div className="row">
+                                                            <div className="col-md-6">
+                                                                <div className="courseUploadVedio">
+                                                                    <div className='text-center' onClick={() => { document.getElementById("thumbnail").click() }}>
+                                                                        <button type='button' className='btn btn-danger'>Upload Picture</button>
+                                                                        <p className='mb-0 pb-0'>File Format:.JPG/JPEG/PNG</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-6">
+                                                                {!this.state.vedioUrl && (
+                                                                    <div className="courseUploadVedio">
+                                                                        <div className='text-center' onClick={() => { document.getElementById("post_vedio").click() }}>
+                                                                            <button type='button' className='btn btn-danger'>Upload Video</button>
+                                                                            <p className='mb-0 pb-0'>File Format:.mp4</p>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                               
+                                                                {this.state.vedioUrl && (
+                                                                    <div className="card-body d-block p-0 mb-3 mt-3">
+                                                                        <div className='row'>
+                                                                            <div className='col-12'>
+                                                                                <video className='vedioPlayer' controls autoplay>
+                                                                                    <source src={this.state.vedioUrl} type="video/mp4" />
+                                                                                    Your browser does not support HTML5 video.
+                                                                                </video>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </div>
                                                         <div className="row">
                                                             <div className="col-lg-12 mb-3">
                                                                 <ErrorMessage
@@ -195,6 +336,9 @@ class AddEvents extends Component {
                                                                     component="small"
                                                                     className="text-danger"
                                                                 />
+                                                                {this.state.fileError && (
+                                                                    <p className='text-danger font-weight-bold'><small>{this.state.fileError}</small></p>
+                                                                )}
                                                             </div>
                                                             <div className="col-lg-12 mb-3">
                                                                 <div className="form-group">
@@ -215,7 +359,7 @@ class AddEvents extends Component {
                                                                     <label className="mont-font fw-600 font-xsss mb-2">Start Date/End Date</label>
                                                                     <DateTimeRangePicker
                                                                         // dateTtime={true}
-                                                                        // format="D-M-Y h:mm a"
+                                                                        format="y-MM-dd h:mm:ss a"
                                                                         minDate={new Date()}
                                                                         className='form-control dateTimepicker'
                                                                         onChange={(e) => {
