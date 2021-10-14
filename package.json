@@ -8,11 +8,11 @@
     "@svgr/webpack": "4.1.0",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
-    "@wojtekmaj/react-datetimerange-picker": "^3.4.0",
+    "@wojtekmaj/react-datetimerange-picker": "^3.4.2",
     "agora-rtc-sdk": "^3.6.5",
     "agora-stream-player": "^1.2.0",
     "aos": "^2.3.4",
-    "apexcharts": "^3.28.3",
+    "apexcharts": "^3.29.0",
     "axios": "^0.21.4",
     "babel-eslint": "10.0.1",
     "babel-jest": "^24.9.0",
@@ -103,7 +103,7 @@
     "webpack-dev-server": "3.2.1",
     "webpack-manifest-plugin": "2.0.4",
     "workbox-webpack-plugin": "4.2.0",
-    "yup": "^0.32.9"
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "node scripts/start.js",

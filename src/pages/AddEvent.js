@@ -174,7 +174,7 @@ class AddEvents extends Component {
                                             /* and other goodies */
                                         }) => (
                                             <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                                                <div className="card-body p-4 w-100 bg-current border-0 d-flex rounded-3">
+                                                <div className="card-body p-4 w-100 bgthwh border-0 d-flex rounded-3">
                                                     <Link to="/events" className="d-inline-block mt-2"><i className="ti-arrow-left font-sm text-white"></i></Link>
                                                     <h4 className="font-xs text-white fw-600 ms-4 mb-0 mt-2">Add Event</h4>
                                                 </div>
@@ -298,7 +298,7 @@ class AddEvents extends Component {
                                                     <form onSubmit={handleSubmit}>
                                                         <div className="row">
                                                             <div className="col-md-6">
-                                                                <div className="courseUploadVedio">
+                                                                <div className="courseUploadVedio bgthwh rounded">
                                                                     <div className='text-center' onClick={() => { document.getElementById("thumbnail").click() }}>
                                                                         <button type='button' className='btn btn-danger'>Upload Picture</button>
                                                                         <p className='mb-0 pb-0'>File Format:.JPG/JPEG/PNG</p>
@@ -307,7 +307,7 @@ class AddEvents extends Component {
                                                             </div>
                                                             <div className="col-md-6">
                                                                 {!this.state.vedioUrl && (
-                                                                    <div className="courseUploadVedio">
+                                                                    <div className="courseUploadVedio bgthwh rounded">
                                                                         <div className='text-center' onClick={() => { document.getElementById("post_vedio").click() }}>
                                                                             <button type='button' className='btn btn-danger'>Upload Video</button>
                                                                             <p className='mb-0 pb-0'>File Format:.mp4</p>
@@ -507,14 +507,14 @@ class AddEvents extends Component {
                                                         {isSubmitting && (
                                                             <div className="row">
                                                                 <div className="col-lg-12 d-flex justify-content-end">
-                                                                    <button type="button" className="btn btn-primary">Loading...</button>
+                                                                    <button type="button" className="btn btn-primary bgthwh">Loading...</button>
                                                                 </div>
                                                             </div>
                                                         )}
                                                         {!isSubmitting && (
                                                             <div className="row">
                                                                 <div className="col-lg-12 d-flex justify-content-end">
-                                                                    <button type="submit" className="btn btn-primary">Add Event</button>
+                                                                    <button type="submit" className="btn btn-primary bgthwh">Add Event</button>
                                                                 </div>
                                                             </div>
                                                         )}

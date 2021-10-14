@@ -1,0 +1,60 @@
+import axios from "../axios";
+
+
+let CourseApi = {
+   addCourse: (data) => {
+      return axios({
+         url: "/api/users/addCourse",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   updateCourse: (data) => {
+      return axios({
+         url: "/api/users/updateCourse",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   courseDetails: (data) => {
+      return axios({
+         url: "/api/users/courseDetails",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   addCourseSection: (data) => {
+      return axios({
+         url: "/api/users/addCourseSection",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   courseSections: (data) => {
+      return axios({
+         url: "/api/users/courseSections",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+ 
+
+
+}
+export default CourseApi
+
