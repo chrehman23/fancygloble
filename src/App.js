@@ -25,6 +25,7 @@ import Storie from './pages/Storie';
 
 import Courses from './pages/Courses';
 import MyCourses from './pages/MyCourses';
+import CoursesDetail from './pages/CoursesDetail';
 import Events from './pages/Events';
 import UpdatePassword from './pages/ChangePassword';
 import Member from './pages/Member';
@@ -134,6 +135,7 @@ class App extends Component {
           <Route exact path={`/add-course`} component={AddCourses} />
           <Route exact path={`/courses`} component={Courses} />
           <Route exact path={`/my-courses`} component={MyCourses} />
+          <Route exact path={`/course-detail/:id`} component={CoursesDetail} />
 
           <Route exact path={`/defaultlive`} component={Live} />
           <Route exact path={`/live-view/:id`} component={LiveView} />

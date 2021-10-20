@@ -132,22 +132,26 @@ class CoursesSections extends Component {
                             })}
                         </div>
                     )}
-                    <div className="col-12">
-                        <div
-                            onClick={() => this.setState({
-                                addLactureModal: true,
-                                addLactureLoader: false,
-                                ApiError: "",
-                            })}
-                            className='d-flex align-items-center justify-content-between bg-greylight cursor-pointer px-2' style={{ margin: '0px -15px', padding: '0px 15px' }}>
-                            <div>
-                                Add Lacture
-                            </div>
-                            <div className='p-2'>
-                                <i class="far fa-plus p-2 cursor-pointer" ></i>
+
+                    {this.state.loadLactures && (
+                        <div className="col-12">
+                            <div
+                                onClick={() => this.setState({
+                                    addLactureModal: true,
+                                    addLactureLoader: false,
+                                    ApiError: "",
+                                })}
+                                className='d-flex align-items-center justify-content-between bg-greylight cursor-pointer px-2' style={{ margin: '0px -15px', padding: '0px 15px' }}>
+                                <div>
+                                    Add Lacture
+                                </div>
+                                <div className='p-2'>
+                                    <i class="far fa-plus p-2 cursor-pointer" ></i>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
+                   
 
 
                 </div>

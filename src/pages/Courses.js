@@ -59,6 +59,7 @@ class Courses extends Component {
                                                 <div>
                                                     <button className='btn btn-primary bgthwh'
                                                         onClick={() => {
+                                                            localStorage.removeItem('add_course_id')
                                                             this.props.history.push('/add-course')
                                                         }}
                                                     >Add Course</button>
@@ -108,7 +109,7 @@ class Courses extends Component {
                                                             <div>
                                                                 <button className='btn btn-primary bgthwh float-right'
                                                                     onClick={() => {
-                                                                        this.props.history.push('/course-detail')
+                                                                        this.props.history.push(`/course-detail/${value._id}`)
                                                                     }}
                                                                 >View Course</button>
                                                             </div>

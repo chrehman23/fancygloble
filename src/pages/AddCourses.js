@@ -109,10 +109,7 @@ class Courses extends Component {
                     vedioUploading: false
                 })
             }
-            if (res.data.data.publish==true){
-                localStorage.removeItem("add_course_id");
-                this.props.history.goBack("/courses")
-            }
+           
         }).catch(error => {
             console.log(error)
         })
@@ -402,10 +399,11 @@ class Courses extends Component {
                                                 {!this.state.publish && (
                                                     <div>
                                                         <button
-                                                            onClick={() => {
+                                                            onClick={async() => {
                                                                 let data = new FormData();
                                                                 data.append('publish', true)
-                                                                this.updateCourse(data)
+                                                                await this.updateCourse(data)
+                                                                this.props.history.goBack("/courses")
                                                             }}
                                                             className='bgthwh btn btn-sm btn-primary'
                                                         >Pushlish</button>
