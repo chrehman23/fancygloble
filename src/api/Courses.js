@@ -52,6 +52,46 @@ let CourseApi = {
          },
       })
    },
+   addLacture: (data) => {
+      return axios({
+         url: "/api/users/addLacture",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   getLactures: (data) => {
+      return axios({
+         url: "/api/users/getLactures",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   allCourses: (data) => {
+      return axios({
+         url: "/api/users/allCourses",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   myCourses: (data) => {
+      return axios({
+         url: "/api/users/myCourses",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
  
 
 

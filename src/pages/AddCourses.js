@@ -5,11 +5,12 @@ import Rightchat from '../components/Rightchat';
 import Pagetitle from '../components/Pagetitle';
 import Appfooter from '../components/Appfooter';
 import Popupchat from '../components/Popupchat';
-import { withRouter} from "react-router";
-import {  Link} from "react-router-dom";
+import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 import ApiLoader from '../components/ApiLoader'
 
 import CourseApi from '../api/Courses'
+
 import CoursesSectionList from "../components/CoursesSectionList";
 
 
@@ -38,6 +39,7 @@ class Courses extends Component {
             thumbnail: "",
 
             vedioUploading: false,
+            publish:false,
         }
 
     }
@@ -62,6 +64,7 @@ class Courses extends Component {
                         discount_amount: res.data.data.discount_amount,
                         video_url: res.data.data.video_url,
                         thumbnail: res.data.data.thumbnail,
+                        publish: res.data.data.publish,
 
                         Course_id: res.data.data._id,
                         loadingCourse: false
@@ -102,8 +105,13 @@ class Courses extends Component {
                     updateingCourse: false,
                     video_url: res.data.data.video_url,
                     thumbnail: res.data.data.thumbnail,
+                    publish: res.data.data.publish,
                     vedioUploading: false
                 })
+            }
+            if (res.data.data.publish==true){
+                localStorage.removeItem("add_course_id");
+                this.props.history.goBack("/courses")
             }
         }).catch(error => {
             console.log(error)
@@ -121,14 +129,22 @@ class Courses extends Component {
                     <div className="middle-sidebar-bottom">
                         <div className="middle-sidebar-left pe-0">
                             <div className="card-body p-4 w-100 bgthwh border-0 d-flex rounded-3">
-                                <Link to="/" className="d-inline-block mt-2"><i className="ti-arrow-left font-sm text-white"></i></Link>
+                                <a href="#"
+                                    className="d-inline-block mt-2"
+                                    onClick={() => {
+                                        this.props.history.goBack()
+                                    }}
+                                >
+                                    <i className="ti-arrow-left font-sm text-white"></i>
+                                </a>
+                                {/* <Link to="/" className="d-inline-block mt-2"></Link> */}
                                 <h4 className="font-xs text-white fw-600 ms-4 mb-0 mt-2"> Add New Course</h4>
                             </div>
                             <div className="row">
                                 <div className="col-xl-12">
                                     <div className="card shadow-xss w-100 d-block d-flex border-0 p-4 mb-3">
                                         <h2 className="mb-0 fw-800 mb-0  mt-0 font-md text-grey-900 d-flex justify-content-between align-items-center">
-                                          How to add course
+                                            How to add course
                                         </h2>
                                         <p>
                                             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
@@ -142,85 +158,49 @@ class Courses extends Component {
 
                             {!this.state.loadingCourse && (
                                 <div className="card shadow-xss w-100 d-block d-flex border-0 p-4 mb-3">
-                                    {!this.state.TitleEdite && (
-                                        <div className='row'>
-                                            <div className='col-12'>
-                                                <div className='d-flex align-items-center justify-content-between'>
-                                                    <div>
-                                                        <h6 className='mb-0 fw-800 mb-0  mt-0 font-md text-grey-900 d-flex justify-content-between align-items-center'>
-                                                            {this.state.titleInput}
-                                                        </h6>
-                                                    </div>
-                                                    <div className='p-2'> <i class="fad fa-pencil-alt cursor-pointer"
-                                                        onClick={() => this.setState({ TitleEdite: true })}
-                                                    ></i> </div>
-                                                </div>
-                                            </div>
+
+
+                                    <div className='row'>
+                                        <div className='col-12'>
+                                            <h6 className='mb-0'>Course Title</h6>
+                                            <input type='text'
+                                                value={this.state.titleInput}
+                                                onChange={(e) => {
+                                                    this.setState({
+                                                        titleInput: e.target.value
+                                                    })
+                                                }}
+                                                onBlur={() => {
+                                                    let data = new FormData();
+                                                    data.append('title', this.state.titleInput)
+                                                    this.updateCourse(data)
+                                                }}
+                                                className='form-control' placeholder='Course Title' />
                                         </div>
+                                    </div>
 
-                                    )}
 
-                                    {this.state.TitleEdite && (
-                                        <div className='row'>
-                                            <div className='col-12'>
-                                                <h6 className='mb-0'>Course Title</h6>
-                                                <input type='text'
-                                                    value={this.state.titleInput}
-                                                    onChange={(e) => {
-                                                        this.setState({
-                                                            titleInput: e.target.value
-                                                        })
-                                                    }}
-                                                    onBlur={() => {
-                                                        this.setState({ TitleEdite: false }, () => {
-                                                            let data = new FormData();
-                                                            data.append('title', this.state.titleInput)
-                                                            this.updateCourse(data)
-                                                        })
-                                                    }}
-                                                    className='form-control' placeholder='Course Title' />
-                                            </div>
+
+                                    <div className='row mt-3'>
+                                        <div className='col-12'>
+                                            <h6 className='mb-0'>Course Description</h6>
+                                            <textarea className='form-control ' row='15'
+                                                value={this.state.desInput}
+                                                onChange={(e) => {
+                                                    this.setState({
+                                                        desInput: e.target.value
+                                                    })
+                                                }}
+                                                onBlur={() =>{
+                                                     let data = new FormData();
+                                                    data.append('description', this.state.desInput)
+                                                    this.updateCourse(data)
+                                                }}
+                                            ></textarea>
+
                                         </div>
-                                    )}
-                                    {!this.state.desEdite && (
-                                        <div className='row'>
-                                            <div className='col-12'>
+                                    </div>
 
-                                                <div className='d-flex align-items-center justify-content-between'>
-                                                    <div>
-                                                        <p className='mb-0 fw-800 mb-0  mt-0  text-grey-900 '>
-                                                            {this.state.desInput}
-                                                        </p>
-                                                    </div>
-                                                    <div className='p-2'> <i class="fad fa-pencil-alt cursor-pointer"
-                                                        onClick={() => this.setState({ desEdite: true })}
-                                                    ></i> </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {this.state.desEdite && (
-                                        <div className='row mt-3'>
-                                            <div className='col-12'>
-                                                <h6 className='mb-0'>Course Description</h6>
-                                                <textarea className='form-control ' row='15'
-                                                    value={this.state.desInput}
-                                                    onChange={(e) => {
-                                                        this.setState({
-                                                            desInput: e.target.value
-                                                        })
-                                                    }}
-                                                    onBlur={() => this.setState({ desEdite: false }, () => {
-                                                        let data = new FormData();
-                                                        data.append('description', this.state.desInput)
-                                                        this.updateCourse(data)
-                                                    })}
-                                                ></textarea>
-
-                                            </div>
-                                        </div>
-                                    )}
                                     <div className="row">
                                         <div className="col-6">
                                             <label htmlFor="">What will students learn in your course?*</label>
@@ -403,6 +383,38 @@ class Courses extends Component {
                                                     </div>
                                                 </div>
                                             )}
+
+                                            <br></br>
+                                            <br></br>
+                                            <div className="d-flex float-right">
+                                                {this.state.publish && (
+                                                    <div>
+                                                        <button
+                                                            onClick={() => {
+                                                                let data = new FormData();
+                                                                data.append('publish', false)
+                                                                this.updateCourse(data)
+                                                            }}
+                                                            className='bgthwh btn btn-sm btn-primary'
+                                                        >Unpushlish</button>
+                                                    </div>
+                                                )}
+                                                {!this.state.publish && (
+                                                    <div>
+                                                        <button
+                                                            onClick={() => {
+                                                                let data = new FormData();
+                                                                data.append('publish', true)
+                                                                this.updateCourse(data)
+                                                            }}
+                                                            className='bgthwh btn btn-sm btn-primary'
+                                                        >Pushlish</button>
+                                                    </div>
+                                                )}
+                                               
+                                               
+                                            </div>
+                                           
                                         </div>
                                         <div className="col-6">
                                             <input type='file' id="thumbnail"

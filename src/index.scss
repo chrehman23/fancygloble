@@ -552,3 +552,14 @@
   padding: 0px 10px !important;
 }
 
+.cardImgesmd{
+  width: 100% !important;
+  height: 200px;
+  overflow: hidden;
+}
+.cardImgesmd img{
+  width: 100% !important;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import CourseApi from '../api/Courses';
-
+import CoursesSections from "../components/CoursesSections";
 class CoursesSectionList extends Component {
     constructor() {
         super();
@@ -65,55 +65,8 @@ class CoursesSectionList extends Component {
                         <h4 className=' mt-3'><i class="fas fa-list"></i> Course Content</h4>
                     </div>
                 </div>
-                {this.state.sections.map((data, index) => {
-                    return (
-                        <>
-                            <div className='row  mt-3 border'>
-                                <div className='col-12 bg-greylight cursor-pointer'>
-                                    <div className='d-flex align-items-center justify-content-between p-2'>
-                                        <div>
-                                            <i class="fas fa-th-large"></i>  {data.section_title}
-                                        </div>
-                                        <div className=''>
-                                            {/* <i class="fas fa-lock text-danger"></i> */}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-12">
-                                    <p>{data.section_description}</p>
-                                </div>
-                                <div className='col-12'>
-                                    <div className='d-flex align-items-center justify-content-between d-none'>
-                                        <div>
-                                            <p><i class="fas fa-video"></i> lacture tile for the sutdent</p>
-                                        </div>
-                                        <div className='p-2'>
-                                            <i class="fas fa-edit px-2"></i>
-                                            <i class="fas fa-lock px-2"></i>
-                                        </div>
-                                    </div>
-                                   
-                                    <div className='d-flex align-items-center justify-content-between bgthwh cursor-pointer px-2' style={{ margin: '0px -15px', padding: '0px 15px' }}>
-                                        <div>
-                                            Add Lacture
-                                        </div>
-                                        <div className='p-2'>
-                                            <i class="far fa-plus p-2 cursor-pointer" onClick={() => this.setState({ TitleEdite: true })}></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </>
-                    )
-                })}
+                {this.state.sections.map((data, index) => <CoursesSections course_id={this.props.course_id} data={data}/>)}
 
-
-
-
-
-
-
-             
 
                 <div className='row  mt-3 border-top py-2'>
                     {this.state.addSection && (
@@ -166,7 +119,7 @@ class CoursesSectionList extends Component {
 
 
                     {!this.state.addSection && (
-                        <div className='col-12 bgthwh cursor-pointer'>
+                        <div className='col-12 bg-greylight  cursor-pointer'>
                             <div className='d-flex align-items-center justify-content-between'
                                 onClick={() => this.setState({ addSection: true })}
                             >

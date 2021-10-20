@@ -23,6 +23,8 @@ import Badge from './pages/Badge';
 import Group from './pages/Group';
 import Storie from './pages/Storie';
 
+import Courses from './pages/Courses';
+import MyCourses from './pages/MyCourses';
 import Events from './pages/Events';
 import UpdatePassword from './pages/ChangePassword';
 import Member from './pages/Member';
@@ -130,6 +132,8 @@ class App extends Component {
           <Route exact path={`/post/:id`} component={Post} />
           <Route exact path={`/user/:user_name`} component={UserProfile} />
           <Route exact path={`/add-course`} component={AddCourses} />
+          <Route exact path={`/courses`} component={Courses} />
+          <Route exact path={`/my-courses`} component={MyCourses} />
 
           <Route exact path={`/defaultlive`} component={Live} />
           <Route exact path={`/live-view/:id`} component={LiveView} />

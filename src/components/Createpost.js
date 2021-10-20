@@ -428,9 +428,9 @@ class Createpost extends Component {
                                     if (e.target.value) {
                                         let mb = parseInt((e.currentTarget.files[0].size / (1024 * 1024)).toFixed(2));
                                         // console.log("mb", typeof mb)
-                                        if (mb > 1) {
+                                        if (mb > 20) {
                                             this.setState({
-                                                fileError: "File size should less then 1MB",
+                                                fileError: "File size should less then 20MB",
                                             })
                                         } else {
 
