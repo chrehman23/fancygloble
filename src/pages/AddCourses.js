@@ -372,7 +372,7 @@ class Courses extends Component {
                                                 <div className="card-body d-block p-0 mb-3 mt-3" >
                                                     <div className='row'>
                                                         <div className='col-12'>
-                                                            <video className='vedioPlayer' controls autoplay>
+                                                            <video className='vedioPlayer' controls>
                                                                 <source src={this.state.video_url} type="video/mp4" />
                                                                 Your browser does not support HTML5 video.
                                                             </video>

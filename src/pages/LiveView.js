@@ -170,7 +170,7 @@ class Live extends Component {
                                 <div className="col-xl-8 col-xxl-9 col-lg-8">
                                     {this.state.loadingApi && (
                                         <div className='d-flex justify-content-center align-items-center w-100' style={{ height: "400px" }} >
-                                            lading..
+                                            loading...
                                         </div>
                                     )}
                                     <div className={`vedioStrimingsContainer ${this.state.loadingApi ? "d-none" : ""}`}>

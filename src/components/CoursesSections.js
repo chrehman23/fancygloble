@@ -7,6 +7,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import CourseApi from '../api/Courses'
+import CoursesFiles from './CoursesFiles';
 
 
 
@@ -94,14 +95,14 @@ class CoursesSections extends Component {
                         <div className='col-12'>
                             {this.state.lactures.map((datas, index) => {
                                 return (
-                                    <>
-                                        <div key={index} className='d-flex align-items-center justify-content-between border-bottom mb-2'>
+                                    <div className='border-bottom mb-2 pb-2' key={index}>
+                                        <div key={index} className='d-flex align-items-center justify-content-between '>
                                             <div>
                                                 <h5 className='mb-0 '><b>{datas.lacture_title}</b></h5>
                                                 <p>{datas.lacture_des}</p>
                                             </div>
                                             <div className='p-2'>
-                                                <i class="fas fa-eye px-2 cursor-pointer"
+                                                <i className="fas fa-eye px-2 cursor-pointer"
                                                     onClick={() => {
                                                         this.setState({
                                                             vedioModal: true,
@@ -109,25 +110,13 @@ class CoursesSections extends Component {
                                                         })
                                                     }}
                                                 ></i>
-                                                <i class="fas fa-edit px-2"></i>
-                                                <i class="fas fa-lock px-2"></i>
+                                                <i className="fas fa-edit px-2"></i>
+                                             
                                             </div>
                                         </div>
-                                        <div>
-                                            {datas.files.map((data, index) => {
-                                                return (
-                                                    <div className="col-4">
-                                                        <div className="d-flex">
-                                                            <div><i class="fal fa-file-pdf"></i></div>
-                                                            <div>{data.file}</div>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            })}
+                                        <CoursesFiles  files={datas.files} lacture_id={datas._id} />
 
-                                        </div>
-
-                                    </>
+                                    </div>
                                 )
                             })}
                         </div>

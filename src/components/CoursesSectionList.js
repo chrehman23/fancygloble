@@ -65,7 +65,7 @@ class CoursesSectionList extends Component {
                         <h4 className=' mt-3'><i class="fas fa-list"></i> Course Content</h4>
                     </div>
                 </div>
-                {this.state.sections.map((data, index) => <CoursesSections course_id={this.props.course_id} data={data}/>)}
+                {this.state.sections.map((data, index) => <CoursesSections key={index} course_id={this.props.course_id} data={data}/>)}
 
 
                 <div className='row  mt-3 border-top py-2'>

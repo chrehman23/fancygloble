@@ -92,6 +92,26 @@ let CourseApi = {
          },
       })
    },
+   addLactureDocument: (data) => {
+      return axios({
+         url: "/api/users/addLactureDocument",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   removeLactureDocument: (data) => {
+      return axios({
+         url: "/api/users/removeLactureDocument",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
  
 
 
