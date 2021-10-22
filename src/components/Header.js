@@ -7,14 +7,31 @@ import Notify from './Notify';
 import ACTIONS from '../store/actions/index.js';
 import { connect } from 'react-redux'
 
-import Logo from '../../public/assets/images/logo.png' 
+import Logo from '../../public/assets/images/logo.png'
+
+import chatApi from '../api/chat'
+
 
 class Header extends Component {
     state = {
         isOpen: false,
-        isActive: false, 
-        isNoti: false
+        isActive: false,
+        isNoti: false,
+
+        chatUsers:[]
     };
+
+    componentDidMount(){
+        if (this.props.showChat){
+            chatApi.findRoomsByUser().then(res=>{
+                if(res.data.Error==false){
+                    this.setState({
+                        chatUsers:res.data.data
+                    })
+                }
+            })
+        }
+    }
 
     toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
     toggleActive = () => this.setState({ isActive: !this.state.isActive });
@@ -31,7 +48,7 @@ class Header extends Component {
                 <div className="nav-top  h-100 headerScrolChange ">
                     {/* <Link to="/"><i className="feather-zap text-success display2-size me-3 ms-0"></i><span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </Link> */}
                     <Link to="/">
-                        <img src="/assets/images/logo.png" style={{height:"55px"}}/>
+                        <img src="/assets/images/logo.png" style={{ height: "55px" }} />
                         {/* <i className="feather-zap text-success display2-size me-3 ms-0"></i>
                         <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
                             Sociala.
@@ -77,7 +94,7 @@ class Header extends Component {
                 {/* <Link to="/defaultsettings" className="p-0 ms-3 menu-icon"><img src="assets/images/user.png" alt="user" className="w40 mt--1" /></Link> */}
                 <Link to="/defaultsettings" className="p-2 text-center ms-3 menu-icon chat-active-btn">  <i className="feather-menu font-lg text-grey-500 "></i></Link>
 
-                <nav className={`navigation scroll-bar ${navClass}`}>
+                <nav className={`navigation scroll-bar ${navClass} ${this.props.showChat ? "d-none" : ""}`}>
                     <div className="container ps-0 pe-0">
                         <div className="nav-content">
                             <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2">
@@ -113,6 +130,38 @@ class Header extends Component {
                                     <li><Link to="/defaultmessage" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-message-square me-3 text-grey-500"></i><span>Chat</span><span className="circle-count bg-warning mt-0">23</span></Link></li>
                                 </ul>
                             </div>
+                        </div>
+                    </div>
+                </nav>
+                <nav className={`navigation scroll-bar ${navClass} ${this.props.showChat ? "" : "d-none"}`}>
+                    <div className="container ps-0 pe-0">
+                        <div className="nav-content">
+                            <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2">
+                                <div className="nav-caption fw-600 font-xssss text-grey-500">Followers and Followings</div>
+                                <ul className="mb-1 top-content"> 
+                                    {this.state.chatUsers.map((data,index)=>{
+                                        return (
+                                            <li key={index}>
+                                                <Link to="/home" className="nav-content-bttn open-font">
+                                                    <div className="UserChatWraper">
+                                                        <div>
+                                                            <div>  <img src={data.user && data.user.profile_photo} alt="" /></div>
+                                                        </div>
+                                                        <div>
+                                                            <h5 className=''>{data.user && data.user.name}</h5>
+                                                            <small className=''>{data.user && data.user.user_name}</small>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            </li>
+                                        )
+                                    })}
+                                    
+                                </ul>
+                            </div>
+
+
+
                         </div>
                     </div>
                 </nav>

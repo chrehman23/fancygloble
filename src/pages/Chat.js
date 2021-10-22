@@ -9,7 +9,7 @@ class Chat extends Component {
     render() {
         return (
             <Fragment> 
-                <Header />
+                <Header showChat={true} />
                 <Leftnav />
                 <Rightchat />
 
