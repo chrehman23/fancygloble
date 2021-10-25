@@ -509,22 +509,22 @@
   width: auto !important;
 }
 // *****************
-.CuruseSavingCotiner{
+.CuruseSavingCotiner {
   position: fixed;
   display: flex;
-  transform: scale(.7);
+  transform: scale(0.7);
   bottom: 20px;
   right: 20px;
   padding: 1px 10px;
   font-size: 16px;
   background-color: white;
   border-radius: 10px;
-  border: 1px solid #05f
+  border: 1px solid #05f;
 }
-.form-control{
+.form-control {
   height: auto !important;
 }
-.courseUploadVedio{
+.courseUploadVedio {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -533,13 +533,13 @@
   border: 1px dotted gray;
 }
 
-.evetImagePre{
+.evetImagePre {
   width: 100%;
   height: 200px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.evetImagePre > img{
+.evetImagePre > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -547,58 +547,147 @@
   object-position: center;
 }
 
-.form-control{
+.form-control {
   border-radius: 10px !important;
   padding: 0px 10px !important;
 }
 
-.cardImgesmd{
+.cardImgesmd {
   width: 100% !important;
   height: 200px;
-  overflow: hidden; 
+  overflow: hidden;
 }
-.cardImgesmd img{
+.cardImgesmd img {
   width: 100% !important;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.UserChatWraper{
+.UserChatWraper {
   display: flex;
   align-items: center;
 }
-.UserChatWraper > div:first-child > div{
+.UserChatWraper > div:first-child > div {
   width: 45px;
   height: 45px;
   border: 1px solid gray;
   overflow: hidden;
   border-radius: 50%;
 }
-.UserChatWraper > div:first-child img{
-  width:100%;
+.UserChatWraper > div:first-child img {
+  width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
-.UserChatWraper > div:last-child{
+.UserChatWraper > div:last-child {
   flex-grow: 1;
-  padding-left: 10px; 
+  padding-left: 10px;
 }
-.UserChatWraper > div:last-child h5{
-      font-size: 14px;
-    color: #0c0c0d;
-    font-weight: 700; 
-    margin-top: 15px;
-    margin-bottom: 0px;
+.UserChatWraper > div:last-child h5 {
+  font-size: 14px;
+  color: #0c0c0d;
+  font-weight: 700;
+  margin-top: 15px;
+  margin-bottom: 0px;
 }
-.UserChatWraper > div:last-child small{
-      font-size: 11px;
-    font-weight: 500;
-    color: #aaaaaa;
-    margin-bottom: 0px;
+.UserChatWraper > div:last-child small {
+  font-size: 11px;
+  font-weight: 500;
+  color: #aaaaaa;
+  margin-bottom: 0px;
+  position: relative;
+  top: -10px;
+  right: auto;
+  display: inline-block;
+}
+
+.UserChatContainer.actives {
+  background-color: #80808024 !important;
+  border-right: 2px solid #46237a !important;
+  border-radius: 5px;
+}
+
+.messages-contents {
+  height: calc(100vh - 186px);
+  padding-bottom: 30px !important;
+}
+.messages-contents > div::-webkit-scrollbar {
+  width: 1px;
+}
+
+.messages-contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 15px;
+}
+.message-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 15px;
+}
+.message-items.out-messages > div {
+  margin-right: auto;
+  justify-content: flex-start ;
+  width: 100%;
+}
+.message-items > div {
+  margin-left: auto;
+}
+.message-items > div:first-child {
+  display: flex;
+  align-items: center;
+}
+.message-items > div:first-child > div:last-child {
+  padding: 6px 10px;
+}
+.message-items > div:first-child h5 {
+  font-size: 14px;
+  color: #0c0c0d;
+  font-weight: 700;
+  margin-top: 15px;
+  margin-bottom: 3px;
+}
+.message-items > div:first-child .time {
+  font-size: 11px;
+  font-weight: 500;
+  color: #aaaaaa;
+  margin-bottom: 0px;
+  position: relative;
+  top: -10px;
+  right: auto;
+  display: inline-block;
+}
+.message-items .avatar-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.message-items .avatar-img > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.message-items .message-wraps {
+  // padding: 10px 20px;
+  border-radius: 10px 3px;
+  max-width: 75%;
+  margin-left: auto;
+}
+.message-items.out-messages .message-wraps {
+   max-width: 75%;
+  margin-left: 0px;
+}
+.message-items.out-messages .message-wraps > div{
+     background-color: #e6eeff !important;
+    border-radius: 10px;
     position: relative;
-    top: -10px;
-    right: auto;
-    display: inline-block;
+    color: #000 !important;
+    // box-shadow: 0 8px 30px gray;
+   max-width: 75%;
+  margin-left: 0px;
 }

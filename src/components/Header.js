@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-
+import { withRouter } from 'react-router';
 import Darkbutton from '../components/Darkbutton';
 import Notify from './Notify';
 
@@ -18,19 +18,35 @@ class Header extends Component {
         isActive: false,
         isNoti: false,
 
-        chatUsers:[]
+        chatUsers:[],
+
+        activeChat:"",
     };
 
-    componentDidMount(){
+    componentDidMount(){ 
+        let { id } = this.props.match.params
+        this.setState({
+            activeChat: id
+        })
         if (this.props.showChat){
             chatApi.findRoomsByUser().then(res=>{
                 if(res.data.Error==false){
                     this.setState({
-                        chatUsers:res.data.data
+                        chatUsers:res.data.data, 
                     })
                 }
             })
         }
+    }
+
+    componentDidUpdate(prevProps, prevState,) {
+        let { id } = this.props.match.params
+        if (prevProps.match.params.id !== id){ 
+            this.setState({
+                activeChat: id
+            })
+        }
+
     }
 
     toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
@@ -142,8 +158,11 @@ class Header extends Component {
                                     {this.state.chatUsers.map((data,index)=>{
                                         return (
                                             <li key={index}>
-                                                <Link to="/home" className="nav-content-bttn open-font">
-                                                    <div className="UserChatWraper">
+                                                <Link  
+                                                    to={`/room/${data.room_id}`} className={`nav-content-bttn open-font UserChatContainer ${this.state.activeChat == data.room_id ? "actives" : ""}`}
+                                                   
+                                                >
+                                                    <div className={`UserChatWraper `}>
                                                         <div>
                                                             <div>  <img src={data.user && data.user.profile_photo} alt="" /></div>
                                                         </div>
@@ -199,6 +218,6 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header))
 
 

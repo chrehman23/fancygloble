@@ -32,6 +32,7 @@ import Member from './pages/Member';
 import Users from './pages/Users';
 import Email from './pages/Email';
 import Emailopen from './pages/Emailopen';
+import ChatMassages from './pages/ChatMassages';
 import Settings from './pages/Settings';
 import Account from './pages/Account';
 import Contactinfo from './pages/Contactinfo';
@@ -137,6 +138,10 @@ class App extends Component {
           <Route exact path={`/my-courses`} component={MyCourses} />
           <Route exact path={`/course-detail/:id`} component={CoursesDetail} />
 
+
+          <Route exact path={`/defaultmessage`} component={Chat} />
+          <Route exact path={`/room/:id`} component={ChatMassages} />
+
           <Route exact path={`/defaultlive`} component={Live} />
           <Route exact path={`/live-view/:id`} component={LiveView} />
           <Route exact path={`/defaultstorie`} component={Storie} />
@@ -169,7 +174,6 @@ class App extends Component {
           <Route exact path={`/singleproduct`} component={Singleproduct} />
           <Route exact path={`/cart`} component={Cart} />
           <Route exact path={`/checkout`} component={Checkout} />
-          <Route exact path={`/defaultmessage`} component={Chat} />
        
 
           <Route exact path={`/defaultjob`} component={Job} />

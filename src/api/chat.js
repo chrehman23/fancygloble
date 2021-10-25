@@ -12,6 +12,26 @@ let AuthApi = {
          },
       })
    },
+   getSms: (data) => {
+      return axios({
+         url: "/api/chat/getSms",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   sendSms: (data) => {
+      return axios({
+         url: "/api/chat/sendSms",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
   
 
 
