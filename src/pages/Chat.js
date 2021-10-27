@@ -9,7 +9,7 @@ class Chat extends Component {
     render() {
         return (
             <Fragment> 
-                <Header showChat={true} />
+                <Header showChat={true} openSideBar={true} />
                 <Leftnav />
                 <Rightchat />
 
@@ -19,7 +19,7 @@ class Chat extends Component {
                             <div className="row">
                                 <div className="col-lg-12  h-100">
                                     <div className="chat-wrapper pt-0 h-100vh d-flex justify-content-center align-items-center   bg-white  ">
-                                        <h4 className='fw-700 mb-0  mt-0 font-md text-grey-900 d-flex'>Use left panel to chat</h4>
+                                        <h4 className='fw-700 mb-0  mt-0 font-md text-grey-900 d-flex'>Use sidebar to chat</h4>
                                     </div>
                                     
                                 </div>

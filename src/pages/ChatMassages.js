@@ -7,20 +7,16 @@ import Popupchat from '../components/Popupchat';
 import chatApi from '../api/chat'
 
 import ScrollToBottom from 'react-scroll-to-bottom';
-import socketConnection from '../socketConnection'
-import moment from 'moment'
-import { css } from '@emotion/css';
+import socketConnection from '../socketConnection' 
 
-const ROOT_CSS = css({
-    height: 600,
-    width: 400
-});
+import ChatList from '../components/chatList'
 
 class Chat extends Component {
     state = {
         massages: [],
         smsInput: "",
-        loadSocket: false,
+        loadSocket: false, 
+        apiLoader:true,
     };
 
     componentDidMount() {
@@ -28,25 +24,27 @@ class Chat extends Component {
         let data = {
             room_id: id,
             page: 1,
-           
+
         }
+       
         chatApi.getSms(data).then(res => {
             if (res.data.Error == false) {
                 this.setState({
                     massages: res.data.data,
+                    apiLoader:false
                 })
+               
             }
         })
 
         if (this.state.loadSocket == false) {
-            this.setState({
-                loadSocket: true
-            })
+            
             socketConnection.on('room_sms', data => {
                 let { id } = this.props.match.params
                 if (data.room == id) {
                     this.setState({
                         massages: [...this.state.massages, data],
+                        
                     })
                 }
 
@@ -60,7 +58,8 @@ class Chat extends Component {
         let { id } = this.props.match.params
         if (prevProps.match.params.id !== id) {
             this.setState({
-                massages: []
+                massages: [],
+                apiLoader:true
             })
             let data = {
                 room_id: id,
@@ -71,7 +70,9 @@ class Chat extends Component {
                     this.setState({
                         massages: res.data.data,
                         smsInput: "",
+                        apiLoader: false
                     })
+                   
                 }
             })
 
@@ -121,37 +122,18 @@ class Chat extends Component {
                             <div className="row">
                                 <div className="col-lg-12 position-relative">
                                     <div className="chat-wrapper pt-0 w-100 position-relative scroll-bar bg-white theme-dark-bg">
-                                        <div className="chat-body p-3 overflow-hidden">
+                                        <div className={`chat-body p-3 overflow-hidden ${this.state.timerLoader ? "d-none" : " "}`}>
 
-                                            <ScrollToBottom
-                                                initialScrollBehavior={"auto"}
-                                                className={ROOT_CSS} className='messages-contents   ' mode="bottom" >
+                                            {!this.state.apiLoader && (
+                                                <ScrollToBottom
+                                                    animating={false}
+                                                    initialScrollBehavior="auto"
+                                                    className='messages-contents' mode="bottom" >
+                                                    <ChatList massages={this.state.massages} />
+                                                </ScrollToBottom>
+                                            )}
 
-                                                {this.state.massages.map((data, index) => {
-                                                    return (
-                                                        <div className={`message-items ${data.send_by == "me" ? "" : "out-messages"}`}>
-                                                            <div className="message-users">
-                                                                <div className="avatar-img">
-                                                                    <img src={data.user && data.user.profile_photo} alt="avater" />
-                                                                </div>
-                                                                <div>
-                                                                    <h5>{data.user && data.user.name}</h5>
-                                                                    <div className="time">
-                                                                        {moment(data.created_at).fromNow(true)} ago
-                                                                        {/* <i className="ti-double-check text-info"></i> */}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className='px-2'>
-                                                                <div className="message-wraps py-0  d-inline  ">
-                                                                    <div className='bgthwh p-3 py-2 rounded'>{data.content}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    )
-                                                })}
-
-                                            </ScrollToBottom>
+                                           
 
                                             <div className="clearfix"></div>
 

@@ -18,30 +18,33 @@ class Header extends Component {
         isActive: false,
         isNoti: false,
 
-        chatUsers:[],
+        chatUsers: [],
 
-        activeChat:"",
+        activeChat: "",
     };
 
-    componentDidMount(){ 
+    componentDidMount() {
         let { id } = this.props.match.params
         this.setState({
             activeChat: id
         })
-        if (this.props.showChat){
-            chatApi.findRoomsByUser().then(res=>{
-                if(res.data.Error==false){
+        if (this.props.showChat) {
+            chatApi.findRoomsByUser().then(res => {
+                if (res.data.Error == false) {
                     this.setState({
-                        chatUsers:res.data.data, 
+                        chatUsers: res.data.data,
                     })
                 }
             })
+        }
+        if (this.props.openSideBar){
+            this.setState({ isOpen: true })
         }
     }
 
     componentDidUpdate(prevProps, prevState,) {
         let { id } = this.props.match.params
-        if (prevProps.match.params.id !== id){ 
+        if (prevProps.match.params.id !== id) {
             this.setState({
                 activeChat: id
             })
@@ -143,7 +146,7 @@ class Header extends Component {
                                     <li className="logo d-none d-xl-block d-lg-block"></li>
                                     <li><Link to="/defaultsettings" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-settings me-3 text-grey-500"></i><span>Settings</span></Link></li>
                                     <li><Link to="/defaultanalytics" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-pie-chart me-3 text-grey-500"></i><span>Analytics</span></Link></li>
-                                    <li><Link to="/defaultmessage" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-message-square me-3 text-grey-500"></i><span>Chat</span><span className="circle-count bg-warning mt-0">23</span></Link></li>
+                                    <li><Link to="/defaultmessage" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-message-square me-3 text-grey-500"></i><span>Chat</span><span className="circle-count bg-warning mt-0 d-none">23</span></Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -154,13 +157,16 @@ class Header extends Component {
                         <div className="nav-content">
                             <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2">
                                 <div className="nav-caption fw-600 font-xssss text-grey-500">Followers and Followings</div>
-                                <ul className="mb-1 top-content"> 
-                                    {this.state.chatUsers.map((data,index)=>{
+                                <ul className="mb-1 top-content">
+                                    {this.state.chatUsers.map((data, index) => {
                                         return (
                                             <li key={index}>
-                                                <Link  
-                                                    to={`/room/${data.room_id}`} className={`nav-content-bttn open-font UserChatContainer ${this.state.activeChat == data.room_id ? "actives" : ""}`}
-                                                   
+                                                <div
+                                                    onClick={() => {
+                                                        this.setState({ isOpen: !this.state.isOpen })
+                                                        this.props.history.push(`/room/${data.room_id}`)
+                                                    }}
+                                                    className={`nav-content-bttn open-font UserChatContainer ${this.state.activeChat == data.room_id ? "actives" : ""}`}
                                                 >
                                                     <div className={`UserChatWraper `}>
                                                         <div>
@@ -171,11 +177,11 @@ class Header extends Component {
                                                             <small className=''>{data.user && data.user.user_name}</small>
                                                         </div>
                                                     </div>
-                                                </Link>
+                                                </div>
                                             </li>
                                         )
                                     })}
-                                    
+
                                 </ul>
                             </div>
 

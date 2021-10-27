@@ -221,6 +221,8 @@ export class PostLists extends Component {
             <Modal
                show={this.state.PostViewModal}
                size='xl'
+               scrollable={true}
+               scrollable={true}
                onHide={() => this.setState({ PostViewModal: false })}
                dialogClassName="modal-90w"
                aria-labelledby="example-custom-modal-styling-title"
@@ -245,7 +247,7 @@ export class PostLists extends Component {
                      <div className='postmodalContainer'>
                         {/* {JSON.stringify(this.state.postModalDetails)} */}
                         <div className='row'>
-                           <div className='col-md-8'>
+                           <div className='col-lg-8'>
                               {this.state.postModalDetails && this.state.postModalDetails.image_status  && (
                                  <div className='postModalSlider'>
                                     <Carousel
@@ -264,7 +266,7 @@ export class PostLists extends Component {
 
                               )}
                               </div>
-                           <div className='col-md-4'>
+                           <div className='col-lg-4'>
                               <p><b>Comments({this.state.postModalDetails && this.state.postModalDetails.comments_count + this.state.commentsCount})</b></p>
                               {this.state.comments && (
                                  <Comments

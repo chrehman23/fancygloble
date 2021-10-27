@@ -21,7 +21,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 
-AOS.init();
+
 class Postview extends Component {
     constructor() {
         super();
@@ -36,6 +36,10 @@ class Postview extends Component {
             purchaseLoader:false,
         };
         // this.addLinks = this.addLinks.bind(this);
+    }
+
+    componentDidMount(){
+        // AOS.init();
     }
 
 
@@ -101,7 +105,7 @@ class Postview extends Component {
         const emojiClass = `${this.state.isActive ? " active" : ""}`;
 
         return (
-            <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3" data-aos="zoom-in-up">
+            <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"  >
                 <div className="card-body p-0 d-flex">
                     <figure className="avatar imagesmresponsive me-3"><img src={avater} alt="avater" className="shadow-sm rounded-circle" /></figure>
                     <h4 className="fw-700 text-grey-900 font-xssss mt-1 text-capitalize"> {user} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500 text-lowercase"> {time} ago</span></h4>

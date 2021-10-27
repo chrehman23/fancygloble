@@ -78,6 +78,17 @@ let Posts = {
 
       })
    },
+   eventStatus: (data) => {
+      return axios({
+         url: "/api/users/eventStatus",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+
+      })
+   },
 
 
 

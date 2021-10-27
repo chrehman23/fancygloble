@@ -7,6 +7,7 @@ import { withRouter } from 'react-router';
 // Create Import File
 import './main.scss';
 import './index.scss';
+import '../media.scss';
 
 
  

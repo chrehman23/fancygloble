@@ -567,6 +567,7 @@
 .UserChatWraper {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 .UserChatWraper > div:first-child > div {
   width: 45px;
@@ -590,7 +591,7 @@
   color: #0c0c0d;
   font-weight: 700;
   margin-top: 15px;
-  margin-bottom: 0px;
+  margin-bottom: 3px;
 }
 .UserChatWraper > div:last-child small {
   font-size: 11px;
@@ -611,7 +612,7 @@
 
 .messages-contents {
   height: calc(100vh - 186px);
-  padding-bottom: 30px !important;
+  padding-bottom: 30px !important; 
 }
 .messages-contents > div::-webkit-scrollbar {
   width: 1px;
@@ -620,14 +621,13 @@
 .messages-contents {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding-bottom: 15px;
+  justify-content: flex-end; 
 }
 .message-items {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding-bottom: 15px;
+  padding-bottom: 30px;
 }
 .message-items.out-messages > div {
   margin-right: auto;

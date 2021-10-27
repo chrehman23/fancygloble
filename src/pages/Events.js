@@ -13,6 +13,8 @@ import EventApis from '../api/Events'
 import moment from 'moment'
 
 
+
+import StripeCheckout from 'react-stripe-checkout';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
@@ -23,6 +25,8 @@ import UsersGoingToEvent from '../components/UsersGoingToEvent'
 
 import AOS from "aos";
 import "aos/dist/aos.css";
+
+
 
 
 AOS.init();
@@ -45,6 +49,9 @@ class Events extends Component {
 
             eventsTabsModal: 1,
             eventsTabsModalTabs: 1,
+
+            eventStatusLoader: false,
+            eventStatus: false,
 
         }
     }
@@ -126,10 +133,12 @@ class Events extends Component {
         }
     }
 
-    goingtoEvent = (eventId) => {
+    goingtoEvent = (eventId, payment_token) => {
         this.setState({ goingtoEventLoader: true })
         let data = {
-            event_id: eventId
+            payment_token: payment_token,
+            payment_amout: this.state.eventModalDetails.paid_amount,
+            event_id: eventId,
         }
         EventApis.goingtoEvent(data).then(res => {
             if (res.data.Error == false) {
@@ -145,6 +154,43 @@ class Events extends Component {
         })
     }
 
+
+    eventStatus = (eventId) => {
+        let data = {
+            event_id: eventId
+        }
+        this.setState({
+            eventStatusLoader: true
+        })
+        EventApis.eventStatus(data).then(res => {
+            if (res.data.Error == false) {
+                this.setState({
+                    goingtoEventMsg: res.data.msg,
+                    eventStatusLoader: false
+                })
+            }
+            this.setState({ eventStatusLoader: false })
+        }).catch(error => {
+            // console.log(error)
+            // if (error.response.data.Error)
+            this.setState({ eventStatusLoader: false })
+        })
+    }
+
+
+    onToken = (token) => {
+        console.log(token)
+        this.goingtoEvent(this.state.eventModalDetails._id, token.id)
+        // fetch('/save-stripe-token', {
+        //     method: 'POST',
+        //     body: JSON.stringify(token),
+        // }).then(response => {
+        //     response.json().then(data => {
+        //         alert(`We are in business, ${data.email}`);
+        //     });
+        // });
+    }
+
     render() {
         return (
             <Fragment>
@@ -157,7 +203,6 @@ class Events extends Component {
                         <div className="middle-sidebar-left pe-0">
                             <div className="row">
                                 <div className="col-xl-12">
-
                                     <div className="card shadow-xss w-100 d-block d-flex border-0 p-4 mb-3">
                                         <h2 className="fw-700 mb-0  mt-0 font-md text-grey-900 d-flex justify-content-between align-items-center">
                                             <div className='d-none d-md-block'>Events</div>
@@ -249,6 +294,10 @@ class Events extends Component {
                                                                         goingtoEventMsg: "",
                                                                         eventsTabsModal: 1,
                                                                         eventsTabsModalTabs: 1,
+                                                                        eventStatus: false,
+                                                                        goingtoEventMsg: ""
+                                                                    }, () => {
+                                                                        this.eventStatus(value._id)
                                                                     })
                                                                 }}>
                                                                 <button className='btn btn-primary'>View</button>
@@ -274,6 +323,7 @@ class Events extends Component {
                 <Modal
                     show={this.state.EventViewModal}
                     size='xl'
+                    scrollable={true}
                     onHide={() => this.setState({ EventViewModal: false })}
                     dialogClassName="modal-90w"
                     aria-labelledby="example-custom-modal-styling-title"
@@ -378,8 +428,8 @@ class Events extends Component {
                                                     </tr>
                                                 </table>
 
-                                                <p><b>{this.state.goingtoEventMsg}</b></p>
-                                                {this.state.eventModalDetails.paid_amount > 0 && (
+                                                <p><b>{this.state.goingtoEventMsg !== "No record found." ? this.state.goingtoEventMsg : ""}</b></p>
+                                                {(this.state.goingtoEventMsg == "No record found." || this.state.goingtoEventMsg == 'Payment error') && this.state.eventModalDetails.paid_amount > 0 && (
                                                     <>
                                                         <small className='font-weight-bold'>This is paid event you have to pay amount €{this.state.eventModalDetails.paid_amount} to get ticket number.</small>
                                                         <div className='d-flex justify-content-end'>
@@ -389,18 +439,29 @@ class Events extends Component {
                                                                 <button className='btn btn-primary'>Loading...</button>
                                                             )}
                                                             {!this.state.goingtoEventLoader && (
-                                                                <button
-                                                                    onClick={() => {
-                                                                        this.goingtoEvent(this.state.eventModalDetails._id)
-                                                                    }}
-                                                                    className='btn btn-primary'>Pay €{this.state.eventModalDetails.paid_amount} Now(get ticket)</button>
+                                                                <StripeCheckout
+                                                                    token={this.onToken}
+                                                                    stripeKey={process.env.REACT_APP_STRIP_KEY}
+                                                                    // image="https://node.globalfansy.com/assets/user.png"
+                                                                    // panelLabel="Give Money" // prepended to the amount in the bottom pay button
+                                                                    amount={this.state.eventModalDetails.paid_amount * 100} // cents
+                                                                    ComponentClass="div"
+                                                                    currency="USD"
+                                                                // name="Three Comma Co." // the pop-in header title
+                                                                // description="Big Data Stuff" // the pop-in header subtitle
+                                                                >
+                                                                    <button className='btn btn-primary'>
+                                                                        Pay ${this.state.eventModalDetails.paid_amount} Now(get ticket)
+                                                                    </button>
+                                                                </StripeCheckout>
+
                                                             )}
                                                             {/* <button className='btn btn-primary'>Pay €{this.state.eventModalDetails.paid_amount} Now</button> */}
                                                             {/* <button className='btn btn-primary'>Pay €{this.state.eventModalDetails.paid_amount} Now</button> */}
                                                         </div>
                                                     </>
                                                 )}
-                                                {this.state.eventModalDetails.paid_amount == null && (
+                                                {this.state.goingtoEventMsg == "No record found." && (this.state.eventModalDetails.paid_amount == null || this.state.eventModalDetails.paid_amount == 0) && (
                                                     <div className='d-flex justify-content-end'>
                                                         {this.state.goingtoEventLoader && (
                                                             <button className='btn btn-primary'>Loading...</button>
@@ -449,7 +510,7 @@ class Events extends Component {
 
                 <Popupchat />
                 <Appfooter />
-            </Fragment>
+            </Fragment >
         );
     }
 }
