@@ -3,9 +3,6 @@ import Comments from './Comments';
 import Emojis from './Emojis';
 import PostApi from '../api/Posts'
 import PostSound from '../../public/assets/sounds/post_sound.mp3';
- 
-
- 
 
 import icon1 from '../../public/assets/iconss/1.svg'
 import icon2 from '../../public/assets/iconss/2.svg'
@@ -13,7 +10,7 @@ import icon3 from '../../public/assets/iconss/3.svg'
 import icon4 from '../../public/assets/iconss/4.svg'
 import icon5 from '../../public/assets/iconss/5.svg'
 
-
+import StripeCheckout from 'react-stripe-checkout';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import BlurBackground from '../../public/assets/images/blur.jpg'
@@ -33,13 +30,23 @@ class Postview extends Component {
             EmojisCount: 0,
             cardAtive: false,
             copyClip: false,
-            purchaseLoader:false,
+            purchaseLoader: false,
+
+            user_paid: false,
+            postImages: [],
+            postvideo: ''
         };
         // this.addLinks = this.addLinks.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         // AOS.init();
+
+        this.setState({
+            postImages: this.props.postimage,
+            user_paid: this.props.allData.user_paid,
+            postvideo: this.props.postvideo
+        })
     }
 
 
@@ -94,6 +101,31 @@ class Postview extends Component {
 
     }
 
+    purchasePost = (token) => {
+        if (this.props.id) {
+            let data = {
+                post_id: this.props.id,
+                payment_token: token.id
+            }
+            this.setState({ purchaseLoader: true })
+            PostApi.purchasePost(data).then(res => {
+                console.log(res.data)
+                if (res.data.Error == false) {
+                    new Audio(PostSound).play();
+                    this.props.purchasePost(res.data)
+                    this.setState({
+                        postImages: res.data.paidPost.post_images,
+                        user_paid: true,
+                        postvideo: res.data.paidPost.video_url
+                    })
+                }
+            }).catch(error => {
+                this.setState({ purchaseLoader: false })
+                console.log(error)
+            })
+        }
+    }
+
 
 
 
@@ -125,9 +157,7 @@ class Postview extends Component {
                         dangerouslySetInnerHTML={{ __html: this.addLinks(allData.tag_users, allData.hash_tags, des) }}
                     />
                 </div>
-
-
-                {!allData.user_paid && (
+                {!this.state.user_paid && (
                     <>
                         {!this.state.cardAtive && (
                             <div className="card-body d-block p-0 mb-3">
@@ -161,7 +191,7 @@ class Postview extends Component {
                                             <img src='assets/images/blur.jpg' className="rounded-3 w-100" alt="post" />
                                             <div className='paidPostSeciton'>
                                                 <div className='d-flex align-items-center flex-column justify-content-center'>
-                                                    <p className='mb-0 fw-500   lh-26 font-xssss'>Payment amount €{allData.paid_amount}</p>
+                                                    <p className='mb-0 fw-500   lh-26 font-xssss'>Payment amount ${allData.paid_amount}</p>
                                                     {/* <div className='w-100'>
                                                         <input type='text' className='commentInput text-grey-500 fw-500 font-xssss lh-4 p-2 bg-transparent ' placeholder='xxx xxx xxx xxx' />
                                                     </div>
@@ -175,12 +205,20 @@ class Postview extends Component {
                                                             >Loading...</button>
                                                         )}
                                                         {!this.state.purchaseLoader && (
-                                                            <button className='btn btn-primary '
-                                                                onClick={() => {
-                                                                    this.setState({ purchaseLoader: true })
-                                                                    this.props.purchasePost(id);
-                                                                }}
-                                                            >Pay</button>
+                                                            <StripeCheckout
+                                                                token={this.purchasePost}
+                                                                stripeKey={process.env.REACT_APP_STRIP_KEY}
+                                                                // image="https://node.globalfansy.com/assets/user.png"
+                                                                // panelLabel="Give Money" // prepended to the amount in the bottom pay button
+                                                                amount={allData.paid_amount * 100} // cents
+                                                                ComponentClass="div"
+                                                                currency="USD"
+                                                            // name="Three Comma Co." // the pop-in header title
+                                                            // description="Big Data Stuff" // the pop-in header subtitle
+                                                            >
+                                                                <button className='btn btn-primary'>Pay</button>
+                                                            </StripeCheckout>
+
                                                         )}
 
                                                     </div>
@@ -195,12 +233,13 @@ class Postview extends Component {
 
                         )}
                     </>
-                )} 
-                {allData.user_paid && (
+                )}
+
+                {this.state.user_paid && (
                     <>
-                        {postvideo ? (
+                        {this.state.postvideo ? (
                             <>
-                                {allData.url_status && allData.video_url !== "" &&  (
+                                {this.state.postvideo && this.state.postvideo !== "" && (
                                     <div className="card-body d-block p-0 mb-3 mt-3">
                                         <div className='row'>
                                             <div className='col-12'>
@@ -214,19 +253,20 @@ class Postview extends Component {
                                 )}</>
                         )
                             : ''}
-                        {postimage ? (
+                        {this.state.postImages ? (
                             <div className="card-body d-block p-0 mb-3"
                                 onClick={() => {
                                     this.props.modalPostView(allData)
                                 }}
                             >
+
                                 <div className="row ps-2 pe-2">
 
-                                    {postimage.length == 1 && (
+                                    {this.state.postImages.length == 1 && (
                                         <div className="col-sm-12 p-1">
                                             <div className='maltiImgesUpload' >
                                                 <div>
-                                                    <img src={`${postimage[0].picture}`} className="" alt="post" />
+                                                    <img src={`${this.state.postImages[0].picture}`} className="" alt="post" />
                                                 </div>
 
                                             </div>
@@ -234,32 +274,32 @@ class Postview extends Component {
                                     )}
 
                                     {/* **************************** */}
-                                    {postimage.length == 2 && (
+                                    {this.state.postImages.length == 2 && (
                                         <div className="col-sm-12 p-1 ">
                                             <div className='maltiImgesUpload2' >
                                                 <div>
-                                                    <img src={`${postimage[0].picture}`} className="" alt="post" />
+                                                    <img src={`${this.state.postImages[0].picture}`} className="" alt="post" />
                                                 </div>
                                                 <div>
-                                                    <img src={`${postimage[1].picture}`} className="" alt="post" />
+                                                    <img src={`${this.state.postImages[1].picture}`} className="" alt="post" />
                                                 </div>
                                             </div>
                                         </div>
                                     )}
                                     {/* **************************** */}
 
-                                    {postimage.length == 3 && (
+                                    {this.state.postImages.length == 3 && (
                                         <div className="col-sm-12 p-1">
                                             <div className='maltiImgesUpload3' >
                                                 <div>
-                                                    <img src={`${postimage[0].picture}`} className="" alt="post" />
+                                                    <img src={`${this.state.postImages[0].picture}`} className="" alt="post" />
                                                 </div>
                                                 <div className='d-flex flex-column'>
                                                     <div>
-                                                        <img src={`${postimage[1].picture}`} className="" alt="post" />
+                                                        <img src={`${this.state.postImages[1].picture}`} className="" alt="post" />
                                                     </div>
                                                     <div>
-                                                        <img src={`${postimage[2].picture}`} className="" alt="post" />
+                                                        <img src={`${this.state.postImages[2].picture}`} className="" alt="post" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -267,21 +307,21 @@ class Postview extends Component {
                                     )}
 
                                     {/* ******************** */}
-                                    {postimage.length > 3 && (
+                                    {this.state.postImages.length > 3 && (
                                         <div className="col-sm-12 p-1">
                                             <div className='maltiImgesUpload4' >
                                                 <div>
-                                                    <img src={`${postimage[0].picture}`} className="" alt="post" />
+                                                    <img src={`${this.state.postImages[0].picture}`} className="" alt="post" />
                                                 </div>
                                                 <div className='d-flex flex-column'>
                                                     <div>
-                                                        <img src={`${postimage[1].picture}`} className="" alt="post" />
+                                                        <img src={`${this.state.postImages[1].picture}`} className="" alt="post" />
                                                     </div>
                                                     <div className='moreImges'>
-                                                        <img src={`${postimage[2].picture}`} className="" alt="post" />
-                                                        {postimage.length > 3 && (
+                                                        <img src={`${this.state.postImages[2].picture}`} className="" alt="post" />
+                                                        {this.state.postImages.length > 3 && (
                                                             <div>
-                                                                <div><span>{postimage.length - 3} More</span></div>
+                                                                <div><span>{this.state.postImages.length - 3} More</span></div>
                                                             </div>
                                                         )}
 
@@ -369,7 +409,7 @@ class Postview extends Component {
                     </div>
                     <div
 
-                        className={`dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg right-0 ${menuClass}`} aria-labelledby={`dropdownMenu${id}`} style={{ minWidth: '300px',zIndex:99 }}>
+                        className={`dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg right-0 ${menuClass}`} aria-labelledby={`dropdownMenu${id}`} style={{ minWidth: '300px', zIndex: 99 }}>
                         <h4 className="fw-700 font-xss text-grey-900 d-flex align-items-center">Share <i onClick={this.toggleOpen} className="feather-x cursor-pointer ms-auto font-xssss btn-round-xs bg-greylight text-grey-900 me-2"></i></h4>
                         <div className="card-body p-0 d-flex d-none">
                             <ul className="d-flex align-items-center justify-content-between mt-2">
@@ -423,14 +463,14 @@ class Postview extends Component {
             </div>
         );
 
-      
+
 
 
     }
 }
 
 
- 
+
 export default Postview
 
 

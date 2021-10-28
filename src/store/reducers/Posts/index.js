@@ -11,8 +11,8 @@ const Posts = (state = initialState, action) => {
       return [action.payload, ...state]
     case constant.ADD_PAID_POST:
       let filterdInde = state.findIndex(data => data._id == action.payload._id);
-      console.log("filterdInde", filterdInde)
-      state[filterdInde] = action.payload 
+      console.log("filterdInde ", filterdInde) 
+      state[filterdInde] = action.payload  
       return state
     case constant.ADD_NEW_POSTS:
       return state.concat(action.payload)

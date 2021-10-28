@@ -98,34 +98,16 @@ export class PostLists extends Component {
    }
 
 
-   purchasePost = (postId) => {
-      if (postId) {
-         let data = {
-            post_id: postId
-         } 
-         PostApi.purchasePost(data).then(res => {
-            console.log(res.data)
-            if (res.data.Error == false) {
-               this.props.addPaidPost(res.data.paidPost)
-               this.setState({ purchaseLoader: true })
-               setTimeout(() => {
-                  this.setState({ purchaseLoader: false })
-               }, 10);
-               new Audio(PostSound).play();
-               let notification = {
-                  name: res.data.paidPost.created_by.name,
-                  profile: res.data.paidPost.created_by.profile_photo,
-                  des: res.data.msg,
-                  time: new Date()
-               }
-               this.props.addnotificaions(notification)
-            } 
-         }).catch(error => {
-            this.setState({ purchaseLoader: false })
-            console.log(error)
-         })
+   purchasePost = (data) => {
+      this.props.addPaidPost(data.paidPost)
+      new Audio(PostSound).play();
+      let notification = {
+         name: data.paidPost.created_by.name,
+         profile: data.paidPost.created_by.profile_photo,
+         des: data.msg,
+         time: new Date()
       }
-
+      this.props.addnotificaions(notification)
    }
    render() {
       return (
