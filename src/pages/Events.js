@@ -205,8 +205,8 @@ class Events extends Component {
                                 <div className="col-xl-12">
                                     <div className="card shadow-xss w-100 d-block d-flex border-0 p-4 mb-3">
                                         <h2 className="fw-700 mb-0  mt-0 font-md text-grey-900 d-flex justify-content-between align-items-center">
-                                            <div className='d-none d-md-block'>Events</div>
-                                            <div className='d-flex align-items-center justify-content-end w-100 '>
+                                            <div className='d-none d-md-block'>Upcoming Events </div>
+                                            <div className='d-flex align-items-center justify-content-end  '>
                                                 <div>
                                                     <button className='btn btn-primary'
                                                         onClick={() => {

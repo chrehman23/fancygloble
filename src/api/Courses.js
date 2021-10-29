@@ -112,6 +112,16 @@ let CourseApi = {
          },
       })
    },
+   coursePayment: (data) => {
+      return axios({
+         url: "/api/users/coursePayment",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
  
 
 

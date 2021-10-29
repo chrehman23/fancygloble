@@ -171,7 +171,7 @@ class Postview extends Component {
                                                 }}
                                             >
                                                 <div className='d-flex align-items-center justify-content-center'>
-                                                    <p className='mb-0 fw-500   lh-26 font-xssss'>Paid post €{allData.paid_amount}</p>
+                                                    <p className='mb-0 fw-500   lh-26 font-xssss'>Paid post ${allData.paid_amount}</p>
                                                     <button className='btn btn-bg-primary'>Click to Pay</button>
                                                 </div>
                                             </div>

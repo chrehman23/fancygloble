@@ -12,7 +12,7 @@ import ApiLoader from '../components/ApiLoader'
 import CourseApi from '../api/Courses'
 
 import CoursesSectionDetail from "../components/CoursesSectionDetail";
-
+import StripeCheckout from 'react-stripe-checkout';
 
 class CoursesDetail extends Component {
     constructor() {
@@ -37,9 +37,12 @@ class CoursesDetail extends Component {
             discount_amount: "",
             video_url: "",
             thumbnail: "",
+            user_paid: false,
 
             vedioUploading: false,
             publish: false,
+
+            paymentLoader: false
         }
 
     }
@@ -65,6 +68,7 @@ class CoursesDetail extends Component {
                         video_url: res.data.data.video_url,
                         thumbnail: res.data.data.thumbnail,
                         publish: res.data.data.publish,
+                        user_paid: res.data.data.user_paid,
 
                         Course_id: res.data.data._id,
                         loadingCourse: false
@@ -105,6 +109,25 @@ class CoursesDetail extends Component {
         })
     }
 
+    onToken = (token) => {
+        let data = {
+            course_id: this.state.Course_id,
+            payment_token: token.id
+        }
+        this.setState({ paymentLoader: true })
+        CourseApi.coursePayment(data).then(res => {
+            console.log(res)
+            if (res.data.Error == false) {
+                this.setState({
+                    user_paid: true,
+                    paymentLoader: false
+                })
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
     render() {
         return (
             <Fragment>
@@ -115,7 +138,7 @@ class CoursesDetail extends Component {
                 <div className="main-content right-chat-active">
                     <div className="middle-sidebar-bottom">
                         <div className="middle-sidebar-left pe-0">
-                           
+
 
 
 
@@ -184,21 +207,52 @@ class CoursesDetail extends Component {
 
                                             </div>
 
-                                           
+
                                             <div className="col-6">
-
                                                 <label htmlFor="">thumbnail</label>
-
                                                 <div>
                                                     {this.state.thumbnail !== '' && (
                                                         <img src={this.state.thumbnail} className='img-fluid' />
                                                     )}
                                                 </div>
+                                            </div>
+
+                                            <div className="col-6">
+                                                {this.state.paymentLoader && (
+                                                    <button className='btn btn-primary btn-sm'>Loading...</button>
+                                                )}
+                                                {!this.state.paymentLoader && (
+                                                    <>
+                                                        {!this.state.user_paid && (
+                                                            <StripeCheckout
+                                                                token={this.onToken}
+                                                                stripeKey={process.env.REACT_APP_STRIP_KEY}
+                                                                // image="https://node.globalfansy.com/assets/user.png"
+                                                                // panelLabel="Give Money" // prepended to the amount in the bottom pay button
+                                                                amount={this.state.paid_amount * 100} // cents
+                                                                ComponentClass="div"
+                                                                currency="USD"
+                                                            // name="Three Comma Co." // the pop-in header title
+                                                            // description="Big Data Stuff" // the pop-in header subtitle
+                                                            >
+                                                                <button className='btn btn-primary btn-sm'>Pay ${this.state.paid_amount} to enroll</button>
+                                                            </StripeCheckout>
+
+                                                        )}
+                                                        {this.state.user_paid && (
+                                                            <button className='btn btn-primary btn-sm'>Start Course (payment done)</button>
+                                                        )}
+                                                    </>
+                                                )}
+
+
+
 
                                             </div>
+
                                         </div>
 
-                                        {this.state.Course_id && <CoursesSectionDetail course_id={this.state.Course_id} />}
+                                        {!this.state.paymentLoader && this.state.Course_id && <CoursesSectionDetail course_id={this.state.Course_id} />}
 
 
 

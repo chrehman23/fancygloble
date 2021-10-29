@@ -85,40 +85,51 @@ class CoursesSectionLactures extends Component {
                         <div className='col-12'>
                             {this.state.lactures.map((datas, index) => {
                                 return (
-                                    <>
-                                        <div key={index} className='d-flex align-items-center justify-content-between border-bottom mb-2'>
+                                    <div className='border-bottom pb-3'>
+                                        <div key={index} className='d-flex align-items-center justify-content-between  pt-2 mb-2'>
                                             <div>
-                                                <h5 className='mb-0 '><b>{datas.lacture_title}</b></h5>
+                                                <h5 className='mb-0 '><i class="fas fa-lock px-2"></i><b>{datas.lacture_title}</b></h5>
                                                 <p>{datas.lacture_des}</p>
                                             </div>
                                             <div className='p-2'>
-                                                <i class="fas fa-eye px-2 cursor-pointer"
-                                                    onClick={() => {
-                                                        this.setState({
-                                                            vedioModal: true,
-                                                            vedioLink: datas.lacture_vedio
-                                                        })
-                                                    }}
-                                                ></i>
-                                                <i class="fas fa-edit px-2"></i>
-                                                <i class="fas fa-lock px-2"></i>
+                                                {datas.lacture_vedio && (
+                                                    <i class="fas fa-eye px-2 cursor-pointer"
+                                                        onClick={() => {
+                                                            this.setState({
+                                                                vedioModal: true,
+                                                                vedioLink: datas.lacture_vedio
+                                                            })
+                                                        }}
+                                                    ></i>
+                                                )}    
+                                                
                                             </div>
                                         </div>
-                                        <div>
+                                        <div className='row'>
+                                            {datas.files_count>0 && (
+                                                <div className="d-flex ">
+                                                    <div><i className="fas fa-file-alt px-2"></i></div>
+                                                    <div className='cursor-pointer'>{datas.files_count} Document</div>
+                                                </div>
+                                            )}
                                             {datas.files.map((data, index) => {
                                                 return (
-                                                    <div className="col-4">
-                                                        <div className="d-flex">
-                                                            <div><i class="fal fa-file-pdf"></i></div>
-                                                            <div>{data.file}</div>
-                                                        </div>
+                                                    <div className="col-md-4">
+                                                        <a href={data.file} style={{ cursor: 'default' }} target="_blank" >
+                                                            <div className="d-flex ">
+                                                                <div><i className="fas fa-file-alt px-2"></i></div>
+                                                                <div className='cursor-pointer'>Document</div>
+
+                                                            </div>
+                                                        </a>
+                                                       
                                                     </div>
                                                 )
                                             })}
 
                                         </div>
 
-                                    </>
+                                    </div>
                                 )
                             })}
                         </div>
