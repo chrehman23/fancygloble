@@ -199,7 +199,7 @@ class CoursesDetail extends Component {
                                             </div>
                                             <div className="col-6">
                                                 <label htmlFor="">Course Category</label>
-                                                {this.state.course_category}
+                                                <p> {this.state.course_category}</p>
                                             </div>
                                             <div>
                                                 <label htmlFor="">Course Price</label>
@@ -240,7 +240,11 @@ class CoursesDetail extends Component {
 
                                                         )}
                                                         {this.state.user_paid && (
-                                                            <button className='btn btn-primary btn-sm'>Start Course (payment done)</button>
+                                                            <button
+                                                            onClick={()=>{
+                                                                    this.props.history.push(`/course-start/${this.state.Course_id}`)
+                                                            }}
+                                                            className='btn btn-primary btn-sm'>Start Course (payment done)</button>
                                                         )}
                                                     </>
                                                 )}

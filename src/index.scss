@@ -691,3 +691,27 @@
    max-width: 75%;
   margin-left: 0px;
 }
+
+.lactures_container{
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.lactures_container::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+.lactures_container::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;  
+}
+ 
+/* Handle */
+.lactures_container::-webkit-scrollbar-thumb {
+  background: #46237a !important;  
+}
+
+/* Handle on hover */
+.lactures_container::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
+}
