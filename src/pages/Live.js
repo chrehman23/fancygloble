@@ -8,8 +8,9 @@ import Popupchat from '../components/Popupchat';
 import DateCountdown from 'react-date-countdown-timer';
 import socketConnection from '../socketConnection'
 import AgoraRTC from "agora-rtc-sdk";
-
+import { connect } from 'react-redux';
 import StreamApi from '../api/Streams'
+import LiveChat from "./LiveChat";
 
 var rtc = {
     client: null,
@@ -49,12 +50,29 @@ class Live extends Component {
             strimeLiveStatus: false,
             goLiveAnimationBtn: false,
 
-            StreamDetails_id:"",
-            StreamDetails:{}
+            StreamDetails_id: "",
+            StreamDetails: {},
+            massages: [],
+
+            stream_chat_input: ""
 
         };
     }
     componentDidMount() {
+
+        socketConnection.on('stream_massage', data => {
+            if (data.stream_id == this.state.StreamDetails_id) {
+                if (data.user._id == this.props.user_id) {
+                    data.send_by = 'me'
+                }
+                this.setState({
+                    massages: [...this.state.massages, data],
+
+                })
+            }
+
+        })
+
     }
 
 
@@ -197,8 +215,8 @@ class Live extends Component {
                 this.setState({
                     token: res.data.stream.stream_token,
                     channelName: res.data.stream.chanal_name,
-                    StreamDetails:res.data.stream,
-                    StreamDetails_id:res.data.stream._id,
+                    StreamDetails: res.data.stream,
+                    StreamDetails_id: res.data.stream._id,
                 }, () => {
                     this.joinChannel('host')
                 })
@@ -214,6 +232,25 @@ class Live extends Component {
     }
     aginStreamLive = () => {
         socketConnection.emit("gain_stream_live", this.state.StreamDetails)
+    }
+
+    streamChat = () => {
+        let data = {
+            stream_id: this.state.StreamDetails_id,
+            massage: this.state.stream_chat_input,
+        }
+        StreamApi.streamChat(data).then(res => {
+            if (res.data.Error == false) {
+                let data = res.data.data
+                if (res.data.data.user._id == this.props.user_id) {
+                    data.send_by = 'me'
+                }
+                this.setState({
+                    // massages: [...this.state.massages, data],
+                    stream_chat_input: ""
+                })
+            }
+        })
     }
 
     render() {
@@ -232,7 +269,8 @@ class Live extends Component {
                                     {/* *********************************************** */}
                                     {!this.state.goLiveLoader && !this.state.goLive && (
                                         <div className='d-flex bg-greylight rounded mx-2 align-items-center justify-content-center'
-                                            style={{ width: "100%", height: '100%' }}
+
+                                            style={{ width: "100%", height: '100%',minHeight:'70vh' }}
                                         >
                                             <button
                                                 onClick={() => {
@@ -246,7 +284,7 @@ class Live extends Component {
                                     )}
                                     {this.state.goLiveLoader && !this.state.goLive && (
                                         <div className='d-flex bg-greylight rounded mx-2 align-items-center justify-content-center'
-                                            style={{ width: "100%", height: '100%' }}
+                                            style={{ width: "100%", height: '100%', minHeight: '70vh' }}
                                         >
                                             <button className='btn btn-danger'>Loading....</button>
                                         </div>
@@ -326,106 +364,10 @@ class Live extends Component {
                                 </div>
 
                                 <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0 ps-0">
-                                    <div className="card w-100 d-block chat-body p-0 border-0 shadow-xss rounded-3 mb-3 position-relative">
-                                        <div className="messages-content chat-wrapper scroll-bar p-3">
-                                            <div className="message-item">
-                                                <div className="message-user">
-                                                    <figure className="avatar">
-                                                        <img src="assets/images/user.png" alt="avater" />
-                                                    </figure>
-                                                    <div>
-                                                        <h5 className="font-xssss mt-2">Byrom Guittet</h5>
-                                                        <div className="time">01:35 PM</div>
-                                                    </div>
-                                                </div>
-                                                <div className="message-wrap shadow-none">I'm fine, how are you</div>
-                                            </div>
+                                    {this.state.StreamDetails_id && <LiveChat stream_id={this.state.StreamDetails_id} /> }
+                                   
 
-                                            <div className="message-item">
-                                                <div className="message-user">
-                                                    <figure className="avatar">
-                                                        <img src="assets/images/user.png" alt="avater" />
-                                                    </figure>
-                                                    <div>
-                                                        <h5 className="font-xssss mt-2">Byrom Guittet</h5>
-                                                        <div className="time">01:35 PM<i className="ti-double-check text-info"></i></div>
-                                                    </div>
-                                                </div>
-                                                <div className="message-wrap shadow-none">I want those files for you. I want you to send 1 PDF and 1 image file.</div>
-                                            </div>
-
-                                            <div className="message-item">
-                                                <div className="message-user">
-                                                    <figure className="avatar">
-                                                        <img src="assets/images/user.png" alt="avater" />
-                                                    </figure>
-                                                    <div>
-                                                        <h5 className="font-xssss mt-2">Byrom Guittet</h5>
-                                                        <div className="time">01:35 PM</div>
-                                                    </div>
-                                                </div>
-                                                <div className="message-wrap shadow-none">I've found some cool photos for our travel app.</div>
-                                            </div>
-
-                                            <div className="message-item outgoing-message">
-                                                <div className="message-user">
-                                                    <figure className="avatar">
-                                                        <img src="assets/images/user.png" alt="avater" />
-                                                    </figure>
-                                                    <div>
-                                                        <h5>You</h5>
-                                                        <div className="time">01:35 PM<i className="ti-double-check text-info"></i></div>
-                                                    </div>
-                                                </div>
-                                                <div className="message-wrap">Hey mate! How are things going ?</div>
-                                            </div>
-
-                                            <div className="message-item">
-                                                <div className="message-user">
-                                                    <figure className="avatar">
-                                                        <img src="assets/images/user.png" alt="avater" />
-                                                    </figure>
-                                                    <div>
-                                                        <h5 className="font-xssss mt-2">Byrom Guittet</h5>
-                                                        <div className="time">01:35 PM</div>
-                                                    </div>
-                                                </div>
-                                                <div className="message-wrap shadow-none">I'm fine, how are you.</div>
-                                            </div>
-
-                                            <div className="message-item">
-                                                <div className="message-user">
-                                                    <figure className="avatar">
-                                                        <img src="assets/images/user.png" alt="avater" />
-                                                    </figure>
-                                                    <div>
-                                                        <h5 className="font-xssss mt-2">Byrom Guittet</h5>
-                                                        <div className="time">01:35 PM<i className="ti-double-check text-info"></i></div>
-                                                    </div>
-                                                </div>
-                                                <div className="message-wrap shadow-none">I want those files for you. I want you to send 1 PDF and 1 image file.</div>
-                                            </div>
-
-                                            <div className="message-item">
-                                                <div className="message-user">
-                                                    <figure className="avatar">
-                                                        <img src="assets/images/user.png" alt="avater" />
-                                                    </figure>
-                                                    <div>
-                                                        <h5 className="font-xssss mt-2">Byrom Guittet</h5>
-                                                        <div className="time">01:35 PM</div>
-                                                    </div>
-                                                </div>
-                                                <div className="message-wrap shadow-none">I've found some cool photos for our travel app.</div>
-                                            </div>
-
-                                        </div>
-                                        <form className="chat-form position-absolute bottom-0 w-100 left-0 bg-white z-index-1 p-3 shadow-xs theme-dark-bg ">
-                                            <button className="bg-grey float-left"><i className="ti-microphone text-white"></i></button>
-                                            <div className="form-group"><input type="text" placeholder="Start typing.." /></div>
-                                            <button className="bg-current"><i className="ti-arrow-right text-white"></i></button>
-                                        </form>
-                                    </div>
+                                    
                                 </div>
                             </div>
 
@@ -439,4 +381,22 @@ class Live extends Component {
     }
 }
 
-export default Live;
+
+const mapStateToProps = (state) => {
+    return {
+        user_id: state.UserProfile.profile._id,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // removePosts: (data) => {
+        //     dispatch(ACTIONS.removePosts(data))
+        // },
+        // loadProfile: (data) => {
+        //     dispatch(ACTIONS.loadProfile(data))
+        // },
+
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Live)

@@ -57,15 +57,11 @@ class UsersGoingToEvent extends Component {
 
         return (
             <>
-
-
                 <div className='border-dashed mt-2 pt-2'>
-
                     {!this.state.emojiloader && this.state.emoji_list && !this.state.emoji_list.length && (
                         <div className='text-grey-500 fw-500 font-xssss lh-4 pr-2 text-center my-3'>No User found.</div>
                     )}
                     {/* <pre> {JSON.stringify(this.state.emoji_list, null, 2)}</pre> */}
-
                     {this.state.emoji_list.map(data => {
                         return (
                             <div className='px-2'>
@@ -76,6 +72,7 @@ class UsersGoingToEvent extends Component {
 
                                         <span class="text-grey-400 font-xsssss fw-600 float-right mt-1 ">{moment(data.created_at).fromNow(true)} ago </span>
                                     </h5>
+                                    <small className='mb-0'>{data.ticketID}</small>
                                     {/* <h6 class="text-grey-500 fw-500 font-xssss lh-4 d-flex align-items-center emojiImages"> */}
                                         {/* ***************************************************************** */}
                                      
