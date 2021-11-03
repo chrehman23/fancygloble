@@ -53,6 +53,8 @@ class Events extends Component {
             eventStatusLoader: false,
             eventStatus: false,
 
+            payment_status: false,
+            my_event:false,
         }
     }
 
@@ -160,13 +162,16 @@ class Events extends Component {
             event_id: eventId
         }
         this.setState({
-            eventStatusLoader: true
+            eventStatusLoader: true,
+            payment_status:false,
         })
         EventApis.eventStatus(data).then(res => {
             if (res.data.Error == false) {
                 this.setState({
                     goingtoEventMsg: res.data.msg,
-                    eventStatusLoader: false
+                    eventStatusLoader: false,
+                    payment_status: res.data.payment,
+                    my_event: res.data.my_event
                 })
             }
             this.setState({ eventStatusLoader: false })
@@ -428,7 +433,18 @@ class Events extends Component {
                                                     </tr>
                                                 </table>
 
-                                                <p><b>{this.state.goingtoEventMsg !== "No record found." ? this.state.goingtoEventMsg : ""}</b></p>
+                                                <p><b>{this.state.goingtoEventMsg !== "No record found." ? this.state.goingtoEventMsg : ""}</b></p> 
+                                                {this.state.eventModalDetails && this.state.eventModalDetails.event_type == "Stream" && this.state.payment_status && (
+                                                    <>
+                                                        {this.state.my_event && (
+                                                            <button className='btn btn-primary'>Go live</button>
+                                                        )}
+                                                        {!this.state.my_event && (
+                                                            <button className='btn btn-primary'>See event</button>
+                                                        )}
+                                                   
+                                                    </>
+                                                )}
                                                 {(this.state.goingtoEventMsg == "No record found." || this.state.goingtoEventMsg == 'Payment error') && this.state.eventModalDetails.paid_amount > 0 && (
                                                     <>
                                                         <small className='font-weight-bold'>This is paid event you have to pay amount ${this.state.eventModalDetails.paid_amount} to get ticket number.</small>

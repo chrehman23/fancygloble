@@ -239,7 +239,7 @@ class Postview extends Component {
                     <>
                         {this.state.postvideo ? (
                             <>
-                                {this.state.postvideo && this.state.postvideo !== "" && (
+                                {this.state.postvideo && allData.video_url !== "" && (
                                     <div className="card-body d-block p-0 mb-3 mt-3">
                                         <div className='row'>
                                             <div className='col-12'>
