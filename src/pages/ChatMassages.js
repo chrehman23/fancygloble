@@ -116,8 +116,8 @@ class Chat extends Component {
                 <Leftnav />
                 <Rightchat />
 
-                <div className="main-content right-chat-active">
-                    <div className="middle-sidebar-bottom">
+                <div className="main-content right-chat-active" style={{height:"100vh"}}>
+                    <div className="middle-sidebar-bottom" style={{ padding:"130px 15px 0"}}>
                         <div className="middle-sidebar-left pe-0" style={{ maxWidth: "100%" }}>
                             <div className="row">
                                 <div className="col-lg-12 position-relative">
