@@ -166,8 +166,8 @@ class Chat extends Component {
                     </div>
                 </div>
 
-                <Popupchat />
-                <Appfooter />
+                {/* <Popupchat />
+                <Appfooter /> */}
 
             </Fragment>
         );
