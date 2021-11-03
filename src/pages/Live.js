@@ -33,7 +33,6 @@ var option = {
     secret: ''
 }
 
-let live1
 
 class Live extends Component {
     constructor(props) {
@@ -54,7 +53,10 @@ class Live extends Component {
             StreamDetails: {},
             massages: [],
 
-            stream_chat_input: ""
+            stream_chat_input: "",
+
+            camera_allow: false,
+            loading_camera:true
 
         };
     }
@@ -72,6 +74,31 @@ class Live extends Component {
             }
 
         })
+
+
+        var options = {
+            video: true,
+            audio: true
+        };
+
+        let this_react = this
+
+        navigator.webkitGetUserMedia(options,
+            function (stream) {
+                console.log("streaming is okay");
+                this_react.setState({
+                    camera_allow: true,
+                    loading_camera:false
+                })
+            },
+            function (e) {
+                console.log("background error : " + e.name);
+                this_react.setState({
+                    camera_allow: false,
+                    loading_camera: false
+                })
+            });
+
 
     }
 
@@ -185,11 +212,13 @@ class Live extends Component {
         })
         rtc.client.leave(function (ev) {
             console.log(ev)
+            console.log("aaaaaaaaaaaaaaa", ev)
         })
     }
 
     leaveEventAudience = (params) => {
         rtc.client.leave(function () {
+            console.log('params', params)
             console.log("client leaves channel");
             //……
         }, function (err) {
@@ -253,6 +282,16 @@ class Live extends Component {
         })
     }
 
+    componentWillUnmount() {
+        if (this.state.StreamDetails_id) {
+            this.leaveEventHost('host');
+        }
+        window.location.reload()
+
+    }
+
+
+
     render() {
         let { data } = this.state
         return (
@@ -264,112 +303,123 @@ class Live extends Component {
                 <div className="main-content right-chat-active">
                     <div className="middle-sidebar-bottom">
                         <div className="middle-sidebar-left pe-0" style={{ maxWidth: "100%" }}>
-                            <div className="row">
-                                <div className="col-xl-8 col-xxl-9 col-lg-8">
-                                    {/* *********************************************** */}
-                                    {!this.state.goLiveLoader && !this.state.goLive && (
-                                        <div className='d-flex bg-greylight rounded mx-2 align-items-center justify-content-center'
+                            {!this.state.loading_camera && !this.state.camera_allow && (
+                                <div className='row'>
+                                    <div className="col-12">
+                                        <p className='px-5 text-danger mt-5 pt-5'><b>App do not have permission to access your camera and mic.Allow app to access your camera and mic.</b></p>
+                                    </div>
+                                </div>
+                            )}
+                            {!this.state.loading_camera && this.state.camera_allow && (
+                                <div className="row">
+                                    <div className="col-xl-8 col-xxl-9 col-lg-8">
 
-                                            style={{ width: "100%", height: '100%',minHeight:'70vh' }}
-                                        >
-                                            <button
-                                                onClick={() => {
-                                                    this.setState({ goLiveLoader: true }, () => {
-                                                        this.goLiveAnimationBtn()
-                                                        this.createStream()
-                                                    })
-                                                }}
-                                                className='btn btn-danger'>Go Live</button>
-                                        </div>
-                                    )}
-                                    {this.state.goLiveLoader && !this.state.goLive && (
-                                        <div className='d-flex bg-greylight rounded mx-2 align-items-center justify-content-center'
-                                            style={{ width: "100%", height: '100%', minHeight: '70vh' }}
-                                        >
-                                            <button className='btn btn-danger'>Loading....</button>
-                                        </div>
-                                    )}
-                                    <div className={`vedioStrimingsContainer ${this.state.goLive ? "" : "d-none"}`}>
-                                        <div className='liveBtn'>
-                                            {/* <button className='btn btn-danger lookingAud '>
+                                        {/* *********************************************** */}
+                                        {!this.state.goLiveLoader && !this.state.goLive && (
+                                            <div className='d-flex bg-greylight rounded mx-2 align-items-center justify-content-center'
+
+                                                style={{ width: "100%", height: '100%', minHeight: '70vh' }}
+                                            >
+                                                <button
+                                                    onClick={() => {
+                                                        this.setState({ goLiveLoader: true }, () => {
+                                                            this.goLiveAnimationBtn()
+                                                            this.createStream()
+                                                        })
+                                                    }}
+                                                    className='btn btn-danger'>Go Live</button>
+                                            </div>
+                                        )}
+                                        {this.state.goLiveLoader && !this.state.goLive && (
+                                            <div className='d-flex bg-greylight rounded mx-2 align-items-center justify-content-center'
+                                                style={{ width: "100%", height: '100%', minHeight: '70vh' }}
+                                            >
+                                                <button className='btn btn-danger'>Loading....</button>
+                                            </div>
+                                        )}
+                                        <div className={`vedioStrimingsContainer ${this.state.goLive ? "" : "d-none"}`}>
+                                            <div className='liveBtn'>
+                                                {/* <button className='btn btn-danger lookingAud '>
                                                 <i className="ti-eye mt-1  pr-2"></i> 33
                                             </button> */}
-                                            {this.state.goLive &&
-                                                this.state.strimeLiveStatus &&
-                                                this.state.goLiveAnimationBtn && (
-                                                    <button className='btn btn-danger ml-2'>Live</button>
-                                                )}
+                                                {this.state.goLive &&
+                                                    this.state.strimeLiveStatus &&
+                                                    this.state.goLiveAnimationBtn && (
+                                                        <button className='btn btn-danger ml-2'>Live</button>
+                                                    )}
 
 
-                                        </div>
+                                            </div>
 
-                                        {/* <button className='btn btn-danger goLiveTimer'>
+                                            {/* <button className='btn btn-danger goLiveTimer'>
                                             <DateCountdown dateTo='January 01, 2023 00:00:00 GMT+03:00' callback={() => alert('Hello')} />
                                         </button> */}
 
 
 
-                                        <div id="local_stream" className="local_stream" />
-                                        {this.state.strimeLiveStatus && (
-                                            <div className='liveBtnEnd'
-                                                onClick={() => {
-                                                    this.setState({ strimeLiveStatus: false }, () => {
-                                                        this.leaveStream();
-                                                        this.leaveEventHost('host');
-                                                    })
-                                                }}
-                                            >
-                                                <button className='btn btn-danger'>End</button>
-                                            </div>
-                                        )}
+                                            <div id="local_stream" className="local_stream" />
+                                            {this.state.strimeLiveStatus && (
+                                                <div className='liveBtnEnd'
+                                                    onClick={() => {
+                                                        this.setState({ strimeLiveStatus: false }, () => {
+                                                            this.leaveStream();
+                                                            this.leaveEventHost('host');
+                                                        })
+                                                    }}
+                                                >
+                                                    <button className='btn btn-danger'>End</button>
+                                                </div>
+                                            )}
 
-                                        {!this.state.strimeLiveStatus && (
-                                            <div className='liveBtnEnd'
-                                                onClick={() => {
-                                                    this.setState({ strimeLiveStatus: true }, () => {
-                                                        this.aginStreamLive()
-                                                        this.joinChannel('host')
-                                                    })
-                                                }}
-                                            >
-                                                <button className='btn btn-danger'>Go Live</button>
-                                            </div>
-                                        )}
+                                            {!this.state.strimeLiveStatus && (
+                                                <div className='liveBtnEnd'
+                                                    onClick={() => {
+                                                        this.setState({ strimeLiveStatus: true }, () => {
+                                                            this.aginStreamLive()
+                                                            this.joinChannel('host')
+                                                        })
+                                                    }}
+                                                >
+                                                    <button className='btn btn-danger'>Go Live</button>
+                                                </div>
+                                            )}
 
-                                        {/* <div id="remote_video_" style={{ width: "100%", height: "100%" }}  /> */}
-                                    </div>
+                                            {/* <div id="remote_video_" style={{ width: "100%", height: "100%" }}  /> */}
+                                        </div>
 
-                                    {/* **************************************************************** */}
-                                    {/* <button onClick={() => this.joinChannel('host')}>Join Channel as Host</button>
+                                        {/* **************************************************************** */}
+                                        {/* <button onClick={() => this.joinChannel('host')}>Join Channel as Host</button>
                                     <button onClick={() => this.joinChannel('audience')}>Join Channel as Audience</button>
                                     <button onClick={() => this.leaveEventHost('host')}>Leave Event Host</button>
                                     <button onClick={() => this.leaveEventAudience('audience')}>Leave Event Audience</button> */}
 
-                                    {/* **************************************************************** */}
-                                    <div className="card border-0 mb-0 rounded-3 overflow-hidden chat-wrapper bg-image-center bg-image-cover d-none"
-                                        style={{ backgroundImage: `url("https://via.placeholder.com/975x700.png")` }}>
-                                        <div className="card-body position-absolute mt-0 ms-0 left-0">
-                                            <img src="https://via.placeholder.com/75x100.png" alt="video-bg" className="w150 h200 rounded-3 position-relative z-index-1 shadow-xss" />
-                                        </div>
-                                        <div className="card-body text-center p-2 position-absolute w-100 bottom-0 bg-gradiant-bottom">
-                                            <a href="/defaultlivestream" className="btn-round-xl d-md-inline-block d-none bg-blur m-3 me-0 z-index-1"><i className="feather-grid text-white font-md"></i></a>
-                                            <a href="/defaultlivestream" className="btn-round-xl d-md-inline-block d-none bg-blur m-3 z-index-1"><i className="feather-mic-off text-white font-md"></i></a>
-                                            <a href="/defaultlivestream" className="btn-round-xxl bg-danger z-index-1"><i className="feather-phone-off text-white font-md"></i></a>
-                                            <a href="/defaultlivestream" className="btn-round-xl d-md-inline-block d-none bg-blur m-3 z-index-1"><i className="ti-video-camera text-white font-md"></i></a>
-                                            <a href="/defaultlivestream" className="btn-round-xl d-md-inline-block d-none bg-blur m-3 ms-0 z-index-1"><i className="ti-settings text-white font-md"></i></a>
-                                            <span className="p-2 bg-blur z-index-1 text-white fw-700 font-xssss rounded-3 right-15 position-absolute mb-4 bottom-0">44:00</span>
-                                            <span className="live-tag position-absolute left-15 mt-2 bottom-0 mb-4 bg-danger p-2 z-index-1 rounded-3 text-white font-xsssss text-uppersace fw-700 ls-3">LIVE</span>
+                                        {/* **************************************************************** */}
+                                        <div className="card border-0 mb-0 rounded-3 overflow-hidden chat-wrapper bg-image-center bg-image-cover d-none"
+                                            style={{ backgroundImage: `url("https://via.placeholder.com/975x700.png")` }}>
+                                            <div className="card-body position-absolute mt-0 ms-0 left-0">
+                                                <img src="https://via.placeholder.com/75x100.png" alt="video-bg" className="w150 h200 rounded-3 position-relative z-index-1 shadow-xss" />
+                                            </div>
+                                            <div className="card-body text-center p-2 position-absolute w-100 bottom-0 bg-gradiant-bottom">
+                                                <a href="/defaultlivestream" className="btn-round-xl d-md-inline-block d-none bg-blur m-3 me-0 z-index-1"><i className="feather-grid text-white font-md"></i></a>
+                                                <a href="/defaultlivestream" className="btn-round-xl d-md-inline-block d-none bg-blur m-3 z-index-1"><i className="feather-mic-off text-white font-md"></i></a>
+                                                <a href="/defaultlivestream" className="btn-round-xxl bg-danger z-index-1"><i className="feather-phone-off text-white font-md"></i></a>
+                                                <a href="/defaultlivestream" className="btn-round-xl d-md-inline-block d-none bg-blur m-3 z-index-1"><i className="ti-video-camera text-white font-md"></i></a>
+                                                <a href="/defaultlivestream" className="btn-round-xl d-md-inline-block d-none bg-blur m-3 ms-0 z-index-1"><i className="ti-settings text-white font-md"></i></a>
+                                                <span className="p-2 bg-blur z-index-1 text-white fw-700 font-xssss rounded-3 right-15 position-absolute mb-4 bottom-0">44:00</span>
+                                                <span className="live-tag position-absolute left-15 mt-2 bottom-0 mb-4 bg-danger p-2 z-index-1 rounded-3 text-white font-xsssss text-uppersace fw-700 ls-3">LIVE</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0 ps-0">
-                                    {this.state.StreamDetails_id && <LiveChat stream_id={this.state.StreamDetails_id} /> }
-                                   
+                                    <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0 ps-0">
+                                        {this.state.StreamDetails_id && <LiveChat stream_id={this.state.StreamDetails_id} />}
 
-                                    
+
+
+                                    </div>
                                 </div>
-                            </div>
+                            )}
+
 
                         </div>
                     </div>

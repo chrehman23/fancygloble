@@ -431,7 +431,7 @@ class Events extends Component {
                                                 <p><b>{this.state.goingtoEventMsg !== "No record found." ? this.state.goingtoEventMsg : ""}</b></p>
                                                 {(this.state.goingtoEventMsg == "No record found." || this.state.goingtoEventMsg == 'Payment error') && this.state.eventModalDetails.paid_amount > 0 && (
                                                     <>
-                                                        <small className='font-weight-bold'>This is paid event you have to pay amount €{this.state.eventModalDetails.paid_amount} to get ticket number.</small>
+                                                        <small className='font-weight-bold'>This is paid event you have to pay amount ${this.state.eventModalDetails.paid_amount} to get ticket number.</small>
                                                         <div className='d-flex justify-content-end'>
 
 

@@ -31,6 +31,7 @@ class Live extends Component {
         this.client = {};
         this.stream = {};
         this.state = {
+            hostStatus:false,
             loadingApi: false,
             token: "",
             channelName: '',
@@ -81,7 +82,7 @@ class Live extends Component {
             key: '',
             secret: ''
         }
-
+        let thisReact = this
         // Create a client
         rtc.client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
         // Initialize the client
@@ -95,11 +96,12 @@ class Live extends Component {
                 option.channel, option.uid ? +option.uid : null, function (uid) {
                     console.log("join channel: " + option.channel + " success, uid: " + uid);
                     rtc.params.uid = uid;
-
+                   
                     if (role === "audience") {
                         document.getElementById("remote_video_").innerHTML = "";
                         rtc.client.on("connection-state-change", function (evt) {
-                            console.log("audience", evt)
+                            console.log("audience", evt) 
+                           
                         })
 
                         rtc.client.on("stream-added", function (evt) {
@@ -119,24 +121,37 @@ class Live extends Component {
                             var remoteStream = evt.stream;
                             var id = remoteStream.getId();
                             console.log('stream-removed remote-uid: ', id);
+                            // thisReact.setState({
+                            //     hostStatus: false
+                            // })
                         });
-                     
-
+                        
+                        
                         rtc.client.on("stream-subscribed", function (evt) { 
                             var remoteStream = evt.stream;
                             var id = remoteStream.getId();
                             remoteStream.play("remote_video_");
                             console.log('stream-subscribed remote-uid: ', id);
+                            
+                            thisReact.setState({
+                                hostStatus:true
+                            })
                         })
 
                         rtc.client.on("stream-unsubscribed", function (evt) { 
+                            thisReact.setState({
+                                hostStatus: false
+                            }) 
+                           
                             var remoteStream = evt.stream;
                             var id = remoteStream.getId();
                             remoteStream.pause("remote_video_");
+                           
                             console.log('stream-unsubscribed remote-uid: ', id);
                         })
                     }
                 }, function (err) { 
+                 
                     console.error("client join failed", err)
                 })
 
@@ -146,15 +161,7 @@ class Live extends Component {
     }
 
 
-    leaveEventAudience = (params) => {
-        rtc.client.leave(function () {
-            console.log("client leaves channel");
-            //……
-        }, function (err) {
-            console.log("client leave failed ", err);
-            //error handling
-        })
-    }
+   
 
    
 
@@ -175,9 +182,15 @@ class Live extends Component {
                                 <div className="col-xl-8 col-xxl-9 col-lg-8">
                                     {this.state.loadingApi && (
                                         <div className='d-flex justify-content-center align-items-center w-100' style={{ height: "400px" }} >
-                                            loading...
+                                           Loading....
                                         </div>
                                     )}
+                                    {!this.state.loadingApi && !this.state.hostStatus &&  (
+                                        <div className='d-flex justify-content-center align-items-center w-100' style={{ height: "400px" }} >
+                                            Waiting for host....
+                                        </div>
+                                    )}
+                                    {/* {this.state.hostStatus && "host is live"} */} 
                                     <div className={`vedioStrimingsContainer ${this.state.loadingApi ? "d-none" : ""}`}>
                                         {/* <div className='liveBtn'>
                                             <button className='btn btn-danger lookingAud '>
