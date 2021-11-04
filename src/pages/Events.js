@@ -437,10 +437,14 @@ class Events extends Component {
                                                 {this.state.eventModalDetails && this.state.eventModalDetails.event_type == "Stream" && this.state.payment_status && (
                                                     <>
                                                         {this.state.my_event && (
-                                                            <button className='btn btn-primary'>Go live</button>
+                                                            <button className='btn btn-primary'
+                                                                onClick={() => this.props.history.push(`live-event/${this.state.eventModalDetails && this.state.eventModalDetails._id }`)}
+                                                            >Go live</button>
                                                         )}
                                                         {!this.state.my_event && (
-                                                            <button className='btn btn-primary'>See event</button>
+                                                            <button
+                                                                onClick={() => this.props.history.push(`live-event-view/${this.state.eventModalDetails && this.state.eventModalDetails._id}`)}
+                                                            className='btn btn-primary'>See event</button>
                                                         )}
                                                    
                                                     </>

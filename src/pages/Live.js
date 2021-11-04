@@ -56,7 +56,7 @@ class Live extends Component {
             stream_chat_input: "",
 
             camera_allow: false,
-            loading_camera:true
+            loading_camera: true
 
         };
     }
@@ -88,7 +88,7 @@ class Live extends Component {
                 console.log("streaming is okay");
                 this_react.setState({
                     camera_allow: true,
-                    loading_camera:false
+                    loading_camera: false
                 })
             },
             function (e) {
@@ -394,7 +394,7 @@ class Live extends Component {
                                     <button onClick={() => this.leaveEventAudience('audience')}>Leave Event Audience</button> */}
 
                                         {/* **************************************************************** */}
-                                        <div className="card border-0 mb-0 rounded-3 overflow-hidden chat-wrapper bg-image-center bg-image-cover d-none"
+                                        {/* <div className="card border-0 mb-0 rounded-3 overflow-hidden chat-wrapper bg-image-center bg-image-cover d-none"
                                             style={{ backgroundImage: `url("https://via.placeholder.com/975x700.png")` }}>
                                             <div className="card-body position-absolute mt-0 ms-0 left-0">
                                                 <img src="https://via.placeholder.com/75x100.png" alt="video-bg" className="w150 h200 rounded-3 position-relative z-index-1 shadow-xss" />
@@ -408,7 +408,7 @@ class Live extends Component {
                                                 <span className="p-2 bg-blur z-index-1 text-white fw-700 font-xssss rounded-3 right-15 position-absolute mb-4 bottom-0">44:00</span>
                                                 <span className="live-tag position-absolute left-15 mt-2 bottom-0 mb-4 bg-danger p-2 z-index-1 rounded-3 text-white font-xsssss text-uppersace fw-700 ls-3">LIVE</span>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
 
                                     <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0 ps-0">

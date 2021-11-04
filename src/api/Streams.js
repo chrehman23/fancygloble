@@ -42,6 +42,16 @@ let AuthApi = {
          },
       })
    },
+   eventGolive: (data) => {
+      return axios({
+         url: "/api/users/eventGolive",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
   
 
 
