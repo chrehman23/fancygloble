@@ -68,6 +68,18 @@ let UsersApi = {
       })
    },
 
+   tipsToUser: (data) => {
+      data.requested_at = new Date();
+      return axios({
+         url: "/api/users/tipsToUser",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         }
+      })
+   },
+
 }
 export default UsersApi
 

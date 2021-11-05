@@ -243,7 +243,7 @@ class Events extends Component {
                                     <div className="card w-100   shadow-xss rounded-xxl border-0 px-4 mb-3 mt-3">
                                         <div className='eventsTabs'>
                                             <div className={this.state.eventsTabs == 1 ? "active" : ""} onClick={() => this.changeTabs(1)} >Events</div>
-                                            <div className={this.state.eventsTabs == 3 ? "active" : ""} onClick={() => this.changeTabs(3)}>Own Evnts</div>
+                                            <div className={this.state.eventsTabs == 3 ? "active" : ""} onClick={() => this.changeTabs(3)}>Own Events</div>
                                             <div className={this.state.eventsTabs == 2 ? "active" : ""} onClick={() => this.changeTabs(2)}>Going</div>
                                         </div>
                                     </div>
@@ -258,7 +258,7 @@ class Events extends Component {
                                         <div className="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3" >
                                             <div className="snippet mt-2 ms-auto me-auto" data-title=".dot-typing">
                                                 <div className="stage">
-                                                    <p className='mb-0'><b>No Event found.</b></p>
+                                                    <p className='mb-0'><b>No Event Found.</b></p>
                                                 </div>
                                             </div>
                                         </div>

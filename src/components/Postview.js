@@ -13,6 +13,7 @@ import icon5 from '../../public/assets/iconss/5.svg'
 import StripeCheckout from 'react-stripe-checkout';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
+import { withRouter } from 'react-router';
 import BlurBackground from '../../public/assets/images/blur.jpg'
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -138,7 +139,12 @@ class Postview extends Component {
 
         return (
             <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"  >
-                <div className="card-body p-0 d-flex">
+                {/* {JSON.stringify(allData.created_by.user_name,null,2)} */}
+                <div className="card-body p-0 d-flex cursor-pointer"
+                onClick={()=>{
+                    this.props.history.push(`user/${allData.created_by && allData.created_by.user_name}`)
+                }}
+                >
                     <figure className="avatar imagesmresponsive me-3"><img src={avater} alt="avater" className="shadow-sm rounded-circle" /></figure>
                     <h4 className="fw-700 text-grey-900 font-xssss mt-1 text-capitalize"> {user} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500 text-lowercase"> {time} ago</span></h4>
                     {allData.paid_status && (
@@ -471,6 +477,6 @@ class Postview extends Component {
 
 
 
-export default Postview
+export default withRouter(Postview)
 
 

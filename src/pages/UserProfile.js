@@ -112,7 +112,7 @@ class Userpage extends Component {
                                     {this.state.profileTabs == 1 && (
                                         <>
                                             <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0">
-                                                <Profiledetail about={this.state.profile.about} />
+                                                <Profiledetail profile_id={this.state.profile && this.state.profile._id} about={this.state.profile.about} />
                                                 {/* <Profilephoto /> */}
                                                 {/* <Events /> */}
                                             </div>

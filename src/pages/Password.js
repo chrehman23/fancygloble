@@ -10,7 +10,9 @@ import StripeCheckout from 'react-stripe-checkout';
 
 class Password extends Component {
 
-
+    onToken=(token)=>{
+        console.log(token)
+    }
  
 
     render() {
@@ -37,7 +39,7 @@ class Password extends Component {
 
                                         <StripeCheckout
                                             token={this.onToken}
-                                            stripeKey=""
+                                            stripeKey="pk_test_51JojOKANqHno2iJnUhvHytI2SsokdRaEZLKmG6ZzZrdcTaOp5PUCQv5d4YNacbvaZTN7Qcdk4psAglMyxdM6xMrw00TcV1mIOI"
                                             image="https://node.globalfansy.com/assets/user.png"
                                             panelLabel="Give Money" // prepended to the amount in the bottom pay button
                                             amount={100} // cents

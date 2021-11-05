@@ -6,7 +6,7 @@ class chatList extends Component {
             <>
                 {this.props.massages.map((data, index) => {
                     return (
-                        <div className={`message-items ${data.send_by == "me" ? "" : "out-messages"}`}>
+                        <div key={index}  className={`message-items ${data.send_by == "me" ? "" : "out-messages"}`}>
                             <div className="message-users">
                                 <div className="avatar-img">
                                     <img src={data.user && data.user.profile_photo} alt="avater" />
