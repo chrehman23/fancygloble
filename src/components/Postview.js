@@ -127,9 +127,6 @@ class Postview extends Component {
         }
     }
 
-
-
-
     render() {
 
         const { user, time, des, avater, postimage, postvideo, id, allData, commentCount } = this.props;
@@ -141,9 +138,9 @@ class Postview extends Component {
             <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"  >
                 {/* {JSON.stringify(allData.created_by.user_name,null,2)} */}
                 <div className="card-body p-0 d-flex cursor-pointer"
-                onClick={()=>{
-                    this.props.history.push(`user/${allData.created_by && allData.created_by.user_name}`)
-                }}
+                    onClick={() => {
+                        this.props.history.push(`/user/${allData.created_by && allData.created_by.user_name}`)
+                    }}
                 >
                     <figure className="avatar imagesmresponsive me-3"><img src={avater} alt="avater" className="shadow-sm rounded-circle" /></figure>
                     <h4 className="fw-700 text-grey-900 font-xssss mt-1 text-capitalize"> {user} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500 text-lowercase"> {time} ago</span></h4>

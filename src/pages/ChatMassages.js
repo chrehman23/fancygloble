@@ -96,7 +96,7 @@ class Chat extends Component {
                 room: id,
                 created_at: new Date()
             }
-            if (token) {
+            if (token.id) {
                 data.payment_token = token.id
                 data.amount = this.state.tip_amount
                 data.content = ""
