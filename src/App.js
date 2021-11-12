@@ -24,6 +24,7 @@ import Badge from './pages/Badge';
 import Group from './pages/Group';
 import Storie from './pages/Storie';
 import EventLiveView from './pages/EventLiveView';
+import liveLecture from './pages/liveLecture';
 
 import Courses from './pages/Courses';
 import MyCourses from './pages/MyCourses';
@@ -67,6 +68,7 @@ import Hotel from './pages/Hotel';
 import Videos from './pages/Videos';
 import Comingsoon from './pages/Comingsoon';
 import AddCourses from './pages/AddCourses';
+import LectureLiveView from './pages/LectureLiveView';
 
 import Grouppage from './pages/Grouppage';
 import Userpage from './pages/Userpage';
@@ -150,7 +152,9 @@ class App extends Component {
           <Route exact path={`/defaultlive`} component={Live} />
           <Route exact path={`/live-view/:id`} component={LiveView} />
           <Route exact path={`/live-event/:id`} component={EventLive} />
+          <Route exact path={`/live-lecture/:id`} component={liveLecture} />
           <Route exact path={`/live-event-view/:id`} component={EventLiveView} />
+          <Route exact path={`/live-lecture-view/:id`} component={LectureLiveView} />
           <Route exact path={`/defaultstorie`} component={Storie} />
 
           <Route exact path={`/defaultbadge`} component={Badge} />

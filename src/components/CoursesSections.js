@@ -10,14 +10,14 @@ import CourseApi from '../api/Courses'
 import CoursesFiles from './CoursesFiles';
 
 import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker'
-
+import moment from 'moment'
 
 let validationSchema = Yup.object({
     course_id: Yup.string().required('Password is Required.'),
     section_id: Yup.string().required('Password is Required.'),
     lacture_title: Yup.string().required('Title is Required.').min(3, 'Must be greater then 3 characters.'),
     lacture_des: Yup.string().required('Description is Required.').min(6, 'Must be greater then 6 characters.'),
-    lacture_vedio: Yup.string().required('Lecture vedio is Required.'),
+    // lacture_vedio: Yup.string().required('Lecture vedio is Required.'),
 
     // stream_time: Yup.string().when("lacture_type", {
     //     is: val => (val && val ? true : false),
@@ -41,7 +41,7 @@ class CoursesSections extends Component {
 
             streamLacture: false,
 
-            DatePickValue:'',
+            DatePickValue: '',
 
         }
     }
@@ -108,7 +108,12 @@ class CoursesSections extends Component {
                                     <div className='border-bottom mb-2 pb-2' key={index}>
                                         <div key={index} className='d-flex align-items-center justify-content-between '>
                                             <div>
-                                                <h5 className='mb-0 '><b>{datas.lacture_title}</b></h5>
+                                                <h5 className='mb-0 '><b>{datas.lacture_title}</b></h5> 
+                                                {datas.lacture_time && (
+                                                    <p className='mb-0'>{datas.lacture_time && `${moment(datas.lacture_time.split(',')[0]).format('d/MM/yy hh:mm a')} To ${moment(datas.lacture_time.split(',')[1]).format('d/MM/yy hh:mm a')}`} (lecture time)
+                                                        
+                                                    </p>
+                                                )}
                                                 <p>{datas.lacture_des}</p>
                                             </div>
                                             <div className='p-2'>
@@ -204,8 +209,8 @@ class CoursesSections extends Component {
                                 lacture_title: "",
                                 lacture_des: "",
                                 lacture_vedio: "",
-                                stream_time:[],
-                                lacture_type:false
+                                stream_time: [],
+                                lacture_type: false
                             }}
                             validationSchema={validationSchema}
                             onSubmit={(values) => {
@@ -219,6 +224,12 @@ class CoursesSections extends Component {
                                 data.append('lacture_title', values.lacture_title)
                                 data.append('lacture_des', values.lacture_des)
                                 data.append('lacture_vedio', values.lacture_vedio)
+                                data.append('lacture_time', values.stream_time)
+                                if (values.lacture_type == true) {
+                                    data.append('lacture_type', "Stream")
+                                } else {
+                                    data.append('lacture_type', "Vedio")
+                                }
                                 CourseApi.addLacture(data).then(res => {
                                     console.log(res.data)
                                     if (res.data.Error == false) {
