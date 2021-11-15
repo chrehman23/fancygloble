@@ -136,7 +136,7 @@ class Live extends Component {
                             streamID: rtc.params.uid,
                             audio: true,
                             video: true,
-                            screen: false,
+                            screen: true,
                         })
                         // Initialize the local stream
                         rtc.localStream.init(function () {
