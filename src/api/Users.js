@@ -55,6 +55,16 @@ let UsersApi = {
          }
       })
    },
+   cancelFollowerRequest: (data) => {
+      return axios({
+         url: "/api/users/cancelFollowerRequest",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         }
+      })
+   },
 
    sendFollowingRequest: (data) => {
       data.requested_at = new Date();

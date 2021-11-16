@@ -167,7 +167,7 @@ class Postview extends Component {
                                 <div className="row ps-2 pe-2 ">
                                     <div className="col-sm-12 p-1 ">
                                         <div className='position-relative overflow-hidden'>
-                                            <img src='assets/images/blur.jpg' className="rounded-3 w-100" alt="post" />
+                                            <img src='/assets/images/blur.jpg' className="rounded-3 w-100" alt="post" />
                                             <div className='paidPostSeciton'
                                                 onClick={() => {
                                                     this.setState({ cardAtive: true })
@@ -191,7 +191,7 @@ class Postview extends Component {
                                 <div className="row ps-2 pe-2 ">
                                     <div className="col-sm-12 p-1">
                                         <div className='position-relative overflow-hidden'>
-                                            <img src='assets/images/blur.jpg' className="rounded-3 w-100" alt="post" />
+                                            <img src='/assets/images/blur.jpg' className="rounded-3 w-100" alt="post" />
                                             <div className='paidPostSeciton'>
                                                 <div className='d-flex align-items-center flex-column justify-content-center'>
                                                     <p className='mb-0 fw-500   lh-26 font-xssss'>Payment amount ${allData.paid_amount}</p>

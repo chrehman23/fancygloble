@@ -5,7 +5,7 @@ import Rightchat from '../components/Rightchat';
 import Appfooter from '../components/Appfooter';
 import Popupchat from '../components/Popupchat';
 import chatApi from '../api/chat'
-
+import ContentLoader from 'react-content-loader'
 import ScrollToBottom from 'react-scroll-to-bottom';
 import socketConnection from '../socketConnection'
 import { Modal } from 'react-bootstrap'
@@ -147,6 +147,98 @@ class Chat extends Component {
                                                     initialScrollBehavior="auto"
                                                     className='messages-contents' mode="bottom" >
                                                     <ChatList massages={this.state.massages} />
+                                                </ScrollToBottom>
+                                            )}
+                                            {this.state.apiLoader && (
+                                                <ScrollToBottom
+                                                    animating={false}
+                                                    initialScrollBehavior="auto"
+                                                    className='messages-contents' mode="bottom" >
+                                                   <div className='d-flex  '>
+                                                        <ContentLoader
+                                                            speed={2}
+                                                            // width={'100%'}
+                                                            height={45}
+                                                            // viewBox="0 0 400 160"
+                                                            backgroundColor="#f3f3f3"
+                                                            foregroundColor="#ecebeb"
+                                                        >
+                                                            <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                            <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                            <circle cx="20" cy="20" r="20" />
+                                                        </ContentLoader>
+                                                   </div>
+                                                   <div className='d-flex justify-content-end'>
+                                                        <ContentLoader
+                                                            speed={2}
+                                                            // width={'100%'}
+                                                            height={45}
+                                                            // viewBox="0 0 400 160"
+                                                            backgroundColor="#f3f3f3"
+                                                            foregroundColor="#ecebeb"
+                                                        >
+                                                            <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                            <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                            <circle cx="20" cy="20" r="20" />
+                                                        </ContentLoader>
+                                                   </div>
+                                                   <div className='d-flex  '>
+                                                        <ContentLoader
+                                                            speed={2}
+                                                            // width={'100%'}
+                                                            height={45}
+                                                            // viewBox="0 0 400 160"
+                                                            backgroundColor="#f3f3f3"
+                                                            foregroundColor="#ecebeb"
+                                                        >
+                                                            <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                            <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                            <circle cx="20" cy="20" r="20" />
+                                                        </ContentLoader>
+                                                   </div>
+                                                   <div className='d-flex justify-content-end'>
+                                                        <ContentLoader
+                                                            speed={2}
+                                                            // width={'100%'}
+                                                            height={45}
+                                                            // viewBox="0 0 400 160"
+                                                            backgroundColor="#f3f3f3"
+                                                            foregroundColor="#ecebeb"
+                                                        >
+                                                            <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                            <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                            <circle cx="20" cy="20" r="20" />
+                                                        </ContentLoader>
+                                                   </div>
+                                                   <div className='d-flex  '>
+                                                        <ContentLoader
+                                                            speed={2}
+                                                            // width={'100%'}
+                                                            height={45}
+                                                            // viewBox="0 0 400 160"
+                                                            backgroundColor="#f3f3f3"
+                                                            foregroundColor="#ecebeb"
+                                                        >
+                                                            <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                            <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                            <circle cx="20" cy="20" r="20" />
+                                                        </ContentLoader>
+                                                   </div>
+                                                   <div className='d-flex  justify-content-end'>
+                                                        <ContentLoader
+                                                            speed={2}
+                                                            // width={'100%'}
+                                                            height={45}
+                                                            // viewBox="0 0 400 160"
+                                                            backgroundColor="#f3f3f3"
+                                                            foregroundColor="#ecebeb"
+                                                        >
+                                                            <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                            <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                            <circle cx="20" cy="20" r="20" />
+                                                        </ContentLoader>
+                                                   </div>
+                                                   
                                                 </ScrollToBottom>
                                             )}
 

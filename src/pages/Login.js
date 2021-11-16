@@ -19,7 +19,7 @@ import loignImage2 from '../../public/assets/images/login image/login2.jpg'
 import loignImage3 from '../../public/assets/images/login image/login3.jpg'
 import loignImage4 from '../../public/assets/images/login image/login4.jpg'
 import loignImage5 from '../../public/assets/images/login image/login5.jpg'
-
+ 
 import socketConnection from '../socketConnection'
 
 import BtnLoader from '../components/ApiLoader'

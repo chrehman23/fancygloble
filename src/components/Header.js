@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import Logo from '../../public/assets/images/logo.png'
 
 import chatApi from '../api/chat'
-
+import ContentLoader from 'react-content-loader'
 
 class Header extends Component {
     state = {
@@ -21,6 +21,7 @@ class Header extends Component {
         chatUsers: [],
 
         activeChat: "",
+        chatLoader: false
     };
 
     componentDidMount() {
@@ -29,15 +30,19 @@ class Header extends Component {
             activeChat: id
         })
         if (this.props.showChat) {
+            this.setState({
+                chatLoader: true
+            })
             chatApi.findRoomsByUser().then(res => {
                 if (res.data.Error == false) {
                     this.setState({
                         chatUsers: res.data.data,
+                        chatLoader: false
                     })
                 }
             })
         }
-        if (this.props.openSideBar){
+        if (this.props.openSideBar) {
             this.setState({ isOpen: true })
         }
     }
@@ -155,7 +160,7 @@ class Header extends Component {
                 <nav className={`navigation scroll-bar ${navClass} ${this.props.showChat ? "" : "d-none"}`}>
                     <div className="container ps-0 pe-0">
                         <div className="nav-content">
-                            <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2">
+                            <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2" style={{minHeight:'90vh'}}>
                                 <div className="nav-caption fw-600 font-xssss text-grey-500">Followers and Followings</div>
                                 <ul className="mb-1 top-content">
                                     {this.state.chatUsers.map((data, index) => {
@@ -174,13 +179,120 @@ class Header extends Component {
                                                         </div>
                                                         <div>
                                                             <h5 className=''>{data.user && data.user.name}</h5>
-                                                            <small className=''>{data.user && data.user.user_name}</small>
+                                                            <small className=''>
+                                                                {data.last_message && data.last_message.content && data.last_message.content.substring(0,10)}
+                                                                {data.last_message && data.last_message.content && data.last_message.content && data.last_message.content.length > 10 && "..."}
+                                                                {data.update_at ==""  && data.user && data.user.user_name}
+                                                            </small>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </li>
                                         )
                                     })}
+                                    {this.state.chatLoader && (
+                                        <li>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+
+                                        </li>
+                                    )}
+
+
 
                                 </ul>
                             </div>
