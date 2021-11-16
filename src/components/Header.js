@@ -164,7 +164,7 @@ class Header extends Component {
                                 <div className="nav-caption fw-600 font-xssss text-grey-500">Followers and Followings</div>
                                 <ul className="mb-1 top-content">
                                     {this.state.chatUsers.map((data, index) => {
-                                        return (
+                                        return ( 
                                             <li key={index}>
                                                 <div
                                                     onClick={() => {
@@ -184,6 +184,10 @@ class Header extends Component {
                                                                 {data.last_message && data.last_message.content && data.last_message.content && data.last_message.content.length > 10 && "..."}
                                                                 {data.update_at ==""  && data.user && data.user.user_name}
                                                             </small>
+                                                        </div>
+                                                        <div className='online_status'></div>
+                                                        <div className='unread_sms'>
+                                                            <div><small>2</small></div>
                                                         </div>
                                                     </div>
                                                 </div>
