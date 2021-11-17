@@ -1,4 +1,7 @@
 import React, { Component, Fragment } from "react";
+import { withRouter } from 'react-router';
+import ACTIONS from '../store/actions/index.js';
+import { connect } from 'react-redux'
 import Header from '../components/Header';
 import Leftnav from '../components/Leftnav';
 import Rightchat from '../components/Rightchat';
@@ -38,11 +41,11 @@ class Chat extends Component {
                     massages: res.data.data,
                     apiLoader: false
                 })
-
+                // this.props.showRoom(id)
             }
         })
 
-        if (this.state.loadSocket == false) {
+        // if (this.state.loadSocket == false) {
 
             socketConnection.on('room_sms', data => {
                 let { id } = this.props.match.params
@@ -51,10 +54,10 @@ class Chat extends Component {
                         massages: [...this.state.massages, data],
 
                     })
-                }
+                } 
 
             })
-        }
+        // }
 
 
     }
@@ -77,7 +80,7 @@ class Chat extends Component {
                         smsInput: "",
                         apiLoader: false
                     })
-
+                    // this.props.showRoom(id)
                 }
             })
 
@@ -154,7 +157,7 @@ class Chat extends Component {
                                                     animating={false}
                                                     initialScrollBehavior="auto"
                                                     className='messages-contents' mode="bottom" >
-                                                   <div className='d-flex  '>
+                                                    <div className='d-flex  '>
                                                         <ContentLoader
                                                             speed={2}
                                                             // width={'100%'}
@@ -167,8 +170,8 @@ class Chat extends Component {
                                                             <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
                                                             <circle cx="20" cy="20" r="20" />
                                                         </ContentLoader>
-                                                   </div>
-                                                   <div className='d-flex justify-content-end'>
+                                                    </div>
+                                                    <div className='d-flex justify-content-end'>
                                                         <ContentLoader
                                                             speed={2}
                                                             // width={'100%'}
@@ -181,8 +184,8 @@ class Chat extends Component {
                                                             <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
                                                             <circle cx="20" cy="20" r="20" />
                                                         </ContentLoader>
-                                                   </div>
-                                                   <div className='d-flex  '>
+                                                    </div>
+                                                    <div className='d-flex  '>
                                                         <ContentLoader
                                                             speed={2}
                                                             // width={'100%'}
@@ -195,8 +198,8 @@ class Chat extends Component {
                                                             <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
                                                             <circle cx="20" cy="20" r="20" />
                                                         </ContentLoader>
-                                                   </div>
-                                                   <div className='d-flex justify-content-end'>
+                                                    </div>
+                                                    <div className='d-flex justify-content-end'>
                                                         <ContentLoader
                                                             speed={2}
                                                             // width={'100%'}
@@ -209,8 +212,8 @@ class Chat extends Component {
                                                             <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
                                                             <circle cx="20" cy="20" r="20" />
                                                         </ContentLoader>
-                                                   </div>
-                                                   <div className='d-flex  '>
+                                                    </div>
+                                                    <div className='d-flex  '>
                                                         <ContentLoader
                                                             speed={2}
                                                             // width={'100%'}
@@ -223,8 +226,8 @@ class Chat extends Component {
                                                             <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
                                                             <circle cx="20" cy="20" r="20" />
                                                         </ContentLoader>
-                                                   </div>
-                                                   <div className='d-flex  justify-content-end'>
+                                                    </div>
+                                                    <div className='d-flex  justify-content-end'>
                                                         <ContentLoader
                                                             speed={2}
                                                             // width={'100%'}
@@ -237,8 +240,8 @@ class Chat extends Component {
                                                             <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
                                                             <circle cx="20" cy="20" r="20" />
                                                         </ContentLoader>
-                                                   </div>
-                                                   
+                                                    </div>
+
                                                 </ScrollToBottom>
                                             )}
 
@@ -341,5 +344,22 @@ class Chat extends Component {
         );
     }
 }
+ 
+const mapStateToProps = (state) => {
+    return {
+         
+    }
+}
 
-export default Chat;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        showRoom: (data) => {
+            dispatch(ACTIONS.showRoom(data))
+        },
+        updateRoom: (data) => {
+            dispatch(ACTIONS.updateRoom(data))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Chat))

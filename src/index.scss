@@ -579,7 +579,7 @@
   height: 10px;
   // display: block;
   border-radius: 50%;
-  // border: 0.1px solid black;
+  border: 1px solid white;
 }
 .UserChatWraper .unread_sms {
   position: absolute;
@@ -597,7 +597,7 @@
   // border: 0.1px solid black;
 }
 .UserChatWraper .unread_sms small {
-  font-size: 7px !important;
+  font-size: 7px !important; 
 }
 .UserChatWraper > div:first-child > div {
   width: 45px;
@@ -632,6 +632,10 @@
   top: -10px;
   right: auto;
   display: inline-block;
+}
+.UserChatWraper > div:nth-child(2) small.new {
+font-weight: bold !important;
+color: black !important;
 }
 
 .UserChatContainer.actives {

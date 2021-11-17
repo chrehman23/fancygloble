@@ -6,7 +6,7 @@ import Notify from './Notify';
 
 import ACTIONS from '../store/actions/index.js';
 import { connect } from 'react-redux'
-
+import socketConnection from '../socketConnection'
 import Logo from '../../public/assets/images/logo.png'
 
 import chatApi from '../api/chat'
@@ -21,7 +21,9 @@ class Header extends Component {
         chatUsers: [],
 
         activeChat: "",
-        chatLoader: false
+        chatLoader: false,
+
+        reloading_rooms: false,
     };
 
     componentDidMount() {
@@ -39,12 +41,50 @@ class Header extends Component {
                         chatUsers: res.data.data,
                         chatLoader: false
                     })
+                    this.props.addRooms(res.data.data)
                 }
             })
         }
         if (this.props.openSideBar) {
             this.setState({ isOpen: true })
         }
+
+
+
+        socketConnection.on('room_sms', data => {
+            let { id } = this.props.match.params
+            if (data.room !== id) {
+                this.props.updateRoom(data);
+                console.log(data)
+                let notification = {
+                    name: data.user.name,
+                    profile: data.user.profile_photo,
+                    des: "Sent you a massage.",
+                    time: new Date()
+                }
+                this.props.addnotificaions(notification)
+                this.setState({
+                    reloading_rooms: true
+                }, () => {
+                    this.setState({
+                        reloading_rooms: false
+                    })
+                })
+
+            }
+        })
+        socketConnection.on('user_ofline', data => {
+            console.log("data", data)
+            this.props.update_user_room(data);
+            this.setState({
+                reloading_rooms: true
+            }, () => {
+                this.setState({
+                    reloading_rooms: false
+                })
+            })
+        })
+
     }
 
     componentDidUpdate(prevProps, prevState,) {
@@ -53,7 +93,9 @@ class Header extends Component {
             this.setState({
                 activeChat: id
             })
+            this.props.showRoom(id)
         }
+
 
     }
 
@@ -160,11 +202,12 @@ class Header extends Component {
                 <nav className={`navigation scroll-bar ${navClass} ${this.props.showChat ? "" : "d-none"}`}>
                     <div className="container ps-0 pe-0">
                         <div className="nav-content">
-                            <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2" style={{minHeight:'90vh'}}>
+                            <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2" style={{ minHeight: '90vh' }}>
                                 <div className="nav-caption fw-600 font-xssss text-grey-500">Followers and Followings</div>
                                 <ul className="mb-1 top-content">
-                                    {this.state.chatUsers.map((data, index) => {
-                                        return ( 
+                                    {/* {JSON.stringify(this.props.Rooms[0] && this.props.Rooms[0].un_read,null,2)} */}
+                                    {!this.state.reloading_rooms && this.props.Rooms.map((data, index) => {
+                                        return (
                                             <li key={index}>
                                                 <div
                                                     onClick={() => {
@@ -179,16 +222,21 @@ class Header extends Component {
                                                         </div>
                                                         <div>
                                                             <h5 className=''>{data.user && data.user.name}</h5>
-                                                            <small className=''>
-                                                                {data.last_message && data.last_message.content && data.last_message.content.substring(0,10)}
+                                                            <small className={data.un_read > 0 ? "new" : ""}>
+                                                                {data.last_message && data.last_message.content && data.last_message.content.substring(0, 10)}
                                                                 {data.last_message && data.last_message.content && data.last_message.content && data.last_message.content.length > 10 && "..."}
-                                                                {data.update_at ==""  && data.user && data.user.user_name}
+                                                                {data.update_at == "" && data.user && data.user.user_name}
                                                             </small>
                                                         </div>
-                                                        <div className='online_status'></div>
-                                                        <div className='unread_sms'>
-                                                            <div><small>2</small></div>
-                                                        </div>
+                                                        {data.online && (
+                                                            <div className='online_status'></div>
+                                                        )}
+                                                        {data.un_read > 0 && (
+                                                            <div className='unread_sms'>
+                                                                <div><small>{data.un_read}</small></div>
+                                                            </div>
+                                                        )}
+
                                                     </div>
                                                 </div>
                                             </li>
@@ -329,6 +377,7 @@ class Header extends Component {
 const mapStateToProps = (state) => {
     return {
         NotifyStatus: state.Nofify.new,
+        Rooms: state.Rooms,
     }
 }
 
@@ -336,7 +385,22 @@ const mapDispatchToProps = (dispatch) => {
     return {
         openNotifys: (data) => {
             dispatch(ACTIONS.openNotify(data))
-        }
+        },
+        addRooms: (data) => {
+            dispatch(ACTIONS.addRooms(data))
+        },
+        showRoom: (data) => {
+            dispatch(ACTIONS.showRoom(data))
+        },
+        updateRoom: (data) => {
+            dispatch(ACTIONS.updateRoom(data))
+        },
+        addnotificaions: (data) => {
+            dispatch(ACTIONS.addnotificaion(data))
+        },
+        update_user_room: (data) => {
+            dispatch(ACTIONS.update_user_room(data))
+        },
     }
 }
 
