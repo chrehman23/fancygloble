@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Darkbutton from '../components/Darkbutton';
 import Notify from './Notify';
-
+import PostSound from '../../public/assets/sounds/post_sound.mp3'
 import ACTIONS from '../store/actions/index.js';
 import { connect } from 'react-redux'
 import socketConnection from '../socketConnection'
@@ -66,6 +66,7 @@ class Header extends Component {
                 this.setState({
                     reloading_rooms: true
                 }, () => {
+                    new Audio(PostSound).play();
                     this.setState({
                         reloading_rooms: false
                     })

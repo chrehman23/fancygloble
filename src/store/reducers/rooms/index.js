@@ -24,9 +24,16 @@ const Rooms = (state = initialState, action) => {
         console.log(rooms_data[rooms_index].un_read)
         rooms_info.un_read = rooms_data[rooms_index].un_read + 1;
         rooms_info.last_message = action.payload;
-        rooms_data[rooms_index] = rooms_info
+
+        // rooms_data[rooms_index] = rooms_info
+        delete rooms_data[rooms_index]
+        let new_list = rooms_data.filter(data=>data)
+        return [rooms_info, ...new_list]
+      }else{
+        return rooms_data
       }
-      return rooms_data
+
+     
     case constant.UPDATE_USER_ROOM:
       let roomsData = state.map(data => {
         if (data.user._id == action.payload.user_id) {

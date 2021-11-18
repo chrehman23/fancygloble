@@ -56,7 +56,6 @@ class Chat extends Component {
             if (data.room == id) {
                 this.setState({
                     massages: [...this.state.massages, data],
-
                 })
             }
 
