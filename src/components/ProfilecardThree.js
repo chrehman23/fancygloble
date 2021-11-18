@@ -21,7 +21,17 @@ class ProfilecardThree extends Component {
         super(props);
         this.state = {
             apiLoader: false,
+            buttons:true,
         }
+    }
+
+    componentDidMount(){
+        if (this.props.buttons==false){
+            this.setState({
+                buttons: false
+            })
+        }
+        
     }
 
     sendFrindRe = (id) => {
@@ -126,7 +136,7 @@ class ProfilecardThree extends Component {
                 <div className='d-flex justify-content-end p-3'>
                     {/* {JSON.stringify(this.props.followings, null, 2)}
                     {this.props.Profile.user_name} */}
-                    {!this.state.apiLoader && (
+                    {this.state.buttons && !this.state.apiLoader && (
                         <div className='d-flex'>
 
                             {!followings_status && (<div><small className='btn btn-success text-white mx-2'

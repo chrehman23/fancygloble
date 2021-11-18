@@ -21,6 +21,7 @@ const Rooms = (state = initialState, action) => {
       let rooms_index = state.findIndex(data => data.room_id == action.payload.room);
       if (rooms_index >= 0) {
         let rooms_info = rooms_data[rooms_index]
+        console.log(rooms_data[rooms_index].un_read)
         rooms_info.un_read = rooms_data[rooms_index].un_read + 1;
         rooms_info.last_message = action.payload;
         rooms_data[rooms_index] = rooms_info

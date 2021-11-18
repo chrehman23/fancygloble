@@ -67,6 +67,7 @@ class Userpage extends Component {
                                 <div className="row">
                                     <div className="col-xl-12 mb-3">
                                         <ProfilecardThree
+                                        buttons={false}
                                             profielTabsChange={this.profielTabsChange}
                                             profileTabs={this.state.profileTabs}
                                             Profile={this.props.Profile} />

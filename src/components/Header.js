@@ -87,6 +87,11 @@ class Header extends Component {
 
     }
 
+    componentWillUnmount() {
+        socketConnection.off('user_ofline');
+        socketConnection.off('room_sms');
+    }
+
     componentDidUpdate(prevProps, prevState,) {
         let { id } = this.props.match.params
         if (prevProps.match.params.id !== id) {
@@ -95,8 +100,6 @@ class Header extends Component {
             })
             this.props.showRoom(id)
         }
-
-
     }
 
     toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });

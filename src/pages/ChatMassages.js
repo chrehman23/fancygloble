@@ -15,17 +15,21 @@ import { Modal } from 'react-bootstrap'
 import ChatList from '../components/chatList'
 import StripeCheckout from 'react-stripe-checkout';
 class Chat extends Component {
-    state = {
-        massages: [],
-        smsInput: "",
-        loadSocket: false,
-        apiLoader: true,
+    constructor(props) {
+        super(props);
+        this.state = {
+            massages: [],
+            smsInput: "",
+            loadSocket: false,
+            apiLoader: true,
 
-        tipModal: false,
-        tip_amount: 0,
-        tipError: "",
-        apiLoaders: false,
-    };
+            tipModal: false,
+            tip_amount: 0,
+            tipError: "",
+            apiLoaders: false,
+        };
+    }
+
 
     componentDidMount() {
         let { id } = this.props.match.params
@@ -47,19 +51,17 @@ class Chat extends Component {
 
         // if (this.state.loadSocket == false) {
 
-            socketConnection.on('room_sms', data => {
-                let { id } = this.props.match.params
-                if (data.room == id) {
-                    this.setState({
-                        massages: [...this.state.massages, data],
+        socketConnection.on('room_sms', data => {
+            let { id } = this.props.match.params
+            if (data.room == id) {
+                this.setState({
+                    massages: [...this.state.massages, data],
 
-                    })
-                } 
+                })
+            }
 
-            })
+        })
         // }
-
-
     }
 
     componentDidUpdate(prevProps, prevState,) {
@@ -344,10 +346,10 @@ class Chat extends Component {
         );
     }
 }
- 
+
 const mapStateToProps = (state) => {
     return {
-         
+
     }
 }
 
