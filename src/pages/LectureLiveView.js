@@ -6,7 +6,7 @@ import Appfooter from '../components/Appfooter';
 import Popupchat from '../components/Popupchat';
 
 import DateCountdown from 'react-date-countdown-timer';
-
+import CopyToClipboard from '../components/CopyToClipBoard'
 import AgoraRTC from "agora-rtc-sdk";
 
 import StreamApi from '../api/Streams'
@@ -38,7 +38,9 @@ class Live extends Component {
             uid: null,
 
             hostDisable:false,
-            stream_id:""
+            stream_id:"",
+            event_id:""
+
 
         };
     }
@@ -51,7 +53,10 @@ class Live extends Component {
         }
         // this.setState({
         //     stream_id:id
-        // })
+        // }) 
+        this.setState({
+            event_id: id
+        })
         StreamApi.startLiveLecture(data).then(res => {
             if (res.data.Error == false) {
                 this.setState({
@@ -182,6 +187,9 @@ class Live extends Component {
                         <div className="middle-sidebar-left pe-0" style={{ maxWidth: "100%" }}>
                             <div className="row">
                                 <div className="col-xl-8 col-xxl-9 col-lg-8">
+                                    {this.state.event_id && (
+                                        <CopyToClipboard copyText={`${window.location.hostname}/live-lecture-view/${this.state.event_id}`} />
+                                    )}
                                     {this.state.loadingApi && (
                                         <div className='d-flex justify-content-center align-items-center w-100' style={{ height: "400px" }} >
                                            Loading....

@@ -11,7 +11,7 @@ import AgoraRTC from "agora-rtc-sdk";
 import { connect } from 'react-redux';
 import StreamApi from '../api/Streams'
 import LiveChat from "./LiveChat";
-
+import CopyToClipboard from '../components/CopyToClipBoard'
 var rtc = {
     client: null,
     joined: false,
@@ -56,12 +56,17 @@ class Live extends Component {
             stream_chat_input: "",
 
             camera_allow: false,
-            loading_camera: true
+            loading_camera: true,
+
+            event_id:""
 
         };
     }
     componentDidMount() {
-
+        let { id } = this.props.match.params
+        this.setState({
+            event_id: id
+        })
         socketConnection.on('stream_massage', data => {
             if (data.stream_id == this.state.StreamDetails_id) {
                 if (data.user._id == this.props.user_id) {
@@ -316,7 +321,9 @@ class Live extends Component {
                             {!this.state.loading_camera && this.state.camera_allow && (
                                 <div className="row">
                                     <div className="col-xl-8 col-xxl-9 col-lg-8">
-
+                                        {this.state.event_id && (
+                                            <CopyToClipboard copyText={`${window.location.hostname}/live-lecture-view/${this.state.event_id}`} />
+                                        )}
                                         {/* *********************************************** */}
                                         {!this.state.goLiveLoader && !this.state.goLive && (
                                             <div className='d-flex bg-greylight rounded mx-2 align-items-center justify-content-center'

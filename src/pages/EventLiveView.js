@@ -6,7 +6,7 @@ import Appfooter from '../components/Appfooter';
 import Popupchat from '../components/Popupchat';
 
 import DateCountdown from 'react-date-countdown-timer';
-
+import CopyToClipboard from '../components/CopyToClipBoard'
 import AgoraRTC from "agora-rtc-sdk";
 
 import StreamApi from '../api/Streams'
@@ -31,14 +31,15 @@ class Live extends Component {
         this.client = {};
         this.stream = {};
         this.state = {
-            hostStatus:false,
+            hostStatus: false,
             loadingApi: false,
             token: "",
             channelName: '',
             uid: null,
 
-            hostDisable:false,
-            stream_id:""
+            hostDisable: false,
+            stream_id: "",
+            event_id: ""
 
         };
     }
@@ -51,14 +52,17 @@ class Live extends Component {
         }
         // this.setState({
         //     stream_id:id
-        // })
+        // }) 
+        this.setState({
+            event_id: id
+        })
         StreamApi.eventGolive(data).then(res => {
             if (res.data.Error == false) {
                 this.setState({
                     loadingApi: false,
                     token: res.data.data.stream_token,
                     channelName: res.data.data.chanal_name,
-                    stream_id:res.data.data._id
+                    stream_id: res.data.data._id
                 }, () => {
                     this.joinChannel("audience")
                 })
@@ -98,12 +102,12 @@ class Live extends Component {
                 option.channel, option.uid ? +option.uid : null, function (uid) {
                     console.log("join channel: " + option.channel + " success, uid: " + uid);
                     rtc.params.uid = uid;
-                   
+
                     if (role === "audience") {
                         document.getElementById("remote_video_").innerHTML = "";
                         rtc.client.on("connection-state-change", function (evt) {
-                            console.log("audience", evt) 
-                           
+                            console.log("audience", evt)
+
                         })
 
                         rtc.client.on("stream-added", function (evt) {
@@ -118,7 +122,7 @@ class Live extends Component {
                             console.log('stream-added remote-uid: ', id);
                         });
 
-                        rtc.client.on("stream-removed", function (evt) { 
+                        rtc.client.on("stream-removed", function (evt) {
                             document.getElementById("remote_video_").innerHTML = "";
                             var remoteStream = evt.stream;
                             var id = remoteStream.getId();
@@ -127,33 +131,33 @@ class Live extends Component {
                             //     hostStatus: false
                             // })
                         });
-                        
-                        
-                        rtc.client.on("stream-subscribed", function (evt) { 
+
+
+                        rtc.client.on("stream-subscribed", function (evt) {
                             var remoteStream = evt.stream;
                             var id = remoteStream.getId();
                             remoteStream.play("remote_video_");
                             console.log('stream-subscribed remote-uid: ', id);
-                            
+
                             thisReact.setState({
-                                hostStatus:true
+                                hostStatus: true
                             })
                         })
 
-                        rtc.client.on("stream-unsubscribed", function (evt) { 
+                        rtc.client.on("stream-unsubscribed", function (evt) {
                             thisReact.setState({
                                 hostStatus: false
-                            }) 
-                           
+                            })
+
                             var remoteStream = evt.stream;
                             var id = remoteStream.getId();
                             remoteStream.pause("remote_video_");
-                           
+
                             console.log('stream-unsubscribed remote-uid: ', id);
                         })
                     }
-                }, function (err) { 
-                 
+                }, function (err) {
+
                     console.error("client join failed", err)
                 })
 
@@ -163,9 +167,9 @@ class Live extends Component {
     }
 
 
-   
 
-   
+
+
 
     render() {
         let { data } = this.state
@@ -182,17 +186,20 @@ class Live extends Component {
                         <div className="middle-sidebar-left pe-0" style={{ maxWidth: "100%" }}>
                             <div className="row">
                                 <div className="col-xl-8 col-xxl-9 col-lg-8">
+                                    {this.state.event_id && (
+                                        <CopyToClipboard copyText={`${window.location.hostname}/live-event-view/${this.state.event_id}`} />
+                                    )}
                                     {this.state.loadingApi && (
                                         <div className='d-flex justify-content-center align-items-center w-100' style={{ height: "400px" }} >
-                                           Loading....
+                                            Loading....
                                         </div>
                                     )}
-                                    {!this.state.loadingApi && !this.state.hostStatus &&  (
+                                    {!this.state.loadingApi && !this.state.hostStatus && (
                                         <div className='d-flex justify-content-center align-items-center w-100' style={{ height: "400px" }} >
                                             Waiting for host....
                                         </div>
                                     )}
-                                    {/* {this.state.hostStatus && "host is live"} */} 
+                                    {/* {this.state.hostStatus && "host is live"} */}
                                     <div className={`vedioStrimingsContainer ${this.state.loadingApi ? "d-none" : ""}`}>
                                         {/* <div className='liveBtn'>
                                             <button className='btn btn-danger lookingAud '>
@@ -205,7 +212,7 @@ class Live extends Component {
                                     </div>
 
 
-                                   
+
                                     {/* **************************************************************** */}
 
 
@@ -228,7 +235,7 @@ class Live extends Component {
                                 </div>
 
                                 <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0 ps-0">
-                                    {this.state.stream_id && <LiveChat stream_id={this.state.stream_id} />} 
+                                    {this.state.stream_id && <LiveChat stream_id={this.state.stream_id} />}
                                 </div>
                             </div>
 

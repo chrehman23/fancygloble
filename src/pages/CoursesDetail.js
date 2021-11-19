@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import ApiLoader from '../components/ApiLoader'
 
 import CourseApi from '../api/Courses'
-
+import CopyToClipboard from '../components/CopyToClipBoard'
 import CoursesSectionDetail from "../components/CoursesSectionDetail";
 import StripeCheckout from 'react-stripe-checkout';
 import moment from "moment";
@@ -194,10 +194,13 @@ class CoursesDetail extends Component {
                                             <div className="col-6">
                                                 <label htmlFor="">Course Level</label>
                                                 <p>{this.state.course_level}</p>
+                                                <label htmlFor="">Course Price</label>
+                                                <h6 className="font-xsss fw-600 text-grey-500 ls-2">${this.state.paid_amount} <del>${this.state.discount_amount}</del> </h6>
                                             </div>
                                             <div className="col-6">
                                                 <label htmlFor="">Audio Language</label>
                                                 <p>{this.state.audio_language}</p>
+                                                <CopyToClipboard copyText={`${window.location.hostname}/course-detail/${this.state.Course_id}`} />
                                             </div>
                                             <div className="col-6">
                                                 <label htmlFor="">Course Category</label>
@@ -209,13 +212,9 @@ class CoursesDetail extends Component {
                                                     <p> {moment(this.state.start_date).format("dd/mm/yy hh:mm a")}</p>
                                                 </div>
                                             )}
+                                          
 
-                                            <div>
-                                                <label htmlFor="">Course Price</label>
-                                                <h6 className="font-xsss fw-600 text-grey-500 ls-2">${this.state.paid_amount} <del>${this.state.discount_amount}</del> </h6>
-
-                                            </div>
-
+                                          
 
                                             <div className="col-6">
                                                 <label htmlFor="">thumbnail</label>
@@ -230,6 +229,7 @@ class CoursesDetail extends Component {
                                                 {this.state.paymentLoader && (
                                                     <button className='btn btn-primary btn-sm'>Loading...</button>
                                                 )}
+
                                                 {this.state.paid_amount > 0 && !this.state.paymentLoader && (
                                                     <>
                                                         {!this.state.user_paid && (
@@ -262,6 +262,7 @@ class CoursesDetail extends Component {
 
 
                                             </div>
+
 
                                         </div>
 

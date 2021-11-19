@@ -11,14 +11,14 @@ import icon4 from '../../public/assets/iconss/4.svg'
 import icon5 from '../../public/assets/iconss/5.svg'
 
 import StripeCheckout from 'react-stripe-checkout';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+// import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { withRouter } from 'react-router';
 import BlurBackground from '../../public/assets/images/blur.jpg'
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-
+import CopyToClipboard from '../components/CopyToClipBoard'
 
 class Postview extends Component {
     constructor() {
@@ -334,6 +334,7 @@ class Postview extends Component {
                                         </div>
 
                                     )}
+                                   
 
                                     {/* ****************************** */}
 
@@ -344,7 +345,7 @@ class Postview extends Component {
                             : ''}
 
 
-
+                      
 
                     </>
                 )}
@@ -462,6 +463,7 @@ class Postview extends Component {
                 {this.state.Emojis && (
                     <Emojis _id={id} />
                 )}
+                <CopyToClipboard copyText={`${window.location.hostname}/post/${id}`} />
 
             </div>
         );

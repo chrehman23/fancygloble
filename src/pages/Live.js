@@ -11,7 +11,7 @@ import AgoraRTC from "agora-rtc-sdk";
 import { connect } from 'react-redux';
 import StreamApi from '../api/Streams'
 import LiveChat from "./LiveChat";
-
+import CopyToClipboard from '../components/CopyToClipBoard'
 var rtc = {
     client: null,
     joined: false,
@@ -409,6 +409,10 @@ class Live extends Component {
                                                 <span className="live-tag position-absolute left-15 mt-2 bottom-0 mb-4 bg-danger p-2 z-index-1 rounded-3 text-white font-xsssss text-uppersace fw-700 ls-3">LIVE</span>
                                             </div>
                                         </div> */}
+                                        {this.state.StreamDetails_id && (
+                                            <CopyToClipboard copyText={`${window.location.hostname}/live-view/${this.state.StreamDetails_id}`} />
+                                        )}
+
                                     </div>
 
                                     <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0 ps-0">
