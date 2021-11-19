@@ -10,20 +10,20 @@ import image from '../../public/assets/courses/1.jpg';
 
 import CourseApi from "../api/Courses";
 
- 
+import moment from "moment";
 
 class Courses extends Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
-            courses:[]
+            courses: []
         }
     }
-    componentDidMount(){
-        CourseApi.allCourses().then(res=>{
+    componentDidMount() {
+        CourseApi.allCourses().then(res => {
             this.setState({
-                courses:res.data.data
+                courses: res.data.data
             })
         })
     }
@@ -101,10 +101,11 @@ class Courses extends Component {
                                                         <img src={value.thumbnail} alt="product" className="w-100 mt-0 mb-0 rounded" />
                                                     </div>
                                                     <div className="card-body w-100 p-0 px-2 ">
-                                                        <h2 className="mt-2 mb-1"><a href="/singleproduct" className="text-black fw-700 font-xsss lh-26">{value.title}</a></h2>
-                                                        <div className="d-flex justify-content-between">
+                                                        <h2 className="fw-600 font-xsss mb-1 mt-0">{value.title}</h2>
+                                                        <h6 className="font-xsss fw-600 text-grey-500 ls-2">${value.paid_amount} <del>${value.discount_amount}</del> </h6>
+                                                        <div className='d-flex justify-content-between'>
                                                             <div>
-                                                                <h6 className="font-xsss fw-600 text-grey-500 ls-2">${value.paid_amount} <del>${value.discount_amount}</del> </h6>
+                                                                <h2 className="fw-400 font-xssss mb-1 mt-0">{moment(this.state.start_date).format("dd/mm/yy hh:mm a")}</h2>
                                                             </div>
                                                             <div>
                                                                 <button className='btn btn-primary bgthwh float-right'
@@ -113,8 +114,8 @@ class Courses extends Component {
                                                                     }}
                                                                 >View Course</button>
                                                             </div>
-                                                        </div>
 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
