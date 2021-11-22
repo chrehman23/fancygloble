@@ -21,17 +21,17 @@ class ProfilecardThree extends Component {
         super(props);
         this.state = {
             apiLoader: false,
-            buttons:true,
+            buttons: true,
         }
     }
 
-    componentDidMount(){
-        if (this.props.buttons==false){
+    componentDidMount() {
+        if (this.props.buttons == false) {
             this.setState({
                 buttons: false
             })
         }
-        
+
     }
 
     sendFrindRe = (id) => {
@@ -83,11 +83,18 @@ class ProfilecardThree extends Component {
     }
 
     render() {
+        let own_id = false
+        if (this.props.Profile._id == this.props.profile_id) {
+            own_id = true
+        }
+
         let followings_status = false
         let indexStatus = -1;
+        let room = ''
         indexStatus = this.props.followings && this.props.followings.findIndex(data => data.user_id.user_name == this.props.Profile.user_name)
         if (indexStatus >= 0) {
             followings_status = true
+            room = this.props.followings[indexStatus].room
         }
 
         let followers_status = false
@@ -95,6 +102,7 @@ class ProfilecardThree extends Component {
         indexStatus1 = this.props.followers && this.props.followers.findIndex(data => data.user_id.user_name == this.props.Profile.user_name)
         if (indexStatus1 >= 0) {
             followers_status = true
+            room = this.props.followers[indexStatus1].room
         }
         return (
             <div className="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
@@ -133,32 +141,42 @@ class ProfilecardThree extends Component {
                         </div>
                     </div>
                 </div>
-                <div className='d-flex justify-content-end p-3'>
-                    {/* {JSON.stringify(this.props.followings, null, 2)}
+                {!own_id && (
+                    <div className='d-flex justify-content-end p-3'>
+                        {/* {JSON.stringify(this.props.followings, null, 2)}
                     {this.props.Profile.user_name} */}
-                    {this.state.buttons && !this.state.apiLoader && (
-                        <div className='d-flex'>
+                        {this.state.buttons && !this.state.apiLoader && (
+                            <div className='d-flex'>
 
-                            {!followings_status && (<div><small className='btn btn-success text-white mx-2'
-                                onClick={() => this.sendFrindRe(this.props.Profile._id)}
-                            >Follow</small></div>)}
+                                {!followings_status && (<div><small className='btn btn-success text-white mx-2'
+                                    onClick={() => this.sendFrindRe(this.props.Profile._id)}
+                                >Follow</small></div>)}
 
-                            {followings_status && (<div><small className='btn btn-danger text-white mx-2'
-                                onClick={() => this.cancelFollowingRequest(this.props.Profile._id)}
-                            >UnFollow</small></div>)}
+                                {followings_status && (<div><small className='btn btn-danger text-white mx-2'
+                                    onClick={() => this.cancelFollowingRequest(this.props.Profile._id)}
+                                >UnFollow</small></div>)}
 
-                            {followers_status && (<div><small className='btn btn-danger text-white mx-2'
-                                onClick={() => this.cancelFollowerRequest(this.props.Profile._id)}
-                            >Remove</small></div>)}
-                        </div>
-                    )}
+                                {followers_status && (<div><small className='btn btn-danger text-white mx-2'
+                                    onClick={() => this.cancelFollowerRequest(this.props.Profile._id)}
+                                >Remove</small></div>)}
+                                {(followings_status || followers_status) && room && (
+                                    <div><small className='btn btn-success text-white mx-2'
+                                        onClick={() => {
+                                            this.props.history.push(`/room/${room}`)
+                                        }}
+                                    >Chat</small></div>
+                                )}
+                            </div>
+                        )}
 
-                    {this.state.apiLoader && (
-                        <div><small className='btn btn-primary text-white mx-2' 
-                        >Loading....</small></div>
-                    )}
-                    
-                </div>
+                        {this.state.apiLoader && (
+                            <div><small className='btn btn-primary text-white mx-2'
+                            >Loading....</small></div>
+                        )}
+
+                    </div>
+                )}
+
                 {/* {JSON.stringify(this.props.Profile,null,2)} */}
 
                 <div className="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
@@ -182,7 +200,8 @@ const mapStateToProps = (state) => {
     // let friends = state.UserProfile.profile.friends && state.UserProfile.profile.friends.filter(data => data.status == "friend");
     return {
         followings: state.UserProfile.profile.followings,
-        followers: state.UserProfile.profile.followers
+        followers: state.UserProfile.profile.followers,
+        profile_id: state.UserProfile.profile._id,
     }
 }
 

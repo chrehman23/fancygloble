@@ -17,14 +17,15 @@ class Users extends Component {
         super();
         this.state = {
             users: [],
-            apiLoader: true
+            apiLoader: true,
+            search: ""
         }
     }
 
     componentDidMount() {
         UsersApi.getAllUsers().then(res => {
-            console.log(res.data); 
-            if (res.data.Error == false) { 
+            console.log(res.data);
+            if (res.data.Error == false) {
                 this.setState({
                     users: res.data.Users,
                 })
@@ -40,7 +41,32 @@ class Users extends Component {
         })
     }
 
- 
+    search_users(e) {
+        let data = {
+            search: e
+        }
+        this.setState({
+        apiLoader:true
+        })
+        UsersApi.searchUsers(data).then(res => {
+            console.log(res.data);
+            if (res.data.Error == false) {
+                this.setState({
+                    users: res.data.data,
+                })
+            }
+            this.setState({
+                apiLoader: false
+            })
+        }).catch(error => {
+            console.log(error)
+            this.setState({
+                apiLoader: false
+            })
+        })
+    }
+
+
 
 
 
@@ -63,22 +89,37 @@ class Users extends Component {
                                             Find New Friends
                                             <form action="#" className="pt-0 pb-0 ms-auto">
                                                 <div className="search-form-2 ms-2">
-                                                    <i className="ti-search font-xss"></i>
-                                                    <input type="text" className="form-control text-grey-500 mb-0 bg-greylight theme-dark-bg border-0" placeholder="Search here." />
+                                                    {this.state.search && (<i className="far fa-times cursor-pointer font-xss" 
+                                                        onClick={() => {
+                                                            this.setState({ search: "" })
+                                                            this.search_users("")
+                                                        }}
+                                                    ></i>)}
+                                                    {!this.state.search && (<i className="ti-search font-xss"></i>)}
+
+                                                    <input type="text"
+                                                        value={this.state.search}
+                                                        onChange={(e) => {
+                                                            this.setState({
+                                                                search: e.target.value
+                                                            })
+                                                            this.search_users(e.target.value)
+                                                        }}
+                                                        className="form-control text-grey-500 mb-0 bg-greylight theme-dark-bg border-0" placeholder="Search here." />
                                                 </div>
                                             </form>
-                                            <a href="/" className="btn-round-md ms-2 bg-greylight theme-dark-bg rounded-3"><i className="feather-filter font-xss text-grey-500"></i></a>
+                                            {/* <a href="/" className="btn-round-md ms-2 bg-greylight theme-dark-bg rounded-3"><i className="feather-filter font-xss text-grey-500"></i></a> */}
                                         </h2>
                                     </div>
 
                                     <div className="row ps-2 pe-2">
                                         {this.state.apiLoader && (<Load />)}
-                                 
-                                        {!this.state.apiLoader && !this.props.profileLoading && this.state.users && this.state.users.map((value, index) =>{
+
+                                        {!this.state.apiLoader && !this.props.profileLoading && this.state.users && this.state.users.map((value, index) => {
                                             // if (value._id == this.props.profile_id) return
-                                            return  (
-                                            <SendFriendRequest key={index} user={value} />
-                                        )
+                                            return (
+                                                <SendFriendRequest key={index} user={value} />
+                                            )
                                         })}
 
                                     </div>
@@ -95,7 +136,7 @@ class Users extends Component {
         );
     }
 }
- 
+
 
 const mapStateToProps = (state) => {
     // let friends = state.UserProfile.profile.friends && state.UserProfile.profile.friends.filter(data => data.status == "friend");

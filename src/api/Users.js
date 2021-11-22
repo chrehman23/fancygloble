@@ -89,6 +89,16 @@ let UsersApi = {
          }
       })
    },
+   searchUsers: (data) => { 
+      return axios({
+         url: "/api/users/searchUsers",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         }
+      })
+   },
 
 }
 export default UsersApi

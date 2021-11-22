@@ -52,6 +52,16 @@ let CourseApi = {
          },
       })
    },
+   lecture_enroll: (data) => {
+      return axios({
+         url: "/api/users/lecture_enroll",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
    addLacture: (data) => {
       return axios({
          url: "/api/users/addLacture",
@@ -113,6 +123,7 @@ let CourseApi = {
       })
    },
    coursePayment: (data) => {
+      data.created_at = new Date()
       return axios({
          url: "/api/users/coursePayment",
          data,

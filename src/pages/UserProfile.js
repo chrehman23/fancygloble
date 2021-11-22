@@ -15,12 +15,15 @@ import Events from '../components/Events';
 import Postview from '../components/Postview';
 import Load from '../components/Load';
 import moment from 'moment'
-
+import { Modal } from 'react-bootstrap'
 import AuthApi from '../api/Auth';
 import avatar from '../../public/assets/images/user.png';
 import usreProfilePic from '../../public/assets/images/user.png'
 import usreProfilePicbg from '../../public/assets/images/group.png'
 import PostLists from '../components/PostLists'
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+import Comments from '../components/Comments';
 class Userpage extends Component {
     constructor(props) {
         super(props);
@@ -29,7 +32,10 @@ class Userpage extends Component {
             posts: [],
             loading: true,
             errorRecord: false,
-            profileTabs: 1
+            profileTabs: 1,
+            PostViewModal:false,
+            commentsCount:0,
+            comments: true,
         }
     }
 
@@ -59,6 +65,18 @@ class Userpage extends Component {
         })
 
     }
+
+    modalPostView = (post) => {
+        console.log(post)
+        this.setState({
+            PostViewModal: true,
+            postModalDetails: post
+        })
+    }
+
+      updateComentsCount=()=>{
+      this.setState({ commentsCount: this.state.commentsCount+1})
+   }
 
 
     render() {
@@ -263,6 +281,80 @@ class Userpage extends Component {
 
                 <Popupchat />
                 <Appfooter />
+
+
+                {/* post View Modal  */}
+                <Modal
+                    show={this.state.PostViewModal}
+                    size='xl'
+                    scrollable={true}
+                    scrollable={true}
+                    onHide={() => this.setState({ PostViewModal: false })}
+                    dialogClassName="modal-90w"
+                    aria-labelledby="example-custom-modal-styling-title"
+                >
+                    <Modal.Header>
+                        {this.state.PostViewModal && (
+                            <div className='postModalHeader'>
+                                <div>
+                                    <div><img src={this.state.postModalDetails && this.state.postModalDetails.posted_by && this.state.postModalDetails.posted_by.profile_photo} alt='Image' /></div>
+                                    <div>
+                                        <h4>{this.state.postModalDetails.posted_by && this.state.postModalDetails.posted_by.name}</h4>
+                                        <small>{this.state.postModalDetails.posted_by && this.state.postModalDetails.posted_by.user_name}</small>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p className='text-grey-500'>{moment(this.state.postModalDetails && this.state.postModalDetails.created_at).fromNow(true)} ago</p>
+                                </div>
+                            </div>
+                        )}
+                      
+
+                    </Modal.Header>
+                    <Modal.Body>
+                        {this.state.PostViewModal && (
+                            <div className='postmodalContainer'>
+                                {/* {JSON.stringify(this.state.postModalDetails)} */}
+                                <div className='row'>
+                                    <div className='col-lg-8'>
+                                        {this.state.postModalDetails && this.state.postModalDetails.image_status && (
+                                            <div className='postModalSlider'>
+                                                <Carousel
+                                                    autoPlay={false}
+                                                >
+                                                    {this.state.postModalDetails.post_images.map((data, index) => {
+                                                        return (
+                                                            <div>
+                                                                <img src={`${data.picture}`} />
+                                                            </div>
+                                                        )
+                                                    })}
+
+                                                </Carousel>
+                                            </div>
+
+                                        )}
+                                    </div>
+                                    <div className='col-lg-4'> 
+                                        <p><b>Comments({this.state.postModalDetails && this.state.postModalDetails.comments_count + this.state.commentsCount})</b></p>
+                                        {this.state.comments && (
+                                            <Comments
+                                                _id={this.state.postModalDetails._id}
+                                                // comments={this.props.comments}
+                                                updateComentsCount={this.updateComentsCount}
+                                            />
+                                        )}
+                                        {/* {this.state.Emojis && (
+                                 <Emojis _id={this.state.postModalDetails._id} />
+                              )} */}
+                                    </div>
+                                </div>
+                            </div>
+
+                        )}
+                    </Modal.Body>
+                </Modal>
+                {/* ******************************************* */}
 
             </Fragment>
         );
