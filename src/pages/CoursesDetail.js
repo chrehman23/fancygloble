@@ -15,6 +15,7 @@ import CoursesSectionDetail from "../components/CoursesSectionDetail";
 import StripeCheckout from 'react-stripe-checkout';
 import moment from "moment";
 import Enroll_users from "../components/Enroll_users";
+import Course_comments from "../components/Course_comments";
 class CoursesDetail extends Component {
     constructor() {
         super()
@@ -81,9 +82,6 @@ class CoursesDetail extends Component {
                 console.log(error)
             })
         }
-
-
-
 
     }
 
@@ -269,6 +267,7 @@ class CoursesDetail extends Component {
 
                                         {!this.state.paymentLoader && this.state.Course_id && <CoursesSectionDetail course_id={this.state.Course_id} />}
                                         {!this.state.paymentLoader && this.state.Course_id && <Enroll_users course_id={this.state.Course_id} />}
+                                        {!this.state.paymentLoader && this.state.Course_id && <Course_comments course_id={this.state.Course_id} />}
 
 
 
