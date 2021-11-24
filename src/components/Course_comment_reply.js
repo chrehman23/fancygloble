@@ -71,7 +71,7 @@ class Course_comment_reply extends Component {
 
     render() {
         return (
-            <div className="wrap cursor-pointer border-bottom " index={this.props.index}>
+            <div className="wrap cursor-pointer border-bottom  pt-2" index={this.props.index}>
                 <div className="card-body d-flex flex-column pt-0 ps-4 pe-4 pb-0 bor-0">
                     <div className='d-flex'
                         onClick={() => {

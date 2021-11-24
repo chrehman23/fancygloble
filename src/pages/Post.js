@@ -7,7 +7,7 @@ import Leftnav from '../components/Leftnav';
 import Rightchat from '../components/Rightchat';
 import Appfooter from '../components/Appfooter';
 import Popupchat from '../components/Popupchat';
-
+import { Modal } from 'react-bootstrap'
 import Friends from '../components/Friends';
 import Contacts from '../components/Contacts';
 import Group from '../components/Group';
@@ -21,10 +21,14 @@ import Load from '../components/Load';
 import Profilephoto from '../components/Profilephoto';
 
 import PostApi from '../api/Posts';
-
+import Comments from '../components/Comments';
 import moment from 'moment'
+import PostSound from '../../public/assets/sounds/post_sound.mp3'
+// import PostLists from '../components/PostLists'
 
-import PostLists from '../components/PostLists'
+
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 class Home extends Component {
   constructor() {
@@ -32,7 +36,15 @@ class Home extends Component {
     this.state = {
       postApiLoader: true,
       post: {},
-      noPost:false, 
+      noPost: false,
+
+      PostViewModal: false,
+      postModalDetails: {},
+
+      comments: true,
+      Emojis: false,
+
+      commentsCount: 0,
     }
 
     // *************************
@@ -46,36 +58,57 @@ class Home extends Component {
     }
     // window.scrollTo(0, 0)
 
-    let { id } = this.props.match.params 
+    let { id } = this.props.match.params
 
-    PostApi.getPost(id).then(res=>{
+    PostApi.getPost(id).then(res => {
       console.log(res)
-      if(res.data.Error==false){
+      if (res.data.Error == false) {
         this.setState({
           post: res.data.post,
-          postApiLoader:false
+          postApiLoader: false
         })
-      }else{
+      } else {
         this.setState({
           noPost: true,
           postApiLoader: false
         })
       }
-    }).catch(error=>{
+    }).catch(error => {
       console.log(error)
       this.setState({
         noPost: true,
         postApiLoader: false
       })
     })
-  
+
   }
 
- 
+  purchasePost = (data) => {
+    this.setState({
+      post: data.paidPost
+    })
+    this.props.addPaidPost(data.paidPost)
+    new Audio(PostSound).play();
+    let notification = {
+      name: data.paidPost.created_by.name,
+      profile: data.paidPost.created_by.profile_photo,
+      des: data.msg,
+      time: new Date()
+    }
+    this.props.addnotificaions(notification)
+  }
 
+  modalPostView = (post) => {
+    console.log(post)
+    this.setState({
+      PostViewModal: true,
+      postModalDetails: post
+    })
+  }
 
-
-
+  updateComentsCount = () => {
+    this.setState({ commentsCount: this.state.commentsCount + 1 })
+  }
 
 
   render() {
@@ -91,9 +124,9 @@ class Home extends Component {
                 <div className="col-xl-8 col-xxl-9 col-lg-8">
                   {/* <Storyslider /> */}
                   {/* <Memberslider /> */}
-                 
 
-                  {/* <PostLists/> */} 
+
+                  {/* <PostLists/> */}
 
                   {this.state.noPost && (
                     <div className="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3">
@@ -108,6 +141,8 @@ class Home extends Component {
                   {!this.state.noPost && this.state.postApiLoader && (<Load />)}
                   {!this.state.noPost && !this.state.postApiLoader && (
                     <Postview
+                      purchasePost={this.purchasePost}
+                      modalPostView={this.modalPostView}
                       id={this.state.post._id}
                       key={this.state.post._id}
                       allData={this.state.post}
@@ -121,14 +156,14 @@ class Home extends Component {
                       commentCount={this.state.post.comments_count}
                     />
                   )}
-              
-                
-                  
 
 
 
 
-                 
+
+
+
+
                   <br></br>
                   <br></br>
 
@@ -165,6 +200,77 @@ class Home extends Component {
             </div>
           </div>
         </div>
+
+        {/* post View Modal  */}
+        <Modal
+          show={this.state.PostViewModal}
+          size='xl'
+          scrollable={true}
+          scrollable={true}
+          onHide={() => this.setState({ PostViewModal: false })}
+          dialogClassName="modal-90w"
+          aria-labelledby="example-custom-modal-styling-title"
+        >
+          <Modal.Header>
+            <div className='postModalHeader'>
+              <div>
+                <div><img src={this.state.postModalDetails && this.state.postModalDetails.posted_by && this.state.postModalDetails.posted_by.profile_photo} alt='Image' /></div>
+                <div>
+                  <h4>{this.state.postModalDetails.posted_by && this.state.postModalDetails.posted_by.name}</h4>
+                  <small>{this.state.postModalDetails.posted_by && this.state.postModalDetails.posted_by.user_name}</small>
+                </div>
+              </div>
+              <div>
+                <p className='text-grey-500'>{moment(this.state.postModalDetails && this.state.postModalDetails.created_at).fromNow(true)} ago</p>
+              </div>
+            </div>
+
+          </Modal.Header>
+          <Modal.Body>
+            {this.state.PostViewModal && (
+              <div className='postmodalContainer'>
+                {/* {JSON.stringify(this.state.postModalDetails)} */}
+                <div className='row'>
+                  <div className='col-lg-8'>
+                    {this.state.postModalDetails && this.state.postModalDetails.image_status && (
+                      <div className='postModalSlider'>
+                        <Carousel
+                          autoPlay={false}
+                        >
+                          {this.state.postModalDetails.post_images.map((data, index) => {
+                            return (
+                              <div>
+                                <img src={`${data.picture}`} />
+                              </div>
+                            )
+                          })}
+
+                        </Carousel>
+                      </div>
+
+                    )}
+                  </div>
+                  <div className='col-lg-4'>
+                    <p><b>Comments({this.state.postModalDetails && this.state.postModalDetails.comments_count + this.state.commentsCount})</b></p>
+                    {this.state.comments && (
+                      <Comments
+                        _id={this.state.postModalDetails._id}
+                        // comments={this.props.comments}
+                        updateComentsCount={this.updateComentsCount}
+                      />
+                    )}
+                    {/* {this.state.Emojis && (
+                                 <Emojis _id={this.state.postModalDetails._id} />
+                              )} */}
+                  </div>
+                </div>
+              </div>
+
+            )}
+          </Modal.Body>
+        </Modal>
+        {/* ******************************************* */}
+
         <Popupchat />
         <Appfooter />
       </Fragment>
@@ -178,16 +284,21 @@ const mapStateToProps = (state) => {
   }
 }
 
-  const mapDispatchToProps = (dispatch) => {
-    return {
-      addPosts: (data) => {
-        dispatch(ACTIONS.addPosts(data))
-      },
-      newPosts: (data) => {
-        dispatch(ACTIONS.newPosts(data))
-      },
-
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addPosts: (data) => {
+      dispatch(ACTIONS.addPosts(data))
+    },
+    newPosts: (data) => {
+      dispatch(ACTIONS.newPosts(data))
+    },
+    addPaidPost: (data) => {
+      dispatch(ACTIONS.addPaidPost(data))
+    },
+    addnotificaions: (data) => {
+      dispatch(ACTIONS.addnotificaion(data))
     }
+  }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home))
 
