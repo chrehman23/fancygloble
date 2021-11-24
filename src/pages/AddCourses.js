@@ -409,7 +409,7 @@ class Courses extends Component {
                                                                 this.updateCourse(data)
                                                             }}
                                                             className='bgthwh btn btn-sm btn-primary'
-                                                        >Unpushlish</button>
+                                                        >Unpublish</button>
                                                     </div>
                                                 )}
                                                 {!this.state.publish && (
@@ -422,7 +422,7 @@ class Courses extends Component {
                                                                 this.props.history.goBack("/courses")
                                                             }}
                                                             className='bgthwh btn btn-sm btn-primary'
-                                                        >Pushlish</button>
+                                                        >Publish</button>
                                                     </div>
                                                 )}
 
