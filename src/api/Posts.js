@@ -78,6 +78,7 @@ let Posts = {
       })
    },
    purchasePost: (data) => {
+      data.created_at = new Date();
       return axios({
          url: `/api/users/purchasePost`,
          method: "post",
