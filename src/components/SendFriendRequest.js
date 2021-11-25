@@ -92,9 +92,13 @@ class SendFriendRequest extends Component {
                 {/* {frindStatus} */}
 
                 <div className="col-md-3 col-sm-4 pe-2 ps-2">
-                    <div className="card d-block border-0 shadow-xss rounded-3 overflow-hidden mb-3">
+                    <div className="card d-block border-0 shadow-xss rounded-3 overflow-hidden mb-3 cursor-pointer"
+                    onClick={()=>{
+                        this.props.history.push(`/user/${user.user_name}`)
+                    }}
+                    >
                         <div className="card-body d-block w-100 ps-3 pe-3 pb-4 text-center">
-                            <figure className="overflow-hidden imagelgresponsive avatar ms-auto me-auto mb-0 position-relative  z-index-1"><img src={`${user.profile_photo ? `${user.profile_photo}` : "assets/images/user.png"}`} alt="avater" className="float-right p-0 bg-white rounded-circle   shadow-xss" /></figure>
+                            <figure className="overflow-hidden imagelgresponsive avatar ms-auto me-auto mb-0 position-relative  z-index-1"><img src={`${user.profile_photo ? `${user.profile_photo}` : "/assets/images/user.png"}`} alt="avater" className="float-right p-0 bg-white rounded-circle   shadow-xss" /></figure>
                             <div className="clearfix w-100"></div>
                             {/* {user._id} */}
                             <h4 className="fw-700 font-xsss mt-3 mb-0">{user.name} </h4>
@@ -126,7 +130,7 @@ class SendFriendRequest extends Component {
                                             >Delete</button>
                                         </div>
                                     )} */}
-                                    {frindStatus !== "" && (
+                                    {/* {frindStatus !== "" && (
                                         <button className="rounded btn btn-warning text-white"
                                             onClick={() => {
                                                 this.cancelFollowingRequest(user._id)
@@ -139,7 +143,7 @@ class SendFriendRequest extends Component {
                                                 this.sendFrindRe(user._id);
                                             }}
                                         >Follow</button>
-                                    )}
+                                    )} */}
                                 </>
                             )}
 

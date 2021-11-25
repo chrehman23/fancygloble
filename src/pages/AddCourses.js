@@ -14,6 +14,7 @@ import CourseApi from '../api/Courses'
 import CoursesSectionList from "../components/CoursesSectionList";
 
 
+
 class Courses extends Component {
     constructor() {
         super()
@@ -39,7 +40,8 @@ class Courses extends Component {
             thumbnail: "",
 
             vedioUploading: false,
-            publish:false,
+            publish: false,
+            start_date: ""
         }
 
     }
@@ -67,7 +69,8 @@ class Courses extends Component {
                         publish: res.data.data.publish,
 
                         Course_id: res.data.data._id,
-                        loadingCourse: false
+                        loadingCourse: false,
+                        start_date: res.data.data.start_date,
                     })
                 }
             }).catch(error => {
@@ -109,7 +112,7 @@ class Courses extends Component {
                     vedioUploading: false
                 })
             }
-           
+
         }).catch(error => {
             console.log(error)
         })
@@ -188,8 +191,8 @@ class Courses extends Component {
                                                         desInput: e.target.value
                                                     })
                                                 }}
-                                                onBlur={() =>{
-                                                     let data = new FormData();
+                                                onBlur={() => {
+                                                    let data = new FormData();
                                                     data.append('description', this.state.desInput)
                                                     this.updateCourse(data)
                                                 }}
@@ -287,6 +290,19 @@ class Courses extends Component {
                                                 <option value="Sales">Sales</option>
                                                 <option value="Operations">Operations</option>
                                             </select>
+                                            {/* ******************** */}
+                                            <label htmlFor="">Course start Date*</label>
+
+                                            <input type="datetime-local" className='form-control'
+                                                value={this.state.start_date}
+                                                min={new Date()}
+                                                onChange={(e) => {
+                                                    this.setState({ start_date: e.target.value })
+                                                    let data = new FormData();
+                                                    data.append('start_date', e.target.value)
+                                                    this.updateCourse(data)
+                                                }}
+                                            />
                                             {/* ******************** */}
                                             <label htmlFor="">Regular Price*</label>
                                             <input type='number' className='form-control' placeholder='$0'
@@ -393,26 +409,26 @@ class Courses extends Component {
                                                                 this.updateCourse(data)
                                                             }}
                                                             className='bgthwh btn btn-sm btn-primary'
-                                                        >Unpushlish</button>
+                                                        >Unpublish</button>
                                                     </div>
                                                 )}
                                                 {!this.state.publish && (
                                                     <div>
                                                         <button
-                                                            onClick={async() => {
+                                                            onClick={async () => {
                                                                 let data = new FormData();
                                                                 data.append('publish', true)
                                                                 await this.updateCourse(data)
                                                                 this.props.history.goBack("/courses")
                                                             }}
                                                             className='bgthwh btn btn-sm btn-primary'
-                                                        >Pushlish</button>
+                                                        >Publish</button>
                                                     </div>
                                                 )}
-                                               
-                                               
+
+
                                             </div>
-                                           
+
                                         </div>
                                         <div className="col-6">
                                             <input type='file' id="thumbnail"

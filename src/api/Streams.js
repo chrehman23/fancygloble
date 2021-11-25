@@ -52,6 +52,16 @@ let AuthApi = {
          },
       })
    },
+   startLiveLecture: (data) => {
+      return axios({
+         url: "/api/users/startLiveLecture",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
   
 
 

@@ -10,10 +10,12 @@ import { Link } from "react-router-dom";
 import ApiLoader from '../components/ApiLoader'
 
 import CourseApi from '../api/Courses'
-
+import CopyToClipboard from '../components/CopyToClipBoard'
 import CoursesSectionDetail from "../components/CoursesSectionDetail";
 import StripeCheckout from 'react-stripe-checkout';
-
+import moment from "moment";
+import Enroll_users from "../components/Enroll_users";
+import Course_comments from "../components/Course_comments";
 class CoursesDetail extends Component {
     constructor() {
         super()
@@ -71,16 +73,15 @@ class CoursesDetail extends Component {
                         user_paid: res.data.data.user_paid,
 
                         Course_id: res.data.data._id,
-                        loadingCourse: false
+                        loadingCourse: false,
+
+                        start_date: res.data.data.start_date,
                     })
                 }
             }).catch(error => {
                 console.log(error)
             })
         }
-
-
-
 
     }
 
@@ -192,21 +193,27 @@ class CoursesDetail extends Component {
                                             <div className="col-6">
                                                 <label htmlFor="">Course Level</label>
                                                 <p>{this.state.course_level}</p>
+                                                <label htmlFor="">Course Price</label>
+                                                <h6 className="font-xsss fw-600 text-grey-500 ls-2">${this.state.paid_amount} <del>${this.state.discount_amount}</del> </h6>
                                             </div>
                                             <div className="col-6">
                                                 <label htmlFor="">Audio Language</label>
                                                 <p>{this.state.audio_language}</p>
+                                                <CopyToClipboard copyText={`${window.location.hostname}/course-detail/${this.state.Course_id}`} />
                                             </div>
                                             <div className="col-6">
                                                 <label htmlFor="">Course Category</label>
                                                 <p> {this.state.course_category}</p>
                                             </div>
-                                            <div>
-                                                <label htmlFor="">Course Price</label>
-                                                <h6 className="font-xsss fw-600 text-grey-500 ls-2">${this.state.paid_amount} <del>${this.state.discount_amount}</del> </h6>
+                                            {this.state.start_date && (
+                                                <div className="col-6">
+                                                    <label htmlFor="">Course Start Time</label>
+                                                    <p> {moment(this.state.start_date).format("dd/mm/yy hh:mm a")}</p>
+                                                </div>
+                                            )}
+                                          
 
-                                            </div>
-
+                                          
 
                                             <div className="col-6">
                                                 <label htmlFor="">thumbnail</label>
@@ -221,7 +228,8 @@ class CoursesDetail extends Component {
                                                 {this.state.paymentLoader && (
                                                     <button className='btn btn-primary btn-sm'>Loading...</button>
                                                 )}
-                                                {!this.state.paymentLoader && (
+
+                                                {this.state.paid_amount > 0 && !this.state.paymentLoader && (
                                                     <>
                                                         {!this.state.user_paid && (
                                                             <StripeCheckout
@@ -241,10 +249,10 @@ class CoursesDetail extends Component {
                                                         )}
                                                         {this.state.user_paid && (
                                                             <button
-                                                            onClick={()=>{
+                                                                onClick={() => {
                                                                     this.props.history.push(`/course-start/${this.state.Course_id}`)
-                                                            }}
-                                                            className='btn btn-primary btn-sm'>Start Course (payment done)</button>
+                                                                }}
+                                                                className='btn btn-primary btn-sm'>Start Course (payment done)</button>
                                                         )}
                                                     </>
                                                 )}
@@ -254,9 +262,12 @@ class CoursesDetail extends Component {
 
                                             </div>
 
+
                                         </div>
 
                                         {!this.state.paymentLoader && this.state.Course_id && <CoursesSectionDetail course_id={this.state.Course_id} />}
+                                        {!this.state.paymentLoader && this.state.Course_id && <Enroll_users course_id={this.state.Course_id} />}
+                                        {!this.state.paymentLoader && this.state.Course_id && <Course_comments course_id={this.state.Course_id} />}
 
 
 

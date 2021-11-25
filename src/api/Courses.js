@@ -52,6 +52,56 @@ let CourseApi = {
          },
       })
    },
+   lecture_enroll: (data) => {
+      return axios({
+         url: "/api/users/lecture_enroll",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   courseComments: (data) => {
+      return axios({
+         url: "/api/users/courseComments",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   addCourseComment: (data) => {
+      return axios({
+         url: "/api/users/addCourseComment",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   addCourseCommentReply: (data) => {
+      return axios({
+         url: "/api/users/addCourseCommentReply",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   courseCommentsReply: (data) => {
+      return axios({
+         url: "/api/users/courseCommentsReply",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
    addLacture: (data) => {
       return axios({
          url: "/api/users/addLacture",
@@ -113,6 +163,7 @@ let CourseApi = {
       })
    },
    coursePayment: (data) => {
+      data.created_at = new Date()
       return axios({
          url: "/api/users/coursePayment",
          data,

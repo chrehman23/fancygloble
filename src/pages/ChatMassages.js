@@ -1,28 +1,35 @@
 import React, { Component, Fragment } from "react";
+import { withRouter } from 'react-router';
+import ACTIONS from '../store/actions/index.js';
+import { connect } from 'react-redux'
 import Header from '../components/Header';
 import Leftnav from '../components/Leftnav';
 import Rightchat from '../components/Rightchat';
 import Appfooter from '../components/Appfooter';
 import Popupchat from '../components/Popupchat';
 import chatApi from '../api/chat'
-
+import ContentLoader from 'react-content-loader'
 import ScrollToBottom from 'react-scroll-to-bottom';
 import socketConnection from '../socketConnection'
 import { Modal } from 'react-bootstrap'
 import ChatList from '../components/chatList'
 import StripeCheckout from 'react-stripe-checkout';
 class Chat extends Component {
-    state = {
-        massages: [],
-        smsInput: "",
-        loadSocket: false,
-        apiLoader: true,
+    constructor(props) {
+        super(props);
+        this.state = {
+            massages: [],
+            smsInput: "",
+            loadSocket: false,
+            apiLoader: true,
 
-        tipModal: false,
-        tip_amount: 0,
-        tipError: "",
-        apiLoaders: false,
-    };
+            tipModal: false,
+            tip_amount: 0,
+            tipError: "",
+            apiLoaders: false,
+        };
+    }
+
 
     componentDidMount() {
         let { id } = this.props.match.params
@@ -38,25 +45,22 @@ class Chat extends Component {
                     massages: res.data.data,
                     apiLoader: false
                 })
-
+                // this.props.showRoom(id)
             }
         })
 
-        if (this.state.loadSocket == false) {
+        // if (this.state.loadSocket == false) {
 
-            socketConnection.on('room_sms', data => {
-                let { id } = this.props.match.params
-                if (data.room == id) {
-                    this.setState({
-                        massages: [...this.state.massages, data],
+        socketConnection.on('room_sms', data => {
+            let { id } = this.props.match.params
+            if (data.room == id) {
+                this.setState({
+                    massages: [...this.state.massages, data],
+                })
+            }
 
-                    })
-                }
-
-            })
-        }
-
-
+        })
+        // }
     }
 
     componentDidUpdate(prevProps, prevState,) {
@@ -77,7 +81,7 @@ class Chat extends Component {
                         smsInput: "",
                         apiLoader: false
                     })
-
+                    // this.props.showRoom(id)
                 }
             })
 
@@ -96,7 +100,7 @@ class Chat extends Component {
                 room: id,
                 created_at: new Date()
             }
-            if (token) {
+            if (token.id) {
                 data.payment_token = token.id
                 data.amount = this.state.tip_amount
                 data.content = ""
@@ -147,6 +151,98 @@ class Chat extends Component {
                                                     initialScrollBehavior="auto"
                                                     className='messages-contents' mode="bottom" >
                                                     <ChatList massages={this.state.massages} />
+                                                </ScrollToBottom>
+                                            )}
+                                            {this.state.apiLoader && (
+                                                <ScrollToBottom
+                                                    animating={false}
+                                                    initialScrollBehavior="auto"
+                                                    className='messages-contents' mode="bottom" >
+                                                    <div className='d-flex  '>
+                                                        <ContentLoader
+                                                            speed={2}
+                                                            // width={'100%'}
+                                                            height={45}
+                                                            // viewBox="0 0 400 160"
+                                                            backgroundColor="#f3f3f3"
+                                                            foregroundColor="#ecebeb"
+                                                        >
+                                                            <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                            <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                            <circle cx="20" cy="20" r="20" />
+                                                        </ContentLoader>
+                                                    </div>
+                                                    <div className='d-flex justify-content-end'>
+                                                        <ContentLoader
+                                                            speed={2}
+                                                            // width={'100%'}
+                                                            height={45}
+                                                            // viewBox="0 0 400 160"
+                                                            backgroundColor="#f3f3f3"
+                                                            foregroundColor="#ecebeb"
+                                                        >
+                                                            <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                            <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                            <circle cx="20" cy="20" r="20" />
+                                                        </ContentLoader>
+                                                    </div>
+                                                    <div className='d-flex  '>
+                                                        <ContentLoader
+                                                            speed={2}
+                                                            // width={'100%'}
+                                                            height={45}
+                                                            // viewBox="0 0 400 160"
+                                                            backgroundColor="#f3f3f3"
+                                                            foregroundColor="#ecebeb"
+                                                        >
+                                                            <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                            <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                            <circle cx="20" cy="20" r="20" />
+                                                        </ContentLoader>
+                                                    </div>
+                                                    <div className='d-flex justify-content-end'>
+                                                        <ContentLoader
+                                                            speed={2}
+                                                            // width={'100%'}
+                                                            height={45}
+                                                            // viewBox="0 0 400 160"
+                                                            backgroundColor="#f3f3f3"
+                                                            foregroundColor="#ecebeb"
+                                                        >
+                                                            <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                            <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                            <circle cx="20" cy="20" r="20" />
+                                                        </ContentLoader>
+                                                    </div>
+                                                    <div className='d-flex  '>
+                                                        <ContentLoader
+                                                            speed={2}
+                                                            // width={'100%'}
+                                                            height={45}
+                                                            // viewBox="0 0 400 160"
+                                                            backgroundColor="#f3f3f3"
+                                                            foregroundColor="#ecebeb"
+                                                        >
+                                                            <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                            <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                            <circle cx="20" cy="20" r="20" />
+                                                        </ContentLoader>
+                                                    </div>
+                                                    <div className='d-flex  justify-content-end'>
+                                                        <ContentLoader
+                                                            speed={2}
+                                                            // width={'100%'}
+                                                            height={45}
+                                                            // viewBox="0 0 400 160"
+                                                            backgroundColor="#f3f3f3"
+                                                            foregroundColor="#ecebeb"
+                                                        >
+                                                            <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                            <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                            <circle cx="20" cy="20" r="20" />
+                                                        </ContentLoader>
+                                                    </div>
+
                                                 </ScrollToBottom>
                                             )}
 
@@ -250,4 +346,21 @@ class Chat extends Component {
     }
 }
 
-export default Chat;
+const mapStateToProps = (state) => {
+    return {
+
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        showRoom: (data) => {
+            dispatch(ACTIONS.showRoom(data))
+        },
+        updateRoom: (data) => {
+            dispatch(ACTIONS.updateRoom(data))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Chat))

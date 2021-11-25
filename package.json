@@ -12,6 +12,7 @@
     "@typescript-eslint/parser": "1.6.0",
     "@wojtekmaj/react-datetimerange-picker": "^3.4.2",
     "agora-rtc-sdk": "^3.6.5",
+    "agora-rtc-sdk-ng": "^4.7.2",
     "agora-stream-player": "^1.2.0",
     "aos": "^2.3.4",
     "apexcharts": "^3.29.0",

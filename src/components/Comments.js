@@ -40,10 +40,10 @@ class Comments extends Component {
             PostApi.commentOnPost(data).then(res => {
                 console.log(res.data)
                 new Audio(PostSound).play();
-                this.props.addcomment({
-                    post_id: this.props._id,
-                    comments: res.data.comment
-                })
+                // this.props.addcomment({
+                //     post_id: this.props._id,
+                //     comments: res.data.comment
+                // })
                 this.props.updateComentsCount()
                 this.setState({
                     comments: [res.data.comment, ...this.state.comments],
@@ -69,18 +69,18 @@ class Comments extends Component {
         this.setState({ commentloader: true })
         PostApi.getCommentsByPost(data).then(res => {
             console.log(res.data)
-            this.props.addcomments({
-                post_id: this.props._id,
-                comments: res.data.comments,
-            })
+            // this.props.addcomments({
+            //     post_id: this.props._id,
+            //     comments: res.data.comments,
+            // })
             if (res.data.comments.length == 0 || res.data.comments.length < 10) {
                 this.setState({ noMoreComments: true })
-            }
+            } 
            
 
             this.setState({
-                comments: this.state.comments.concat(res.data.comments),
                 commentloader: false,
+                comments: this.state.comments.concat(res.data.comments),
                 commentPage: this.state.commentPage + 1
             })
         }).catch(error => {

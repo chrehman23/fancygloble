@@ -11,14 +11,14 @@ import icon4 from '../../public/assets/iconss/4.svg'
 import icon5 from '../../public/assets/iconss/5.svg'
 
 import StripeCheckout from 'react-stripe-checkout';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+// import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { withRouter } from 'react-router';
 import BlurBackground from '../../public/assets/images/blur.jpg'
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-
+import CopyToClipboard from '../components/CopyToClipBoard'
 
 class Postview extends Component {
     constructor() {
@@ -127,9 +127,6 @@ class Postview extends Component {
         }
     }
 
-
-
-
     render() {
 
         const { user, time, des, avater, postimage, postvideo, id, allData, commentCount } = this.props;
@@ -141,9 +138,9 @@ class Postview extends Component {
             <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"  >
                 {/* {JSON.stringify(allData.created_by.user_name,null,2)} */}
                 <div className="card-body p-0 d-flex cursor-pointer"
-                onClick={()=>{
-                    this.props.history.push(`user/${allData.created_by && allData.created_by.user_name}`)
-                }}
+                    onClick={() => {
+                        this.props.history.push(`/user/${allData.created_by && allData.created_by.user_name}`)
+                    }}
                 >
                     <figure className="avatar imagesmresponsive me-3"><img src={avater} alt="avater" className="shadow-sm rounded-circle" /></figure>
                     <h4 className="fw-700 text-grey-900 font-xssss mt-1 text-capitalize"> {user} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500 text-lowercase"> {time} ago</span></h4>
@@ -170,7 +167,7 @@ class Postview extends Component {
                                 <div className="row ps-2 pe-2 ">
                                     <div className="col-sm-12 p-1 ">
                                         <div className='position-relative overflow-hidden'>
-                                            <img src='assets/images/blur.jpg' className="rounded-3 w-100" alt="post" />
+                                            <img src='/assets/images/blur.jpg' className="rounded-3 w-100" alt="post" />
                                             <div className='paidPostSeciton'
                                                 onClick={() => {
                                                     this.setState({ cardAtive: true })
@@ -194,7 +191,7 @@ class Postview extends Component {
                                 <div className="row ps-2 pe-2 ">
                                     <div className="col-sm-12 p-1">
                                         <div className='position-relative overflow-hidden'>
-                                            <img src='assets/images/blur.jpg' className="rounded-3 w-100" alt="post" />
+                                            <img src='/assets/images/blur.jpg' className="rounded-3 w-100" alt="post" />
                                             <div className='paidPostSeciton'>
                                                 <div className='d-flex align-items-center flex-column justify-content-center'>
                                                     <p className='mb-0 fw-500   lh-26 font-xssss'>Payment amount ${allData.paid_amount}</p>
@@ -337,6 +334,7 @@ class Postview extends Component {
                                         </div>
 
                                     )}
+                                   
 
                                     {/* ****************************** */}
 
@@ -347,7 +345,7 @@ class Postview extends Component {
                             : ''}
 
 
-
+                      
 
                     </>
                 )}
@@ -465,6 +463,7 @@ class Postview extends Component {
                 {this.state.Emojis && (
                     <Emojis _id={id} />
                 )}
+                <CopyToClipboard copyText={`${window.location.hostname}/post/${id}`} />
 
             </div>
         );

@@ -62,7 +62,12 @@ class Friends extends Component {
                         </div>
                         {this.props.followers.map((value, index) => {
                             return (
-                                <div className="wrap" key={index}>
+                                <div className="wrap cursor-pointer" key={index}
+                                    onClick={() => {
+                                        this.props.history.push(`/user/${value.user_id.user_name}`)
+                                    }}
+                                >
+                                    {/* {JSON.stringify(value,null,2)} */}
                                     <div className="card-body d-flex pt-0 ps-4 pe-4 pb-0 bor-0">
                                         <figure className="avatar smImageControlerRs me-3"><img src={`${value.user_id && value.user_id.profile_photo ? `${value.user_id && value.user_id.profile_photo}` : domiImage}`} alt="avater" className="shadow-sm rounded-circle w45" /></figure>
                                         {/* <h4 className="fw-700 text-grey-900 font-xssss mt-1">{value.user_id.name} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{value.friend} mutual friends</span></h4> */}
@@ -102,7 +107,10 @@ class Friends extends Component {
                         </div>
                         {this.props.followings.map((value, index) => {
                             return (
-                                <div className="wrap" key={index}>
+                                <div className="wrap cursor-pointer" key={index}
+                                    onClick={() => {
+                                        this.props.history.push(`/user/${value.user_id.user_name}`)
+                                    }}>
                                     <div className="card-body d-flex pt-0 ps-4 pe-4 pb-0 bor-0">
                                         <figure className="avatar smImageControlerRs me-3"><img src={`${value.user_id && value.user_id.profile_photo ? `${value.user_id && value.user_id.profile_photo}` : UserProfile}`} alt="avater" className="shadow-sm rounded-circle w45" /></figure>
                                         {/* <h4 className="fw-700 text-grey-900 font-xssss mt-1">{value.user_id.name} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{value.friend} mutual friends</span></h4> */}

@@ -8,7 +8,7 @@ import Popupchat from '../components/Popupchat';
 import DateCountdown from 'react-date-countdown-timer';
 
 import AgoraRTC from "agora-rtc-sdk";
-
+import CopyToClipboard from '../components/CopyToClipBoard'
 import StreamApi from '../api/Streams'
 import LiveChat from "./LiveChat";
 
@@ -180,6 +180,9 @@ class Live extends Component {
                         <div className="middle-sidebar-left pe-0" style={{ maxWidth: "100%" }}>
                             <div className="row">
                                 <div className="col-xl-8 col-xxl-9 col-lg-8">
+                                    {this.state.stream_id && (
+                                        <CopyToClipboard copyText={`${window.location.hostname}/live-view/${this.state.stream_id}`} />
+                                    )} 
                                     {this.state.loadingApi && (
                                         <div className='d-flex justify-content-center align-items-center w-100' style={{ height: "400px" }} >
                                            Loading....
@@ -223,6 +226,7 @@ class Live extends Component {
                                             <span className="live-tag position-absolute left-15 mt-2 bottom-0 mb-4 bg-danger p-2 z-index-1 rounded-3 text-white font-xsssss text-uppersace fw-700 ls-3">LIVE</span>
                                         </div>
                                     </div>
+                                   
                                 </div>
 
                                 <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0 ps-0">

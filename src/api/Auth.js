@@ -79,6 +79,9 @@ let AuthApi = {
          url: `/api/users/getUserProfileByUserName?user_name=${data}`,
          data,
          method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         }
       })
    },
 

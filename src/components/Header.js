@@ -3,14 +3,14 @@ import { Link, NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Darkbutton from '../components/Darkbutton';
 import Notify from './Notify';
-
+import PostSound from '../../public/assets/sounds/post_sound.mp3'
 import ACTIONS from '../store/actions/index.js';
 import { connect } from 'react-redux'
-
+import socketConnection from '../socketConnection'
 import Logo from '../../public/assets/images/logo.png'
 
 import chatApi from '../api/chat'
-
+import ContentLoader from 'react-content-loader'
 
 class Header extends Component {
     state = {
@@ -21,6 +21,9 @@ class Header extends Component {
         chatUsers: [],
 
         activeChat: "",
+        chatLoader: false,
+
+        reloading_rooms: false,
     };
 
     componentDidMount() {
@@ -29,17 +32,65 @@ class Header extends Component {
             activeChat: id
         })
         if (this.props.showChat) {
+            this.setState({
+                chatLoader: true
+            })
             chatApi.findRoomsByUser().then(res => {
                 if (res.data.Error == false) {
                     this.setState({
                         chatUsers: res.data.data,
+                        chatLoader: false
                     })
+                    this.props.addRooms(res.data.data)
                 }
             })
         }
-        if (this.props.openSideBar){
+        if (this.props.openSideBar) {
             this.setState({ isOpen: true })
         }
+
+
+
+        socketConnection.on('room_sms', data => {
+            let { id } = this.props.match.params
+            if (data.room !== id) {
+                this.props.updateRoom(data);
+                console.log(data)
+                let notification = {
+                    name: data.user.name,
+                    profile: data.user.profile_photo,
+                    des: "Sent you a massage.",
+                    time: new Date()
+                }
+                this.props.addnotificaions(notification)
+                this.setState({
+                    reloading_rooms: true
+                }, () => {
+                    new Audio(PostSound).play();
+                    this.setState({
+                        reloading_rooms: false
+                    })
+                })
+
+            }
+        })
+        socketConnection.on('user_ofline', data => {
+            console.log("data", data)
+            this.props.update_user_room(data);
+            this.setState({
+                reloading_rooms: true
+            }, () => {
+                this.setState({
+                    reloading_rooms: false
+                })
+            })
+        })
+
+    }
+
+    componentWillUnmount() {
+        socketConnection.off('user_ofline');
+        socketConnection.off('room_sms');
     }
 
     componentDidUpdate(prevProps, prevState,) {
@@ -48,8 +99,8 @@ class Header extends Component {
             this.setState({
                 activeChat: id
             })
+            this.props.showRoom(id)
         }
-
     }
 
     toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
@@ -88,8 +139,8 @@ class Header extends Component {
                 <NavLink activeClassName="active" to="/home" className="p-2 text-center ms-3 menu-icon center-menu-icon"><i className="feather-home font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
                 <NavLink activeClassName="active" to="/events" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="ti-calendar font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
                 <NavLink activeClassName="active" to="/courses" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-book font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
-                <NavLink activeClassName="active" to="/defaultgroup" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
-                <NavLink activeClassName="active" to="/shop2" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
+                <NavLink activeClassName="active" to="/users" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
+                {/* <NavLink activeClassName="active" to="/shop2" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink> */}
 
 
                 <span className={`p-2 pointer text-center ms-auto menu-icon ${notiClass}`} id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false"
@@ -155,10 +206,11 @@ class Header extends Component {
                 <nav className={`navigation scroll-bar ${navClass} ${this.props.showChat ? "" : "d-none"}`}>
                     <div className="container ps-0 pe-0">
                         <div className="nav-content">
-                            <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2">
+                            <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2" style={{ minHeight: '90vh' }}>
                                 <div className="nav-caption fw-600 font-xssss text-grey-500">Followers and Followings</div>
                                 <ul className="mb-1 top-content">
-                                    {this.state.chatUsers.map((data, index) => {
+                                    {/* {JSON.stringify(this.props.Rooms[0] && this.props.Rooms[0].un_read,null,2)} */}
+                                    {!this.state.reloading_rooms && this.props.Rooms.map((data, index) => {
                                         return (
                                             <li key={index}>
                                                 <div
@@ -174,13 +226,129 @@ class Header extends Component {
                                                         </div>
                                                         <div>
                                                             <h5 className=''>{data.user && data.user.name}</h5>
-                                                            <small className=''>{data.user && data.user.user_name}</small>
+                                                            <small className={data.un_read > 0 ? "new" : ""}>
+                                                                {data.last_message && data.last_message.content && data.last_message.content.substring(0, 10)}
+                                                                {data.last_message && data.last_message.content && data.last_message.content && data.last_message.content.length > 10 && "..."}
+                                                                {data.update_at == "" && data.user && data.user.user_name}
+                                                            </small>
                                                         </div>
+                                                        {data.online && (
+                                                            <div className='online_status'></div>
+                                                        )}
+                                                        {data.un_read > 0 && (
+                                                            <div className='unread_sms'>
+                                                                <div><small>{data.un_read}</small></div>
+                                                            </div>
+                                                        )}
+
                                                     </div>
                                                 </div>
                                             </li>
                                         )
                                     })}
+                                    {this.state.chatLoader && (
+                                        <li>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+                                            <ContentLoader
+                                                speed={2}
+                                                // width={'100%'}
+                                                height={45}
+                                                // viewBox="0 0 400 160"
+                                                backgroundColor="#f3f3f3"
+                                                foregroundColor="#ecebeb"
+                                            >
+                                                <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
+                                                <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
+                                                <circle cx="20" cy="20" r="20" />
+                                            </ContentLoader>
+
+                                        </li>
+                                    )}
+
+
 
                                 </ul>
                             </div>
@@ -213,6 +381,7 @@ class Header extends Component {
 const mapStateToProps = (state) => {
     return {
         NotifyStatus: state.Nofify.new,
+        Rooms: state.Rooms,
     }
 }
 
@@ -220,7 +389,22 @@ const mapDispatchToProps = (dispatch) => {
     return {
         openNotifys: (data) => {
             dispatch(ACTIONS.openNotify(data))
-        }
+        },
+        addRooms: (data) => {
+            dispatch(ACTIONS.addRooms(data))
+        },
+        showRoom: (data) => {
+            dispatch(ACTIONS.showRoom(data))
+        },
+        updateRoom: (data) => {
+            dispatch(ACTIONS.updateRoom(data))
+        },
+        addnotificaions: (data) => {
+            dispatch(ACTIONS.addnotificaion(data))
+        },
+        update_user_room: (data) => {
+            dispatch(ACTIONS.update_user_room(data))
+        },
     }
 }
 

@@ -5,11 +5,11 @@ import { Modal } from 'react-bootstrap'
 import { Link, withRouter } from 'react-router-dom'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-
+import { connect } from 'react-redux';
 import CourseApi from '../api/Courses'
 
+import moment from 'moment'
 
- 
 class CoursesSectionLactures extends Component {
     constructor() {
         super();
@@ -18,7 +18,7 @@ class CoursesSectionLactures extends Component {
             loadLactures: false,
             lactures: [],
 
-            
+
 
             vedioModal: false,
             vedioLink: ""
@@ -89,6 +89,28 @@ class CoursesSectionLactures extends Component {
                                         <div key={index} className='d-flex align-items-center justify-content-between  pt-2 mb-2'>
                                             <div>
                                                 <h5 className='mb-0 '><i class="fas fa-lock px-2"></i><b>{datas.lacture_title}</b></h5>
+                                                {datas.lacture_time && (
+                                                    <p className='mb-0'>{datas.lacture_time && `${moment(datas.lacture_time.split(',')[0]).format('d/MM/yy hh:mm a')} To ${moment(datas.lacture_time.split(',')[1]).format('d/MM/yy hh:mm a')}`} (lecture time)
+                                                        {datas.stream_token && (
+                                                            <>
+                                                                {this.props.profile_id !== datas.created_by && (
+                                                                    <button className='btn btn-primary btn-sm'
+                                                                        onClick={() => {
+                                                                            this.props.history.push(`/live-lecture-view/${datas._id}`)
+                                                                        }}
+                                                                    >See lecture</button>
+                                                                )}
+                                                            </>
+                                                        )}
+                                                    </p>
+                                                )} 
+                                                {this.props.profile_id == datas.created_by && (
+                                                    <button className='btn btn-primary btn-sm'
+                                                    onClick={()=>{
+                                                        this.props.history.push(`/live-lecture/${datas._id}`)
+                                                    }}
+                                                    >Start lecture</button>
+                                                )}
                                                 <p>{datas.lacture_des}</p>
                                             </div>
                                             <div className='p-2'>
@@ -101,12 +123,12 @@ class CoursesSectionLactures extends Component {
                                                             })
                                                         }}
                                                     ></i>
-                                                )}    
-                                                
+                                                )}
+
                                             </div>
                                         </div>
                                         <div className='row'>
-                                            {datas.files_count>0 && (
+                                            {datas.files_count > 0 && (
                                                 <div className="d-flex ">
                                                     <div><i className="fas fa-file-alt px-2"></i></div>
                                                     <div className='cursor-pointer'>{datas.files_count} Document</div>
@@ -122,7 +144,7 @@ class CoursesSectionLactures extends Component {
 
                                                             </div>
                                                         </a>
-                                                       
+
                                                     </div>
                                                 )
                                             })}
@@ -135,8 +157,8 @@ class CoursesSectionLactures extends Component {
                         </div>
                     )}
 
-                    
-                   
+
+
 
 
                 </div>
@@ -172,11 +194,28 @@ class CoursesSectionLactures extends Component {
                 </Modal>
 
 
-              
+
 
             </>
         );
     }
 }
 
-export default CoursesSectionLactures;
+const mapStateToProps = (state) => {
+    return {
+        profile_id: state.UserProfile.profile._id
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // removePosts: (data) => {
+        //     dispatch(ACTIONS.removePosts(data))
+        // },
+        // loadProfile: (data) => {
+        //     dispatch(ACTIONS.loadProfile(data))
+        // },
+
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CoursesSectionLactures))

@@ -67,6 +67,7 @@ class Userpage extends Component {
                                 <div className="row">
                                     <div className="col-xl-12 mb-3">
                                         <ProfilecardThree
+                                        buttons={false}
                                             profielTabsChange={this.profielTabsChange}
                                             profileTabs={this.state.profileTabs}
                                             Profile={this.props.Profile} />
@@ -169,13 +170,7 @@ class Userpage extends Component {
 
                                     {this.state.profileTabs == 6 && (
                                         <>
-                                            <div className="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3">
-                                                <div className="snippet mt-2 ms-auto me-auto" data-title=".dot-typing">
-                                                    <div className="stage">
-                                                       <Comingsoon/>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <div class="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3"><div class="snippet mt-2 ms-auto me-auto" data-title=".dot-typing"><div class="stage">Coming soon.</div></div></div>
                                         </>
                                     )}
 

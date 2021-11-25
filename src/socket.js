@@ -16,6 +16,12 @@ socketConnection.on("connect", () => {
       socketConnection.emit("updateSocketId", token)
    }
 });
+socketConnection.on("disconnect", () => {
+   let token = localStorage.getItem('token')
+   if (token) {
+      socketConnection.emit("user_removed", token)
+   } 
+});
 
  
 
