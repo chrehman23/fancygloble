@@ -12,6 +12,31 @@ import Logo from '../../public/assets/images/logo.png'
 import chatApi from '../api/chat'
 import ContentLoader from 'react-content-loader'
 
+import { Dropdown } from 'react-bootstrap'
+
+// **************************************************************
+import PropTypes from 'prop-types';
+
+// Translation Higher Order Component
+import {
+    setTranslations,
+    setDefaultLanguage,
+    setLanguageCookie,
+    setLanguage,
+    translate,
+} from 'react-switch-lang';
+import languages from '../assets/languages/languagesControler'
+
+// Do this two lines only when setting up the application
+setTranslations(languages);
+
+// Do this two lines only when setting up the application 
+// setDefaultLanguage('en');
+
+// If you want to remember selected language
+setLanguageCookie("en", "", "");
+// **************************************************************
+
 class Header extends Component {
     state = {
         isOpen: false,
@@ -102,6 +127,10 @@ class Header extends Component {
             this.props.showRoom(id)
         }
     }
+    handleSetLanguage = (key) => () => {
+        setLanguage(key);
+
+    };
 
     toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
     toggleActive = () => this.setState({ isActive: !this.state.isActive });
@@ -112,7 +141,7 @@ class Header extends Component {
         const buttonClass = `${this.state.isOpen ? " active" : ""}`;
         const searchClass = `${this.state.isActive ? " show" : ""}`;
         const notiClass = `${this.state.isNoti ? " show" : ""}`;
-
+        const { t } = this.props;
         return (
             <div className="nav-header  shadow-xs border-0">
                 <div className="nav-top  h-100 headerScrolChange ">
@@ -130,10 +159,12 @@ class Header extends Component {
                     <button onClick={this.toggleOpen} className={`nav-menu me-0 ms-2 ${buttonClass}`}></button>
                 </div>
 
+
+
                 <form action="#" className="float-left header-search ms-3">
                     <div className="form-group mb-0 icon-input">
                         <i className="feather-search font-sm text-grey-400"></i>
-                        <input type="text" placeholder="Start typing to search.." className="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg" />
+                        <input type="text" placeholder="{t('home.title')}" className="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg" />
                     </div>
                 </form>
                 <NavLink activeClassName="active" to="/home" className="p-2 text-center ms-3 menu-icon center-menu-icon"><i className="feather-home font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
@@ -160,7 +191,18 @@ class Header extends Component {
                 </div>
                 <Link to="/defaultmessage" className="p-2 text-center ms-3 menu-icon chat-active-btn"><i className="feather-message-square font-xl text-current"></i></Link>
                 <Darkbutton />
+                <Dropdown className="languageChangerBtn">
+                    <Dropdown.Toggle id="dropdown-basic">
+                        <i class="fal fa-globe font-lg text-grey-500"></i>
+                    </Dropdown.Toggle>
 
+                    <Dropdown.Menu>
+                        <Dropdown.Item href="#" onClick={this.handleSetLanguage('en')}>English</Dropdown.Item>
+                        <Dropdown.Item href="#" onClick={this.handleSetLanguage('fr')}>French</Dropdown.Item>
+                        <Dropdown.Item href="#" onClick={this.handleSetLanguage('fi')}>Finnish</Dropdown.Item>
+                        {/* <Dropdown.Item href="#" onClick={this.handleSetLanguage('th')}>Finnish </Dropdown.Item> */}
+                    </Dropdown.Menu>
+                </Dropdown>
                 {/* <Link to="/defaultsettings" className="p-0 ms-3 menu-icon"><img src="assets/images/user.png" alt="user" className="w40 mt--1" /></Link> */}
                 <Link to="/defaultsettings" className="p-2 text-center ms-3 menu-icon chat-active-btn">  <i className="feather-menu font-lg text-grey-500 "></i></Link>
 
@@ -171,33 +213,34 @@ class Header extends Component {
                                 <div className="nav-caption fw-600 font-xssss text-grey-500"><span>New </span>Feeds</div>
                                 <ul className="mb-1 top-content">
                                     <li className="logo d-none d-xl-block d-lg-block"></li>
-                                    <li><Link to="/home" className="nav-content-bttn open-font"><i className="feather-tv btn-round-md bg-blue-gradiant me-3"></i><span>Newsfeed</span></Link></li>
+                                    <li><Link to="/home" className="nav-content-bttn open-font"><i className="feather-tv btn-round-md bg-blue-gradiant me-3"></i><span> {t('header.newsfeed')}</span></Link></li>
                                     {/* <li><Link to="/defaultbadge" className="nav-content-bttn open-font"><i className="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Badges</span></Link></li> */}
                                     {/* <li><Link to="/" className="nav-content-bttn open-font"><i className="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Badges</span></Link></li> */}
                                     {/* <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Explore Stories</span></Link></li> */}
-                                    <li><Link to="/users" className="nav-content-bttn open-font"><i className="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Explore</span></Link></li>
+                                    <li><Link to="/users" className="nav-content-bttn open-font"><i className="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>{t('header.explore')}</span></Link></li>
                                     {/* <li><Link to="/" className="nav-content-bttn open-font"><i className="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span>Popular Groups</span></Link></li> */}
                                     {/* <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span>Popular Groups</span></Link></li> */}
-                                    <li><Link to="/userpage" className="nav-content-bttn open-font"><i className="feather-user btn-round-md bg-primary-gradiant me-3"></i><span>My Profile </span></Link></li>
+                                    <li><Link to="/userpage" className="nav-content-bttn open-font"><i className="feather-user btn-round-md bg-primary-gradiant me-3"></i><span>{t('header.my_profile')}</span></Link></li>
                                 </ul>
                             </div>
 
                             <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2">
-                                <div className="nav-caption fw-600 font-xssss text-grey-500"><span>More </span>Pages</div>
+                                <div className="nav-caption fw-600 font-xssss text-grey-500">{t('header.more_pages')}</div>
                                 <ul className="mb-3">
                                     {/* <li><Link to="/defaultemailbox" className="nav-content-bttn open-font"><i className="font-xl text-current feather-inbox me-3"></i><span>Email Box</span><span className="circle-count bg-warning mt-1">584</span></Link></li> */}
                                     {/* <li><Link to="/defaulthotel" className="nav-content-bttn open-font"><i className="font-xl text-current feather-home me-3"></i><span>Near Hotel</span></Link></li> */}
-                                    <li><Link to="/events" className="nav-content-bttn open-font"><i className="font-xl text-current feather-map-pin me-3"></i><span>Latest Event</span></Link></li>
-                                    <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="font-xl text-current feather-youtube me-3"></i><span>Live Stream</span></Link></li>
+                                    <li><Link to="/events" className="nav-content-bttn open-font"><i className="font-xl text-current feather-map-pin me-3"></i><span>{t('header.latest_events')}</span></Link></li>
+                                    <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="font-xl text-current feather-youtube me-3"></i><span>{t('header.live_stream')}</span></Link></li>
                                 </ul>
                             </div>
                             <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1">
-                                <div className="nav-caption fw-600 font-xssss text-grey-500"><span></span> Account</div>
+                                <div className="nav-caption fw-600 font-xssss text-grey-500"><span></span> {t('header.account')}</div>
                                 <ul className="mb-1">
                                     <li className="logo d-none d-xl-block d-lg-block"></li>
-                                    <li><Link to="/defaultsettings" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-settings me-3 text-grey-500"></i><span>Settings</span></Link></li>
-                                    <li><Link to="/defaultanalytics" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-pie-chart me-3 text-grey-500"></i><span>Analytics</span></Link></li>
-                                    <li><Link to="/defaultmessage" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-message-square me-3 text-grey-500"></i><span>Chat</span><span className="circle-count bg-warning mt-0 d-none">23</span></Link></li>
+                                    <li><Link to="/defaultsettings" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-settings me-3 text-grey-500"></i><span>{t('header.settings')}</span></Link></li>
+                                    {/* <li><Link to="/defaultanalytics" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-pie-chart me-3 text-grey-500"></i><span>Analytics</span></Link></li> */}
+                                    <li><Link to="/defaultmessage" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-message-square me-3 text-grey-500"></i><span>{t('header.chat')}</span><span className="circle-count bg-warning mt-0 d-none">23</span></Link></li>
+
                                 </ul>
                             </div>
                         </div>
@@ -378,6 +421,11 @@ class Header extends Component {
     }
 }
 
+
+Header.propTypes = {
+    t: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => {
     return {
         NotifyStatus: state.Nofify.new,
@@ -408,6 +456,6 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(translate(Header)))
 
 

@@ -1,0 +1,27 @@
+{
+  "header": {
+    "newsfeed": "Newsfeed",
+    "explore": "Explore",
+    "my_profile": "My Profile",
+    "more_pages": "More pages",
+    "latest_events": "Latest Event",
+    "live_stream": "Live Stream",
+    "account": "Account",
+    "settings": "Settings",
+    "chat": "Chat"
+  },
+  "settings": {
+    "settings": "Settings",
+    "genaral": "Genaral",
+    "acount_information": "Account Information",
+    "saved_address": "Saved Address",
+    "social_count": "Social Account",
+    "acount": "Account",
+    "my_blance": "My Balance",
+    "password": "Password",
+    "other": "Other",
+    "notification": "Notification",
+    "help": "Help",
+    "logout": "Logout"
+  }
+}

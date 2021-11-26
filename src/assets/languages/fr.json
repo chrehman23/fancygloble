@@ -1,0 +1,27 @@
+{
+  "header": {
+    "newsfeed": "Fil d'actualité",
+    "explore": "Explorer",
+    "my_profile": "Mon profil",
+    "more_pages": "Plus de pages",
+    "latest_events": "dernier événement",
+    "live_stream": "Direct",
+    "account": "Compte",
+    "settings": "Paramètres",
+    "chat": "Discuter"
+  },
+  "settings": {
+    "settings": "Paramètres",
+    "genaral": "Général",
+    "acount_information": "Informations sur le compte",
+    "saved_address": "Adresse enregistrée",
+    "social_count": "Compte social",
+    "acount": "Compte",
+    "my_blance": "Mon solde",
+    "password": "Mot de passe",
+    "other": "Autre",
+    "notification": "Notification",
+    "help": "Aider",
+    "logout": "Se déconnecter"
+  }
+}

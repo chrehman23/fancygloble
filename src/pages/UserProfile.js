@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
-
-
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import ACTIONS from '../store/actions/index.js.js';
+import PostSound from '../../public/assets/sounds/post_sound.mp3'
 import Header from '../components/Header';
 import Leftnav from '../components/Leftnav';
 import Rightchat from '../components/Rightchat';
@@ -33,8 +35,8 @@ class Userpage extends Component {
             loading: true,
             errorRecord: false,
             profileTabs: 1,
-            PostViewModal:false,
-            commentsCount:0,
+            PostViewModal: false,
+            commentsCount: 0,
             comments: true,
         }
     }
@@ -74,9 +76,26 @@ class Userpage extends Component {
         })
     }
 
-      updateComentsCount=()=>{
-      this.setState({ commentsCount: this.state.commentsCount+1})
-   }
+    updateComentsCount = () => {
+        this.setState({ commentsCount: this.state.commentsCount + 1 })
+    }
+
+
+
+    purchasePost = (data) => {
+        this.setState({
+            post: data.paidPost
+        })
+        this.props.addPaidPost(data.paidPost)
+        new Audio(PostSound).play();
+        let notification = {
+            name: data.paidPost.created_by.name,
+            profile: data.paidPost.created_by.profile_photo,
+            des: data.msg,
+            time: new Date()
+        }
+        this.props.addnotificaions(notification)
+    }
 
 
     render() {
@@ -138,6 +157,7 @@ class Userpage extends Component {
                                                 {this.state.posts.map(data => {
                                                     return (
                                                         <Postview
+                                                            purchasePost={this.purchasePost}
                                                             modalPostView={this.modalPostView}
                                                             id={data._id}
                                                             key={data._id}
@@ -198,7 +218,7 @@ class Userpage extends Component {
                                                 )
                                             })}
 
-                                            {this.state.profile && this.state.profile.followers.length==0 && (
+                                            {this.state.profile && this.state.profile.followers.length == 0 && (
                                                 <div className="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3">
                                                     <div className="snippet mt-2 ms-auto me-auto" data-title=".dot-typing">
                                                         <div className="stage">
@@ -236,7 +256,7 @@ class Userpage extends Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                 )
+                                                )
                                             })}
                                             {this.state.profile && this.state.profile.followings.length == 0 && (
                                                 <div className="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3">
@@ -308,7 +328,7 @@ class Userpage extends Component {
                                 </div>
                             </div>
                         )}
-                      
+
 
                     </Modal.Header>
                     <Modal.Body>
@@ -335,7 +355,7 @@ class Userpage extends Component {
 
                                         )}
                                     </div>
-                                    <div className='col-lg-4'> 
+                                    <div className='col-lg-4'>
                                         <p><b>Comments({this.state.postModalDetails && this.state.postModalDetails.comments_count + this.state.commentsCount})</b></p>
                                         {this.state.comments && (
                                             <Comments
@@ -363,4 +383,24 @@ class Userpage extends Component {
 
 
 
-export default Userpage
+
+ 
+
+
+const mapStateToProps = (state) => {
+    return {
+        // Posts: state.Posts,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addPaidPost: (data) => {
+            dispatch(ACTIONS.addPaidPost(data))
+        },
+        addnotificaions: (data) => {
+            dispatch(ACTIONS.addnotificaion(data))
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Userpage))
