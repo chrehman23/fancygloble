@@ -1,0 +1,109 @@
+.bg-courses {
+  background: #f0f2f5 !important;
+}
+.recommended a img.img-fluid {
+  height: 190px;
+  object-fit: cover;
+  margin: auto;
+  width: 100%;
+  border-radius: 4px 4px 0px 0;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.recommended .inner-slider {
+  position: relative;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  border-radius: 0px 0px 4px 4px;
+  background-color: #ffffff;
+  margin-bottom: 5px;
+}
+.recommended .inner-slider .inner-wrapper {
+  padding: 15px;
+}
+
+.inner-slider .seller-image {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  display: inline-flex;
+  right: 15px;
+  top: -24px;
+}
+.inner-slider .seller-image img {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border: 5px solid #fff;
+}
+
+.recommended .inner-slider .inner-wrapper .seller-name {
+  display: flex;
+  flex-flow: column;
+  margin-left: 0px;
+  line-height: 20px;
+}
+
+.recommended .inner-slider .inner-wrapper .seller-name a {
+  color: #0e0e0f;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.recommended .inner-slider .inner-wrapper .level-one-seller {
+  color: #b2b2b2;
+  font-weight: 300;
+  font-size: 13px;
+}
+
+.recommended .inner-slider .inner-wrapper h3 {
+  font-size: 13px;
+  color: #30302f !important;
+  font-weight: 300;
+  margin-top: 13px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 21px;
+}
+.recommended .inner-slider .inner-wrapper .content-info {
+  padding: 12px 0 15px;
+}
+
+.recommended .inner-slider .inner-wrapper .content-info .gig-rating {
+  display: flex;
+  align-items: center;
+  color: #fba423;
+}
+.recommended .inner-slider .inner-wrapper .content-info .gig-rating span {
+  color: #b2b2b2;
+  font-weight: 400;
+  margin-left: 2px;
+  font-size: 12px;
+  margin: 0 0 0 3px;
+}
+
+.starting-date {
+  text-transform: uppercase;
+}
+.recommended .inner-slider .inner-wrapper .footer {
+  justify-content: end;
+  display: flex;
+  border-top: 1px solid #eee;
+  align-items: center;
+  padding: 12px 15px;
+  margin: 0px -15px -15px -15px;
+}
+.recommended .inner-slider .inner-wrapper .footer .fa {
+  color: #b2b2b2;
+}
+.recommended .inner-slider .inner-wrapper .footer a {
+  color: #555;
+  text-transform: uppercase;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.recommended .inner-slider .inner-wrapper .footer .price {
+  font-weight: bold;
+}

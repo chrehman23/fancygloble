@@ -46,7 +46,7 @@ class Courses extends Component {
                 <Leftnav />
                 <Rightchat />
 
-                <div className="main-content bg-white right-chat-active">
+                <div className="main-content bg-courses  right-chat-active">
 
                     <div className="middle-sidebar-bottom">
                         <div className="middle-sidebar-left">
@@ -90,13 +90,13 @@ class Courses extends Component {
                             </div>
                             <div className="row">
                                 <div className="col-xl-12 col-xxl-12 col-lg-12">
-                                    <div className="row">
+                                    <div className="row bg-courses">
 
 
                                         {this.state.courses.map((value, index) => (
 
-                                            <div key={index} className="col-lg-4 col-md-6" >
-                                                <div className="card w-100 border-0 mt-4 shadow-xss pb-3">
+                                            <div key={index} className="col-lg-4 col-md-6 gy-5" >
+                                                {/* <div className="card w-100 border-0 mt-4 shadow-xss pb-3">
                                                     <div className="card-image w-100 p-0 text-center cardImgesmd bg-greylight rounded-3 mb-2">
                                                         <img src={value.thumbnail} alt="product" className="w-100 mt-0 mb-0 rounded" />
                                                     </div>
@@ -117,7 +117,52 @@ class Courses extends Component {
 
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> */}
+
+
+                                            {/* Single Course   */}
+                            <div className="recommended">
+                             <div className="gig-item">
+                            <a href="#">
+                            <img className="img-fluid" src="https://fiverr-res.cloudinary.com/t_gig_cards_web_x2,q_auto,f_auto/gigs/228760723/original/860f192f519c6ce72ac72be319b30b973a2cf046.png" />
+                            </a>
+                            <div className="inner-slider">
+                                <div className="inner-wrapper">
+                                    <div className="d-flex align-items-center">
+                                        <span className="seller-image">
+                                            <img className="img-fluid" src="https://fiverr-res.cloudinary.com/t_profile_original,q_auto,f_auto/attachments/profile/photo/4142ec1e86fd97a72819dcad08efefee-1573221169820/189b2594-657d-4687-a567-2077f63c4c1e.jpg" alt="" />
+                                        </span>
+                                        <span className="seller-name">
+                                            <a href="#">Marcin Kowalski</a>
+                                        <span className="level hint--top level-one-seller"> <i class="fas fa-chart-line me-1"> </i>Beginner</span>
+                                    </span> 
+                                    </div>
+                                    <h3>I will create professional audio ads or radio commercials for your project</h3>
+                                    <div className="content-info">
+                                        <div className="rating-wrapper">
+                                            {/* <span className="gig-rating">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15">
+                                                <path fill="currentColor" d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z">
+                                                </path>
+                                                </svg>
+                                                5.0
+                                                <span>(7)</span>
+                                            </span> */}
+                                            <span className="starting-date"><i class="far fa-clock`"></i> Fri/33/2021 06:33 pm</span>
+                                        </div>
+                                    </div>
+                                     <div className="footer">
+                                    {/* <i className="fa fa-heart"></i> */}
+                                    <div className="price">
+                                        <a href="#"><span> $1,205</span></a>
+                                    </div>
+                                </div>
+                                </div>
+                               
+                            </div>
+                        </div>       
+
+                        </div>
                                             </div>
 
                                         ))}

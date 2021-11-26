@@ -8,6 +8,7 @@ import { withRouter } from 'react-router';
 import './main.scss';
 import './index.scss';
 import '../media.scss';
+import './style.scss';
 
 
  
