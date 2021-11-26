@@ -784,3 +784,11 @@
   object-fit: cover;
   object-position: center;
 }
+
+.languageChangerBtn > button::after{
+  display: none;
+}
+.languageChangerBtn button{
+  background-color: white !important;
+  border: none;
+}

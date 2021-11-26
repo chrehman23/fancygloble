@@ -1,0 +1,27 @@
+{
+  "header": {
+    "newsfeed": "Uutisvirta",
+    "explore": "Tutkia",
+    "my_profile": "Profiilini",
+    "more_pages": "Lisää sivuja",
+    "latest_events": "Viimeisin tapahtuma",
+    "live_stream": "Suora lähetys",
+    "account": "Tili",
+    "settings": "asetukset",
+    "chat": "Chat"
+  },
+  "settings": {
+    "settings": "Asetukset",
+    "genaral": "Kenraali",
+    "acount_information": "Tilitiedot",
+    "saved_address": "Tallennettu osoite",
+    "social_count": "Sosiaalinen tili",
+    "acount": "Tili",
+    "my_blance": "Minun saldoni",
+    "password": "Salasana",
+    "other": "Muut",
+    "notification": "Ilmoitus",
+    "help": "auta",
+    "logout": "Kirjautua ulos"
+  }
+}
