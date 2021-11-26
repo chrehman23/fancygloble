@@ -44,7 +44,8 @@ class CoursesDetail extends Component {
             vedioUploading: false,
             publish: false,
 
-            paymentLoader: false
+            paymentLoader: false,
+            created_by: ""
         }
 
     }
@@ -71,6 +72,7 @@ class CoursesDetail extends Component {
                         thumbnail: res.data.data.thumbnail,
                         publish: res.data.data.publish,
                         user_paid: res.data.data.user_paid,
+                        created_by: res.data.data.created_by,
 
                         Course_id: res.data.data._id,
                         loadingCourse: false,
@@ -211,9 +213,9 @@ class CoursesDetail extends Component {
                                                     <p> {moment(this.state.start_date).format("dd/mm/yy hh:mm a")}</p>
                                                 </div>
                                             )}
-                                          
 
-                                          
+
+
 
                                             <div className="col-6">
                                                 <label htmlFor="">thumbnail</label>
@@ -261,27 +263,15 @@ class CoursesDetail extends Component {
 
 
                                             </div>
-
-
                                         </div>
-
                                         {!this.state.paymentLoader && this.state.Course_id && <CoursesSectionDetail course_id={this.state.Course_id} />}
                                         {!this.state.paymentLoader && this.state.Course_id && <Enroll_users course_id={this.state.Course_id} />}
-                                        {!this.state.paymentLoader && this.state.Course_id && <Course_comments course_id={this.state.Course_id} />}
-
-
-
+                                        {this.state.user_paid && !this.state.paymentLoader && this.state.Course_id && <Course_comments course_id={this.state.Course_id} />}
                                     </div>
                                 </>
                             )}
 
-
-
-
                             {/* ************************************ */}
-
-
-
                         </div>
 
                     </div>

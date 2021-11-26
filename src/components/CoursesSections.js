@@ -108,11 +108,9 @@ class CoursesSections extends Component {
                                     <div className='border-bottom mb-2 pb-2' key={index}>
                                         <div key={index} className='d-flex align-items-center justify-content-between '>
                                             <div>
-                                                <h5 className='mb-0 '><b>{datas.lacture_title}</b></h5> 
+                                                <h5 className='mb-0 '><b>{datas.lacture_title}</b></h5>
                                                 {datas.lacture_time && (
-                                                    <p className='mb-0'>{datas.lacture_time && `${moment(datas.lacture_time.split(',')[0]).format('d/MM/yy hh:mm a')} To ${moment(datas.lacture_time.split(',')[1]).format('d/MM/yy hh:mm a')}`} (lecture time)
-                                                        
-                                                    </p>
+                                                    <p className='mb-0'>{datas.lacture_time && `${moment(datas.lacture_time).format('d/MM/yy hh:mm a')}`} (lecture time)</p>
                                                 )}
                                                 <p>{datas.lacture_des}</p>
                                             </div>
@@ -344,7 +342,15 @@ class CoursesSections extends Component {
                                         {this.state.streamLacture && (
                                             <div className="col-12">
                                                 <label htmlFor="">Start Time/End Time</label>
-                                                <DateTimeRangePicker
+                                                <input type="datetime-local" className='form-control'
+                                                    value={values.stream_time}
+                                                    min={new Date()}
+                                                    onChange={(e) => {
+                                                        setFieldValue("stream_time", e.target.value)
+
+                                                    }}
+                                                />
+                                                {/* <DateTimeRangePicker
                                                     // dateTtime={true}
                                                     format="y-MM-dd h:mm:ss a"
                                                     minDate={new Date()}
@@ -359,7 +365,7 @@ class CoursesSections extends Component {
                                                         this.setState({ DatePickValue: e })
                                                     }}
                                                     value={this.state.DatePickValue}
-                                                />
+                                                /> */}
                                                 <small className='text-danger'><b><ErrorMessage name="stream_time" /></b></small>
                                             </div>
                                         )}

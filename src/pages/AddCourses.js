@@ -41,7 +41,8 @@ class Courses extends Component {
 
             vedioUploading: false,
             publish: false,
-            start_date: ""
+            start_date: "",
+            end_date: "",
         }
 
     }
@@ -67,6 +68,7 @@ class Courses extends Component {
                         video_url: res.data.data.video_url,
                         thumbnail: res.data.data.thumbnail,
                         publish: res.data.data.publish,
+                        end_date: res.data.data.end_date,
 
                         Course_id: res.data.data._id,
                         loadingCourse: false,
@@ -291,7 +293,7 @@ class Courses extends Component {
                                                 <option value="Operations">Operations</option>
                                             </select>
                                             {/* ******************** */}
-                                            <label htmlFor="">Course start Date*</label>
+                                            <label htmlFor="">Course Start Date*</label>
 
                                             <input type="datetime-local" className='form-control'
                                                 value={this.state.start_date}
@@ -300,6 +302,18 @@ class Courses extends Component {
                                                     this.setState({ start_date: e.target.value })
                                                     let data = new FormData();
                                                     data.append('start_date', e.target.value)
+                                                    this.updateCourse(data)
+                                                }}
+                                            />
+                                            <label htmlFor="">Course End Date*</label>
+
+                                            <input type="datetime-local" className='form-control'
+                                                value={this.state.end_date}
+                                                min={new Date()}
+                                                onChange={(e) => {
+                                                    this.setState({ end_date: e.target.value })
+                                                    let data = new FormData();
+                                                    data.append('end_date', e.target.value)
                                                     this.updateCourse(data)
                                                 }}
                                             />

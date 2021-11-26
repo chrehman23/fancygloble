@@ -88,9 +88,17 @@ class CoursesSectionLactures extends Component {
                                     <div className='border-bottom pb-3'>
                                         <div key={index} className='d-flex align-items-center justify-content-between  pt-2 mb-2'>
                                             <div>
-                                                <h5 className='mb-0 '><i class="fas fa-lock px-2"></i><b>{datas.lacture_title}</b></h5>
+                                                <h5 className='mb-0 '>
+                                                    {datas.lacture_vedio == "" && (
+                                                        <i class="fas fa-lock px-2"></i>
+                                                    )}
+                                                    {datas.lacture_vedio !== "" && (
+                                                        <i class="fas fa-lock-open px-2"></i>
+                                                    )}
+
+                                                    <b>{datas.lacture_title}</b></h5>
                                                 {datas.lacture_time && (
-                                                    <p className='mb-0'>{datas.lacture_time && `${moment(datas.lacture_time.split(',')[0]).format('d/MM/yy hh:mm a')} To ${moment(datas.lacture_time.split(',')[1]).format('d/MM/yy hh:mm a')}`} (lecture time)
+                                                    <p className='mb-0'>{datas.lacture_time && `${moment(datas.lacture_time).format('d/MM/yy hh:mm a')}`} (lecture time)
                                                         {datas.stream_token && (
                                                             <>
                                                                 {this.props.profile_id !== datas.created_by && (
@@ -103,12 +111,12 @@ class CoursesSectionLactures extends Component {
                                                             </>
                                                         )}
                                                     </p>
-                                                )} 
+                                                )}
                                                 {this.props.profile_id == datas.created_by && (
                                                     <button className='btn btn-primary btn-sm'
-                                                    onClick={()=>{
-                                                        this.props.history.push(`/live-lecture/${datas._id}`)
-                                                    }}
+                                                        onClick={() => {
+                                                            this.props.history.push(`/live-lecture/${datas._id}`)
+                                                        }}
                                                     >Start lecture</button>
                                                 )}
                                                 <p>{datas.lacture_des}</p>
