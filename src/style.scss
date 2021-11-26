@@ -9,6 +9,9 @@
   border-radius: 4px 4px 0px 0;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
+.recommended{
+  cursor: pointer;
+}
 
 .recommended .inner-slider {
   position: relative;
@@ -28,6 +31,9 @@
   display: inline-flex;
   right: 15px;
   top: -24px;
+  background-color: white;
+  border-radius: 50%;
+  overflow:hidden;
 }
 .inner-slider .seller-image img {
   border-radius: 50%;
@@ -87,8 +93,8 @@
   text-transform: uppercase;
 }
 .recommended .inner-slider .inner-wrapper .footer {
-  justify-content: end;
   display: flex;
+  justify-content: end;
   border-top: 1px solid #eee;
   align-items: center;
   padding: 12px 15px;
