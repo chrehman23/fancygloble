@@ -43,12 +43,16 @@ class Courses extends Component {
             publish: false,
             start_date: "",
             end_date: "",
+            editing: false,
         }
 
     }
     componentDidMount() {
         let Course_id = localStorage.getItem('add_course_id')
         if (Course_id) {
+            this.setState({
+                editing: true
+            })
             let data = {
                 course_id: Course_id
             }
@@ -130,22 +134,22 @@ class Courses extends Component {
                 <div className="main-content right-chat-active">
                     <div className="middle-sidebar-bottom">
                         <div className="middle-sidebar-left pe-0">
-                            <div className="card-body p-4 w-100 bgthwh border-0 d-flex rounded-3">
+                            <div className="p-4 border-0 card-body w-100 bgthwh d-flex rounded-3">
                                 <a href="#"
-                                    className="d-inline-block mt-2"
+                                    className="mt-2 d-inline-block"
                                     onClick={() => {
                                         this.props.history.goBack()
                                     }}
                                 >
-                                    <i className="ti-arrow-left font-sm text-white"></i>
+                                    <i className="text-white ti-arrow-left font-sm"></i>
                                 </a>
-                                {/* <Link to="/" className="d-inline-block mt-2"></Link> */}
-                                <h4 className="font-xs text-white fw-600 ms-4 mb-0 mt-2"> Add New Course</h4>
+                                {/* <Link to="/" className="mt-2 d-inline-block"></Link> */}
+                                <h4 className="mt-2 mb-0 text-white font-xs fw-600 ms-4"> {this.state.editing ? "Edit Course" : "Add New Course"}</h4>
                             </div>
                             <div className="row">
                                 <div className="col-xl-12">
-                                    <div className="card shadow-xss w-100 d-block d-flex border-0 p-4 mb-3">
-                                        <h2 className="mb-0 fw-800 mb-0  mt-0 font-md text-grey-900 d-flex justify-content-between align-items-center">
+                                    <div className="p-4 mb-3 border-0 card shadow-xss w-100 d-block d-flex">
+                                        <h2 className="mt-0 mb-0 fw-800 font-md text-grey-900 d-flex justify-content-between align-items-center">
                                             How to add course
                                         </h2>
                                         <p>
@@ -159,7 +163,7 @@ class Courses extends Component {
 
 
                             {!this.state.loadingCourse && (
-                                <div className="card shadow-xss w-100 d-block d-flex border-0 p-4 mb-3">
+                                <div className="p-4 mb-3 border-0 card shadow-xss w-100 d-block d-flex">
 
 
                                     <div className='row'>
@@ -183,7 +187,7 @@ class Courses extends Component {
 
 
 
-                                    <div className='row mt-3'>
+                                    <div className='mt-3 row'>
                                         <div className='col-12'>
                                             <h6 className='mb-0'>Course Description</h6>
                                             <textarea className='form-control ' row='15'
@@ -381,12 +385,12 @@ class Courses extends Component {
                                                 className='d-none' />
                                             <label htmlFor="">Intro Course overview</label>
                                             {this.state.video_url == '' && (
-                                                <div className="courseUploadVedio bgthwh rounded">
+                                                <div className="rounded courseUploadVedio bgthwh">
                                                     <div className='text-center'>
                                                         <button
                                                             onClick={() => { document.getElementById("vedio_c").click() }}
                                                             className='btn btn-danger'>Upload Video</button>
-                                                        <p className='mb-0 pb-0'>File Format:.mp4</p>
+                                                        <p className='pb-0 mb-0'>File Format:.mp4</p>
                                                     </div>
                                                 </div>
                                             )}
@@ -399,7 +403,7 @@ class Courses extends Component {
                                             )}
 
                                             {!this.state.vedioUploading && this.state.video_url && (
-                                                <div className="card-body d-block p-0 mb-3 mt-3" >
+                                                <div className="p-0 mt-3 mb-3 card-body d-block" >
                                                     <div className='row'>
                                                         <div className='col-12'>
                                                             <video className='vedioPlayer' controls>
@@ -413,7 +417,7 @@ class Courses extends Component {
 
                                             <br></br>
                                             <br></br>
-                                            <div className="d-flex float-right">
+                                            <div className="float-right d-flex">
                                                 {this.state.publish && (
                                                     <div>
                                                         <button
@@ -465,20 +469,17 @@ class Courses extends Component {
                                                             }
                                                         }
                                                     } else {
-
                                                     }
-
-
                                                 }}
                                                 className='d-none' />
                                             <label htmlFor="">Course thumbnail</label>
                                             {this.state.thumbnail == '' && (
-                                                <div className="courseUploadVedio bgthwh rounded">
+                                                <div className="rounded courseUploadVedio bgthwh">
                                                     <div className='text-center'>
                                                         <button className='btn btn-danger'
                                                             onClick={() => { document.getElementById("thumbnail").click() }}
                                                         >Upload thumbnail</button>
-                                                        <p className='mb-0 pb-0'>File Format: jpg,jpeg, or png</p>
+                                                        <p className='pb-0 mb-0'>File Format: jpg,jpeg, or png</p>
                                                     </div>
                                                 </div>
                                             )}
@@ -493,24 +494,12 @@ class Courses extends Component {
                                                     <img src={this.state.thumbnail} className='img-fluid' />
                                                 )}
                                             </div>
-
                                         </div>
                                     </div>
-
                                     {this.state.Course_id && <CoursesSectionList course_id={this.state.Course_id} />}
-
-
-
                                 </div>
                             )}
-
-
-
-
                             {/* ************************************ */}
-
-
-
                         </div>
 
                     </div>

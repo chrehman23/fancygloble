@@ -4,11 +4,11 @@ import Leftnav from '../components/Leftnav';
 import Rightchat from '../components/Rightchat';
 import Pagetitle from '../components/Pagetitle';
 import Appfooter from '../components/Appfooter';
-import Popupchat from '../components/Popupchat';
-import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
+import Popupchat from '../components/Popupchat'; 
 import ApiLoader from '../components/ApiLoader'
-
+import { connect } from 'react-redux';
+import ACTIONS from '../store/actions/index.js';
+import { Link, withRouter } from 'react-router-dom'
 import CourseApi from '../api/Courses'
 import CopyToClipboard from '../components/CopyToClipBoard'
 import CoursesSectionDetail from "../components/CoursesSectionDetail";
@@ -64,7 +64,7 @@ class CoursesDetail extends Component {
                 console.log(res)
                 if (res.data.Error == false) {
                     this.setState({
-                        apiLoader:false,
+                        apiLoader: false,
                         titleInput: res.data.data.title,
                         desInput: res.data.data.description,
                         user_details: res.data.data.created_by,
@@ -147,9 +147,9 @@ class CoursesDetail extends Component {
                 <Rightchat />
 
                 <div className="main-content right-chat-active">
-                    <div className={this.state.apiLoader ? "px-0 middle-sidebar-bottom bg-white" :"px-0 middle-sidebar-bottom course_details_bg"}>
+                    <div className={this.state.apiLoader ? "px-0 middle-sidebar-bottom bg-white" : "px-0 middle-sidebar-bottom course_details_bg"}>
                         <div className="w-100">
-                            
+
                             {/* ************************************************************* */}
                             <section className="course-details">
                                 <div className="page__title-wrapper-overly">
@@ -160,16 +160,16 @@ class CoursesDetail extends Component {
                                                 this.props.history.push("/courses")
                                             }}
                                         ><i className="text-white ti-arrow-left font-sm me-2"
-                                            
+
                                         ></i>Course Details</h1>
                                     </div>
                                 </div>
                             </section>
                             <div className="container">
                                 {this.state.apiLoader && (
-                              <div className="row">
-                                  <div className="col-md-8">
-                                       
+                                    <div className="row">
+                                        <div className="col-md-8">
+
                                             <div className='p-3'>
                                                 <ContentLoader viewBox="0 0 380 70">
                                                     {/* Only SVG shapes */}
@@ -191,310 +191,325 @@ class CoursesDetail extends Component {
                                                 </ContentLoader>
                                             </div>
 
-                                       
-                                  </div>
-                                  <div className="pt-md-5 col-md-4">
-                                       <div className="py-4">
-                                            <ContentLoader viewBox="0 0 380 70">
-                                                {/* Only SVG shapes */}
-                                                <rect y="17" rx="4" ry="4" width="300" height="13" />
-                                                <rect y="40" rx="3" ry="3" width="250" height="10" />
-                                            </ContentLoader>
-                                            <ContentLoader viewBox="0 0 380 70">
-                                                {/* Only SVG shapes */}
-                                                <rect y="17" rx="4" ry="4" width="300" height="13" />
-                                                <rect y="40" rx="3" ry="3" width="250" height="10" />
-                                            </ContentLoader>
-                                            <ContentLoader viewBox="0 0 380 70">
-                                                {/* Only SVG shapes */}
-                                                <rect y="17" rx="4" ry="4" width="300" height="13" />
-                                                <rect y="40" rx="3" ry="3" width="250" height="10" />
-                                            </ContentLoader>
-                                            <ContentLoader viewBox="0 0 380 70">
-                                                {/* Only SVG shapes */}
-                                                <rect y="17" rx="4" ry="4" width="300" height="13" />
-                                                <rect y="40" rx="3" ry="3" width="250" height="10" />
-                                            </ContentLoader>
-                                             <ContentLoader viewBox="0 0 380 70">
-                                            {/* Only SVG shapes */}
-                                            <rect y="17" rx="4" ry="4" width="300" height="13" />
-                                            <rect y="40" rx="3" ry="3" width="250" height="10" />
-                                        </ContentLoader>
-                                            <ContentLoader viewBox="0 0 380 70">
-                                                {/* Only SVG shapes */}
-                                                <rect y="17" rx="4" ry="4" width="300" height="13" />
-                                                <rect y="40" rx="3" ry="3" width="250" height="10" />
-                                            </ContentLoader>
-                                       </div>
 
-                                  </div>
-                              </div>
-                               )}
-                                <div className="row">
-                                    <div className="col-md-8 col-12">
-                                        <div className="inner-title">
-                                            <h1 className="pb-0">{this.state.titleInput}</h1>
                                         </div>
-                                        <div className="flex-row course-instructor-detail d-md-flex">
-                                            <div className="course__teacher me-2">
-                                                <img src={this.state.user_details && this.state.user_details.profile_photo} />
-                                            </div>
-                                            <div className="mb-4 course__teacher-info me-5">
-                                                <h5 className="pb-0">Teacher</h5>
-                                                <small>{this.state.user_details && this.state.user_details.name}</small>
-                                            </div>
-                                            <div className="mb-4 course__update me-5 d-none">
-                                                <h5>Last Update:</h5>
-                                                <p>September 28, 2021</p>
+                                        <div className="pt-md-5 col-md-4">
+                                            <div className="py-4">
+                                                <ContentLoader viewBox="0 0 380 70">
+                                                    {/* Only SVG shapes */}
+                                                    <rect y="17" rx="4" ry="4" width="300" height="13" />
+                                                    <rect y="40" rx="3" ry="3" width="250" height="10" />
+                                                </ContentLoader>
+                                                <ContentLoader viewBox="0 0 380 70">
+                                                    {/* Only SVG shapes */}
+                                                    <rect y="17" rx="4" ry="4" width="300" height="13" />
+                                                    <rect y="40" rx="3" ry="3" width="250" height="10" />
+                                                </ContentLoader>
+                                                <ContentLoader viewBox="0 0 380 70">
+                                                    {/* Only SVG shapes */}
+                                                    <rect y="17" rx="4" ry="4" width="300" height="13" />
+                                                    <rect y="40" rx="3" ry="3" width="250" height="10" />
+                                                </ContentLoader>
+                                                <ContentLoader viewBox="0 0 380 70">
+                                                    {/* Only SVG shapes */}
+                                                    <rect y="17" rx="4" ry="4" width="300" height="13" />
+                                                    <rect y="40" rx="3" ry="3" width="250" height="10" />
+                                                </ContentLoader>
+                                                <ContentLoader viewBox="0 0 380 70">
+                                                    {/* Only SVG shapes */}
+                                                    <rect y="17" rx="4" ry="4" width="300" height="13" />
+                                                    <rect y="40" rx="3" ry="3" width="250" height="10" />
+                                                </ContentLoader>
+                                                <ContentLoader viewBox="0 0 380 70">
+                                                    {/* Only SVG shapes */}
+                                                    <rect y="17" rx="4" ry="4" width="300" height="13" />
+                                                    <rect y="40" rx="3" ry="3" width="250" height="10" />
+                                                </ContentLoader>
                                             </div>
 
                                         </div>
-                                        <div className="py-2 course__img">
-                                            {this.state.thumbnail !== '' && (
-                                                <img src={this.state.thumbnail} className="img-fluid w-100" />
+                                    </div>
+                                )}
+                                {!this.state.apiLoader && (
+                                    <div className="row">
+                                        <div className="col-md-8 col-12">
+                                            <div className="inner-title">
+                                                <h1 className="pb-0">{this.state.titleInput}</h1>
+                                            </div>
+                                            <div className="flex-row course-instructor-detail d-md-flex">
+                                                <div className="course__teacher me-2">
+                                                    <img src={this.state.user_details && this.state.user_details.profile_photo} />
+                                                </div>
+                                                <div className="mb-4 course__teacher-info me-5">
+                                                    <h5 className="pb-0">Teacher</h5>
+                                                    <small>{this.state.user_details && this.state.user_details.name}</small>
+                                                </div>
+                                                <div className="mb-4 course__update me-5 d-none">
+                                                    <h5>Last Update:</h5>
+                                                    <p>September 28, 2021</p>
+                                                </div>
+
+                                            </div>
+                                            <div className="py-2 course__img">
+                                                {this.state.thumbnail !== '' && (
+                                                    <img src={this.state.thumbnail} className="img-fluid w-100" />
+                                                )}
+
+                                            </div>
+                                            <div className="tutor-course-content-content">
+                                                <p>
+                                                    {this.state.desInput}
+                                                </p>
+                                            </div>
+                                            <div className=" tutor-single-course-segment tutor-course-benefits-wrap">
+                                                <div className="course-benefits-title">
+                                                    <h4 className="mb-0 tutor-segment-title">What Will I Learn?</h4>
+                                                </div>
+                                                <div className="tutor-course-benefits-content">
+                                                    {this.state.learning_points}
+                                                </div>
+                                            </div>
+                                            <div className=" tutor-single-course-segment tutor-course-benefits-wrap">
+                                                <div className="course-benefits-title">
+                                                    <h4 className="mb-0 tutor-segment-title">Requirements</h4>
+                                                </div>
+                                                <div className="tutor-course-benefits-content">
+                                                    {this.state.requirements}
+                                                </div>
+                                            </div>
+                                            <div className="mb-1 course__tab-2">
+                                                <ul className="border-0 nav nav-tabs" id="courseTab" role="tablist">
+                                                    <li className="my-2 nav-item"
+                                                        onClick={() => {
+                                                            this.setState({ tabs: 1 })
+                                                        }}
+                                                    >
+                                                        <button className={this.state.tabs == 1 ? "active nav-link" : "nav-link"} type="button">
+                                                            <i className="icon_ribbon_alt"></i> <span>Course content</span>
+                                                        </button>
+                                                    </li>
+                                                    <li className="my-2 nav-item"
+                                                        onClick={() => {
+                                                            this.setState({ tabs: 2 })
+                                                        }}
+                                                    >
+                                                        <button className={this.state.tabs == 2 ? "active nav-link" : "nav-link"} type="button">
+                                                            <i className="icon_book_alt"></i> <span>Enrolled </span>
+                                                        </button>
+                                                    </li>
+                                                    {this.state.user_paid && !this.state.paymentLoader && this.state.Course_id && (
+                                                        <li className="my-2 nav-item"
+                                                            onClick={() => {
+                                                                this.setState({ tabs: 3 })
+                                                            }}
+                                                        >
+                                                            <button className={this.state.tabs == 3 ? "active nav-link" : "nav-link"} type="button">
+                                                                <i className="icon_star_alt"></i> <span>Comments</span>
+                                                            </button>
+                                                        </li>
+                                                    )}
+
+                                                    <li className="my-2 nav-item"
+                                                        onClick={() => {
+                                                            this.setState({ tabs: 4 })
+                                                        }}
+                                                    >
+                                                        <button className={this.state.tabs == 4 ? "active nav-link" : "nav-link"} type="button">
+                                                            <span>Instructor</span>
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            {this.state.tabs == 1 && (
+                                                <>
+                                                    {!this.state.paymentLoader && this.state.Course_id && <CoursesSectionDetail course_id={this.state.Course_id} />}
+                                                </>
+                                            )}
+                                            {this.state.tabs == 2 && (
+                                                <div class="card bg-white rounded p-2">
+
+                                                    {!this.state.paymentLoader && this.state.Course_id && <Enroll_users course_id={this.state.Course_id} />}
+                                                </div>
+                                            )}
+                                            {this.state.tabs == 3 && (
+                                                <div class="card bg-white rounded p-2">
+                                                    {this.state.user_paid && !this.state.paymentLoader && this.state.Course_id && <Course_comments course_id={this.state.Course_id} />}
+                                                </div>
+                                            )}
+                                            {this.state.tabs == 4 && (
+                                                <div className="course__member mb-45">
+                                                    <h4 className="tutor-segment-title tutor-segment-title-700">
+                                                        About the instructor
+                                                    </h4>
+                                                    <div className=" tutor-course-instructors-wrap tutor-single-course-segment" id="single-course-ratings">
+                                                        <div className="flex-row course-instructor-detail d-md-flex">
+                                                            <div className="course__teacher me-2">
+                                                                <img src={this.state.user_details && this.state.user_details.profile_photo} />
+                                                            </div>
+                                                            <div className="mb-4 course__teacher-info me-5">
+                                                                <h5 className="pb-0">Teacher</h5>
+                                                                <small>{this.state.user_details && this.state.user_details.name}</small>
+                                                            </div>
+                                                            <div className="mb-4 course__update me-5 d-none">
+                                                                <h5>Last Update:</h5>
+                                                                <p>September 28, 2021</p>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             )}
 
                                         </div>
-                                        <div className="tutor-course-content-content">
-                                            <p>
-                                                {this.state.desInput}
-                                            </p>
-                                        </div>
-                                        <div className=" tutor-single-course-segment tutor-course-benefits-wrap">
-                                            <div className="course-benefits-title">
-                                                <h4 className="mb-0 tutor-segment-title">What Will I Learn?</h4>
-                                            </div>
-                                            <div className="tutor-course-benefits-content">
-                                                {this.state.learning_points}
-                                            </div>
-                                        </div>
-                                        <div className=" tutor-single-course-segment tutor-course-benefits-wrap">
-                                            <div className="course-benefits-title">
-                                                <h4 className="mb-0 tutor-segment-title">Requirements</h4>
-                                            </div>
-                                            <div className="tutor-course-benefits-content">
-                                                {this.state.requirements}
-                                            </div>
-                                        </div>
-                                        <div className="mb-1 course__tab-2">
-                                            <ul className="border-0 nav nav-tabs" id="courseTab" role="tablist">
-                                                <li className="my-2 nav-item"
-                                                    onClick={() => {
-                                                        this.setState({ tabs: 1 })
-                                                    }}
-                                                >
-                                                    <button className={this.state.tabs == 1 ? "active nav-link" : "nav-link"} type="button">
-                                                        <i className="icon_ribbon_alt"></i> <span>Course content</span>
-                                                    </button>
-                                                </li>
-                                                <li className="my-2 nav-item"
-                                                    onClick={() => {
-                                                        this.setState({ tabs: 2 })
-                                                    }}
-                                                >
-                                                    <button className={this.state.tabs == 2 ? "active nav-link" : "nav-link"} type="button">
-                                                        <i className="icon_book_alt"></i> <span>Enrolled </span>
-                                                    </button>
-                                                </li>
-                                                {this.state.user_paid && !this.state.paymentLoader && this.state.Course_id && (
-                                                    <li className="my-2 nav-item"
-                                                        onClick={() => {
-                                                            this.setState({ tabs: 3 })
-                                                        }}
-                                                    >
-                                                        <button className={this.state.tabs == 3 ? "active nav-link" : "nav-link"} type="button">
-                                                            <i className="icon_star_alt"></i> <span>Comments</span>
-                                                        </button>
-                                                    </li>
-                                                )}
-
-                                                <li className="my-2 nav-item"
-                                                    onClick={() => {
-                                                        this.setState({ tabs: 4 })
-                                                    }}
-                                                >
-                                                    <button className={this.state.tabs == 4 ? "active nav-link" : "nav-link"} type="button">
-                                                        <span>Instructor</span>
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        {this.state.tabs == 1 && (
-                                            <>
-                                                {!this.state.paymentLoader && this.state.Course_id && <CoursesSectionDetail course_id={this.state.Course_id} />}
-                                            </>
-                                        )}
-                                        {this.state.tabs == 2 && (
-                                            <div class="card bg-white rounded p-2">
-
-                                                {!this.state.paymentLoader && this.state.Course_id && <Enroll_users course_id={this.state.Course_id} />}
-                                            </div>
-                                        )}
-                                        {this.state.tabs == 3 && (
-                                            <div class="card bg-white rounded p-2">
-                                                {this.state.user_paid && !this.state.paymentLoader && this.state.Course_id && <Course_comments course_id={this.state.Course_id} />}
-                                            </div>
-                                        )}
-                                        {this.state.tabs == 4 && (
-                                            <div className="course__member mb-45">
-                                                <h4 className="tutor-segment-title tutor-segment-title-700">
-                                                    About the instructor
-                                                </h4>
-                                                <div className=" tutor-course-instructors-wrap tutor-single-course-segment" id="single-course-ratings">
-                                                    <div className="flex-row course-instructor-detail d-md-flex">
-                                                        <div className="course__teacher me-2">
-                                                            <img src={this.state.user_details && this.state.user_details.profile_photo} />
-                                                        </div>
-                                                        <div className="mb-4 course__teacher-info me-5">
-                                                            <h5 className="pb-0">Teacher</h5>
-                                                            <small>{this.state.user_details && this.state.user_details.name}</small>
-                                                        </div>
-                                                        <div className="mb-4 course__update me-5 d-none">
-                                                            <h5>Last Update:</h5>
-                                                            <p>September 28, 2021</p>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                    </div>
-                                    <div className="col-md-4 col-12">
-                                        <div className="p-4 my-4 bg-white right-col">
-                                            <div className="tutor-lesson-video-wrap">
-                                                <div className="tutor-video-embeded-wrap"> {!this.state.vedioUploading && this.state.video_url && (
-                                                    <div className="p-0 mt-3 mb-3 card-body d-block" >
-                                                        <div className='row'>
-                                                            <div className='col-12'>
-                                                                <video className='vedioPlayer' controls >
-                                                                    <source src={this.state.video_url} type="video/mp4" />
-                                                                    Your browser does not support HTML5 video.
-                                                                </video>
+                                        <div className="col-md-4 col-12">
+                                            <div className="p-4 my-4 bg-white right-col">
+                                                <div className="tutor-lesson-video-wrap">
+                                                    <div className="tutor-video-embeded-wrap"> {!this.state.vedioUploading && this.state.video_url && (
+                                                        <div className="p-0 mt-3 mb-3 card-body d-block" >
+                                                            <div className='row'>
+                                                                <div className='col-12'>
+                                                                    <video className='vedioPlayer' controls >
+                                                                        <source src={this.state.video_url} type="video/mp4" />
+                                                                        Your browser does not support HTML5 video.
+                                                                    </video>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                )}
-                                                </div>
-                                                <div className="py-3 course__video-price">
-                                                    {!this.state.user_paid && (
-                                                        <p>
-                                                            ${this.state.paid_amount} <del>{this.state.discount_amount > 0 && (`$${this.state.discount_amount}`)}</del>
-                                                        </p>
                                                     )}
+                                                    </div>
+                                                    <div className="py-3 course__video-price">
+                                                        {!this.state.user_paid && (
+                                                            <p>
+                                                                ${this.state.paid_amount} <del>{this.state.discount_amount > 0 && (`$${this.state.discount_amount}`)}</del>
+                                                            </p>
+                                                        )}
+                                                        {this.state.created_by && this.state.created_by._id == this.props.profile_id && (
+                                                            <button
+                                                                // onClick={() => {
+                                                                //     this.props.history.push(`/course-start/${this.state.Course_id}`)
+                                                                // }}
+                                                                className='py-2 btn btn-primary btn-sm w-100 bgthwh disabled'>Own Course</button>
+                                                        )}
+                                                        {this.state.created_by && this.state.created_by._id != this.props.profile_id && (
+                                                            <>
+                                                                {this.state.paid_amount > 0 && !this.state.paymentLoader && (
+                                                                    <>
+                                                                        {!this.state.user_paid && (
+                                                                            <StripeCheckout
+                                                                                token={this.onToken}
+                                                                                stripeKey={process.env.REACT_APP_STRIP_KEY}
+                                                                                // image="https://node.globalfansy.com/assets/user.png"
+                                                                                // panelLabel="Give Money" // prepended to the amount in the bottom pay button
+                                                                                amount={(this.state.paid_amount - this.state.discount_amount) * 100} // cents
+                                                                                ComponentClassName="div"
+                                                                                currency="USD"
+                                                                            // name="Three Comma Co." // the pop-in header title
+                                                                            // description="Big Data Stuff" // the pop-in header subtitle
+                                                                            >
+                                                                                <button className='py-2 btn btn-primary btn-sm w-100 bgthwh'>${this.state.paid_amount - this.state.discount_amount} BUY NOW</button>
+                                                                            </StripeCheckout>
 
-                                                    {this.state.paid_amount > 0 && !this.state.paymentLoader && (
-                                                        <>
-                                                            {!this.state.user_paid && (
-                                                                <StripeCheckout
-                                                                    token={this.onToken}
-                                                                    stripeKey={process.env.REACT_APP_STRIP_KEY}
-                                                                    // image="https://node.globalfansy.com/assets/user.png"
-                                                                    // panelLabel="Give Money" // prepended to the amount in the bottom pay button
-                                                                    amount={(this.state.paid_amount - this.state.discount_amount) * 100} // cents
-                                                                    ComponentClassName="div"
-                                                                    currency="USD"
-                                                                // name="Three Comma Co." // the pop-in header title
-                                                                // description="Big Data Stuff" // the pop-in header subtitle
-                                                                >
-                                                                    <button className='py-2 btn btn-primary btn-sm w-100 bgthwh'>${this.state.paid_amount - this.state.discount_amount} BUY NOW</button>
-                                                                </StripeCheckout>
+                                                                        )}
+                                                                        {this.state.user_paid && (
+                                                                            <button
+                                                                                onClick={() => {
+                                                                                    this.props.history.push(`/course-start/${this.state.Course_id}`)
+                                                                                }}
+                                                                                className='py-2 btn btn-primary btn-sm w-100 bgthwh'>Start Course (payment done)</button>
+                                                                        )}
+                                                                    </>
+                                                                )}
+                                                            </>
+                                                        )}
 
-                                                            )}
-                                                            {this.state.user_paid && (
-                                                                <button
-                                                                    onClick={() => {
-                                                                        this.props.history.push(`/course-start/${this.state.Course_id}`)
-                                                                    }}
-                                                                    className='py-2 btn btn-primary btn-sm w-100 bgthwh'>Start Course (payment done)</button>
-                                                            )}
-                                                        </>
-                                                    )}
+                                                       
+                                                    </div>
+                                                    <div className="mb-5 course__video-content">
+                                                        <ul className="list-unstyled">
+                                                            <li className="">
+                                                                <div className="px-2 course__video-icon d-inline-flex">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-house-door" viewBox="0 0 16 16">
+                                                                        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z" />
+                                                                    </svg>
+                                                                </div>
+                                                                <div className="d-inline-flex course__video-info">
+                                                                    <h5><span>Instructor :</span> {this.state.user_details && this.state.user_details.name}</h5>
+                                                                </div>
+                                                            </li>
+                                                            <li className="d-none">
+                                                                <div className="px-2 course__video-icon d-inline-flex">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-book" viewBox="0 0 16 16">
+                                                                        <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+                                                                    </svg>
+                                                                </div>
+                                                                <div className="d-inline-flex course__video-info">
+                                                                    <h5><span>Lectures  :</span> 4</h5>
+                                                                </div>
+                                                            </li>
+                                                            <li className="d-none">
+                                                                <div className="px-2 course__video-icon d-inline-flex">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-stopwatch" viewBox="0 0 16 16">
+                                                                        <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z" />
+                                                                        <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.512.512 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z" />
+                                                                    </svg>
+                                                                </div>
+                                                                <div className="d-inline-flex course__video-info">
+                                                                    <h5><span>Duration  :</span> 16h 52m 36s</h5>
+                                                                </div>
+                                                            </li>
+                                                            <li className="">
+                                                                <div className="px-2 course__video-icon d-inline-flex">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
+                                                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                                                                    </svg>
+                                                                </div>
+                                                                <div className="d-inline-flex course__video-info">
+                                                                    <h5><span>Enrolled :</span> {this.state.enrol_users} students</h5>
+                                                                </div>
+                                                            </li>
+                                                            <li className="">
+                                                                <div className="px-2 course__video-icon d-inline-flex">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-tags" viewBox="0 0 16 16">
+                                                                        <path d="M3 2v4.586l7 7L14.586 9l-7-7H3zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2z" />
+                                                                        <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1v5.086z" />
+                                                                    </svg>
+                                                                </div>
+                                                                <div className="d-inline-flex course__video-info">
+                                                                    <h5><span>Course level :</span> {this.state.course_level}</h5>
+                                                                </div>
+                                                            </li>
+                                                            <li className="">
+                                                                <div className="px-2 course__video-icon d-inline-flex">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-globe" viewBox="0 0 16 16">
+                                                                        <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z" />
+                                                                    </svg>
+                                                                </div>
+                                                                <div className="d-inline-flex course__video-info">
+                                                                    <h5><span>Language :</span> {this.state.audio_language}</h5>
+                                                                </div>
+                                                            </li>
+                                                            <li className="">
+                                                                <div className="px-2 course__video-icon d-inline-flex">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-share" viewBox="0 0 16 16">
+                                                                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
+                                                                    </svg>
+                                                                </div>
+                                                                <div className="d-inline-flex course__video-info">
+                                                                    <h5>
+                                                                        {/* <span>Share:</span> */}
+                                                                        <CopyToClipboard copyText={`${window.location.hostname}/course-detail/${this.state.Course_id}`} />
+                                                                    </h5>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
                                                 </div>
-                                                <div className="mb-5 course__video-content">
-                                                    <ul className="list-unstyled">
-                                                        <li className="">
-                                                            <div className="px-2 course__video-icon d-inline-flex">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-house-door" viewBox="0 0 16 16">
-                                                                    <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z" />
-                                                                </svg>
-                                                            </div>
-                                                            <div className="d-inline-flex course__video-info">
-                                                                <h5><span>Instructor :</span> {this.state.user_details && this.state.user_details.name}</h5>
-                                                            </div>
-                                                        </li>
-                                                        <li className="d-none">
-                                                            <div className="px-2 course__video-icon d-inline-flex">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-book" viewBox="0 0 16 16">
-                                                                    <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
-                                                                </svg>
-                                                            </div>
-                                                            <div className="d-inline-flex course__video-info">
-                                                                <h5><span>Lectures  :</span> 4</h5>
-                                                            </div>
-                                                        </li>
-                                                        <li className="d-none">
-                                                            <div className="px-2 course__video-icon d-inline-flex">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-stopwatch" viewBox="0 0 16 16">
-                                                                    <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z" />
-                                                                    <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.512.512 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z" />
-                                                                </svg>
-                                                            </div>
-                                                            <div className="d-inline-flex course__video-info">
-                                                                <h5><span>Duration  :</span> 16h 52m 36s</h5>
-                                                            </div>
-                                                        </li>
-                                                        <li className="">
-                                                            <div className="px-2 course__video-icon d-inline-flex">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
-                                                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                                                                </svg>
-                                                            </div>
-                                                            <div className="d-inline-flex course__video-info">
-                                                                <h5><span>Enrolled :</span> {this.state.enrol_users} students</h5>
-                                                            </div>
-                                                        </li>
-                                                        <li className="">
-                                                            <div className="px-2 course__video-icon d-inline-flex">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-tags" viewBox="0 0 16 16">
-                                                                    <path d="M3 2v4.586l7 7L14.586 9l-7-7H3zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2z" />
-                                                                    <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1v5.086z" />
-                                                                </svg>
-                                                            </div>
-                                                            <div className="d-inline-flex course__video-info">
-                                                                <h5><span>Course level :</span> {this.state.course_level}</h5>
-                                                            </div>
-                                                        </li>
-                                                        <li className="">
-                                                            <div className="px-2 course__video-icon d-inline-flex">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-globe" viewBox="0 0 16 16">
-                                                                    <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z" />
-                                                                </svg>
-                                                            </div>
-                                                            <div className="d-inline-flex course__video-info">
-                                                                <h5><span>Language :</span> {this.state.audio_language}</h5>
-                                                            </div>
-                                                        </li>
-                                                        <li className="">
-                                                            <div className="px-2 course__video-icon d-inline-flex">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-share" viewBox="0 0 16 16">
-                                                                    <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
-                                                                </svg>
-                                                            </div>
-                                                            <div className="d-inline-flex course__video-info">
-                                                                <h5>
-                                                                    {/* <span>Share:</span> */}
-                                                                    <CopyToClipboard copyText={`${window.location.hostname}/course-detail/${this.state.Course_id}`} />
-                                                                </h5>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                )}
+                               
                             </div>
                             {/* ************************************************************* */}
 
@@ -632,19 +647,11 @@ class CoursesDetail extends Component {
                                     </div>
                                 </>
                             )}
-
                             {/* ************************************ */}
                         </div>
-
                     </div>
                 </div>
-
                 {/* ******************************** */}
-
-
-
-
-
                 <Popupchat />
                 <Appfooter />
             </Fragment>
@@ -652,4 +659,23 @@ class CoursesDetail extends Component {
     }
 }
 
-export default withRouter(CoursesDetail);
+
+const mapStateToProps = (state) => {
+    return {
+        profile_id: state.UserProfile.profile._id
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        removePosts: (data) => {
+            dispatch(ACTIONS.removePosts(data))
+        },
+        loadProfile: (data) => {
+            dispatch(ACTIONS.loadProfile(data))
+        },
+
+    }
+}
+ 
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CoursesDetail))
