@@ -280,7 +280,7 @@ class Header extends Component {
                                                         )}
                                                         {data.un_read > 0 && (
                                                             <div className='unread_sms'>
-                                                                <div><small>{data.un_read}</small></div>
+                                                                <div><medium className="chat-numbers-notfication">{data.un_read}</medium></div>
                                                             </div>
                                                         )}
 

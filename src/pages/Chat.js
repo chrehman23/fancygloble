@@ -13,7 +13,7 @@ class Chat extends Component {
                 <Leftnav />
                 <Rightchat />
 
-                <div className="main-content right-chat-active">
+                <div className="main-content right-chat-active ">
                     <div className="middle-sidebar-bottom">
                         <div className="middle-sidebar-left pe-0" style={{maxWidth: "100%"}}>
                             <div className="row">

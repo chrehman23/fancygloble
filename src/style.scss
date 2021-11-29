@@ -122,3 +122,23 @@
 .recommended .inner-slider .inner-wrapper .footer .price {
   font-weight: bold;
 }
+
+// Chat notification numbers
+.chat-numbers-notfication {
+  font-size: 12px;
+}
+
+// mobile-responsive-for-blackcolor
+.mobile-responsive-for-blackcolor {
+  height: calc(100vh - 0px) !important;
+}
+
+@media (max-width: 767.98px) {
+  .mobile-responsive-for-blackcolor {
+    height: calc(100vh - 0px) !important;
+  }
+}
+
+.message-items.out-messages .message-wraps > div {
+  max-width: 100%;
+}
