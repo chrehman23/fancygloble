@@ -11,20 +11,25 @@ import image from '../../public/assets/courses/1.jpg';
 import CourseApi from "../api/Courses";
 
 import moment from "moment";
-
+import ContentLoader, { Facebook } from 'react-content-loader'
 class Courses extends Component {
 
     constructor() {
         super();
         this.state = {
-            courses: []
+            courses: [],
+            apiLoader: true,
         }
     }
     componentDidMount() {
         CourseApi.allCourses().then(res => {
-            this.setState({
-                courses: res.data.data
-            })
+            if (res.data.Error == false) {
+                this.setState({
+                    courses: res.data.data,
+                    apiLoader: false,
+                })
+            }
+
         })
     }
 
@@ -91,9 +96,94 @@ class Courses extends Component {
                             <div className="row">
                                 <div className="col-xl-12 col-xxl-12 col-lg-12">
                                     <div className="row bg-courses">
+                                        {this.state.apiLoader && (
+                                            <>
+                                                <div className="col-lg-4 col-md-6 gy-3">
+                                                    <div className="bg-white card">
+                                                        <ContentLoader viewBox="0 0 380 70">
+                                                            {/* Only SVG shapes */}
+                                                            <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                        </ContentLoader>
+                                                        <ContentLoader viewBox="0 0 380 70">
+                                                            {/* Only SVG shapes */}
+                                                            <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                        </ContentLoader>
+                                                        <ContentLoader viewBox="0 0 380 70">
+                                                            {/* Only SVG shapes */}
+                                                            <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                        </ContentLoader>
+                                                        <ContentLoader viewBox="0 0 380 70">
+                                                            {/* Only SVG shapes */}
+                                                            <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                        </ContentLoader>
+                                                        <br />
+                                                        <div className='px-3'>
+                                                            <Facebook />
+                                                        </div>
+                                                        <br />  <br />
 
 
-                                        {this.state.courses.map((value, index) => (
+                                                    </div>
+                                                </div>  <div className="col-lg-4 col-md-6 gy-3">
+                                                    <div className="bg-white card">
+                                                        <ContentLoader viewBox="0 0 380 70">
+                                                            {/* Only SVG shapes */}
+                                                            <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                        </ContentLoader>
+                                                        <ContentLoader viewBox="0 0 380 70">
+                                                            {/* Only SVG shapes */}
+                                                            <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                        </ContentLoader>
+                                                        <ContentLoader viewBox="0 0 380 70">
+                                                            {/* Only SVG shapes */}
+                                                            <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                        </ContentLoader>
+                                                        <ContentLoader viewBox="0 0 380 70">
+                                                            {/* Only SVG shapes */}
+                                                            <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                        </ContentLoader>
+                                                        <br />
+                                                        <div className='px-3'>
+                                                            <Facebook />
+                                                        </div>
+                                                        <br />  <br />
+
+
+                                                    </div>
+                                                </div>  <div className="col-lg-4 col-md-6 gy-3">
+                                                    <div className="bg-white card">
+                                                        <ContentLoader viewBox="0 0 380 70">
+                                                            {/* Only SVG shapes */}
+                                                            <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                        </ContentLoader>
+                                                        <ContentLoader viewBox="0 0 380 70">
+                                                            {/* Only SVG shapes */}
+                                                            <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                        </ContentLoader>
+                                                        <ContentLoader viewBox="0 0 380 70">
+                                                            {/* Only SVG shapes */}
+                                                            <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                        </ContentLoader>
+                                                        <ContentLoader viewBox="0 0 380 70">
+                                                            {/* Only SVG shapes */}
+                                                            <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                        </ContentLoader>
+                                                        <br />
+                                                        <div className='px-3'>
+                                                            <Facebook />
+                                                        </div>
+                                                        <br />  <br />
+
+
+                                                    </div>
+                                                </div>
+                                            </>
+                                          
+                                        )}
+                                       
+
+
+                                        {!this.state.apiLoader && this.state.courses.map((value, index) => (
 
                                             <div key={index} className="col-lg-4 col-md-6 gy-3" >
                                                 {/* <div className="pb-3 mt-4 border-0 card w-100 shadow-xss">
@@ -164,7 +254,7 @@ class Courses extends Component {
                                                                     <div></div>
                                                                     <div className="price">
                                                                         <div>
-                                                                            <a href="#"><span>${value.paid_amount} <del>{this.state.discount_amount > 0 && (`$${this.state.discount_amount}`)}</del></span></a>
+                                                                            <a href="#"><span>${value.paid_amount} <del>{value.discount_amount > 0 && (`$${value.discount_amount}`)}</del></span></a>
                                                                         </div>
                                                                     </div>
                                                                     <div>

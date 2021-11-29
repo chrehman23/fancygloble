@@ -16,6 +16,7 @@ import StripeCheckout from 'react-stripe-checkout';
 import moment from "moment";
 import Enroll_users from "../components/Enroll_users";
 import Course_comments from "../components/Course_comments";
+import ContentLoader, { Facebook } from 'react-content-loader'
 class CoursesDetail extends Component {
     constructor() {
         super()
@@ -48,7 +49,8 @@ class CoursesDetail extends Component {
 
             paymentLoader: false,
             created_by: "",
-            tabs: 1
+            tabs: 1,
+            apiLoader: true,
         }
 
     }
@@ -62,6 +64,7 @@ class CoursesDetail extends Component {
                 console.log(res)
                 if (res.data.Error == false) {
                     this.setState({
+                        apiLoader:false,
                         titleInput: res.data.data.title,
                         desInput: res.data.data.description,
                         user_details: res.data.data.created_by,
@@ -144,21 +147,89 @@ class CoursesDetail extends Component {
                 <Rightchat />
 
                 <div className="main-content right-chat-active">
-                    <div className="px-0 middle-sidebar-bottom course_details_bg">
+                    <div className={this.state.apiLoader ? "px-0 middle-sidebar-bottom bg-white" :"px-0 middle-sidebar-bottom course_details_bg"}>
                         <div className="w-100">
+                            
                             {/* ************************************************************* */}
                             <section className="course-details">
                                 <div className="page__title-wrapper-overly">
                                     <div className="container">
-                                        <h1><i className="text-white cursor-pointer ti-arrow-left font-sm me-2"
+                                        <h1
+                                            className='cursor-pointer'
                                             onClick={() => {
-                                                this.props.history.goBack()
+                                                this.props.history.push("/courses")
                                             }}
+                                        ><i className="text-white ti-arrow-left font-sm me-2"
+                                            
                                         ></i>Course Details</h1>
                                     </div>
                                 </div>
                             </section>
                             <div className="container">
+                                {this.state.apiLoader && (
+                              <div className="row">
+                                  <div className="col-md-8">
+                                       
+                                            <div className='p-3'>
+                                                <ContentLoader viewBox="0 0 380 70">
+                                                    {/* Only SVG shapes */}
+                                                    <rect y="17" rx="4" ry="4" width="300" height="8" />
+                                                    <rect y="40" rx="3" ry="3" width="250" height="6" />
+                                                </ContentLoader>
+
+                                                <ContentLoader viewBox="0 0 380 70">
+                                                    {/* Only SVG shapes */}
+                                                    <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                </ContentLoader>
+                                                <ContentLoader viewBox="0 0 380 70">
+                                                    {/* Only SVG shapes */}
+                                                    <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                </ContentLoader>
+                                                <ContentLoader viewBox="0 0 380 70">
+                                                    {/* Only SVG shapes */}
+                                                    <rect x="0" y="0" rx="5" ry="5" width="100%" height="300px" />
+                                                </ContentLoader>
+                                            </div>
+
+                                       
+                                  </div>
+                                  <div className="pt-md-5 col-md-4">
+                                       <div className="py-4">
+                                            <ContentLoader viewBox="0 0 380 70">
+                                                {/* Only SVG shapes */}
+                                                <rect y="17" rx="4" ry="4" width="300" height="13" />
+                                                <rect y="40" rx="3" ry="3" width="250" height="10" />
+                                            </ContentLoader>
+                                            <ContentLoader viewBox="0 0 380 70">
+                                                {/* Only SVG shapes */}
+                                                <rect y="17" rx="4" ry="4" width="300" height="13" />
+                                                <rect y="40" rx="3" ry="3" width="250" height="10" />
+                                            </ContentLoader>
+                                            <ContentLoader viewBox="0 0 380 70">
+                                                {/* Only SVG shapes */}
+                                                <rect y="17" rx="4" ry="4" width="300" height="13" />
+                                                <rect y="40" rx="3" ry="3" width="250" height="10" />
+                                            </ContentLoader>
+                                            <ContentLoader viewBox="0 0 380 70">
+                                                {/* Only SVG shapes */}
+                                                <rect y="17" rx="4" ry="4" width="300" height="13" />
+                                                <rect y="40" rx="3" ry="3" width="250" height="10" />
+                                            </ContentLoader>
+                                             <ContentLoader viewBox="0 0 380 70">
+                                            {/* Only SVG shapes */}
+                                            <rect y="17" rx="4" ry="4" width="300" height="13" />
+                                            <rect y="40" rx="3" ry="3" width="250" height="10" />
+                                        </ContentLoader>
+                                            <ContentLoader viewBox="0 0 380 70">
+                                                {/* Only SVG shapes */}
+                                                <rect y="17" rx="4" ry="4" width="300" height="13" />
+                                                <rect y="40" rx="3" ry="3" width="250" height="10" />
+                                            </ContentLoader>
+                                       </div>
+
+                                  </div>
+                              </div>
+                               )}
                                 <div className="row">
                                     <div className="col-md-8 col-12">
                                         <div className="inner-title">
