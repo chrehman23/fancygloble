@@ -57,11 +57,7 @@ class CoursesSectionDetail extends Component {
     render() {
         return (
             <  >
-                <div className='row  mt-3'>
-                    <div className='col-12 border-bottom'>
-                        <h4 className=' mt-3'><i class="fas fa-list"></i> Course Content</h4>
-                    </div>
-                </div>
+                
                 {this.state.sections.map((data, index) => <CoursesSectionLactures course_id={this.props.course_id} data={data}/>)}
 
 

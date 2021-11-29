@@ -9,7 +9,7 @@
   border-radius: 4px 4px 0px 0;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
-.recommended{
+.recommended {
   cursor: pointer;
 }
 
@@ -33,7 +33,7 @@
   top: -24px;
   background-color: white;
   border-radius: 50%;
-  overflow:hidden;
+  overflow: hidden;
 }
 .inner-slider .seller-image img {
   border-radius: 50%;
@@ -61,6 +61,14 @@
   color: #b2b2b2;
   font-weight: 300;
   font-size: 13px;
+}
+.tutor-text-avatar {
+  background-color: #3a3ea0;
+  color: #fff8e5;
+}
+.tutor-text-avatar {
+  background-color: #d53aeb;
+  color: #fff8e5;
 }
 
 .recommended .inner-slider .inner-wrapper h3 {
@@ -90,7 +98,8 @@
 }
 
 .starting-date {
-  text-transform: uppercase;
+  // text-transform: uppercase;
+  font-size: 12px;
 }
 .recommended .inner-slider .inner-wrapper .footer {
   display: flex;

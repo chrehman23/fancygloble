@@ -143,13 +143,13 @@ class Header extends Component {
         const notiClass = `${this.state.isNoti ? " show" : ""}`;
         const { t } = this.props;
         return (
-            <div className="nav-header  shadow-xs border-0">
-                <div className="nav-top  h-100 headerScrolChange ">
-                    {/* <Link to="/"><i className="feather-zap text-success display2-size me-3 ms-0"></i><span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </Link> */}
+            <div className="border-0 shadow-xs nav-header">
+                <div className="nav-top h-100 headerScrolChange ">
+                    {/* <Link to="/"><i className="feather-zap text-success display2-size me-3 ms-0"></i><span className="mb-0 text-current d-inline-block fredoka-font ls-3 fw-600 font-xxl logo-text">Sociala. </span> </Link> */}
                     <Link to="/">
                         <img src="/assets/images/logo.png" style={{ height: "55px" }} />
                         {/* <i className="feather-zap text-success display2-size me-3 ms-0"></i>
-                        <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
+                        <span className="mb-0 text-current d-inline-block fredoka-font ls-3 fw-600 font-xxl logo-text">
                             Sociala.
                         </span> */}
                     </Link>
@@ -162,9 +162,9 @@ class Header extends Component {
 
 
                 <form action="#" className="float-left header-search ms-3">
-                    <div className="form-group mb-0 icon-input">
+                    <div className="mb-0 form-group icon-input">
                         <i className="feather-search font-sm text-grey-400"></i>
-                        <input type="text" placeholder="{t('home.title')}" className="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg" />
+                        <input type="text" placeholder="Search...." className="pt-2 pb-2 border-0 bg-grey lh-32 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg" />
                     </div>
                 </form>
                 <NavLink activeClassName="active" to="/home" className="p-2 text-center ms-3 menu-icon center-menu-icon"><i className="feather-home font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
@@ -180,16 +180,16 @@ class Header extends Component {
                         this.props.openNotifys()
                     }}
                 >
-                    <span className={this.props.NotifyStatus ? "dot-count bg-warning" : ""}  ></span><i className="feather-bell font-xl text-current"></i></span>
+                    <span className={this.props.NotifyStatus ? "dot-count bg-warning" : ""}  ></span><i className="text-current feather-bell font-xl"></i></span>
                 <div className={`dropdown-menu p-4 right-0 rounded-xxl border-0 shadow-lg ${notiClass}`} aria-labelledby="dropdownMenu3">
-                    <h4 className="fw-700 font-xss mb-4">Notification</h4>
+                    <h4 className="mb-4 fw-700 font-xss">Notification</h4>
                     <Notify />
 
 
 
 
                 </div>
-                <Link to="/defaultmessage" className="p-2 text-center ms-3 menu-icon chat-active-btn"><i className="feather-message-square font-xl text-current"></i></Link>
+                <Link to="/defaultmessage" className="p-2 text-center ms-3 menu-icon chat-active-btn"><i className="text-current feather-message-square font-xl"></i></Link>
                 <Darkbutton />
                 <Dropdown className="languageChangerBtn">
                     <Dropdown.Toggle id="dropdown-basic">
@@ -209,7 +209,7 @@ class Header extends Component {
                 <nav className={`navigation scroll-bar ${navClass} ${this.props.showChat ? "d-none" : ""}`}>
                     <div className="container ps-0 pe-0">
                         <div className="nav-content">
-                            <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2">
+                            <div className="pt-3 pb-1 mt-2 mb-2 bg-white nav-wrap bg-transparent-card rounded-xxl shadow-xss">
                                 <div className="nav-caption fw-600 font-xssss text-grey-500"><span>New </span>Feeds</div>
                                 <ul className="mb-1 top-content">
                                     <li className="logo d-none d-xl-block d-lg-block"></li>
@@ -224,22 +224,22 @@ class Header extends Component {
                                 </ul>
                             </div>
 
-                            <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2">
+                            <div className="pt-3 pb-1 mb-2 bg-white nav-wrap bg-transparent-card rounded-xxl shadow-xss">
                                 <div className="nav-caption fw-600 font-xssss text-grey-500">{t('header.more_pages')}</div>
                                 <ul className="mb-3">
-                                    {/* <li><Link to="/defaultemailbox" className="nav-content-bttn open-font"><i className="font-xl text-current feather-inbox me-3"></i><span>Email Box</span><span className="circle-count bg-warning mt-1">584</span></Link></li> */}
-                                    {/* <li><Link to="/defaulthotel" className="nav-content-bttn open-font"><i className="font-xl text-current feather-home me-3"></i><span>Near Hotel</span></Link></li> */}
-                                    <li><Link to="/events" className="nav-content-bttn open-font"><i className="font-xl text-current feather-map-pin me-3"></i><span>{t('header.latest_events')}</span></Link></li>
-                                    <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="font-xl text-current feather-youtube me-3"></i><span>{t('header.live_stream')}</span></Link></li>
+                                    {/* <li><Link to="/defaultemailbox" className="nav-content-bttn open-font"><i className="text-current font-xl feather-inbox me-3"></i><span>Email Box</span><span className="mt-1 circle-count bg-warning">584</span></Link></li> */}
+                                    {/* <li><Link to="/defaulthotel" className="nav-content-bttn open-font"><i className="text-current font-xl feather-home me-3"></i><span>Near Hotel</span></Link></li> */}
+                                    <li><Link to="/events" className="nav-content-bttn open-font"><i className="text-current font-xl feather-map-pin me-3"></i><span>{t('header.latest_events')}</span></Link></li>
+                                    <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="text-current font-xl feather-youtube me-3"></i><span>{t('header.live_stream')}</span></Link></li>
                                 </ul>
                             </div>
-                            <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1">
+                            <div className="pt-3 pb-1 bg-white nav-wrap bg-transparent-card rounded-xxl shadow-xss">
                                 <div className="nav-caption fw-600 font-xssss text-grey-500"><span></span> {t('header.account')}</div>
                                 <ul className="mb-1">
                                     <li className="logo d-none d-xl-block d-lg-block"></li>
-                                    <li><Link to="/defaultsettings" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-settings me-3 text-grey-500"></i><span>{t('header.settings')}</span></Link></li>
-                                    {/* <li><Link to="/defaultanalytics" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-pie-chart me-3 text-grey-500"></i><span>Analytics</span></Link></li> */}
-                                    <li><Link to="/defaultmessage" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-message-square me-3 text-grey-500"></i><span>{t('header.chat')}</span><span className="circle-count bg-warning mt-0 d-none">23</span></Link></li>
+                                    <li><Link to="/defaultsettings" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i className="font-sm feather-settings me-3 text-grey-500"></i><span>{t('header.settings')}</span></Link></li>
+                                    {/* <li><Link to="/defaultanalytics" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i className="font-sm feather-pie-chart me-3 text-grey-500"></i><span>Analytics</span></Link></li> */}
+                                    <li><Link to="/defaultmessage" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i className="font-sm feather-message-square me-3 text-grey-500"></i><span>{t('header.chat')}</span><span className="mt-0 circle-count bg-warning d-none">23</span></Link></li>
 
                                 </ul>
                             </div>
@@ -249,7 +249,7 @@ class Header extends Component {
                 <nav className={`navigation scroll-bar ${navClass} ${this.props.showChat ? "" : "d-none"}`}>
                     <div className="container ps-0 pe-0">
                         <div className="nav-content">
-                            <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2" style={{ minHeight: '90vh' }}>
+                            <div className="pt-3 pb-1 mt-2 mb-2 bg-white nav-wrap bg-transparent-card rounded-xxl shadow-xss" style={{ minHeight: '90vh' }}>
                                 <div className="nav-caption fw-600 font-xssss text-grey-500">Followers and Followings</div>
                                 <ul className="mb-1 top-content">
                                     {/* {JSON.stringify(this.props.Rooms[0] && this.props.Rooms[0].un_read,null,2)} */}
@@ -404,12 +404,12 @@ class Header extends Component {
 
                 <div className={`app-header-search ${searchClass}`}>
                     <form className="search-form">
-                        <div className="form-group searchbox mb-0 border-0 p-1">
-                            <input type="text" className="form-control border-0" placeholder="Search..." />
+                        <div className="p-1 mb-0 border-0 form-group searchbox">
+                            <input type="text" className="border-0 form-control" placeholder="Search..." />
                             <i className="input-icon">
                                 <ion-icon name="search-outline" role="img" className="md hydrated" aria-label="search outline"></ion-icon>
                             </i>
-                            <span className="ms-1 mt-1 d-inline-block close searchbox-close">
+                            <span className="mt-1 ms-1 d-inline-block close searchbox-close">
                                 <i className="ti-close font-xs" onClick={this.toggleActive}></i>
                             </span>
                         </div>

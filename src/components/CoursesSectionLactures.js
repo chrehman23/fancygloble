@@ -52,10 +52,10 @@ class CoursesSectionLactures extends Component {
 
     render() {
         return (
-            <>
-                <div className='row  mt-3 border'>
-                    <div className='col-12 bgthwh cursor-pointer'>
-                        <div className='d-flex align-items-center justify-content-between p-2'>
+            <div className='container px-2 bg-white border'>
+                <div className='mt-3 row '>
+                    <div className='cursor-pointer col-12 '>
+                        <div className='p-2 bgthwh d-flex align-items-center justify-content-between'>
                             <div>
                                 <i class="fas fa-th-large"></i>  {this.props.data.section_title}
                             </div>
@@ -69,7 +69,7 @@ class CoursesSectionLactures extends Component {
                         <p>{this.props.data.section_description}</p>
                     </div>
                     {!this.state.loadLactures && (
-                        <div className="col-12 py-3">
+                        <div className="py-3 col-12">
                             <small className='cursor-pointer'><b
                                 onClick={() => {
                                     this.setState({
@@ -85,8 +85,8 @@ class CoursesSectionLactures extends Component {
                         <div className='col-12'>
                             {this.state.lactures.map((datas, index) => {
                                 return (
-                                    <div className='border-bottom pb-3'>
-                                        <div key={index} className='d-flex align-items-center justify-content-between  pt-2 mb-2'>
+                                    <div className='pb-3 border-bottom'>
+                                        <div key={index} className='pt-2 mb-2 d-flex align-items-center justify-content-between'>
                                             <div>
                                                 <h5 className='mb-0 '>
                                                     {datas.lacture_vedio == "" && (
@@ -138,7 +138,7 @@ class CoursesSectionLactures extends Component {
                                         <div className='row'>
                                             {datas.files_count > 0 && (
                                                 <div className="d-flex ">
-                                                    <div><i className="fas fa-file-alt px-2"></i></div>
+                                                    <div><i className="px-2 fas fa-file-alt"></i></div>
                                                     <div className='cursor-pointer'>{datas.files_count} Document</div>
                                                 </div>
                                             )}
@@ -147,7 +147,7 @@ class CoursesSectionLactures extends Component {
                                                     <div className="col-md-4">
                                                         <a href={data.file} style={{ cursor: 'default' }} target="_blank" >
                                                             <div className="d-flex ">
-                                                                <div><i className="fas fa-file-alt px-2"></i></div>
+                                                                <div><i className="px-2 fas fa-file-alt"></i></div>
                                                                 <div className='cursor-pointer'>Document</div>
 
                                                             </div>
@@ -204,7 +204,7 @@ class CoursesSectionLactures extends Component {
 
 
 
-            </>
+            </div>
         );
     }
 }

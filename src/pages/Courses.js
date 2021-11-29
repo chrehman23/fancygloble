@@ -46,16 +46,16 @@ class Courses extends Component {
                 <Leftnav />
                 <Rightchat />
 
-                <div className="main-content bg-courses  right-chat-active">
+                <div className="main-content bg-courses right-chat-active">
 
                     <div className="middle-sidebar-bottom">
                         <div className="middle-sidebar-left">
                             <div className="row">
                                 <div className="col-12">
-                                    <div className="card shadow-xss w-100 d-block d-flex border-0 p-4 mb-3">
-                                        <h2 className="fw-700 mb-0  mt-0 font-md text-grey-900 d-flex justify-content-between align-items-center">
+                                    <div className="p-4 mb-3 border-0 card shadow-xss w-100 d-block d-flex">
+                                        <h2 className="mt-0 mb-0 fw-700 font-md text-grey-900 d-flex justify-content-between align-items-center">
                                             <div className='d-none d-md-block'>Find Best Course</div>
-                                            <div className='d-flex align-items-center justify-content-end  '>
+                                            <div className='d-flex align-items-center justify-content-end '>
                                                 <div>
                                                     <button className='btn btn-primary bgthwh'
                                                         onClick={() => {
@@ -76,7 +76,7 @@ class Courses extends Component {
                                                         <div className="search-form-2 ms-2">
                                                             <i className="ti-search font-xss"></i>
                                                             <input
-                                                                type="text" className="form-control text-grey-500 mb-0 bg-greylight theme-dark-bg border-0" placeholder="Search here." />
+                                                                type="text" className="mb-0 border-0 form-control text-grey-500 bg-greylight theme-dark-bg" placeholder="Search here." />
                                                         </div>
                                                     </form>
 
@@ -96,19 +96,19 @@ class Courses extends Component {
                                         {this.state.courses.map((value, index) => (
 
                                             <div key={index} className="col-lg-4 col-md-6 gy-3" >
-                                                {/* <div className="card w-100 border-0 mt-4 shadow-xss pb-3">
-                                                    <div className="card-image w-100 p-0 text-center cardImgesmd bg-greylight rounded-3 mb-2">
-                                                        <img src={value.thumbnail} alt="product" className="w-100 mt-0 mb-0 rounded" />
+                                                {/* <div className="pb-3 mt-4 border-0 card w-100 shadow-xss">
+                                                    <div className="p-0 mb-2 text-center card-image w-100 cardImgesmd bg-greylight rounded-3">
+                                                        <img src={value.thumbnail} alt="product" className="mt-0 mb-0 rounded w-100" />
                                                     </div>
-                                                    <div className="card-body w-100 p-0 px-2 ">
-                                                        <h2 className="fw-600 font-xsss mb-1 mt-0">{value.title}</h2>
+                                                    <div className="p-0 px-2 card-body w-100 ">
+                                                        <h2 className="mt-0 mb-1 fw-600 font-xsss">{value.title}</h2>
                                                         <h6 className="font-xsss fw-600 text-grey-500 ls-2">${value.paid_amount} <del>${value.discount_amount}</del> </h6>
                                                         <div className='d-flex justify-content-between'>
                                                             <div>
-                                                                <h2 className="fw-400 font-xssss mb-1 mt-0">{moment(this.state.start_date).format("dd/mm/yy hh:mm a")}</h2>
+                                                                <h2 className="mt-0 mb-1 fw-400 font-xssss">{moment(this.state.start_date).format("dd/mm/yy hh:mm a")}</h2>
                                                             </div>
                                                             <div>
-                                                                <button className='btn btn-primary bgthwh float-right'
+                                                                <button className='float-right btn btn-primary bgthwh'
                                                                     onClick={() => {
                                                                         this.props.history.push(`/course-detail/${value._id}`)
                                                                     }}
@@ -141,7 +141,11 @@ class Courses extends Component {
                                                                         <span className="level hint--top level-one-seller"> <i class="fas fa-chart-line me-1"> </i>{value.course_level}</span>
                                                                     </span>
                                                                 </div>
-                                                                <h3>{value.description}</h3>
+                                                                <h3 className='mb-0'>
+                                                                    {value.description && value.description.substring(0, 30)}
+                                                                    {value.description && value.description.length > 30 && "..."}
+                                                                    {/* {JSON.stringify(value.start_date,null,2)} */}
+                                                                </h3>
                                                                 <div className="content-info">
                                                                     <div className="rating-wrapper">
                                                                         {/* <span className="gig-rating">
@@ -152,19 +156,19 @@ class Courses extends Component {
                                                 5.0
                                                 <span>(7)</span>
                                             </span> */}
-                                                                        <span className="starting-date"><i class="far fa-clock"></i> {moment(this.state.start_date).format("dd/mm/yy hh:mm a")}</span>
+                                                                        <span className="starting-date"><i class="far fa-clock"></i> {moment(value.start_date).format("YYYY-MM-DD HH:mm a")}</span>
                                                                     </div>
                                                                 </div>
-                                                                <div className="footer  ">
+                                                                <div className="footer ">
                                                                     {/* <i className="fa fa-heart"></i> */}
                                                                     <div></div>
                                                                     <div className="price">
                                                                         <div>
-                                                                            <a href="#"><span>${value.paid_amount} <del>${value.discount_amount}</del></span></a>
+                                                                            <a href="#"><span>${value.paid_amount} <del>{this.state.discount_amount > 0 && (`$${this.state.discount_amount}`)}</del></span></a>
                                                                         </div>
                                                                     </div>
                                                                     <div>
-                                                                        {/* <button className='btn btn-primary bgthwh float-right'
+                                                                        {/* <button className='float-right btn btn-primary bgthwh'
                                                                             onClick={() => {
                                                                                 this.props.history.push(`/course-detail/${value._id}`)
                                                                             }}
@@ -182,7 +186,7 @@ class Courses extends Component {
                                         ))}
 
 
-                                        {/* <div className="col-lg-12 mt-3 mb-5 text-center"><a href="/shop2" className="fw-700 text-white font-xssss text-uppercase  ls-3 lh-32 rounded-3 mt-3 text-center d-inline-block p-2 bgthwh    w150">Load More</a></div> */}
+                                        {/* <div className="mt-3 mb-5 text-center col-lg-12"><a href="/shop2" className="p-2 mt-3 text-center text-white fw-700 font-xssss text-uppercase ls-3 lh-32 rounded-3 d-inline-block bgthwh w150">Load More</a></div> */}
                                     </div>
                                 </div>
                             </div>

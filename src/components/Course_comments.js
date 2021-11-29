@@ -56,9 +56,9 @@ class Course_comments extends Component {
     render() {
         return (
             <  >
-                <div className='row  mt-3'>
+                <div className='row '>
                     <div className='col-12 border-bottom'>
-                        <h4 className=' mt-3'><i class="fas fa-list"></i> Students Comments</h4>
+                        <h4 className='mt-3 '><i class="fas fa-list"></i> Students Comments</h4>
                     </div>
                 </div>
                 <div className="row">
@@ -74,23 +74,23 @@ class Course_comments extends Component {
                 {this.state.apiLoader && (
                     <div className="row">
                         <div className="col-12">
-                            <div className="d-flex justify-content-center py-3">
+                            <div className="py-3 d-flex justify-content-center">
                                 <Load />
                             </div>
                         </div>
                     </div>
                 )}
                 
-                <div className="row mt-5">
-                    <div className='d-flex border-bottom mt-2'>
-                        <div className='flex-grow-1 pr-2 py-2'>
+                <div className="mt-5 row">
+                    <div className='mt-2 d-flex border-bottom'>
+                        <div className='py-2 pr-2 flex-grow-1'>
                             <input type="text"
                                 value={this.state.commentinput}
                                 onChange={(e) => {
                                     this.setState({ commentinput: e.target.value })
                                 }}
                                 placeholder='Write comment.....'
-                                className='commentInput text-grey-500 fw-500 font-xssss lh-4 pr-2' />
+                                className='pr-2 commentInput text-grey-500 fw-500 font-xssss lh-4' />
                         </div>
                         <div>
                             {this.state.commentinput && (
