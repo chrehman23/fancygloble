@@ -9,7 +9,7 @@
   border-radius: 4px 4px 0px 0;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
-.recommended{
+.recommended {
   cursor: pointer;
 }
 
@@ -33,7 +33,7 @@
   top: -24px;
   background-color: white;
   border-radius: 50%;
-  overflow:hidden;
+  overflow: hidden;
 }
 .inner-slider .seller-image img {
   border-radius: 50%;
@@ -112,4 +112,24 @@
 
 .recommended .inner-slider .inner-wrapper .footer .price {
   font-weight: bold;
+}
+
+// Chat notification numbers
+.chat-numbers-notfication {
+  font-size: 12px;
+}
+
+// mobile-responsive-for-blackcolor
+.mobile-responsive-for-blackcolor {
+  height: calc(100vh - 0px) !important;
+}
+
+@media (max-width: 767.98px) {
+  .mobile-responsive-for-blackcolor {
+    height: calc(100vh - 0px) !important;
+  }
+}
+
+.message-items.out-messages .message-wraps > div {
+  max-width: 100%;
 }
