@@ -142,3 +142,91 @@
 .message-items.out-messages .message-wraps > div {
   max-width: 100%;
 }
+
+.video-lecture {
+  margin: 12px 0px 12px 5px;
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding-bottom: 3px;
+}
+
+.course-about-content {
+  padding: 12px 0px 12px 10px;
+  border-bottom: 1px solid #d1d7dc;
+}
+
+.course-about-content h1 {
+  font-weight: 600;
+  font-size: 28px;
+}
+
+.features-div {
+  padding: 12px 0px 12px 10px;
+  border-bottom: 1px solid #d1d7dc;
+}
+
+.ios-andriod-color {
+  color: #401b9c;
+  font-weight: bold;
+}
+
+.description-div {
+  padding: 12px 0px 12px 10px;
+  border-bottom: 1px solid #d1d7dc;
+}
+
+.accordian-div {
+  margin-top: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+.accordian-div .card-body {
+  padding: 10px !important;
+}
+.lectures-dropdown-arrow {
+  display: flex;
+  justify-content: space-between;
+}
+.tabActive .fa-chevron-down {
+  transform: rotate(180deg);
+  transition: all 1s;
+}
+
+.lectures-play .input-group-text {
+  background-color: #fff;
+  border: none;
+}
+
+.accordian-div .card-header {
+  padding: 15px !important;
+  border-bottom: 1px solid #ddd !important;
+  border-top: 1px solid #ddd !important;
+}
+.accordian-div .card {
+  margin-bottom: 0px !important;
+  padding-bottom: 10px;
+}
+
+.resources_btn::after {
+  display: none !important;
+}
+
+.resources_btn {
+  padding: 3px !important;
+  background-color: #fff !important;
+  border: 1px solid black !important;
+}
+
+.video-length p {
+  font-size: 11px !important;
+}
+
+.accordian-div .card {
+  cursor: pointer;
+}
+.border-bottom-dotted {
+  border-bottom: 1px dotted #ddd !important;
+  padding: 5px 10px !important;
+}
