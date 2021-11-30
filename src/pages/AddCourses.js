@@ -209,7 +209,7 @@ class Courses extends Component {
 
                                     <div className="row">
                                         <div className="col-6">
-                                            <label htmlFor="">What will students learn in your course?*</label>
+                                            <label htmlFor="">What will students learn in your course?</label>
                                             <textarea className='form-control ' row='15'
                                                 value={this.state.learning_points}
                                                 onChange={(e) => {
@@ -225,7 +225,7 @@ class Courses extends Component {
                                             ></textarea>
                                         </div>
                                         <div className="col-6">
-                                            <label htmlFor="">Requirements*</label>
+                                            <label htmlFor="">Requirements</label>
                                             <textarea className='form-control ' row='15'
                                                 value={this.state.requirements}
                                                 onChange={(e) => {
@@ -241,7 +241,7 @@ class Courses extends Component {
                                             ></textarea>
                                         </div>
                                         <div className="col-6">
-                                            <label htmlFor="">Course Level*</label>
+                                            <label htmlFor="">Course Level</label>
                                             <select name="" id="" className='form-control'
                                                 value={this.state.course_level}
                                                 onChange={(e) => {
@@ -261,7 +261,7 @@ class Courses extends Component {
                                             </select>
                                         </div>
                                         <div className="col-6">
-                                            <label htmlFor="">Audio Language*</label>
+                                            <label htmlFor="">Audio Language</label>
                                             <select name="" id="" className='form-control'
                                                 value={this.state.audio_language}
                                                 onChange={(e) => {
@@ -276,11 +276,12 @@ class Courses extends Component {
                                             >
                                                 <option value="">Select Language</option>
                                                 <option value="English">English</option>
-                                                <option value="Urdo">Urdo</option>
+                                                <option value="French">French</option>
+                                                <option value="Finnish">Finnish</option>
                                             </select>
                                         </div>
                                         <div className="col-6">
-                                            <label htmlFor="">Course Category*</label>
+                                            <label htmlFor="">Course Category</label>
                                             <select name="" id="" className='form-control'
                                                 value={this.state.course_category}
                                                 onChange={(e) => {
@@ -290,14 +291,14 @@ class Courses extends Component {
                                                     this.updateCourse(data)
                                                 }}
                                             >
-                                                <option value="">Select Language</option>
+                                                <option value="">Select Category</option>
                                                 <option value="Communications">Communications</option>
                                                 <option value="Management">Management</option>
                                                 <option value="Sales">Sales</option>
                                                 <option value="Operations">Operations</option>
                                             </select>
                                             {/* ******************** */}
-                                            <label htmlFor="">Course Start Date*</label>
+                                            <label htmlFor="">Course Start Date </label>
 
                                             <input type="datetime-local" className='form-control'
                                                 value={this.state.start_date}
@@ -309,7 +310,7 @@ class Courses extends Component {
                                                     this.updateCourse(data)
                                                 }}
                                             />
-                                            <label htmlFor="">Course End Date*</label>
+                                            <label htmlFor="">Course End Date</label>
 
                                             <input type="datetime-local" className='form-control'
                                                 value={this.state.end_date}
@@ -322,7 +323,7 @@ class Courses extends Component {
                                                 }}
                                             />
                                             {/* ******************** */}
-                                            <label htmlFor="">Regular Price*</label>
+                                            <label htmlFor="">Regular Price</label>
                                             <input type='number' className='form-control' placeholder='$0'
                                                 value={this.state.paid_amount}
                                                 onChange={(e) => {
@@ -336,7 +337,7 @@ class Courses extends Component {
                                                     this.updateCourse(data)
                                                 }}
                                             />
-                                            <label htmlFor="">Discount Price*</label>
+                                            <label htmlFor="">Discount Price</label>
                                             <input type='number' className='form-control' placeholder='$0'
                                                 value={this.state.discount_amount}
                                                 onChange={(e) => {
@@ -414,7 +415,6 @@ class Courses extends Component {
                                                     </div>
                                                 </div>
                                             )}
-
                                             <br></br>
                                             <br></br>
                                             <div className="float-right d-flex">
@@ -472,13 +472,13 @@ class Courses extends Component {
                                                     }
                                                 }}
                                                 className='d-none' />
-                                            <label htmlFor="">Course thumbnail</label>
+                                            <label htmlFor="">Course Thumbnail</label>
                                             {this.state.thumbnail == '' && (
                                                 <div className="rounded courseUploadVedio bgthwh">
                                                     <div className='text-center'>
                                                         <button className='btn btn-danger'
-                                                            onClick={() => { document.getElementById("thumbnail").click() }}
-                                                        >Upload thumbnail</button>
+                                                            onClick={() => {document.getElementById("thumbnail").click() }}
+                                                        >Upload Thumbnail</button>
                                                         <p className='pb-0 mb-0'>File Format: jpg,jpeg, or png</p>
                                                     </div>
                                                 </div>
@@ -499,9 +499,8 @@ class Courses extends Component {
                                     {this.state.Course_id && <CoursesSectionList course_id={this.state.Course_id} />}
                                 </div>
                             )}
-                            {/* ************************************ */}
+                            {/************************************* */}
                         </div>
-
                     </div>
                 </div>
 
