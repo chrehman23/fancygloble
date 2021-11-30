@@ -154,7 +154,7 @@
 
 .course-about-content {
   padding: 12px 0px 12px 10px;
-  border-bottom: 1px solid #d1d7dc;
+  // border-bottom: 1px solid #d1d7dc;
 }
 
 .course-about-content h1 {
@@ -171,9 +171,12 @@
   color: #401b9c;
   font-weight: bold;
 }
+.video-resources button::after {
+  display: none !important;
+}
 
 .description-div {
-  padding: 12px 0px 12px 10px;
+  // padding: 12px 0px 12px 10px;
   border-bottom: 1px solid #d1d7dc;
 }
 
@@ -188,6 +191,7 @@
 .lectures-dropdown-arrow {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .tabActive .fa-chevron-down {
   transform: rotate(180deg);
@@ -221,6 +225,7 @@
 
 .video-length p {
   font-size: 11px !important;
+  line-height: 15px !important;
 }
 
 .accordian-div .card {

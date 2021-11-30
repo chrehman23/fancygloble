@@ -3,11 +3,13 @@ import { Link, withRouter } from 'react-router-dom';
 
 import CourseApi from '../api/Courses';
 import moment from 'moment';
+import Load from './ApiLoader';
 class Enroll_users extends Component {
     constructor() {
         super();
         this.state = {
             students: [],
+            apiLoader:true,
         }
     }
 
@@ -18,7 +20,8 @@ class Enroll_users extends Component {
         CourseApi.lecture_enroll(data).then(res => {
             if (res.data.Error == false) {
                 this.setState({
-                    students: res.data.data
+                    students: res.data.data,
+                    apiLoader:false
                 })
             }
         })
@@ -34,11 +37,20 @@ class Enroll_users extends Component {
                         <h4 className='mt-3 '><i class="fas fa-list"></i> Enrole Students</h4>
                     </div>
                 </div>
-                <div className="row">
-                    {this.state.students.map((value, index) => {
+                {this.state.apiLoader && (
+                    <div className=' row'>
+                        <div className='col-12 border-bottom' >
+                            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100px" }}>
+                                <Load />
+                            </div>
+                        </div>
+                    </div>
+                )}
+                <div className="pt-2 row">
+                    {!this.state.apiLoader && this.state.students.map((value, index) => {
                         return (
                             <div className='col-12'>
-                                <div className="cursor-pointer wrap border-bottom " key={index}
+                                <div className="pt-2 cursor-pointer wrap border-bottom " key={index}
                                     onClick={() => {
                                         this.props.history.push(`/user/${value.user_id.user_name}`)
                                     }}
