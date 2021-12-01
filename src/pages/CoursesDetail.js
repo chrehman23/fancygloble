@@ -4,13 +4,13 @@ import Leftnav from '../components/Leftnav';
 import Rightchat from '../components/Rightchat';
 import Pagetitle from '../components/Pagetitle';
 import Appfooter from '../components/Appfooter';
-import Popupchat from '../components/Popupchat'; 
+import Popupchat from '../components/Popupchat';
 import ApiLoader from '../components/ApiLoader'
 import { connect } from 'react-redux';
 import ACTIONS from '../store/actions/index.js';
 import { Link, withRouter } from 'react-router-dom'
 import CourseApi from '../api/Courses'
-import CopyToClipboard from '../components/CopyToClipBoard'
+import CopyToClipboard from '../components/CopyToClipBoardPost'
 import CoursesSectionDetail from "../components/CoursesSectionDetail";
 import StripeCheckout from 'react-stripe-checkout';
 import moment from "moment";
@@ -322,7 +322,10 @@ class CoursesDetail extends Component {
                                             </div>
                                             {this.state.tabs == 1 && (
                                                 <>
-                                                    {!this.state.paymentLoader && this.state.Course_id && <CoursesSectionDetail course_id={this.state.Course_id} />}
+                                                    {!this.state.paymentLoader && this.state.Course_id && <CoursesSectionDetail
+                                                        lacture_title={this.state.titleInput}
+                                                        lacture_des={this.state.desInput}
+                                                        course_id={this.state.Course_id} />}
                                                 </>
                                             )}
                                             {this.state.tabs == 2 && (
@@ -368,7 +371,7 @@ class CoursesDetail extends Component {
                                                         <div className="p-0 mt-3 mb-3 card-body d-block" >
                                                             <div className='row'>
                                                                 <div className='col-12'>
-                                                                    <video className='vedioPlayer' controls >
+                                                                    <video className='p-0 border-0 vedioPlayer' controls >
                                                                         <source src={this.state.video_url} type="video/mp4" />
                                                                         Your browser does not support HTML5 video.
                                                                     </video>
@@ -422,10 +425,10 @@ class CoursesDetail extends Component {
                                                             </>
                                                         )}
 
-                                                       
+
                                                     </div>
                                                     <div className="mb-5 course__video-content">
-                                                        <ul className="list-unstyled">
+                                                        <ul className="list-unstyled courses_side_details_bar">
                                                             <li className="">
                                                                 <div className="px-2 course__video-icon d-inline-flex">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-house-door" viewBox="0 0 16 16">
@@ -495,7 +498,7 @@ class CoursesDetail extends Component {
                                                                     </svg>
                                                                 </div>
                                                                 <div className="d-inline-flex course__video-info">
-                                                                    <h5>
+                                                                    <h5 className='cursor-pointer'>
                                                                         {/* <span>Share:</span> */}
                                                                         <CopyToClipboard copyText={`${window.location.hostname}/course-detail/${this.state.Course_id}`} />
                                                                     </h5>
@@ -509,7 +512,7 @@ class CoursesDetail extends Component {
                                         </div>
                                     </div>
                                 )}
-                               
+
                             </div>
                             {/* ************************************************************* */}
 
@@ -677,5 +680,5 @@ const mapDispatchToProps = (dispatch) => {
 
     }
 }
- 
+
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CoursesDetail))

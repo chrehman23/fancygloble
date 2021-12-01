@@ -65,7 +65,7 @@ class Userpage extends Component {
                         <div className="middle-sidebar-bottom">
                             <div className="middle-sidebar-left pe-0">
                                 <div className="row">
-                                    <div className="col-xl-12 mb-3">
+                                    <div className="mb-3 col-xl-12">
                                         <ProfilecardThree
                                         buttons={false}
                                             profielTabsChange={this.profielTabsChange}
@@ -91,22 +91,27 @@ class Userpage extends Component {
                                             {this.props.Profile && this.props.Profile.followers.map((data, index) => {
                                                 return (
                                                     <div key={index} className="col-md-6 col-sm-6 pe-2 ps-2">
-                                                        <div className="card d-block border-0 shadow-xss rounded-3 overflow-hidden mb-0 mt-2">
+                                                        <div className="mt-2 mb-0 overflow-hidden border-0 cursor-pointer card d-block shadow-xss rounded-3"
+                                                            onClick={() => {
+                                                                this.props.history.push(`/user/${data.user_id && data.user_id.user_name}`)
+                                                                window.location.reload();
+                                                            }}
+                                                        >
                                                             <div className="card-body position-relative h100 bg-image-cover bg-image-center" style={{ backgroundImage: `url("${data.user_id && data.user_id.profile_cover ? data.user_id.profile_cover : usreProfilePicbg}")` }}></div>
-                                                            <div className="card-body d-block w-100  pt-0 text-left position-relative">
+                                                            <div className="pt-0 text-left card-body d-block w-100 position-relative">
                                                                 <div className='d-flex w-100'>
                                                                     <figure className="avatar imageControlermd " style={{ marginTop: `-40px` }}>
                                                                         <img src={data.user_id && data.user_id.profile_photo ? data.user_id.profile_photo : usreProfilePic} alt="avater" className="float-right p-1 bg-white rounded-circle w-100 " />
                                                                     </figure>
                                                                     <div className='ml-5'>
-                                                                        <h4 className="fw-700 font-xsss mt-3 mb-1">{data.user_id && data.user_id.name}</h4>
-                                                                        <p className="fw-500 font-xsssss text-grey-500 mt-0 mb-3 lh-3">{data.user_id && data.user_id.user_name}</p>
+                                                                        <h4 className="mt-3 mb-1 fw-700 font-xsss">{data.user_id && data.user_id.name}</h4>
+                                                                        <p className="mt-0 mb-3 fw-500 font-xsssss text-grey-500 lh-3">{data.user_id && data.user_id.user_name}</p>
                                                                     </div>
                                                                 </div>
 
-                                                                <span className="position-absolute right-15 top-0 d-flex align-items-center d-none">
-                                                                    <a href="/defaultgroup" className="d-lg-block d-none"><i className="feather-video btn-round-md font-md bg-primary-gradiant text-white"></i></a>
-                                                                    <a href="/defaultgroup" className="text-center d-none p-2 lh-24 w100 ms-1 ls-3 d-inline-block rounded-xl bg-current font-xsssss fw-700 ls-lg text-white">FOLLOW</a>
+                                                                <span className="top-0 position-absolute right-15 d-flex align-items-center d-none">
+                                                                    <a href="/defaultgroup" className="d-lg-block d-none"><i className="text-white feather-video btn-round-md font-md bg-primary-gradiant"></i></a>
+                                                                    <a href="/defaultgroup" className="p-2 text-center text-white bg-current d-none lh-24 w100 ms-1 ls-3 d-inline-block rounded-xl font-xsssss fw-700 ls-lg">FOLLOW</a>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -115,8 +120,8 @@ class Userpage extends Component {
                                             })}
 
                                             {this.props.Profile && this.props.Profile.followers.length == 0 && (
-                                                <div className="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3">
-                                                    <div className="snippet mt-2 ms-auto me-auto" data-title=".dot-typing">
+                                                <div className="p-4 mt-3 mb-3 text-center border-0 card w-100 shadow-xss rounded-xxl">
+                                                    <div className="mt-2 snippet ms-auto me-auto" data-title=".dot-typing">
                                                         <div className="stage">
                                                             No follower found.
                                                         </div>
@@ -132,22 +137,26 @@ class Userpage extends Component {
                                             {this.props.Profile && this.props.Profile.followings.map((data, index) => {
                                                 return (
                                                     <div key={index} className="col-md-6 col-sm-6 pe-2 ps-2">
-                                                        <div className="card d-block border-0 shadow-xss rounded-3 overflow-hidden mb-0 mt-2">
+                                                        <div className="mt-2 mb-0 overflow-hidden border-0 cursor-pointer card d-block shadow-xss rounded-3"
+                                                            onClick={() => {
+                                                                this.props.history.push(`/user/${data.user_id && data.user_id.user_name}`)
+                                                                window.location.reload();
+                                                            }}>
                                                             <div className="card-body position-relative h100 bg-image-cover bg-image-center" style={{ backgroundImage: `url("${data.user_id && data.user_id.profile_cover ? data.user_id.profile_cover : usreProfilePicbg}")` }}></div>
-                                                            <div className="card-body d-block w-100  pt-0 text-left position-relative">
+                                                            <div className="pt-0 text-left card-body d-block w-100 position-relative">
                                                                 <div className='d-flex w-100'>
                                                                     <figure className="avatar imageControlermd " style={{ marginTop: `-40px` }}>
                                                                         <img src={data.user_id && data.user_id.profile_photo ? data.user_id.profile_photo : usreProfilePic} alt="avater" className="float-right p-1 bg-white rounded-circle w-100 " />
                                                                     </figure>
                                                                     <div className='ml-5'>
-                                                                        <h4 className="fw-700 font-xsss mt-3 mb-1">{data.user_id && data.user_id.name}</h4>
-                                                                        <p className="fw-500 font-xsssss text-grey-500 mt-0 mb-3 lh-3">{data.user_id && data.user_id.user_name}</p>
+                                                                        <h4 className="mt-3 mb-1 fw-700 font-xsss">{data.user_id && data.user_id.name}</h4>
+                                                                        <p className="mt-0 mb-3 fw-500 font-xsssss text-grey-500 lh-3">{data.user_id && data.user_id.user_name}</p>
                                                                     </div>
                                                                 </div>
                                                     
-                                                                <span className="position-absolute right-15 top-0 d-flex align-items-center d-none">
-                                                                    <a href="/defaultgroup" className="d-lg-block d-none"><i className="feather-video btn-round-md font-md bg-primary-gradiant text-white"></i></a>
-                                                                    <a href="/defaultgroup" className="text-center d-none p-2 lh-24 w100 ms-1 ls-3 d-inline-block rounded-xl bg-current font-xsssss fw-700 ls-lg text-white">FOLLOW</a>
+                                                                <span className="top-0 position-absolute right-15 d-flex align-items-center d-none">
+                                                                    <a href="/defaultgroup" className="d-lg-block d-none"><i className="text-white feather-video btn-round-md font-md bg-primary-gradiant"></i></a>
+                                                                    <a href="/defaultgroup" className="p-2 text-center text-white bg-current d-none lh-24 w100 ms-1 ls-3 d-inline-block rounded-xl font-xsssss fw-700 ls-lg">FOLLOW</a>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -155,8 +164,8 @@ class Userpage extends Component {
                                                 )
                                             })}
                                             {this.props.Profile && this.props.Profile.followings.length == 0 && (
-                                                <div className="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3">
-                                                    <div className="snippet mt-2 ms-auto me-auto" data-title=".dot-typing">
+                                                <div className="p-4 mt-3 mb-3 text-center border-0 card w-100 shadow-xss rounded-xxl">
+                                                    <div className="mt-2 snippet ms-auto me-auto" data-title=".dot-typing">
                                                         <div className="stage">
                                                             No followings found.
                                                         </div>

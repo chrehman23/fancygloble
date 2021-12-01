@@ -25,7 +25,7 @@ class Createpost extends Component {
             profileImageURL: [],
 
             paidPost: false,
-            paidPostamount: 0,
+            paidPostamount: '',
 
             vedioUrl: "",
             vedioFile: "",
@@ -36,7 +36,7 @@ class Createpost extends Component {
 
             fileError: "",
 
-            tag_users:[]
+            tag_users: []
         };
 
     }
@@ -57,8 +57,8 @@ class Createpost extends Component {
         // *************************************************
         let descriptionList = this.state.description.split(" ");
         let hash_tags = [];
-        for (let i = 0; i < descriptionList.length; i++) { 
-            if (descriptionList[i].includes('#') && descriptionList[i].length>1){
+        for (let i = 0; i < descriptionList.length; i++) {
+            if (descriptionList[i].includes('#') && descriptionList[i].length > 1) {
                 hash_tags.push(descriptionList[i])
             }
         }
@@ -90,7 +90,7 @@ class Createpost extends Component {
                     createPost: false,
 
                     paidPost: false,
-                    paidPostamount: 0,
+                    paidPostamount: "",
 
                     vedioUrl: "",
                     vedioFile: ""
@@ -166,12 +166,12 @@ class Createpost extends Component {
 
     }
 
-    addFullLastTag = (targetName,user_name) => {
+    addFullLastTag = (targetName, user_name) => {
         // @[a - z]*
         let description = this.state.description;
         let worldList = description.split(" ");
         worldList.pop();
-        worldList.push(`@${targetName} `) 
+        worldList.push(`@${targetName} `)
         let tag_users = this.state.tag_users;
         tag_users.push({
             name: `@${targetName} `,
@@ -196,15 +196,15 @@ class Createpost extends Component {
         })
     }
 
- 
+
 
 
     render() {
 
         const menuClass = `${this.state.isOpen ? " show" : ""}`;
         return (
-            <div className="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
-                <div className="card-body p-0 "
+            <div className="pt-4 pb-3 mb-3 border-0 card w-100 shadow-xss rounded-xxl ps-4 pe-4">
+                <div className="p-0 card-body "
                     onClick={() => {
                         // window.location.reload(false) 
                         let follers = this.props.TagsSearchFollowers.map(data => data.user_id)
@@ -215,14 +215,14 @@ class Createpost extends Component {
                             tagedSearchList: usresList
                         })
                     }}
-                > 
-                    <div className="font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center cursor-pointer">{!this.state.createPost && (<i className="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>)}Create Post</div>
+                >
+                    <div className="p-0 cursor-pointer font-xssss fw-600 text-grey-500 card-body d-flex align-items-center">{!this.state.createPost && (<i className="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>)}Create Post</div>
                 </div>
                 {this.state.createPost && (
                     <>
 
-                        <div className="card-body p-0 mt-1 position-relative">
-                            {/* <figure className="avatar position-absolute ms-2 mt-1 top-5"><img src="assets/images/user.png" alt="icon" className="shadow-sm rounded-circle w30" /></figure> */}
+                        <div className="p-0 mt-1 card-body position-relative">
+                            {/* <figure className="mt-1 avatar position-absolute ms-2 top-5"><img src="assets/images/user.png" alt="icon" className="shadow-sm rounded-circle w30" /></figure> */}
                             <textarea
                                 id="description"
                                 value={this.state.description}
@@ -230,7 +230,7 @@ class Createpost extends Component {
                                     this.getTags(e)
                                     this.setState({ description: e.target.value })
                                 }}
-                                name="message" className="h100 bor-0 w-100 rounded-xxl p-2   font-xssss text-grey-600 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
+                                name="message" className="p-2 h100 bor-0 w-100 rounded-xxl font-xssss text-grey-600 fw-500 border-light-md theme-dark-bg" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
                         </div>
                         <div>
                             {this.state.tagedSearchListFilterd && this.state.tagedSearchListFilterd.length > 0 && (
@@ -243,9 +243,9 @@ class Createpost extends Component {
                                                 <div
                                                     key={index}
                                                     onClick={() => {
-                                                        this.addFullLastTag(data.name,data.user_name)
+                                                        this.addFullLastTag(data.name, data.user_name)
                                                     }}
-                                                    className='cursor-pointer px-2'
+                                                    className='px-2 cursor-pointer'
                                                     style={{ minWidth: '300px' }} key={index}>
                                                     <div class="card bg-transparent-card w-100 align-items-center align-items-center d-flex flex-row border-0 mb-3"  >
                                                         <div className='smImageControlerRs'>
@@ -269,7 +269,7 @@ class Createpost extends Component {
 
 
                         {this.state.vedioUrl && (
-                            <div className="card-body d-block p-0 mb-3 mt-3">
+                            <div className="p-0 mt-3 mb-3 card-body d-block">
                                 <div className='row'>
                                     <div className='col-12'>
                                         <video className='vedioPlayer' controls autoplay>
@@ -286,10 +286,10 @@ class Createpost extends Component {
                         {/* {JSON.stringify(this.state.profileImageURL.length)} */}
                         {this.state.profileImageURL && (
 
-                            <div className="card-body d-block p-0 mb-3 ">
+                            <div className="p-0 mb-3 card-body d-block ">
                                 <div className="row ">
                                     {this.state.profileImageURL.length == 1 && (
-                                        <div className="col-sm-12 p-1">
+                                        <div className="p-1 col-sm-12">
                                             <div className='maltiImgesUpload' >
                                                 <div>
                                                     <img src={this.state.profileImageURL[0]} className="" alt="post" />
@@ -300,7 +300,7 @@ class Createpost extends Component {
                                     )}
                                     {/* **************************** */}
                                     {this.state.profileImageURL.length == 2 && (
-                                        <div className="col-sm-12 p-1 ">
+                                        <div className="p-1 col-sm-12 ">
                                             <div className='maltiImgesUpload2' >
                                                 <div>
                                                     <img src={this.state.profileImageURL[0]} className="" alt="post" />
@@ -313,7 +313,7 @@ class Createpost extends Component {
                                     )}
                                     {/* **************************** */}
                                     {this.state.profileImageURL.length == 3 && (
-                                        <div className="col-sm-12 p-1">
+                                        <div className="p-1 col-sm-12">
                                             <div className='maltiImgesUpload3' >
                                                 <div>
                                                     <img src={this.state.profileImageURL[0]} className="" alt="post" />
@@ -331,7 +331,7 @@ class Createpost extends Component {
                                     )}
                                     {/* ******************** */}
                                     {this.state.profileImageURL.length > 3 && (
-                                        <div className="col-sm-12 p-1">
+                                        <div className="p-1 col-sm-12">
                                             <div className='maltiImgesUpload4' >
                                                 <div>
                                                     <img src={this.state.profileImageURL[0]} className="" alt="post" />
@@ -354,35 +354,37 @@ class Createpost extends Component {
                                         </div>
                                     )}
                                     {/* ****************************** */}
-
                                 </div>
                             </div>
                         )}
                         {!this.state.paidPost && (
                             <div  >
-                                <p className='font-xssss text-grey-500 fw-500 mb-0'>Need paid post. <span
+                                <p className='mb-0 font-xssss text-grey-500 fw-500'>Need paid post. <span
                                     onClick={() => {
                                         this.setState({ paidPost: true })
                                     }}
-                                    className='text-primary font-xssss fw-500 cursor-pointer'>Click to add amount.</span></p>
+                                    className='cursor-pointer text-primary font-xssss fw-500'>Click to add amount.</span></p>
                             </div>
                         )}
                         {this.state.paidPost && (
                             <div  >
-                                <p className='font-xssss text-grey-500 fw-500 mb-0'>Paid post amount. <span
+                                <p className='mb-0 font-xssss text-grey-500 fw-500'>Paid post amount. <span
                                     onClick={() => {
                                         this.setState({ paidPost: false })
                                     }}
-                                    className='text-primary font-xssss fw-500 cursor-pointer'>Cancel paid post.</span></p>
+                                    className='cursor-pointer text-primary font-xssss fw-500'>Cancel paid post.</span></p>
                                 <input type='number'
                                     value={this.state.paidPostamount}
                                     onChange={(e) => {
-                                        this.setState({ paidPostamount: e.target.value })
+                                        if (e.target.value > 0 && e.target.value.length < 5) {
+                                            this.setState({ paidPostamount: e.target.value })
+                                        } 
                                     }}
+                                    placeholder='Enter amount'
                                     className='font-xssss text-grey-500 fw-500 paidPostAmount' />
                             </div>
                         )}
-                        <div className="card-body d-flex align-items-center p-0 mt-2">
+                        <div className="p-0 mt-2 card-body d-flex align-items-center">
                             <input type='file' id="post_images"
                                 onChange={(e) => {
                                     this.setState({
@@ -391,9 +393,9 @@ class Createpost extends Component {
                                     if (e.target.value) {
                                         let mb = parseInt((e.currentTarget.files[0].size / (1024 * 1024)).toFixed(2));
                                         // console.log("mb", typeof mb)
-                                        if (mb > 1) {
+                                        if (mb > 10) {
                                             this.setState({
-                                                fileError: "File size should less then 1MB",
+                                                fileError: "File size should less then 10MB",
                                             })
                                         } else {
                                             if (e.currentTarget.files[0].type.split('/')[0] == "image") {
@@ -428,9 +430,9 @@ class Createpost extends Component {
                                     if (e.target.value) {
                                         let mb = parseInt((e.currentTarget.files[0].size / (1024 * 1024)).toFixed(2));
                                         // console.log("mb", typeof mb)
-                                        if (mb > 20) {
+                                        if (mb > 50) {
                                             this.setState({
-                                                fileError: "File size should less then 20MB",
+                                                fileError: "File size should less then 50MB",
                                             })
                                         } else {
 
@@ -458,13 +460,13 @@ class Createpost extends Component {
                                 className='d-none' />
                             {!this.state.profileImageURL.length && (
                                 <div onClick={() => { document.getElementById("post_vedio").click() }}
-                                    className="d-flex align-items-center font-xssss cursor-pointer fw-600 ls-1 text-grey-700 text-dark pe-4"><i className="font-md text-danger feather-video me-2"></i><span className="d-none-xs">Video</span></div>
+                                    className="cursor-pointer d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i className="font-md text-danger feather-video me-2"></i><span className="d-none-xs">Video</span></div>
                             )}
 
 
                             {!this.state.vedioUrl && (
                                 <div onClick={() => { document.getElementById("post_images").click() }}
-                                    className="d-flex align-items-center cursor-pointer font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4">
+                                    className="cursor-pointer d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4">
                                     <i className="font-md text-success feather-image me-2"></i>
                                     <span className="d-none-xs">Photos</span>
                                 </div>
@@ -487,21 +489,21 @@ class Createpost extends Component {
                             {/* <a href="#activity" className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i className="font-md text-warning feather-camera me-2"></i><span className="d-none-xs">Feeling/Activity</span></a> */}
                             <div className={`ms-auto pointer ${menuClass} d-none`} id="dropdownMenu4" data-bs-toggle="dropdown" aria-expanded="false" onClick={this.toggleOpen}><i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></div>
                             <div className={`dropdown-menu p-4 right-0 rounded-xxl border-0 shadow-lg ${menuClass}`} aria-labelledby="dropdownMenu4">
-                                <div className="card-body p-0 d-flex">
+                                <div className="p-0 card-body d-flex">
                                     <i className="feather-bookmark text-grey-500 me-3 font-lg"></i>
-                                    <h4 className="fw-600 text-grey-900 font-xssss mt-0 me-4 pointer">Save Link <span className="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Add this to your saved items</span></h4>
+                                    <h4 className="mt-0 fw-600 text-grey-900 font-xssss me-4 pointer">Save Link <span className="mt-1 d-block font-xsssss fw-500 lh-3 text-grey-500">Add this to your saved items</span></h4>
                                 </div>
-                                <div className="card-body p-0 d-flex mt-2">
+                                <div className="p-0 mt-2 card-body d-flex">
                                     <i className="feather-alert-circle text-grey-500 me-3 font-lg"></i>
-                                    <h4 className="fw-600 text-grey-900 font-xssss mt-0 me-4 pointer">Hide Post <span className="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span></h4>
+                                    <h4 className="mt-0 fw-600 text-grey-900 font-xssss me-4 pointer">Hide Post <span className="mt-1 d-block font-xsssss fw-500 lh-3 text-grey-500">Save to your saved items</span></h4>
                                 </div>
-                                <div className="card-body p-0 d-flex mt-2">
+                                <div className="p-0 mt-2 card-body d-flex">
                                     <i className="feather-alert-octagon text-grey-500 me-3 font-lg"></i>
-                                    <h4 className="fw-600 text-grey-900 font-xssss mt-0 me-4 pointer">Hide all from Group <span className="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span></h4>
+                                    <h4 className="mt-0 fw-600 text-grey-900 font-xssss me-4 pointer">Hide all from Group <span className="mt-1 d-block font-xsssss fw-500 lh-3 text-grey-500">Save to your saved items</span></h4>
                                 </div>
-                                <div className="card-body p-0 d-flex mt-2">
+                                <div className="p-0 mt-2 card-body d-flex">
                                     <i className="feather-lock text-grey-500 me-3 font-lg"></i>
-                                    <h4 className="fw-600 mb-0 text-grey-900 font-xssss mt-0 me-4 pointer">Unfollow Group <span className="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span></h4>
+                                    <h4 className="mt-0 mb-0 fw-600 text-grey-900 font-xssss me-4 pointer">Unfollow Group <span className="mt-1 d-block font-xsssss fw-500 lh-3 text-grey-500">Save to your saved items</span></h4>
                                 </div>
                             </div>
                         </div>

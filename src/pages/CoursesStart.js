@@ -97,6 +97,7 @@ class CoursesDetail extends Component {
     }
   }
   updateLactures = (data) => {
+    console.log(data)
     if (data) {
       this.setState(
         {
@@ -110,6 +111,13 @@ class CoursesDetail extends Component {
             acttiveLacture: data.lacture_vedio,
             changeLacture: false,
           });
+         setTimeout(() => {
+           if (data.lacture_vedio == "") {
+             this.setState({
+               acttiveLacture: "empty"
+             })
+           }
+         }, 2000);
         }
       );
     } else {
@@ -145,8 +153,8 @@ class CoursesDetail extends Component {
                 <div className="p-0 col-md-8">
                   <div className="video-lecture">
                     <div style={{ minHeight: '300px' }}>
-                      {!this.state.changeLacture && this.state.acttiveLacture && (
-                        <video className='vedioPlayer' controls>
+                      {!this.state.changeLacture && this.state.acttiveLacture && this.state.acttiveLacture !== "empty" && (
+                        <video className='vedioPlayer' controls controlsList="nodownload">
                           <source src={this.state.acttiveLacture} type="video/mp4" />
                           Your browser does not support HTML5 video.
                         </video>
@@ -154,6 +162,10 @@ class CoursesDetail extends Component {
                       {!this.state.acttiveLacture && (
                         <div style={{ minHeight: '300px' }} className='d-flex h-100 justify-content-lg-center align-items-center'
                         ><Load /></div>
+                      )}
+                      {this.state.acttiveLacture == "empty" && (
+                        <div style={{ minHeight: '300px' }} className='d-flex h-100 justify-content-lg-center align-items-center'
+                        >You can access stream content after instructor goes to live.</div>
                       )}
                     </div>
                   </div>

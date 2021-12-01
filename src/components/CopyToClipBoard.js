@@ -9,7 +9,7 @@ class CopyToClip extends Component {
         return (
 
             <div className='mt-2'>
-                <div className='rounded-3 bg-grey p-2 d-flex justify-content-between'>
+                <div className='p-2 rounded-3 bg-grey d-flex justify-content-between'>
                     <div> <small className='font-xssss text-grey-800'>{this.props.copyText}</small></div>
                     <div className='px-2 cursor-pointer'>
                         <CopyToClipboard

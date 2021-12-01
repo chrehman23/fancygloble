@@ -60,19 +60,19 @@ class CoursesSectionList extends Component {
     render() {
         return (
             <  >
-                <div className='row  mt-3'>
+                <div className='mt-3 row'>
                     <div className='col-12 border-bottom'>
-                        <h4 className=' mt-3'><i class="fas fa-list"></i> Course Content</h4>
+                        <h4 className='mt-3 '><i class="fas fa-list"></i> Course Content</h4>
                     </div>
                 </div>
                 {this.state.sections.map((data, index) => <CoursesSections key={index} course_id={this.props.course_id} data={data}/>)}
 
 
-                <div className='row  mt-3 border-top py-2'>
+                <div className='py-2 mt-3 row border-top'>
                     {this.state.addSection && (
                         <div className='col-12'>
                             <div className='mb-2' >
-                                <label htmlFor="">Section tile</label>
+                                <label htmlFor="">Section Tite</label>
                                 <input type="text" className='form-control' placeholder='Section Title'
                                     value={this.state.section_title}
                                     onChange={(e) => {
@@ -119,7 +119,7 @@ class CoursesSectionList extends Component {
 
 
                     {!this.state.addSection && (
-                        <div className='col-12 bg-greylight  cursor-pointer'>
+                        <div className='cursor-pointer col-12 bg-greylight'>
                             <div className='d-flex align-items-center justify-content-between'
                                 onClick={() => this.setState({ addSection: true })}
                             >

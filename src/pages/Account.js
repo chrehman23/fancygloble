@@ -20,7 +20,7 @@ import ApiLoader from '../components/ApiLoader';
 
 
 let validationSchemaLogin = Yup.object({
-    name: Yup.string().required('Name is required.').min(3, 'Must be greater then 3 characters.'),
+    name: Yup.string().required('Name is required.').min(3, 'Must be greater then 3 characters.').max(18, 'Can not be greater than 18 characters.'),
     paypalEmail: Yup.string().email('Email is not valid.'),
 })
 
@@ -127,10 +127,10 @@ class Account extends Component {
                                             /* and other goodies */
                                         }) => (
                                             <form enctype="multipart/form-data">
-                                                <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                                                    <div className="card-body p-4 w-100 bg-current border-0 d-flex rounded-3">
-                                                        <Link to="/defaultsettings" className="d-inline-block mt-2"><i className="ti-arrow-left font-sm text-white"></i></Link>
-                                                        <h4 className="font-xs text-white fw-600 ms-4 mb-0 mt-2">Account Details</h4>
+                                                <div className="p-0 mb-4 bg-white border-0 shadow-xs card w-100">
+                                                    <div className="p-4 bg-current border-0 card-body w-100 d-flex rounded-3">
+                                                        <Link to="/defaultsettings" className="mt-2 d-inline-block"><i className="text-white ti-arrow-left font-sm"></i></Link>
+                                                        <h4 className="mt-2 mb-0 text-white font-xs fw-600 ms-4">Account Details</h4>
                                                     </div>
 
                                                     <input type='file' name='profile_photo' id="profile_Image"
@@ -220,31 +220,31 @@ class Account extends Component {
                                                         className='d-none' />
 
 
-                                                    <div className="card w-100   overflow-hidden border-0        ">
+                                                    <div className="overflow-hidden border-0 card w-100 ">
                                                         <div className="card-body position-relative h150 bg-image-cover bg-image-center"
                                                             style={{ backgroundImage: `url("${this.state.banerImage ? this.state.banerImage : values.profile_cover ? `${values.profile_cover}` : backgroundImage}")` }}>
                                                             <span className='editebtn baner'
                                                                 onClick={() => { document.getElementById("baner_Image").click() }}
                                                             ><i className="font-sm ti-pencil-alt text-grey-500 pe-0 "></i></span>
                                                         </div>
-                                                        <div className="card-body d-block pt-4 text-center">
-                                                            <figure className="avatar editeProfileImage mt--6 position-relative  z-index-1 z-index-1 ms-auto me-auto postion-relative ">
+                                                        <div className="pt-4 text-center card-body d-block">
+                                                            <figure className="avatar editeProfileImage mt--6 position-relative z-index-1 ms-auto me-auto postion-relative ">
                                                                 <img src={this.state.profileImage ? this.state.profileImage : values.profile_photo ? `${values.profile_photo}` : "assets/images/user.png"} alt="avater" className="p-1 bg-white rounded-xl w-100" />
                                                                 <span
                                                                     onClick={() => { document.getElementById("profile_Image").click() }}
                                                                     className='editebtn'><i className="font-sm ti-pencil-alt text-grey-500 pe-0 "></i></span>
                                                             </figure>
-                                                            {/* <h4 className="font-xs ls-1 fw-700 text-grey-900">Surfiya Zakir <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">@surfiyazakir22</span></h4> */}
+                                                            {/* <h4 className="font-xs ls-1 fw-700 text-grey-900">Surfiya Zakir <span className="mt-1 d-block font-xssss fw-500 lh-3 text-grey-500">@surfiyazakir22</span></h4> */}
                                                         </div>
 
 
                                                     </div>
 
-                                                    <div className="card-body p-lg-5 p-4 pt-n-5 pt-0 w-100 border-0 ">
+                                                    <div className="p-4 pt-0 border-0 card-body p-lg-5 pt-n-5 w-100 ">
                                                         <div className="row">
-                                                            <div className="col-lg-12 mb-3">
+                                                            <div className="mb-3 col-lg-12">
                                                                 {this.state.fileError && (
-                                                                    <p className='text-danger ml-3 font-weight-bold'><small>{this.state.fileError}</small></p>
+                                                                    <p className='ml-3 text-danger font-weight-bold'><small>{this.state.fileError}</small></p>
                                                                 )}
                                                             </div>
                                                         </div>
@@ -253,10 +253,10 @@ class Account extends Component {
 
                                                         <form onSubmit={handleSubmit}>
                                                             <div className="row">
-                                                                <div className="col-lg-6 mb-3">
+                                                                <div className="mb-3 col-lg-6">
 
                                                                     <div className="form-group">
-                                                                        <label className="mont-font fw-600 font-xsss mb-2">Name</label>
+                                                                        <label className="mb-2 mont-font fw-600 font-xsss">Name</label>
 
                                                                         <Field id="name" name="name" className="form-control" placeholder="Your Name" />
 
@@ -268,9 +268,9 @@ class Account extends Component {
 
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-lg-6 mb-3">
+                                                                <div className="mb-3 col-lg-6">
                                                                     <div className="form-group">
-                                                                        <label className="mont-font fw-600 font-xsss mb-2">Phone</label>
+                                                                        <label className="mb-2 mont-font fw-600 font-xsss">Phone</label>
 
                                                                         <Field id="phone" name="phone" className="form-control" placeholder="Phone Number" />
 
@@ -281,9 +281,9 @@ class Account extends Component {
                                                                         />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-lg-6 mb-3">
+                                                                <div className="mb-3 col-lg-6">
                                                                     <div className="form-group">
-                                                                        <label className="mont-font fw-600 font-xsss mb-2">Email</label>
+                                                                        <label className="mb-2 mont-font fw-600 font-xsss">Email</label>
                                                                         <Field id="email" name="email" className="form-control" disabled placeholder="Your Email Address" />
 
                                                                         <ErrorMessage
@@ -293,9 +293,9 @@ class Account extends Component {
                                                                         />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-lg-6 mb-3">
+                                                                <div className="mb-3 col-lg-6">
                                                                     <div className="form-group">
-                                                                        <label className="mont-font fw-600 font-xsss mb-2">User Name</label>
+                                                                        <label className="mb-2 mont-font fw-600 font-xsss">User Name</label>
 
                                                                         <Field id="user_name" name="user_name" className="form-control" disabled placeholder="User Name" />
 
@@ -311,9 +311,9 @@ class Account extends Component {
 
                                                             <div className="row">
 
-                                                                <div className="col-lg-6 mb-3">
+                                                                <div className="mb-3 col-lg-6">
                                                                     <div className="form-group">
-                                                                        <label className="mont-font fw-600 font-xsss mb-2">Paypal Email</label>
+                                                                        <label className="mb-2 mont-font fw-600 font-xsss">Paypal Email</label>
 
                                                                         <Field id="paypalEmail" name="paypalEmail" className="form-control" placeholder="Paypal Email Address" />
 
@@ -328,9 +328,9 @@ class Account extends Component {
 
 
 
-                                                                <div className="col-lg-6 mb-3">
+                                                                <div className="mb-3 col-lg-6">
                                                                     <div className="form-group">
-                                                                        <label className="mont-font fw-600 font-xsss mb-2">Bio</label>
+                                                                        <label className="mb-2 mont-font fw-600 font-xsss">Bio</label>
 
                                                                         <Field id="bio" name="bio" className="form-control" placeholder="Bio" />
 
@@ -343,8 +343,8 @@ class Account extends Component {
                                                                 </div>
                                                             </div>
                                                             <div className="row">
-                                                                <div className="col-lg-12 mb-3">
-                                                                    <label className="mont-font fw-600 font-xsss mb-2 text-dark">About</label>
+                                                                <div className="mb-3 col-lg-12">
+                                                                    <label className="mb-2 mont-font fw-600 font-xsss text-dark">About</label>
                                                                     <textarea
                                                                         onChange={(e) => {
                                                                             setFieldValue("about", e.target.value, true)
@@ -354,7 +354,7 @@ class Account extends Component {
                                                                         }}
 
                                                                         value={values.about}
-                                                                        className="form-control mb-0 p-3 h100      lh-16" rows="5" placeholder="Write your message..." >
+                                                                        className="p-3 mb-0 form-control h100 lh-16" rows="5" placeholder="Write your message..." >
 
                                                                     </textarea>
 

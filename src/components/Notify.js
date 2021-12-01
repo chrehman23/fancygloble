@@ -12,9 +12,9 @@ class Notify extends Component {
             {this.props.Notify && this.props.Notify.map((data, index) => {
                if (index > 5) return
                return (
-                  // <div key={index} style={{minWidth:'300px'}} className="card bg-transparent-card w-100 border-0 ps-5 mb-3">
-                  //    <img src={data.profile ? `${data.profile}` : "assets/images/user.png"} alt="user" className="w40 position-absolute left-0" />
-                  //    <h5 className="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">{data.name}<span className="text-grey-400 font-xsssss fw-600 float-right mt-1 text-capitalize "> {moment(data.time).fromNow(true)} Ago</span></h5>
+                  // <div key={index} style={{minWidth:'300px'}} className="mb-3 border-0 card bg-transparent-card w-100 ps-5">
+                  //    <img src={data.profile ? `${data.profile}` : "assets/images/user.png"} alt="user" className="left-0 w40 position-absolute" />
+                  //    <h5 className="mt-0 mb-1 font-xsss text-grey-900 fw-700 d-block">{data.name}<span className="float-right mt-1 text-grey-400 font-xsssss fw-600 text-capitalize "> {moment(data.time).fromNow(true)} Ago</span></h5>
                   //    <h6 className="text-grey-500 fw-500 font-xssss lh-4">{data.des}</h6>
                   // </div>
                   <div className='px-2' style={{ minWidth: '300px' }} key={index}>
@@ -34,7 +34,11 @@ class Notify extends Component {
             })}
 
 
-
+            {this.props.Notify && this.props.Notify.length == 0 && (
+               <div className='px-1' style={{ minWidth: '200px' }}>
+                  <small className='color-theme-gray'>No notification found.</small>
+               </div>
+            )}
 
          </>
       )

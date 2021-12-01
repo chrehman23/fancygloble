@@ -944,6 +944,16 @@
 .document_link{
   color: #46237a !important;
 }
+.courses_side_details_bar li{
+  display: flex;
+  align-items: center;
+}
+.courses_side_details_bar li h5{ 
+  margin-bottom: 0;
+}
+.userProfile_container{
+  height: auto !important;
+}
 .accordion {
     margin-bottom: 0 !important;
 }
@@ -1007,6 +1017,9 @@
 }
 
 /*Tabs*/
+.notification_bar{
+  display: none !important;
+}
 
 .course__tab-2 .nav-tabs .nav-item:not(:last-child) .nav-link.active {
   border-color: #46237a;
