@@ -180,8 +180,8 @@ class Header extends Component {
                         this.props.openNotifys()
                     }}
                 >
-                    <span className={this.props.NotifyStatus ? "dot-count bg-warning" : ""}  ></span><i className="text-current feather-bell font-xl"></i></span>
-                <div className={`dropdown-menu p-4 right-0 rounded-xxl border-0 shadow-lg ${notiClass}`} aria-labelledby="dropdownMenu3">
+                    <span className={this.props.NotifyStatus ? "dot-count bg-warning" : ""}  ></span><i className="text-current feather-bell font-xl "></i></span>
+                <div className={`dropdown-menu p-4 notification_menu rounded-xxl border-0 shadow-lg ${notiClass}`} aria-labelledby="dropdownMenu3">
                     <h4 className="mb-4 fw-700 font-xss">Notification</h4>
                     <Notify />
 
