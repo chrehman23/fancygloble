@@ -1014,12 +1014,49 @@
   font-weight: 600;
   margin-bottom: 0;
 }
+.topbar_noti_container{
+  position: relative;
+}
+.topbar_noti_container{
+  position: relative;
+}
+.topbar_noti_container .dot-count{
+  content: "";
+  position: absolute;
+  display: block;
+  top: -7px !important;
+  right: 1px;
+  width: 10px;
+  border-radius: 50%;
+  height: 10px;
+  background-color: orange;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
 
 .course__update h5 {
   font-size: 14px;
   color: #53545b;
   font-weight: 600;
   margin-bottom: 0;
+}
+.languges_changeers{
+       font-size: 15px;
+    font-weight: 600;
+    line-height: 28px;
+    margin-top: -2px !important;
+    color: #888;
+    position: absolute;
+    transition: all 0.2s ease;
+    margin-right: auto;
+    padding-right: 10px;
+    margin-left: 13px;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
 }
 
 .course__update p {

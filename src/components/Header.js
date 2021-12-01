@@ -144,7 +144,7 @@ class Header extends Component {
         const { t } = this.props;
         return (
             <div className="border-0 shadow-xs nav-header">
-                <div className="nav-top h-100 headerScrolChange ">
+                <div className="nav-top h-100 headerScrolChange justify-content-between ">
                     {/* <Link to="/"><i className="feather-zap text-success display2-size me-3 ms-0"></i><span className="mb-0 text-current d-inline-block fredoka-font ls-3 fw-600 font-xxl logo-text">Sociala. </span> </Link> */}
                     <Link to="/">
                         <img src="/assets/images/logo.png" style={{ height: "55px" }} />
@@ -153,36 +153,15 @@ class Header extends Component {
                             Sociala.
                         </span> */}
                     </Link>
-                    {/* <Link to="/defaultmessage" className="mob-menu ms-auto me-2 d-none d-md-block"><i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></Link> */}
+                    <Link to="/defaultnotification" className="mob-menu ms-auto me-2 chat-active-btn">
+                        <div className='topbar_noti_container'>
+                            <span className={this.props.NotifyStatus ? "dot-count bg-warning" : ""}  ></span>
+                            <i className="text-current feather-bell font-xl "></i>
+                        </div>
+                    </Link>
+                    {/* <Link to="/defaultnotification" className="mob-menu ms-auto me-2 chat-active-btn"><i className="text-current feather-bell font-xl text-grey-900 font-sm btn-round-md"></i></Link> */}
                     {/* <Link to="/defaultvideo" className="mob-menu me-2"><i className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></Link> */}
                     {/* <span onClick={this.toggleActive} className="me-2 menu-search-icon mob-menu"><i className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></span> */}
-                    <span className={`p-2 pointer text-center ms-auto mob-menu ${notiClass}`} id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false"
-                        onClick={() => {
-                            this.toggleisNoti()
-                            this.props.openNotifys()
-                        }}
-                    >
-                        <span className={this.props.NotifyStatus ? "dot-count bg-warning" : ""}  ></span>
-                        <i className="text-current feather-bell font-xl"></i>
-                    </span>
-                    <div className={`dropdown-menu p-4 right-0 rounded-xxl border-0 shadow-lg ${notiClass}`} aria-labelledby="dropdownMenu3">
-                        <h4 className="mb-2 fw-700 font-xss">Notification</h4>
-                        <Notify />
-                    </div>
-
-                    <Dropdown className="languageChangerBtn d-md-none">
-                        <Dropdown.Toggle id="dropdown-basic">
-                            <i class="fal fa-globe font-lg text-grey-500"></i>
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#" onClick={this.handleSetLanguage('en')}>English</Dropdown.Item>
-                            <Dropdown.Item href="#" onClick={this.handleSetLanguage('fr')}>French</Dropdown.Item>
-                            <Dropdown.Item href="#" onClick={this.handleSetLanguage('fi')}>Finnish</Dropdown.Item>
-                            {/* <Dropdown.Item href="#" onClick={this.handleSetLanguage('th')}>Finnish </Dropdown.Item> */}
-                        </Dropdown.Menu>
-                    </Dropdown>
-
                     <button onClick={this.toggleOpen} className={`nav-menu me-0 ms-2 ${buttonClass}`}></button>
                 </div>
 
@@ -197,36 +176,31 @@ class Header extends Component {
                 <NavLink activeClassName="active" to="/home" className="p-2 text-center ms-3 menu-icon center-menu-icon"><i className="feather-home font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
                 <NavLink activeClassName="active" to="/events" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="ti-calendar font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
                 <NavLink activeClassName="active" to="/courses" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-book font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
-                <NavLink activeClassName="active" to="/userpage" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
+                <NavLink activeClassName="active" to="/users" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
                 {/* <NavLink activeClassName="active" to="/shop2" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink> */}
 
 
-                <span className={`p-2 pointer text-center ms-auto menu-icon d-none d-md-block ${notiClass}`} id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false"
+                {/* <span className={`p-2 pointer text-center ms-auto menu-icon ${notiClass}`} id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false"
                     onClick={() => {
                         this.toggleisNoti()
                         this.props.openNotifys()
                     }}
-                > 
-                    <span className={this.props.NotifyStatus ? "dot-count bg-warning" : ""}  ></span><i className="text-current feather-bell font-xl"></i></span>
-                <div className={`dropdown-menu p-4 right-0 rounded-xxl border-0 shadow-lg ${notiClass}`} aria-labelledby="dropdownMenu3">
-                    <h4 className="mb-2 fw-700 font-xss">Notification</h4>
- 
+                >
+                    <span className={this.props.NotifyStatus ? "dot-count bg-warning" : ""}  ></span><i className="text-current feather-bell font-xl "></i></span>
+                <div className={`dropdown-menu p-4 notification_menu rounded-xxl border-0 shadow-lg ${notiClass}`} aria-labelledby="dropdownMenu3">
+                    <h4 className="mb-4 fw-700 font-xss">Notification</h4>
                     <Notify />
-                </div>
-                <Link to="/defaultmessage" className="p-2 text-center ms-3 menu-icon chat-active-btn"><i className="text-current feather-message-square font-xl"></i></Link>
-                <Dropdown className="languageChangerBtn d-none d-md-block">
-                    <Dropdown.Toggle id="dropdown-basic">
-                        <i class="fal fa-globe font-lg text-grey-500 mb-1"></i>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Item href="#" onClick={this.handleSetLanguage('en')}>English</Dropdown.Item>
-                        <Dropdown.Item href="#" onClick={this.handleSetLanguage('fr')}>French</Dropdown.Item>
-                        <Dropdown.Item href="#" onClick={this.handleSetLanguage('fi')}>Finnish</Dropdown.Item>
-                        {/* <Dropdown.Item href="#" onClick={this.handleSetLanguage('th')}>Finnish </Dropdown.Item> */}
-                    </Dropdown.Menu>
-                </Dropdown>
-                {/* <Darkbutton /> */}
+                </div> */}
+                <Link to="/defaultmessage" className="p-2 text-center ms-auto ms-3 menu-icon chat-active-btn"><i className="text-current feather-message-square font-xl"></i></Link>
 
+                <Link to="/defaultnotification" className="p-2 text-center ms-3 menu-icon chat-active-btn">
+                    <div className='topbar_noti_container'>
+                        <span className={this.props.NotifyStatus ? "dot-count bg-warning" : ""}  ></span>
+                    <i className="text-current feather-bell font-xl "></i>
+                    </div>
+                    </Link>
+                {/* <Darkbutton /> */}
+                
                 {/* <Link to="/defaultsettings" className="p-0 ms-3 menu-icon"><img src="assets/images/user.png" alt="user" className="w40 mt--1" /></Link> */}
                 <Link to="/defaultsettings" className="p-2 text-center ms-3 menu-icon chat-active-btn">  <i className="feather-menu font-lg text-grey-500 "></i></Link>
 
@@ -242,7 +216,6 @@ class Header extends Component {
                                     {/* <li><Link to="/" className="nav-content-bttn open-font"><i className="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Badges</span></Link></li> */}
                                     {/* <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Explore Stories</span></Link></li> */}
                                     <li><Link to="/users" className="nav-content-bttn open-font"><i className="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>{t('header.explore')}</span></Link></li>
-                                    <li><Link to="/courses" className="nav-content-bttn open-font"><i className="feather-book btn-round-md bg-gold-gradiant me-3"></i><span>Courses</span></Link></li>
                                     {/* <li><Link to="/" className="nav-content-bttn open-font"><i className="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span>Popular Groups</span></Link></li> */}
                                     {/* <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span>Popular Groups</span></Link></li> */}
                                     <li><Link to="/userpage" className="nav-content-bttn open-font"><i className="feather-user btn-round-md bg-primary-gradiant me-3"></i><span>{t('header.my_profile')}</span></Link></li>
@@ -265,8 +238,31 @@ class Header extends Component {
                                     <li><Link to="/defaultsettings" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i className="font-sm feather-settings me-3 text-grey-500"></i><span>{t('header.settings')}</span></Link></li>
                                     {/* <li><Link to="/defaultanalytics" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i className="font-sm feather-pie-chart me-3 text-grey-500"></i><span>Analytics</span></Link></li> */}
                                     <li><Link to="/defaultmessage" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i className="font-sm feather-message-square me-3 text-grey-500"></i><span>{t('header.chat')}</span><span className="mt-0 circle-count bg-warning d-none">23</span></Link></li>
+                                    <li>
+                                        <Dropdown className="languageChangerBtn nav-content-bttn open-font">
+                                            <Dropdown.Toggle id="dropdown-basic">
+                                                <i class="fal fa-globe font-lg text-grey-500"></i><span className='languges_changeers'>Languages</span>
+                                            </Dropdown.Toggle>
 
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item href="#" onClick={this.handleSetLanguage('en')}>English</Dropdown.Item>
+                                                <Dropdown.Item href="#" onClick={this.handleSetLanguage('fr')}>French</Dropdown.Item>
+                                                <Dropdown.Item href="#" onClick={this.handleSetLanguage('fi')}>Finnish</Dropdown.Item>
+                                                {/* <Dropdown.Item href="#" onClick={this.handleSetLanguage('th')}>Finnish </Dropdown.Item> */}
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </li>
                                 </ul>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
                             </div>
                         </div>
                     </div>

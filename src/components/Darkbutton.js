@@ -31,7 +31,7 @@ const DarkMode = () => {
     }
   
     return (
-      <span className={`pointer p-2 text-center ms-3 menu-icon chat-active-btn d-none ${theme === "dark" ? clickedClass : ""}`} onClick={e => switchTheme(e)}><i className="feather-moon font-xl text-current"></i></span>
+      <span className={`pointer p-2 text-center ms-3 menu-icon chat-active-btn ${theme === "dark" ? clickedClass : ""}`} onClick={e => switchTheme(e)}><i className="text-current feather-moon font-xl"></i></span>
     )
   }
   
