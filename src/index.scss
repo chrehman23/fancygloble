@@ -111,11 +111,11 @@
   overflow: hidden;
 }
 
-.paidPostSeciton>div {
+.paidPostSeciton > div {
   position: absolute;
   bottom: 0px;
 
-  background-color: yellow;
+  background-color: whitesmoke;
   padding: 20px;
   // border-radius: 10px;
   width: 100%;
@@ -125,14 +125,14 @@
 // .maltiImgesUpload{
 //   display: flex;
 // }
-.maltiImgesUpload>div {
+.maltiImgesUpload > div {
   height: 350px;
   width: 100%;
   overflow: hidden;
   border: 2px #f1f1f1 solid;
 }
 
-.maltiImgesUpload>div img {
+.maltiImgesUpload > div img {
   height: 100%;
   width: 100%;
   object-fit: cover;
@@ -144,14 +144,14 @@
   display: flex;
 }
 
-.maltiImgesUpload2>div {
+.maltiImgesUpload2 > div {
   height: 250px;
   width: 50%;
   overflow: hidden;
   border: 2px #f1f1f1 solid;
 }
 
-.maltiImgesUpload2>div img {
+.maltiImgesUpload2 > div img {
   height: 100%;
   width: 100%;
   object-fit: cover;
@@ -163,11 +163,11 @@
   display: flex;
 }
 
-.maltiImgesUpload3>div {
+.maltiImgesUpload3 > div {
   width: 50%;
 }
 
-.maltiImgesUpload3>div img {
+.maltiImgesUpload3 > div img {
   height: 100%;
   width: 100%;
   object-fit: cover;
@@ -180,11 +180,11 @@
   display: flex;
 }
 
-.maltiImgesUpload4>div {
+.maltiImgesUpload4 > div {
   width: 50%;
 }
 
-.maltiImgesUpload4>div img {
+.maltiImgesUpload4 > div img {
   height: 100%;
   width: 100%;
   object-fit: cover;
@@ -201,7 +201,7 @@
   position: relative;
 }
 
-.maltiImgesUpload4 .moreImges>div {
+.maltiImgesUpload4 .moreImges > div {
   position: absolute;
   top: 0;
   right: 0;
@@ -214,7 +214,7 @@
   align-items: center;
 }
 
-.maltiImgesUpload4 .moreImges>div span {
+.maltiImgesUpload4 .moreImges > div span {
   // background-color: chartreuse;
   color: white;
   padding: 5px 10px;
@@ -253,6 +253,9 @@
 .vedioPlayer {
   width: 100%;
   max-height: 350px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .nav-header {
@@ -287,7 +290,7 @@
   border-radius: 20px !important;
 }
 
-.editeProfileImage>img {
+.editeProfileImage > img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
@@ -376,12 +379,12 @@
   display: flex;
 }
 
-.emojisPictures>li {
+.emojisPictures > li {
   width: 30px;
   // padding: 2px;
 }
 
-.emojisPictures>li img {
+.emojisPictures > li img {
   width: 95%;
   // padding: 2px;
 }
@@ -396,14 +399,14 @@
   margin-top: 20px;
 }
 
-.slectedPictures>div {
+.slectedPictures > div {
   width: 20%;
   height: 100px;
   padding: 2px;
   position: relative;
 }
 
-.slectedPictures>div>img {
+.slectedPictures > div > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -411,7 +414,7 @@
   border-radius: 5px;
 }
 
-.slectedPictures>div span {
+.slectedPictures > div span {
   position: absolute;
   top: -3px;
   right: -3px;
@@ -434,13 +437,13 @@
   // background-color: red;
 }
 
-.postModalHeader>div:first-child {
+.postModalHeader > div:first-child {
   display: flex !important;
   justify-content: space-between;
   align-items: center;
 }
 
-.postModalHeader>div:first-child>div:first-child {
+.postModalHeader > div:first-child > div:first-child {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -448,14 +451,14 @@
   margin-right: 10px;
 }
 
-.postModalHeader>div:first-child>div:first-child img {
+.postModalHeader > div:first-child > div:first-child img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.postModalHeader>div:first-child h4 {
+.postModalHeader > div:first-child h4 {
   font-weight: bold;
   text-transform: capitalize;
   margin-bottom: 0px;
@@ -471,8 +474,11 @@
 }
 
 .postModalSlider .slider-wrapper li div {
-  height: 65vh;
-  background-color: rgba(36, 36, 35, 0.631) !important;
+  height: 58vh;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  margin-top: 13px;
+  padding: 10px;
 }
 
 .postModalSlider .thumbs-wrapper {
@@ -489,26 +495,36 @@
 
 .eventsTabs {
   display: flex;
-  margin-left: -30px;
+  // margin-left: -30px;
+  border-bottom: 1px solid #ddd;
+  font-family: inherit !important;
 }
 
-.eventsTabs>div {
+.event-table {
+  font-weight: bold;
+}
+
+.event-font {
+  font-family: "Roboto";
+}
+
+.eventsTabs > div {
   padding: 20px 0px;
   margin-left: 30px;
   font-weight: bold;
   cursor: pointer;
 }
 
-.eventsTabs.smtabs>div {
+.eventsTabs.smtabs > div {
   padding: 5px 0px !important;
 }
 
-.eventsTabs.smtabs.sm>div {
+.eventsTabs.smtabs.sm > div {
   font-size: 12px;
   text-align: center;
 }
 
-.eventsTabs>div.active {
+.eventsTabs > div.active {
   border-bottom: 2px solid black;
 }
 
@@ -517,7 +533,7 @@
   height: 200px;
 }
 
-.eventCard>img {
+.eventCard > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -531,7 +547,7 @@
   overflow: hidden !important;
 }
 
-.imageControlermd>img {
+.imageControlermd > img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover;
@@ -559,7 +575,7 @@
   z-index: 9;
 }
 
-.vedioStrimingsContainer .liveBtn>button {
+.vedioStrimingsContainer .liveBtn > button {
   margin-left: 5px;
 }
 
@@ -615,7 +631,7 @@
   margin-bottom: 5px;
 }
 
-.evetImagePre>img {
+.evetImagePre > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -680,7 +696,7 @@
   font-size: 7px !important;
 }
 
-.UserChatWraper>div:first-child>div {
+.UserChatWraper > div:first-child > div {
   width: 45px;
   height: 45px;
   border: 1px solid gray;
@@ -688,19 +704,19 @@
   border-radius: 50%;
 }
 
-.UserChatWraper>div:first-child img {
+.UserChatWraper > div:first-child img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.UserChatWraper>div:nth-child(2) {
+.UserChatWraper > div:nth-child(2) {
   flex-grow: 1;
   padding-left: 10px;
 }
 
-.UserChatWraper>div:nth-child(2) h5 {
+.UserChatWraper > div:nth-child(2) h5 {
   font-size: 14px;
   color: #0c0c0d;
   font-weight: 700;
@@ -708,7 +724,7 @@
   margin-bottom: 3px;
 }
 
-.UserChatWraper>div:nth-child(2) small {
+.UserChatWraper > div:nth-child(2) small {
   font-size: 11px;
   font-weight: 500;
   color: #aaaaaa;
@@ -719,7 +735,7 @@
   display: inline-block;
 }
 
-.UserChatWraper>div:nth-child(2) small.new {
+.UserChatWraper > div:nth-child(2) small.new {
   font-weight: bold !important;
   color: black !important;
 }
@@ -735,7 +751,7 @@
   padding-bottom: 30px !important;
 }
 
-.messages-contents>div::-webkit-scrollbar {
+.messages-contents > div::-webkit-scrollbar {
   width: 1px;
 }
 
@@ -752,26 +768,26 @@
   padding-bottom: 30px;
 }
 
-.message-items.out-messages>div {
+.message-items.out-messages > div {
   margin-right: auto;
   justify-content: flex-start;
   width: 100%;
 }
 
-.message-items>div {
+.message-items > div {
   margin-left: auto;
 }
 
-.message-items>div:first-child {
+.message-items > div:first-child {
   display: flex;
   align-items: center;
 }
 
-.message-items>div:first-child>div:last-child {
+.message-items > div:first-child > div:last-child {
   padding: 6px 10px;
 }
 
-.message-items>div:first-child h5 {
+.message-items > div:first-child h5 {
   font-size: 14px;
   color: #0c0c0d;
   font-weight: 700;
@@ -779,7 +795,7 @@
   margin-bottom: 3px;
 }
 
-.message-items>div:first-child .time {
+.message-items > div:first-child .time {
   font-size: 11px;
   font-weight: 500;
   color: #aaaaaa;
@@ -797,7 +813,7 @@
   overflow: hidden;
 }
 
-.message-items .avatar-img>img {
+.message-items .avatar-img > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -815,7 +831,7 @@
   margin-left: 0px;
 }
 
-.message-items.out-messages .message-wraps>div {
+.message-items.out-messages .message-wraps > div {
   background-color: #e6eeff !important;
   border-radius: 10px;
   position: relative;
@@ -860,7 +876,17 @@
   cursor: pointer;
 }
 
-.tableProfile>div:first-child {
+.weight-bold {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.icons-color-tble {
+  font-size: medium;
+  color: #46237a;
+}
+
+.tableProfile > div:first-child {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -869,7 +895,7 @@
   margin-right: 5px;
 }
 
-.tableProfile>div:last-child h5 {
+.tableProfile > div:last-child h5 {
   font-size: 14px;
   color: #0c0c0d;
   font-weight: 700;
@@ -877,14 +903,14 @@
   margin-bottom: 0px;
 }
 
-.tableProfile>div:first-child img {
+.tableProfile > div:first-child img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.languageChangerBtn>button::after {
+.languageChangerBtn > button::after {
   display: none;
 }
 
@@ -941,7 +967,7 @@
   -ms-transition: 0.5s all;
   -o-transition: 0.5s all;
 }
-.document_link{
+.document_link {
   color: #46237a !important;
 }
 .courses_side_details_bar li{
@@ -955,7 +981,7 @@
   height: auto !important;
 }
 .accordion {
-    margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 .course__teacher img {
   width: 100%;
@@ -963,7 +989,7 @@
   object-fit: cover;
   object-position: center;
 }
-.course_details_label label{
+.course_details_label label {
   font-weight: bold;
 }
 
@@ -1071,7 +1097,9 @@
   margin-bottom: 8px;
 }
 
-.tutor-course-topics-header .tutor-course-topics-header-right span:not(:first-child) {
+.tutor-course-topics-header
+  .tutor-course-topics-header-right
+  span:not(:first-child) {
   margin-left: 45px;
 }
 

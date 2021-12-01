@@ -206,10 +206,11 @@ class Header extends Component {
                         this.toggleisNoti()
                         this.props.openNotifys()
                     }}
-                >
+                > 
                     <span className={this.props.NotifyStatus ? "dot-count bg-warning" : ""}  ></span><i className="text-current feather-bell font-xl"></i></span>
                 <div className={`dropdown-menu p-4 right-0 rounded-xxl border-0 shadow-lg ${notiClass}`} aria-labelledby="dropdownMenu3">
                     <h4 className="mb-2 fw-700 font-xss">Notification</h4>
+ 
                     <Notify />
                 </div>
                 <Link to="/defaultmessage" className="p-2 text-center ms-3 menu-icon chat-active-btn"><i className="text-current feather-message-square font-xl"></i></Link>
