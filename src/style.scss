@@ -352,6 +352,11 @@
   text-transform: uppercase;
   background-color: #edf1fc;
 }
+button.btn.btn-sm.btn-flash {
+  background-color: #edf1fc;
+  text-transform: uppercase;
+}
+
 .Events-cards .event-img img {
   border-radius: 4px 4px 0px 0;
   height: 190px;
@@ -359,6 +364,24 @@
   margin: auto;
   width: 100%;
   background-position: center center;
+}
+.event_show_modal .modal-header {
+  padding: 5px 1rem !important;
+}
+.event_show_modal .modal-body {
+  padding: 2px 1rem !important;
+}
+
+.go-live-btn {
+  border: 0;
+  background: #d13f3f !important;
+  border-radius: 4px;
+  color: #fff !important;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  margin: 5px;
+  padding: 10px 15px;
+  text-align: center;
 }
 
 .Events-cards .event-img img:hover {

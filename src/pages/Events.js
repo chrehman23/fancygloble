@@ -342,25 +342,36 @@ class Events extends Component {
                                     </div>
                                     <ol class="widget-49-meeting-points p-0">
                                       <li class="widget-49-meeting-item pb-1">
-                                        <span>
-                                          Scheming module is removed Scheming
-                                          module is removed Scheming module.
-                                        </span>
+                                        <span>{value.description}</span>
                                       </li>
-                                      <li class="widget-49-meeting-item">
-                                        <span>
-                                          <i className="fas fa-signal-stream px-2"></i>
-                                          {value.location !== ""
-                                            ? value.location
-                                            : "Stream"}
-                                        </span>
-                                      </li>
-                                      <li class="widget-49-meeting-item ">
-                                        <span>
-                                          <i className="fas fa-location-circle px-2"></i>
-                                          Lahore,Punjab , Pakistan
-                                        </span>
-                                      </li>
+
+                                      {value.location !== "" ? (
+                                        ""
+                                      ) : (
+                                        <>
+                                          <li class="widget-49-meeting-item">
+                                            <span>
+                                              <i className="fas fa-signal-stream px-2"></i>
+                                              {value.location !== ""
+                                                ? value.location
+                                                : "Stream"}
+                                            </span>
+                                          </li>
+                                        </>
+                                      )}
+
+                                      {value.location !== "" ? (
+                                        <>
+                                          <li class="widget-49-meeting-item ">
+                                            <span>
+                                              <i className="fas fa-location-circle px-2"></i>
+                                              {value.location}
+                                            </span>
+                                          </li>
+                                        </>
+                                      ) : (
+                                        ""
+                                      )}
                                     </ol>
                                     <div class="widget-49-meeting-action">
                                       <span class="seller-image">
@@ -370,126 +381,30 @@ class Events extends Component {
                                           alt=""
                                         />
                                       </span>
-                                      <a href="#" class="btn btn-sm btn-flash">
-                                        View
-                                      </a>
+                                      <div
+                                        onClick={() => {
+                                          this.setState(
+                                            {
+                                              eventModalDetails: value,
+                                              EventViewModal: true,
+                                              goingtoEventMsg: "",
+                                              eventsTabsModal: 1,
+                                              eventsTabsModalTabs: 1,
+                                              eventStatus: false,
+                                              goingtoEventMsg: "",
+                                            },
+                                            () => {
+                                              this.eventStatus(value._id);
+                                            }
+                                          );
+                                        }}
+                                      >
+                                        <button className="btn btn-sm btn-flash">
+                                          View
+                                        </button>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            key={index}
-                            className="col-lg-4 col-md-6 pe-2 ps-2  "
-                            data-aos="zoom-in-up"
-                          >
-                            <div className="card p-3 bg-white w-100 hover-card border-0 shadow-xss rounded-xxl border-0 mb-3 overflow-hidden ">
-                              <div
-                                className="card-image w-100"
-                                style={{ height: "200px" }}
-                              >
-                                <img
-                                  src={
-                                    value.thumbnail &&
-                                    `${
-                                      value.thumbnail[0] &&
-                                      value.thumbnail[0].picture
-                                    }`
-                                  }
-                                  alt="event"
-                                  className="w-100 rounded-3"
-                                />
-                              </div>
-                              <div className="card-body d-flex ps-0 pe-0 pb-0">
-                                <div className="bg-greylight me-3 p-3 border-light-md rounded-xxl theme-dark-bg">
-                                  <h4 className="fw-700 font-lg ls-3 text-grey-900 mb-0">
-                                    <span className="ls-3 d-block font-xsss text-grey-500 fw-500">
-                                      {moment(value.start_date).format("MMM")}
-                                    </span>
-                                    {moment(value.end_date).format("D")}
-                                  </h4>
-                                </div>
-                                <h2 className="fw-700 lh-3 font-xss">
-                                  {value.title}
-                                  <span className="d-flex font-xssss fw-500 mt-2 lh-3 text-grey-500">
-                                    {" "}
-                                    <i className="ti-location-pin me-1"></i>
-                                    {value.location !== ""
-                                      ? value.location
-                                      : "Stream"}
-                                  </span>
-                                </h2>
-                              </div>
-                              <div className="card-body mt-4 p-0 d-flex justify-content-between align-items-center mb-2">
-                                <ul className="memberlist   ms-0 d-inline-block d-none">
-                                  <li>
-                                    <a href="/defaultevent">
-                                      <img
-                                        src="assets/images/user.png"
-                                        alt="user"
-                                        className="w30 d-inline-block"
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="/defaultevent">
-                                      <img
-                                        src="assets/images/user.png"
-                                        alt="user"
-                                        className="w30 d-inline-block"
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="/defaultevent">
-                                      <img
-                                        src="assets/images/user.png"
-                                        alt="user"
-                                        className="w30 d-inline-block"
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="/defaultevent">
-                                      <img
-                                        src="assets/images/user.png"
-                                        alt="user"
-                                        className="w30 d-inline-block"
-                                      />
-                                    </a>
-                                  </li>
-                                  <li className="last-member">
-                                    <a
-                                      href="/defaultevent"
-                                      className="bg-greylight fw-600 text-grey-500 font-xssss ls-3 text-center"
-                                    >
-                                      +2
-                                    </a>
-                                  </li>
-                                </ul>
-                                <div></div>
-                                <div
-                                  onClick={() => {
-                                    this.setState(
-                                      {
-                                        eventModalDetails: value,
-                                        EventViewModal: true,
-                                        goingtoEventMsg: "",
-                                        eventsTabsModal: 1,
-                                        eventsTabsModalTabs: 1,
-                                        eventStatus: false,
-                                        goingtoEventMsg: "",
-                                      },
-                                      () => {
-                                        this.eventStatus(value._id);
-                                      }
-                                    );
-                                  }}
-                                >
-                                  <button className="btn btn-primary">
-                                    View
-                                  </button>
                                 </div>
                               </div>
                             </div>
@@ -510,6 +425,7 @@ class Events extends Component {
           scrollable={true}
           onHide={() => this.setState({ EventViewModal: false })}
           dialogClassName="modal-90w"
+          className="event_show_modal"
           aria-labelledby="example-custom-modal-styling-title"
         >
           <Modal.Header>
@@ -556,6 +472,35 @@ class Events extends Component {
                 {/* {JSON.stringify(this.state.eventModalDetails)} */}
                 <div className="row">
                   <div className="col-md-8">
+                    {this.state.eventModalDetails &&
+                      this.state.eventModalDetails.video_url !== "" && (
+                        <div className="eventsTabs smtabs ">
+                          <div
+                            className={
+                              this.state.eventsTabsModalTabs == 2
+                                ? "active"
+                                : ""
+                            }
+                            onClick={() =>
+                              this.setState({ eventsTabsModalTabs: 2 })
+                            }
+                          >
+                            Video
+                          </div>
+                          <div
+                            className={
+                              this.state.eventsTabsModalTabs == 1
+                                ? "active"
+                                : ""
+                            }
+                            onClick={() =>
+                              this.setState({ eventsTabsModalTabs: 1 })
+                            }
+                          >
+                            Pictures
+                          </div>
+                        </div>
+                      )}
                     {this.state.eventsTabsModalTabs == 2 &&
                       this.state.eventModalDetails &&
                       this.state.eventModalDetails.url_status && (
@@ -617,78 +562,78 @@ class Events extends Component {
                     </div>
                     {this.state.eventsTabsModal == 1 && (
                       <>
-                        <table className="table ">
+                        <table className="table  ">
                           {this.state.eventModalDetails.event_type ==
                             "Physical" && (
-                            <tr>
-                              <td>
-                                <i className="ti-location-pin text-grey-400"></i>
+                            <div className="pb-2">
+                              <div className="weight-bold">
+                                <i className="fas fa-map-marker-smile icons-color-tble p-0 pe-2"></i>
                                 location
-                              </td>
-                              <td>{this.state.eventModalDetails.location}</td>
-                            </tr>
+                              </div>
+                              <div>{this.state.eventModalDetails.location}</div>
+                            </div>
                           )}
                           {this.state.eventModalDetails.paid_amount > 0 && (
-                            <tr>
-                              <td>
-                                <i className="ti-credit-card text-grey-400"></i>{" "}
+                            <div className="event-font pb-2">
+                              <div className="weight-bold">
+                                <i className="fad fa-credit-card-front icons-color-tble p-0 pe-2"></i>{" "}
                                 Payment
-                              </td>
-                              <td>
+                              </div>
+                              <div>
                                 {this.state.eventModalDetails.paid_amount}
-                              </td>
-                            </tr>
+                              </div>
+                            </div>
                           )}
 
                           {this.state.eventModalDetails.seats_status ==
                             "Limited" && (
                             <>
-                              <tr>
-                                <td>
+                              <div className="pb-2">
+                                <div className="weight-bold">
                                   {" "}
-                                  <i className="ti-user text-grey-400"></i>Total
-                                  Seats
-                                </td>
-                                <td>
+                                  <i className="fad fa-users icons-color-tble p-0 pe-2"></i>
+                                  Total Seats
+                                </div>
+                                <div>
                                   {this.state.eventModalDetails.event_seats}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
+                                </div>
+                              </div>
+                              <div className="pb-2">
+                                <div className="weight-bold">
                                   {" "}
-                                  <i className="ti-user text-grey-400"></i>
+                                  <i className="fad fa-users-crown icons-color-tble p-0 pe-2"></i>
                                   Remaining seats
-                                </td>
-                                <td>
+                                </div>
+                                <div>
                                   {this.state.eventModalDetails.event_seats -
                                     this.state.eventModalDetails.booked_seats}
-                                </td>
-                              </tr>
+                                </div>
+                              </div>
                             </>
                           )}
 
-                          <tr>
-                            <td>
-                              <i className="ti-timer text-grey-400"></i>Start
-                              time
-                            </td>
-                            <td>
+                          <div className="event-font pb-2">
+                            <div className="weight-bold">
+                              <i className="fad fa-clock icons-color-tble p-0 pe-2 "></i>
+                              Start time
+                            </div>
+                            <div>
                               {moment(
                                 this.state.eventModalDetails.start_date
                               ).format("DD/MMM/YYY hh:mm a")}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <i className="ti-timer text-grey-400"></i> End
-                              time
-                            </td>
-                            <td>
+                            </div>
+                          </div>
+                          <div>
+                            <div className="event-font weight-bold">
+                              <i className="far fa-clock icons-color-tble p-0 pe-2"></i>{" "}
+                              End time
+                            </div>
+                            <div className="event-font">
                               {moment(
                                 this.state.eventModalDetails.end_date
                               ).format("DD/MMM/YYY hh:mm a")}
-                            </td>
-                          </tr>
+                            </div>
+                          </div>
                         </table>
 
                         <p>
@@ -704,7 +649,7 @@ class Events extends Component {
                             <>
                               {this.state.my_event && (
                                 <button
-                                  className="btn btn-primary"
+                                  className="btn go-live-btn w-25"
                                   onClick={() =>
                                     this.props.history.push(
                                       `live-event/${
@@ -738,7 +683,7 @@ class Events extends Component {
                           this.state.goingtoEventMsg == "Payment error") &&
                           this.state.eventModalDetails.paid_amount > 0 && (
                             <>
-                              <small className="font-weight-bold">
+                              <small>
                                 This is paid event you have to pay amount $
                                 {this.state.eventModalDetails.paid_amount} to
                                 get ticket number.
@@ -797,35 +742,6 @@ class Events extends Component {
                                   get ticket
                                 </button>
                               )}
-                            </div>
-                          )}
-                        {this.state.eventModalDetails &&
-                          this.state.eventModalDetails.video_url !== "" && (
-                            <div className="eventsTabs smtabs mb-3 mt-5">
-                              <div
-                                className={
-                                  this.state.eventsTabsModalTabs == 2
-                                    ? "active"
-                                    : ""
-                                }
-                                onClick={() =>
-                                  this.setState({ eventsTabsModalTabs: 2 })
-                                }
-                              >
-                                Video
-                              </div>
-                              <div
-                                className={
-                                  this.state.eventsTabsModalTabs == 1
-                                    ? "active"
-                                    : ""
-                                }
-                                onClick={() =>
-                                  this.setState({ eventsTabsModalTabs: 1 })
-                                }
-                              >
-                                Pictures
-                              </div>
                             </div>
                           )}
                       </>

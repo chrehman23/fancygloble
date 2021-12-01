@@ -124,6 +124,7 @@ class AddEvents extends Component {
                                             thumbnail: "",
                                             start_date: "",
                                             end_date: "",
+                                            description: "",
 
 
                                         }}
@@ -137,6 +138,7 @@ class AddEvents extends Component {
                                             data.append('paid_amount', values.paid_amount)
                                             data.append('paid_status', values.paid_status)
                                             data.append('start_date', values.start_date)
+                                            data.append('description', values.description)
                                             data.append('end_date', values.end_date)
                                             data.append('seats_status', values.seats_status)
                                             data.append('event_seats', values.event_seats)
@@ -191,9 +193,9 @@ class AddEvents extends Component {
                                                         onChange={(e) => {
                                                             if (e.target.value) {
                                                                 let mb = parseInt((e.currentTarget.files[0].size / (1024 * 1024)).toFixed(2));
-                                                                if (mb > 1) {
+                                                                if (mb > 10) {
                                                                     this.setState({
-                                                                        fileError: "File size should less then 1MB",
+                                                                        fileError: "File size should less then 10MB",
                                                                     })
                                                                 } else {
                                                                     if (e.currentTarget.files[0].type.split('/')[0] == "image") {
@@ -241,9 +243,9 @@ class AddEvents extends Component {
                                                             if (e.target.value) {
                                                                 let mb = parseInt((e.currentTarget.files[0].size / (1024 * 1024)).toFixed(2));
                                                                 // console.log("mb", typeof mb)
-                                                                if (mb > 1) {
+                                                                if (mb > 50) {
                                                                     this.setState({
-                                                                        fileError: "File size should less then 1MB",
+                                                                        fileError: "File size should less then 50MB",
                                                                     })
                                                                 } else {
 
@@ -347,8 +349,19 @@ class AddEvents extends Component {
                                                             <div className="col-lg-12 mb-3">
                                                                 <div className="form-group">
                                                                     <label className="mont-font fw-600 font-xsss mb-2">Title</label>
-
                                                                     <Field id="title" name="title" className="form-control" placeholder="Event title" />
+                                                                    <ErrorMessage
+                                                                        name='title'
+                                                                        component="small"
+                                                                        className="text-danger"
+                                                                    />
+
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-lg-12 mb-3">
+                                                                <div className="form-group">
+                                                                    <label className="mont-font fw-600 font-xsss mb-2">Description</label>
+                                                                    <Field id="description" name="description" className="form-control" placeholder="Event description" />
                                                                     <ErrorMessage
                                                                         name='title'
                                                                         component="small"
@@ -449,9 +462,9 @@ class AddEvents extends Component {
                                                             {values.seats_status == "Limited" && (
                                                                 <div className="col-lg-4 mb-3">
                                                                     <div className="form-group">
-                                                                        <label className="mont-font fw-600 font-xsss mb-2">Event seats</label>
+                                                                        <label className="mont-font fw-600 font-xsss mb-2">Event Seats</label>
 
-                                                                        <Field id="event_seats" name="event_seats" type='number' className="form-control" placeholder="Event Seats" />
+                                                                        <Field id="event_seats" name="event_seats" type='number' className="form-control" placeholder="Event seats" />
 
                                                                         <ErrorMessage
                                                                             name='event_seats'

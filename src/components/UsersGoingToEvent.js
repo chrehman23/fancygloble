@@ -57,7 +57,7 @@ class UsersGoingToEvent extends Component {
 
         return (
             <>
-                <div className='border-dashed mt-2 pt-2'>
+                <div className=' mt-2 pt-2'>
                     {!this.state.emojiloader && this.state.emoji_list && !this.state.emoji_list.length && (
                         <div className='text-grey-500 fw-500 font-xssss lh-4 pr-2 text-center my-3'>No User found.</div>
                     )}
@@ -65,8 +65,8 @@ class UsersGoingToEvent extends Component {
                     {this.state.emoji_list.map(data => {
                         return (
                             <div className='px-2'>
-                                <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3"  >
-                                    <img src={data.user_id && data.user_id.profile_photo ? `${data.user_id && data.user_id.profile_photo}` : defalultImage} alt="user" class="w40 position-absolute left-0" />
+                                <div class="card bg-transparent-card w-100 shadow border-0 ps-5 mb-3 p-2"  >
+                                    <img src={data.user_id && data.user_id.profile_photo ? `${data.user_id && data.user_id.profile_photo}` : defalultImage} alt="user" class="w40 position-absolute left-0 rounded ms-1" />
                                     <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">
                                         {data.user_id && data.user_id.name}
 
