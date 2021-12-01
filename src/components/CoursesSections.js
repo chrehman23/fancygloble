@@ -73,9 +73,9 @@ class CoursesSections extends Component {
     render() {
         return (
             <>
-                <div className='row  mt-3 border'>
-                    <div className='col-12 bgthwh cursor-pointer'>
-                        <div className='d-flex align-items-center justify-content-between p-2'>
+                <div className='mt-3 border row'>
+                    <div className='cursor-pointer col-12 bgthwh'>
+                        <div className='p-2 d-flex align-items-center justify-content-between'>
                             <div>
                                 <i class="fas fa-th-large"></i>  {this.props.data.section_title}
                             </div>
@@ -89,7 +89,7 @@ class CoursesSections extends Component {
                         <p>{this.props.data.section_description}</p>
                     </div>
                     {!this.state.loadLactures && (
-                        <div className="col-12 py-3">
+                        <div className="py-3 col-12">
                             <small className='cursor-pointer'><b
                                 onClick={() => {
                                     this.setState({
@@ -105,7 +105,7 @@ class CoursesSections extends Component {
                         <div className='col-12'>
                             {this.state.lactures.map((datas, index) => {
                                 return (
-                                    <div className='border-bottom mb-2 pb-2' key={index}>
+                                    <div className='pb-2 mb-2 border-bottom' key={index}>
                                         <div key={index} className='d-flex align-items-center justify-content-between '>
                                             <div>
                                                 <h5 className='mb-0 '><b>{datas.lacture_title}</b></h5>
@@ -115,7 +115,7 @@ class CoursesSections extends Component {
                                                 <p>{datas.lacture_des}</p>
                                             </div>
                                             <div className='p-2'>
-                                                <i className="fas fa-eye px-2 cursor-pointer"
+                                                <i className="px-2 cursor-pointer fas fa-eye"
                                                     onClick={() => {
                                                         this.setState({
                                                             vedioModal: true,
@@ -123,7 +123,7 @@ class CoursesSections extends Component {
                                                         })
                                                     }}
                                                 ></i>
-                                                <i className="fas fa-edit px-2"></i>
+                                                <i className="px-2 fas fa-edit"></i>
 
                                             </div>
                                         </div>
@@ -143,9 +143,9 @@ class CoursesSections extends Component {
                                     addLactureLoader: false,
                                     ApiError: "",
                                 })}
-                                className='d-flex align-items-center justify-content-between bg-greylight cursor-pointer px-2' style={{ margin: '0px -15px', padding: '0px 15px' }}>
+                                className='px-2 cursor-pointer d-flex align-items-center justify-content-between bg-greylight' style={{ margin: '0px -15px', padding: '0px 15px' }}>
                                 <div>
-                                    Add Lacture
+                                    Add Lecture
                                 </div>
                                 <div className='p-2'>
                                     <i class="far fa-plus p-2 cursor-pointer" ></i>
@@ -153,9 +153,6 @@ class CoursesSections extends Component {
                             </div>
                         </div>
                     )}
-
-
-
                 </div>
 
 
@@ -256,17 +253,17 @@ class CoursesSections extends Component {
                             }) => (
                                 <>
                                     <form onSubmit={handleSubmit}>
-                                        <div className="form-group icon-input mb-0 rounded-circle">
+                                        <div className="mb-0 form-group icon-input rounded-circle">
                                             {/* <i className="font-sm ti-email text-grey-500 pe-0"></i> */}
                                             <label htmlFor="">Title</label>
-                                            <Field id='lacture_title' name="lacture_title" className="style2-input  form-control text-grey-900 font-xsss fw-600" placeholder="Title" />
+                                            <Field id='lacture_title' name="lacture_title" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Title" />
 
                                         </div>
                                         <small className='text-danger'><b><ErrorMessage name="lacture_title" /></b></small>
-                                        <div className="form-group icon-input mb-0 mt-3">
+                                        <div className="mt-3 mb-0 form-group icon-input">
                                             <label htmlFor="">Description</label>
                                             {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
-                                            <Field type='text' name="lacture_des" className="style2-input  form-control text-grey-900 font-xsss fw-600" placeholder="Description" />
+                                            <Field type='text' name="lacture_des" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Description" />
                                         </div>
                                         <small className='text-danger'><b><ErrorMessage name="lacture_des" /></b></small>
                                         <div className='d-flex justify-content-between'>
@@ -278,7 +275,7 @@ class CoursesSections extends Component {
                                                 document.getElementById("lacture_vedio").click()
                                             }}>
                                                 <div><i class="far fa-video-plus me-2 "></i></div>
-                                                <div>{this.state.fileError ? this.state.fileError : "Upload Lacture vedio."}</div>
+                                                <div>{this.state.fileError ? this.state.fileError : "Upload Lecture video."}</div>
                                             </div>
                                             <div className={`d-flex  my-3 cursor-pointer  p-2 ${this.state.streamLacture ? "border" : ""}`}
                                                 onClick={() => {
@@ -289,7 +286,7 @@ class CoursesSections extends Component {
                                                 }}
                                             >
                                                 <div><i class="far fa-video-plus me-2 "></i></div>
-                                                <div>Live Stream Lacture</div>
+                                                <div>Live Stream Lecture</div>
                                             </div>
                                         </div>
                                         <small className='text-danger'><b><ErrorMessage name="lacture_vedio" /></b></small>
@@ -338,7 +335,7 @@ class CoursesSections extends Component {
 
                                             }}
                                             className='d-none' />
-                                        {/* <small className='text-danger my-3 '><b>{this.state.ApiError}</b></small> */}
+                                        {/* <small className='my-3 text-danger '><b>{this.state.ApiError}</b></small> */}
                                         {this.state.streamLacture && (
                                             <div className="col-12">
                                                 <label htmlFor="">Start Time/End Time</label>
@@ -370,13 +367,13 @@ class CoursesSections extends Component {
                                             </div>
                                         )}
 
-                                        <div className="col-sm-12 p-0 text-left mt-2">
-                                            <div className="form-group mb-1">
+                                        <div className="p-0 mt-2 text-left col-sm-12">
+                                            <div className="mb-1 form-group">
                                                 {this.state.addLactureLoader && (
-                                                    <button type="button" className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Loading....</button>
+                                                    <button type="button" className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark ">Loading....</button>
                                                 )}
                                                 {!this.state.addLactureLoader && (
-                                                    <button type='submit' className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Save</button>
+                                                    <button type='submit' className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark ">Save</button>
                                                 )}
                                             </div>
                                         </div>
