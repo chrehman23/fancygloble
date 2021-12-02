@@ -370,18 +370,26 @@ class Createpost extends Component {
                             <div  >
                                 <p className='mb-0 font-xssss text-grey-500 fw-500'>Paid post amount. <span
                                     onClick={() => {
-                                        this.setState({ paidPost: false })
+                                        this.setState({ paidPost: false, paidPostamount: 0 })
                                     }}
                                     className='cursor-pointer text-primary font-xssss fw-500'>Cancel paid post.</span></p>
-                                <input type='number'
+                                <input type='text'
                                     value={this.state.paidPostamount}
                                     onChange={(e) => {
-                                        if (e.target.value > 0 && e.target.value.length < 5) {
-                                            this.setState({ paidPostamount: e.target.value })
-                                        } 
+                                        if (e.target.value == "") {
+                                            this.setState({ paidPostamount: '' })
+                                        } else {
+                                            if (e.target.value > 0 && e.target.value.length < 5) {
+                                                this.setState({ paidPostamount: e.target.value })
+                                            }
+                                        }
+
                                     }}
                                     placeholder='Enter amount'
                                     className='font-xssss text-grey-500 fw-500 paidPostAmount' />
+                                {this.state.paidPostamount && this.state.paidPostamount.length == 4 && (
+                                    <small className='text-danger'>Amount is too large.</small>
+                                )}
                             </div>
                         )}
                         <div className="p-0 mt-2 card-body d-flex align-items-center">
