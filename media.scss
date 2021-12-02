@@ -11,12 +11,12 @@
 
 /* Custom Media Query (desktops, less than 1024px)*/
 @media (max-width: 1023.98px) {
-   body {
-      background-color: black !important;
-   }
-   .postmodalContainer {
-      max-height: unset !important;
-   }
+  body {
+    background-color: black !important;
+  }
+  .postmodalContainer {
+    max-height: unset !important;
+  }
 }
 
 /* Medium devices (tablets, less than 992px)*/
@@ -25,9 +25,12 @@
 
 /* Small devices (landscape phones, less than 768px)*/
 @media (max-width: 767.98px) {
-   .tutor-review-individual-item .review-left {
-      float: none;
-   }
+  .tutor-review-individual-item .review-left {
+    float: none;
+  }
+  .nav-header.bg-transparent.shadow-none.border-0.bg-mbile-white {
+    background: #fff !important;
+  }
 }
 
 /* Customized Media Queries (phones, less than 400px) */
@@ -54,18 +57,17 @@
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
-
 }
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) {
-   .middle-sidebar-bottom {
-      padding: 16px 15px 0px !important;
-   }
-      .navigation{
-  top: 100px !important;
-  padding-top: 0px !important;
-}
+  .middle-sidebar-bottom {
+    padding: 16px 15px 0px !important;
+  }
+  .navigation {
+    top: 100px !important;
+    padding-top: 0px !important;
+  }
 }
 
 /* Customized Media Queries (Min Width) */
@@ -183,7 +185,11 @@
 
 /* COMBINED MEDIA QUERIES */
 
-@media (min-width: 576px), (min-width: 768px), (min-width: 992px), (min-width: 1024px), (min-width: 1200px) {
+@media (min-width: 576px),
+  (min-width: 768px),
+  (min-width: 992px),
+  (min-width: 1024px),
+  (min-width: 1200px) {
 }
 
 /* /COMBINED MEDIA QUERIES */
