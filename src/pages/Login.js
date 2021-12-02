@@ -137,7 +137,7 @@ class Login extends Component {
             </div>
             <div className="col-xl-5 loginScreenCover h-100 align-items-center d-flex   rounded-3 overflow-hidden">
               <div className="card shadow-none border-0 bg-transparent ms-auto me-auto login-card">
-                <div className="card-body  rounded-0 text-left">
+                <div className="card-body  rounded-0 text-left mt-5">
                   <h2 className="fw-700 display1-size display2-md-size mb-3 text-white">
                     Login into <br />
                     your account

@@ -48,7 +48,7 @@ class Register extends Component {
         return (
             <Fragment>
                 <div className="main-wrap">
-                    <div className="nav-header bg-transparent shadow-none border-0">
+                    <div className="nav-header bg-transparent shadow-none border-0 bg-mbile-white">
                         <div className="nav-top justify-content-start w-100">
                             <Link to="/">
                                 <img src="assets/images/Logo3.png" style={{ height: "60px" }} />
@@ -77,7 +77,7 @@ class Register extends Component {
                         </div>
                         <div className="col-xl-5 loginScreenCover   align-items-center d-flex   rounded-3 overflow-hidden">
                             <div className="card bg-transparent shadow-none border-0 ms-auto me-auto login-card">
-                                <div className="card-body rounded-0 text-left">
+                                <div className="card-body rounded-0 text-left mt-5">
                                     <h2 className="fw-700 display1-size text-white display2-md-size mb-4">Create <br />your account</h2>
                                     <Formik
                                         initialValues={{

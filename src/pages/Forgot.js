@@ -34,7 +34,7 @@ class Forgot extends Component {
         return (
             <Fragment>
                 <div className="main-wrap">
-                    <div className="nav-header bg-transparent shadow-none border-0">
+                    <div className="nav-header bg-transparent shadow-none border-0 bg-mbile-white">
                         <div className="nav-top w-100 justify-content-start ">
                             <Link to="/" className='loginbgImageControl'>
                                 <img src="assets/images/Logo3.png" style={{ height: "60px" }} />

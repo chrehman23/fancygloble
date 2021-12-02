@@ -662,6 +662,7 @@
   align-items: center;
   cursor: pointer;
   position: relative;
+  border-bottom: 1px solid #feeeee !important;
 }
 
 .UserChatWraper .online_status {
@@ -699,7 +700,7 @@
 .UserChatWraper > div:first-child > div {
   width: 45px;
   height: 45px;
-  border: 1px solid gray;
+  // border: 1px solid gray;
   overflow: hidden;
   border-radius: 50%;
 }
@@ -730,7 +731,7 @@
   color: #aaaaaa;
   margin-bottom: 0px;
   position: relative;
-  top: -10px;
+
   right: auto;
   display: inline-block;
 }
@@ -742,8 +743,8 @@
 
 .UserChatContainer.actives {
   background-color: #80808024 !important;
-  border-right: 2px solid #46237a !important;
-  border-radius: 5px;
+  border-right: 3px solid #46237a !important;
+  border-radius: 5px 0px 0px 5px;
 }
 
 .messages-contents {
@@ -774,13 +775,14 @@
   width: 100%;
 }
 
-.message-items > div {
-  margin-left: auto;
-}
+// .message-items > div {
+//   margin-left: auto;
+// }
 
 .message-items > div:first-child {
   display: flex;
   align-items: center;
+  margin-left: auto;
 }
 
 .message-items > div:first-child > div:last-child {
@@ -822,24 +824,30 @@
 .message-items .message-wraps {
   // padding: 10px 20px;
   border-radius: 10px 3px;
-  max-width: 75%;
+  max-width: 46%;
   margin-left: auto;
+  word-break: break-all;
 }
 
 .message-items.out-messages .message-wraps {
-  max-width: 75%;
+  max-width: 56%;
   margin-left: 0px;
 }
 
 .message-items.out-messages .message-wraps > div {
   background-color: #e6eeff !important;
-  border-radius: 10px;
+  // background-color: #edeff2 !important;
+  border-radius: 0px 20px 20px 20px !important;
   position: relative;
   color: #000 !important;
-  // box-shadow: 0 8px 30px gray;
-  max-width: 75%;
+
   margin-left: 0px;
 }
+.round-1 {
+  border-radius: 20px 0px 20px 20px !important;
+}
+
+// box-shadow: 0 8px 30px gray;
 
 .lactures_container {
   height: 100vh;
