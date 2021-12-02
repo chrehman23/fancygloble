@@ -128,6 +128,10 @@
   font-size: 12px;
 }
 
+.navigation .nav-content ul li:not(.logo) {
+  margin: 0px !important;
+}
+
 // mobile-responsive-for-blackcolor
 .mobile-responsive-for-blackcolor {
   height: calc(100vh - 0px) !important;
@@ -137,10 +141,6 @@
   .mobile-responsive-for-blackcolor {
     height: calc(100vh - 0px) !important;
   }
-}
-// chat message  css
-.message-items.out-messages .message-wraps > div {
-  max-width: 100%;
 }
 
 // Courses sections css start
@@ -423,4 +423,10 @@ button.btn.btn-sm.btn-flash {
   border-radius: 0px !important;
   border: 1px solid #1c1d1f !important;
   margin-bottom: 1.5rem !important;
+}
+
+span.chat_date {
+  font-size: 11px;
+  margin-right: 10px;
+  color: #989898;
 }

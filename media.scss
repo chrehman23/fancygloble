@@ -31,6 +31,14 @@
   .nav-header.bg-transparent.shadow-none.border-0.bg-mbile-white {
     background: #fff !important;
   }
+
+  .message-items .message-wraps {
+    max-width: 100%;
+  }
+
+  .message-items.out-messages .message-wraps {
+    max-width: 100%;
+  }
 }
 
 /* Customized Media Queries (phones, less than 400px) */

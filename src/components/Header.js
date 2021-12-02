@@ -13,7 +13,7 @@ import chatApi from '../api/chat'
 import ContentLoader from 'react-content-loader'
 
 import { Dropdown } from 'react-bootstrap'
-
+import moment from 'moment';
 // **************************************************************
 import PropTypes from 'prop-types';
 
@@ -289,12 +289,18 @@ class Header extends Component {
                                                             <div>  <img src={data.user && data.user.profile_photo} alt="" /></div>
                                                         </div>
                                                         <div>
+                                                        
                                                             <h5 className=''>{data.user && data.user.name}</h5>
-                                                            <small className={data.un_read > 0 ? "new" : ""}>
-                                                                {data.last_message && data.last_message.content && data.last_message.content.substring(0, 10)}
-                                                                {data.last_message && data.last_message.content && data.last_message.content && data.last_message.content.length > 10 && "..."}
-                                                                {data.update_at == "" && data.user && data.user.user_name}
-                                                            </small>
+                                                         <div className="d-flex justify-content-between align-items-center py-1">
+                                                         <small className={data.un_read > 0 ? "new" : ""}>
+                                                         {data.last_message && data.last_message.content && data.last_message.content.substring(0, 10)}
+                                                         {data.last_message && data.last_message.content && data.last_message.content && data.last_message.content.length > 10 && "..."}
+                                                         {data.update_at == "" && data.user && data.user.user_name}
+                                                         </small>
+                                                         <span className="chat_date">{data.last_message && moment(data.last_message.updatedAt).fromNow(true)}</span>
+                                                         </div>
+
+                                                                
                                                         </div>
                                                         {data.online && (
                                                             <div className='online_status'></div>
@@ -304,7 +310,7 @@ class Header extends Component {
                                                                 <div><medium className="chat-numbers-notfication">{data.un_read}</medium></div>
                                                             </div>
                                                         )}
-
+                                                               
                                                     </div>
                                                 </div>
                                             </li>
