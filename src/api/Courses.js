@@ -42,6 +42,26 @@ let CourseApi = {
          },
       })
    },
+   updateCourseSection: (data) => {
+      return axios({
+         url: "/api/users/updateCourseSection",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   deleteCourseSection: (data) => {
+      return axios({
+         url: "/api/users/deleteCourseSection",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
    courseSections: (data) => {
       return axios({
          url: "/api/users/courseSections",
