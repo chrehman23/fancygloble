@@ -167,8 +167,8 @@ class Courses extends Component {
 
 
                                     <div className='row'>
-                                        <div className='col-12'>
-                                            <h6 className='mb-0'>Course Title</h6>
+                                        <div className='col-12 col-md-12'>
+                                            <label htmlFor="" className='mb-0 course-title-font'>Course Title</label>
                                             <input type='text'
                                                 value={this.state.titleInput}
                                                 onChange={(e) => {
@@ -181,16 +181,16 @@ class Courses extends Component {
                                                     data.append('title', this.state.titleInput)
                                                     this.updateCourse(data)
                                                 }}
-                                                className='form-control' placeholder='Course Title' />
+                                                className='form-control course-input' placeholder='Course Title' />
                                         </div>
                                     </div>
 
 
 
                                     <div className='mt-3 row'>
-                                        <div className='col-12'>
-                                            <h6 className='mb-0'>Course Description</h6>
-                                            <textarea className='form-control ' row='15'
+                                        <div className='col-12 col-md-12'>
+                                            <label htmlFor="" className='mb-0 course-title-font'>Course Description</label>
+                                            <textarea className='form-control course-input' row='15'
                                                 value={this.state.desInput}
                                                 onChange={(e) => {
                                                     this.setState({
@@ -208,9 +208,9 @@ class Courses extends Component {
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-6">
-                                            <label htmlFor="">What will students learn in your course?</label>
-                                            <textarea className='form-control ' row='15'
+                                        <div className="col-12 col-md-6">
+                                            <label htmlFor="" className='mb-0 course-title-font'>What will students learn in your course?</label>
+                                            <textarea className='form-control course-input' row='15'
                                                 value={this.state.learning_points}
                                                 onChange={(e) => {
                                                     this.setState({
@@ -224,9 +224,9 @@ class Courses extends Component {
                                                 }}
                                             ></textarea>
                                         </div>
-                                        <div className="col-6">
-                                            <label htmlFor="">Requirements</label>
-                                            <textarea className='form-control ' row='15'
+                                        <div className="col-12 col-md-6">
+                                        <label htmlFor="" className='mb-0 course-title-font'>Requirements</label>
+                                            <textarea className='form-control course-input' row='15'
                                                 value={this.state.requirements}
                                                 onChange={(e) => {
                                                     this.setState({
@@ -240,9 +240,9 @@ class Courses extends Component {
                                                 }}
                                             ></textarea>
                                         </div>
-                                        <div className="col-6">
-                                            <label htmlFor="">Course Level</label>
-                                            <select name="" id="" className='form-control'
+                                        <div className="col-12 col-md-6">
+                                        <label htmlFor="" className='mb-0 course-title-font'>Course Level</label>
+                                            <select name="" id="" className='form-control course-input'
                                                 value={this.state.course_level}
                                                 onChange={(e) => {
                                                     this.setState({
@@ -260,9 +260,9 @@ class Courses extends Component {
                                                 <option value="Expert">Expert</option>
                                             </select>
                                         </div>
-                                        <div className="col-6">
-                                            <label htmlFor="">Audio Language</label>
-                                            <select name="" id="" className='form-control'
+                                        <div className="col-12 col-md-6">
+                                        <label htmlFor="" className='mb-0 course-title-font'>Audio Language</label>
+                                            <select name="" id="" className='form-control course-input'
                                                 value={this.state.audio_language}
                                                 onChange={(e) => {
                                                     this.setState({
@@ -280,9 +280,9 @@ class Courses extends Component {
                                                 <option value="Finnish">Finnish</option>
                                             </select>
                                         </div>
-                                        <div className="col-6">
-                                            <label htmlFor="">Course Category</label>
-                                            <select name="" id="" className='form-control'
+                                        <div className="col-12 col-md-6">
+                                        <label htmlFor="" className='mb-0 course-title-font'>Course Category</label>
+                                            <select name="" id="" className='form-control course-input'
                                                 value={this.state.course_category}
                                                 onChange={(e) => {
                                                     this.setState({ course_category: e.target.value })
@@ -298,9 +298,10 @@ class Courses extends Component {
                                                 <option value="Operations">Operations</option>
                                             </select>
                                             {/* ******************** */}
-                                            <label htmlFor="">Course Start Date </label>
+                                            <label htmlFor="" className='mb-0 course-title-font'>Course Start Date</label>
+                                            
 
-                                            <input type="datetime-local" className='form-control'
+                                            <input type="datetime-local" className='form-control course-input'
                                                 value={this.state.start_date}
                                                 min={new Date()}
                                                 onChange={(e) => {
@@ -312,7 +313,7 @@ class Courses extends Component {
                                             />
                                             <label htmlFor="">Course End Date</label>
 
-                                            <input type="datetime-local" className='form-control'
+                                            <input type="datetime-local" className='form-control course-input'
                                                 value={this.state.end_date}
                                                 min={new Date()}
                                                 onChange={(e) => {
@@ -323,8 +324,9 @@ class Courses extends Component {
                                                 }}
                                             />
                                             {/* ******************** */}
-                                            <label htmlFor="">Regular Price</label>
-                                            <input type='number' className='form-control' placeholder='$0'
+                                            <label htmlFor="" className='mb-0 course-title-font'>Regular Price</label>
+                                            
+                                            <input type='number' className='form-control course-input' placeholder='$0'
                                                 value={this.state.paid_amount}
                                                 onChange={(e) => {
                                                     this.setState({
@@ -337,8 +339,8 @@ class Courses extends Component {
                                                     this.updateCourse(data)
                                                 }}
                                             />
-                                            <label htmlFor="">Discount Price</label>
-                                            <input type='number' className='form-control' placeholder='$0'
+                                            <label htmlFor="" className='mb-0 course-title-font'>Discount Price</label>
+                                            <input type='number' className='form-control course-input' placeholder='$0'
                                                 value={this.state.discount_amount}
                                                 onChange={(e) => {
                                                     this.setState({
@@ -354,7 +356,7 @@ class Courses extends Component {
                                             {/* ******************** */}
                                         </div>
 
-                                        <div className="col-6">
+                                        <div className="col-12 col-md-6">
                                             <input type='file' id="vedio_c"
                                                 onChange={(e) => {
                                                     if (e.target.value) {
@@ -384,7 +386,7 @@ class Courses extends Component {
 
                                                 }}
                                                 className='d-none' />
-                                            <label htmlFor="">Intro Course overview</label>
+                                            <label htmlFor="" className='mb-0 course-title-font'>Intro Course overview</label>
                                             {this.state.video_url == '' && (
                                                 <div className="rounded courseUploadVedio bgthwh">
                                                     <div className='text-center'>
@@ -448,7 +450,7 @@ class Courses extends Component {
                                             </div>
 
                                         </div>
-                                        <div className="col-6">
+                                        <div className="col-12 col-md-6">
                                             <input type='file' id="thumbnail"
                                                 onChange={(e) => {
                                                     if (e.target.value) {
@@ -472,7 +474,7 @@ class Courses extends Component {
                                                     }
                                                 }}
                                                 className='d-none' />
-                                            <label htmlFor="">Course Thumbnail</label>
+                                                <label htmlFor="" className='mb-0 course-title-font'>Course Thumbnail</label>
                                             {this.state.thumbnail == '' && (
                                                 <div className="rounded courseUploadVedio bgthwh">
                                                     <div className='text-center'>

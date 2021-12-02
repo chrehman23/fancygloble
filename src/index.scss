@@ -970,14 +970,14 @@
 .document_link {
   color: #46237a !important;
 }
-.courses_side_details_bar li{
+.courses_side_details_bar li {
   display: flex;
   align-items: center;
 }
-.courses_side_details_bar li h5{ 
+.courses_side_details_bar li h5 {
   margin-bottom: 0;
 }
-.userProfile_container{
+.userProfile_container {
   height: auto !important;
 }
 .accordion {
@@ -1015,13 +1015,13 @@
   margin-bottom: 0;
 }
 
-.topbar_noti_container{
+.topbar_noti_container {
   position: relative;
 }
-.topbar_noti_container{
+.topbar_noti_container {
   position: relative;
 }
-.topbar_noti_container .dot-count{
+.topbar_noti_container .dot-count {
   content: "";
   position: absolute;
   display: block;
@@ -1043,21 +1043,21 @@
   font-weight: 600;
   margin-bottom: 0;
 }
-.languges_changeers{
-       font-size: 15px;
-    font-weight: 600;
-    line-height: 28px;
-    margin-top: -2px !important;
-    color: #888;
-    position: absolute;
-    transition: all 0.2s ease;
-    margin-right: auto;
-    padding-right: 10px;
-    margin-left: 13px;
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -ms-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
+.languges_changeers {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 28px;
+  margin-top: -2px !important;
+  color: #888;
+  position: absolute;
+  transition: all 0.2s ease;
+  margin-right: auto;
+  padding-right: 10px;
+  margin-left: 13px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
 }
 
 .course__update p {
@@ -1081,7 +1081,7 @@
 }
 
 /*Tabs*/
-.notification_bar{
+.notification_bar {
   display: none !important;
 }
 
