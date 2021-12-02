@@ -276,11 +276,11 @@ class AddEvents extends Component {
 
 
                                                 </div>
-                                                <div className="card-body p-lg-5 p-4 pt-n-5 pt-0 w-100 border-0 ">
-                                                    <div className="row">
+                                                <div className="card-body  p-4 ">
+                                                    <div className="row ">
                                                         {this.state.thumbnail.map((data, index) => {
                                                             return (
-                                                                <div className="col-md-6"
+                                                                <div className="col-md-6 col-12 pb-5"
                                                                     key={index}
                                                                     onClick={async () => {
                                                                         await this.removeImage(index)
@@ -302,8 +302,8 @@ class AddEvents extends Component {
                                                         })}
                                                     </div>
                                                     <form onSubmit={handleSubmit}>
-                                                        <div className="row">
-                                                            <div className="col-md-6">
+                                                        <div className="row ">
+                                                            <div className="col-md-6 col-12 pb-3">
                                                                 <div className="courseUploadVedio bgthwh rounded">
                                                                     <div className='text-center' onClick={() => { document.getElementById("thumbnail").click() }}>
                                                                         <button type='button' className='btn btn-danger'>Upload Picture</button>
@@ -349,7 +349,7 @@ class AddEvents extends Component {
                                                             <div className="col-lg-12 mb-3">
                                                                 <div className="form-group">
                                                                     <label className="mont-font fw-600 font-xsss mb-2">Title</label>
-                                                                    <Field id="title" name="title" className="form-control" placeholder="Event title" />
+                                                                    <Field id="title" name="title" className="form-control course-input " placeholder="Event title" />
                                                                     <ErrorMessage
                                                                         name='title'
                                                                         component="small"
@@ -361,7 +361,7 @@ class AddEvents extends Component {
                                                             <div className="col-lg-12 mb-3">
                                                                 <div className="form-group">
                                                                     <label className="mont-font fw-600 font-xsss mb-2">Description</label>
-                                                                    <Field id="description" name="description" className="form-control" placeholder="Event description" />
+                                                                    <Field id="description" name="description" className="form-control course-input " placeholder="Event description" />
                                                                     <ErrorMessage
                                                                         name='title'
                                                                         component="small"
@@ -374,7 +374,7 @@ class AddEvents extends Component {
                                                                 {/* {JSON.stringify(this.state.value)} */}
                                                                 <div className="form-group">
                                                                     <label className="mont-font fw-600 font-xsss mb-2">Start date and time</label>
-                                                                    <input type="datetime-local" className='form-control'
+                                                                    <input type="datetime-local" className='form-control course-input '
                                                                         onChange={(e) => {
                                                                             console.log(e)
                                                                             if (e == null) {
@@ -405,7 +405,7 @@ class AddEvents extends Component {
                                                                                 setFieldValue("end_date", e.target.value)
                                                                             }
                                                                         }}
-                                                                        className='form-control' />
+                                                                        className='form-control course-input ' />
 
                                                                     <ErrorMessage
                                                                         name='end_date'
@@ -424,7 +424,7 @@ class AddEvents extends Component {
                                                                 <div className="form-group">
                                                                     <label className="mont-font fw-600 font-xsss mb-2">Event Type</label>
 
-                                                                    <select className="form-control" placeholder="Event type"
+                                                                    <select className="form-control course-input " placeholder="Event type"
                                                                         onChange={(e) => {
                                                                             setFieldValue("event_type", e.target.value)
                                                                         }}
@@ -443,7 +443,7 @@ class AddEvents extends Component {
                                                             <div className={`${values.seats_status == "Limited" ? "col-lg-4" : "col-lg-8"} mb-3`}>
                                                                 <div className="form-group">
                                                                     <label className="mont-font fw-600 font-xsss mb-2">Limited/Unlimited</label>
-                                                                    <select className="form-control" placeholder="Event type"
+                                                                    <select className="form-control course-input " placeholder="Event type"
                                                                         onChange={(e) => {
                                                                             setFieldValue("seats_status", e.target.value)
                                                                         }}
@@ -464,7 +464,7 @@ class AddEvents extends Component {
                                                                     <div className="form-group">
                                                                         <label className="mont-font fw-600 font-xsss mb-2">Event Seats</label>
 
-                                                                        <Field id="event_seats" name="event_seats" type='number' className="form-control" placeholder="Event seats" />
+                                                                        <Field id="event_seats" name="event_seats" type='number' className="form-control course-input " placeholder="Event seats" />
 
                                                                         <ErrorMessage
                                                                             name='event_seats'
@@ -480,7 +480,7 @@ class AddEvents extends Component {
                                                                     <div className="form-group">
                                                                         <label className="mont-font fw-600 font-xsss mb-2">Location</label>
 
-                                                                        <Field id="location" name="location" className="form-control" placeholder="Event location" />
+                                                                        <Field id="location" name="location" className="form-control course-input " placeholder="Event location" />
 
                                                                         <ErrorMessage
                                                                             name='location'
@@ -494,7 +494,7 @@ class AddEvents extends Component {
                                                                 <div className="form-group">
                                                                     <label className="mont-font fw-600 font-xsss mb-2">Paid/Free</label>
 
-                                                                    <select className="form-control" placeholder="Event type"
+                                                                    <select className="form-control course-input " placeholder="Event type"
                                                                         onChange={(e) => {
                                                                             setFieldValue("paid_status", e.target.value)
                                                                         }}
@@ -517,7 +517,7 @@ class AddEvents extends Component {
                                                                     <div className="form-group">
                                                                         <label className="mont-font fw-600 font-xsss mb-2">Paid Amount</label>
 
-                                                                        <Field type="number" name="paid_amount" className="form-control" placeholder="Payment Amount" />
+                                                                        <Field type="number" name="paid_amount" className="form-control course-input " placeholder="Payment Amount" />
 
                                                                         <ErrorMessage
                                                                             name='paid_amount'

@@ -62,18 +62,20 @@ class CoursesSectionList extends Component {
             <  >
                 <div className='mt-3 row'>
                     <div className='col-12 border-bottom'>
-                        <h4 className='mt-3 '><i class="fas fa-list"></i> Course Content</h4>
+                    <label htmlFor="" className='mb-0 course-title-font mt-3'><i class="fal fa-book"></i> Course Content</label>
+                    
                     </div>
                 </div>
                 {this.state.sections.map((data, index) => <CoursesSections key={index} course_id={this.props.course_id} data={data}/>)}
 
 
-                <div className='py-2 mt-3 row border-top'>
+                <div className='py-2 mt-3 row'>
                     {this.state.addSection && (
                         <div className='col-12'>
                             <div className='mb-2' >
-                                <label htmlFor="">Section Tite</label>
-                                <input type="text" className='form-control' placeholder='Section Title'
+                            <label htmlFor="" className='mb-0 course-title-font'>Section Title</label>
+                            
+                                <input type="text" className='form-control course-input' placeholder='Section Title'
                                     value={this.state.section_title}
                                     onChange={(e) => {
                                         this.setState({ section_title: e.target.value })
@@ -81,8 +83,8 @@ class CoursesSectionList extends Component {
                                 />
                             </div>
                             <div className='mb-2' >
-                                <label htmlFor="">Section Description</label>
-                                <textarea className='form-control ' placeholder='Section Description' row='15'
+                            <label htmlFor="" className='mb-0 course-title-font'>Section Description</label>
+                                <textarea className='form-control course-input' placeholder='Section Description' row='15'
                                     value={this.state.section_description}
                                     onChange={(e) => {
                                         this.setState({ section_description: e.target.value })
