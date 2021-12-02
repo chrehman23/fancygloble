@@ -17,9 +17,12 @@ import { Link, withRouter } from 'react-router-dom'
 
 import backgroundImage from '../../public/assets/images/product.png'
 import ApiLoader from '../components/ApiLoader';
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
 
 
 let validationSchemaLogin = Yup.object({
+    phone: Yup.string().matches(phoneRegExp, 'Phone number is not valid').max(18, 'Can not be greater than 18 characters.'),
     name: Yup.string().required('Name is required.').min(3, 'Must be greater then 3 characters.').max(18, 'Can not be greater than 18 characters.'),
     paypalEmail: Yup.string().email('Email is not valid.'),
 })
@@ -88,10 +91,10 @@ class Account extends Component {
                                             data.append('about', values.about)
                                             data.append('bio', values.bio)
                                             data.append('user_name', values.user_name);
-                                            if (values.profile_photo!==""){
+                                            if (values.profile_photo !== "") {
                                                 data.append('profile_photo', values.profile_photo)
                                             }
-                                            if (values.profile_cover!==""){
+                                            if (values.profile_cover !== "") {
                                                 data.append('profile_cover', values.profile_cover)
                                             }
                                             data.append('paypalEmail', values.paypalEmail)
@@ -105,7 +108,7 @@ class Account extends Component {
                                             AuthApi.updateUserProfile(data).then(res => {
                                                 console.log(res)
                                                 setSubmitting(false);
-                                                if(res.data.Error==false){
+                                                if (res.data.Error == false) {
                                                     this.props.loadProfile(res.data.profile)
                                                 }
                                                 this.setState({ profileUpdated: true })
@@ -186,27 +189,27 @@ class Account extends Component {
                                                                     })
                                                                 } else {
 
-                                                                if (e.currentTarget.files[0].type.split('/')[0] == "image") {
-                                                                    const file = e.currentTarget.files[0];
-                                                                    let reader = new FileReader();
-                                                                    reader.onloadend = () => {
-                                                                        setFieldValue("profile_cover", file)
+                                                                    if (e.currentTarget.files[0].type.split('/')[0] == "image") {
+                                                                        const file = e.currentTarget.files[0];
+                                                                        let reader = new FileReader();
+                                                                        reader.onloadend = () => {
+                                                                            setFieldValue("profile_cover", file)
+                                                                            this.setState({
+                                                                                // post_images: [...this.state.post_images, file],//upload image
+                                                                                banerImage: reader.result,
+                                                                            }, () => {
+                                                                                // console.log(this.state.profileImageURL)
+                                                                            });
+                                                                        };
+                                                                        reader.readAsDataURL(file);
+                                                                    } else {
+                                                                        setFieldValue("profile_cover", '')
                                                                         this.setState({
-                                                                            // post_images: [...this.state.post_images, file],//upload image
-                                                                            banerImage: reader.result,
-                                                                        }, () => {
-                                                                            // console.log(this.state.profileImageURL)
-                                                                        });
-                                                                    };
-                                                                    reader.readAsDataURL(file);
-                                                                } else {
-                                                                    setFieldValue("profile_cover", '')
-                                                                    this.setState({
-                                                                        banerImage: '',
-                                                                        fileError: "File format does not supported.Upload file in JPG/JPEG/PNG format."
-                                                                    })
+                                                                            banerImage: '',
+                                                                            fileError: "File format does not supported.Upload file in JPG/JPEG/PNG format."
+                                                                        })
+                                                                    }
                                                                 }
-                                                            }
 
                                                             } else {
                                                                 setFieldValue("profile_cover", '')
@@ -313,9 +316,9 @@ class Account extends Component {
 
                                                                 <div className="mb-3 col-lg-6">
                                                                     <div className="form-group">
-                                                                        <label className="mb-2 mont-font fw-600 font-xsss">Paypal Email</label>
+                                                                        <label className="mb-2 mont-font fw-600 font-xsss">Stripe Email</label>
 
-                                                                        <Field id="paypalEmail" name="paypalEmail" className="form-control" placeholder="Paypal Email Address" />
+                                                                        <Field id="paypalEmail" name="paypalEmail" className="form-control" placeholder="Stripe Email Address" />
 
                                                                         <ErrorMessage
                                                                             name='paypalEmail'
@@ -371,7 +374,7 @@ class Account extends Component {
                                                                         </div>
                                                                     </div>
                                                                 )}
-
+                                                                <br></br>
                                                                 <div className="col-lg-12 d-flex justify-content-end">
                                                                     {!isSubmitting && (
                                                                         <button type="submit" disabled={isSubmitting} className="btn btn-primary">Update</button>
@@ -380,9 +383,14 @@ class Account extends Component {
                                                                 </div>
 
 
+
                                                             </div>
 
                                                         </form>
+                                                        <br></br>
+                                                        <br></br>
+                                                        <br></br>
+                                                        <br></br>
                                                     </div>
                                                 </div>
 
