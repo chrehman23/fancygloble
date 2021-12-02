@@ -69,14 +69,14 @@ this.setState({
                     return (
                         <div className="col-4" key={index}>
                             <div className="d-flex">
-                                <a href={data.file} style={{ cursor: 'default' }} target="_blank" >
+                                <a href={data.file} className='document_link' target="_blank" >
                                     <div className="d-flex ">
-                                        <div><i className="fas fa-file-alt px-2"></i></div>
+                                        <div><i className="px-2 fas fa-file-alt"></i></div>
                                         <div className='cursor-pointer'>Document</div>
 
                                     </div>
                                 </a>
-                                <div className='flex-grow-1 text-right '><i className="fas fa-trash-alt cursor-pointer"
+                                <div className='text-right flex-grow-1 '><i className="cursor-pointer fas fa-trash-alt"
                                 onClick={()=>{
                                     this.removeFile(data._id)
                                 }}
@@ -87,14 +87,14 @@ this.setState({
                     )
                 })}
                 <div className="col-4">
-                    <div className="d-flex cursor-pointer"
+                    <div className="cursor-pointer d-flex"
                         onClick={() => { document.getElementById(`document${this.props.lacture_id}`).click() }}
                     >
                         <div><i class="fas fa-upload px-2"></i></div>
                         <div><small><b>Upload document</b></small></div>
                     </div>
                 </div>
-                <small className='text-danger py-1'><b>{this.state.fileError}</b></small>
+                <small className='py-1 text-danger'><b>{this.state.fileError}</b></small>
                 {/* {this.props.lacture_id} */}
                 <input type='file' id={`document${this.props.lacture_id}`}
                     onChange={(e) => {

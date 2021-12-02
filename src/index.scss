@@ -1022,6 +1022,25 @@
   font-weight: 600;
   margin-bottom: 0;
 }
+.lectures_edite_delete button::after {
+  display: none !important;
+}
+.lectures_edite_delete {
+  display: flex;
+  margin-top: 5px;
+}
+.lectures_edite_delete button {
+  background-color: #f7f7f7;
+  border-color: #f7f7f7;
+  margin-right: 10px;
+}
+.lectures_edite_delete button i {
+  all: unset !important;
+}
+.lectures_edite_delete button i::before {
+  display: block;
+  font-family: "Font Awesome 5 Pro";
+}
 
 .topbar_noti_container {
   position: relative;
@@ -1143,9 +1162,7 @@
   margin-bottom: 8px;
 }
 
-.tutor-course-topics-header
-  .tutor-course-topics-header-right
-  span:not(:first-child) {
+.tutor-course-topics-header .tutor-course-topics-header-right span:not(:first-child) {
   margin-left: 45px;
 }
 

@@ -225,7 +225,7 @@ class Courses extends Component {
                                             ></textarea>
                                         </div>
                                         <div className="col-12 col-md-6">
-                                        <label htmlFor="" className='mb-0 course-title-font'>Requirements</label>
+                                            <label htmlFor="" className='mb-0 course-title-font'>Requirements</label>
                                             <textarea className='form-control course-input' row='15'
                                                 value={this.state.requirements}
                                                 onChange={(e) => {
@@ -241,7 +241,7 @@ class Courses extends Component {
                                             ></textarea>
                                         </div>
                                         <div className="col-12 col-md-6">
-                                        <label htmlFor="" className='mb-0 course-title-font'>Course Level</label>
+                                            <label htmlFor="" className='mb-0 course-title-font'>Course Level</label>
                                             <select name="" id="" className='form-control course-input'
                                                 value={this.state.course_level}
                                                 onChange={(e) => {
@@ -261,7 +261,7 @@ class Courses extends Component {
                                             </select>
                                         </div>
                                         <div className="col-12 col-md-6">
-                                        <label htmlFor="" className='mb-0 course-title-font'>Audio Language</label>
+                                            <label htmlFor="" className='mb-0 course-title-font'>Audio Language</label>
                                             <select name="" id="" className='form-control course-input'
                                                 value={this.state.audio_language}
                                                 onChange={(e) => {
@@ -281,7 +281,7 @@ class Courses extends Component {
                                             </select>
                                         </div>
                                         <div className="col-12 col-md-6">
-                                        <label htmlFor="" className='mb-0 course-title-font'>Course Category</label>
+                                            <label htmlFor="" className='mb-0 course-title-font'>Course Category</label>
                                             <select name="" id="" className='form-control course-input'
                                                 value={this.state.course_category}
                                                 onChange={(e) => {
@@ -299,7 +299,7 @@ class Courses extends Component {
                                             </select>
                                             {/* ******************** */}
                                             <label htmlFor="" className='mb-0 course-title-font'>Course Start Date</label>
-                                            
+
 
                                             <input type="datetime-local" className='form-control course-input'
                                                 value={this.state.start_date}
@@ -325,7 +325,7 @@ class Courses extends Component {
                                             />
                                             {/* ******************** */}
                                             <label htmlFor="" className='mb-0 course-title-font'>Regular Price</label>
-                                            
+
                                             <input type='number' className='form-control course-input' placeholder='$0'
                                                 value={this.state.paid_amount}
                                                 onChange={(e) => {
@@ -474,12 +474,12 @@ class Courses extends Component {
                                                     }
                                                 }}
                                                 className='d-none' />
-                                                <label htmlFor="" className='mb-0 course-title-font'>Course Thumbnail</label>
+                                            <label htmlFor="" className='mb-0 course-title-font'>Course Thumbnail</label>
                                             {this.state.thumbnail == '' && (
                                                 <div className="rounded courseUploadVedio bgthwh">
                                                     <div className='text-center'>
                                                         <button className='btn btn-danger'
-                                                            onClick={() => {document.getElementById("thumbnail").click() }}
+                                                            onClick={() => { document.getElementById("thumbnail").click() }}
                                                         >Upload Thumbnail</button>
                                                         <p className='pb-0 mb-0'>File Format: jpg,jpeg, or png</p>
                                                     </div>
@@ -498,7 +498,11 @@ class Courses extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    {this.state.Course_id && <CoursesSectionList course_id={this.state.Course_id} />}
+                                    {this.state.Course_id && <CoursesSectionList
+                                        course_title={this.state.titleInput}
+                                        course_des={this.state.desInput}
+                                        course_id={this.state.Course_id}
+                                    />}
                                 </div>
                             )}
                             {/************************************* */}

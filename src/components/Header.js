@@ -176,7 +176,7 @@ class Header extends Component {
                 <NavLink activeClassName="active" to="/home" className="p-2 text-center ms-3 menu-icon center-menu-icon"><i className="feather-home font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
                 <NavLink activeClassName="active" to="/events" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="ti-calendar font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
                 <NavLink activeClassName="active" to="/courses" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-book font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
-                <NavLink activeClassName="active" to="/users" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
+                <NavLink activeClassName="active" to="/userpage" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
                 {/* <NavLink activeClassName="active" to="/shop2" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink> */}
 
 
@@ -421,6 +421,10 @@ class Header extends Component {
 
 
                                 </ul>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
                             </div>
 
 

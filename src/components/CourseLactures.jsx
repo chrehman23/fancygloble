@@ -118,7 +118,7 @@ class CourseLactures extends Component {
                     )
                 })}
 
-                {this.state.lactures.length == 0 && this.state.loaded && (<div className='text-center'><small className=' text-grey-500 w-100'>No lacture found</small></div>)}
+                {this.state.lactures.length == 0 && this.state.loaded && (<div className='py-4 text-center'><small className=' text-grey-500 w-100'>No lecture found</small></div>)}
 
             </>
         );
