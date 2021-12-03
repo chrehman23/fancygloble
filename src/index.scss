@@ -114,12 +114,30 @@
 .paidPostSeciton > div {
   position: absolute;
   bottom: 0px;
-
   background-color: whitesmoke;
-  padding: 20px;
-  // border-radius: 10px;
+  padding: 15px;
+
   width: 100%;
   // margin: 5px 10px;
+}
+
+.border-div {
+  border: 1px solid #000;
+  padding: 10px;
+}
+.subscribe-btn {
+  border: none;
+  font-size: 12px;
+  padding: 10px 18px;
+  color: #fff;
+  font-weight: 500;
+  background: #58428c !important;
+  min-width: 78px;
+  border-radius: 30px;
+  display: inline-block;
+  white-space: nowrap;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 // .maltiImgesUpload{
@@ -835,8 +853,8 @@
 }
 
 .message-items.out-messages .message-wraps > div {
-  background-color: #e6eeff !important;
-  // background-color: #edeff2 !important;
+  // background-color: #91C3E4 !important;
+  background-color: #edeff2 !important;
   border-radius: 0px 20px 20px 20px !important;
   position: relative;
   color: #000 !important;
@@ -846,6 +864,41 @@
 .round-1 {
   border-radius: 20px 0px 20px 20px !important;
 }
+
+.chat-color {
+  background: #dcf8c6;
+  color: #000;
+  border-radius: 50px;
+}
+
+.profile-photo {
+  box-shadow: 5px 10px 30px rgba(0, 247, 255, 0.157);
+  background-color: #ffffff;
+  padding: 6px;
+}
+
+.profile-photo img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+.fa-badge-check {
+  color: #11b719;
+}
+// .chat-bubble {
+//   padding: 10px 14px;
+//   background: #eee;
+//   margin: 10px 30px;
+//   border-radius: 9px;
+//   position: relative;
+// }
+
+// .chat-bubble--right:after {
+//   right: 0;
+//   border-left-color: #74b9ff;
+//   border-right: 0;
+//   margin-right: -20px;
+// }
 
 // box-shadow: 0 8px 30px gray;
 
@@ -1162,7 +1215,9 @@
   margin-bottom: 8px;
 }
 
-.tutor-course-topics-header .tutor-course-topics-header-right span:not(:first-child) {
+.tutor-course-topics-header
+  .tutor-course-topics-header-right
+  span:not(:first-child) {
   margin-left: 45px;
 }
 

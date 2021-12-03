@@ -122,7 +122,7 @@ class Comments extends Component {
                     </div>
 
                 )}
-                <div className='border-dashed mt-2 pt-2'>
+                <div className=' mt-2 pt-2'>
                     {/* {this.props._id} */}
                     {/* {JSON.stringify(this.state.comments,null,2)} */}
 

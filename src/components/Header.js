@@ -291,7 +291,7 @@ class Header extends Component {
                                                         <div>
                                                         
                                                             <h5 className=''>{data.user && data.user.name}</h5>
-                                                         <div className="d-flex justify-content-between align-items-center py-1">
+                                                         <div className="d-flex justify-content-between align-items-center p-0">
                                                          <small className={data.un_read > 0 ? "new" : ""}>
                                                          {data.last_message && data.last_message.content && data.last_message.content.substring(0, 10)}
                                                          {data.last_message && data.last_message.content && data.last_message.content && data.last_message.content.length > 10 && "..."}
