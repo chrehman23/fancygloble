@@ -408,7 +408,7 @@ class Postview extends Component {
                             })
                         }}
                     >
-                        <i className="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i>
+                        <i className="far fa-share text-grey-900  btn-round-sm font-lg"></i>
                         <span className="d-none-xs">
                             <CopyToClipBoardPost copyText={`${window.location.hostname}/post/${id}`} />
                         </span>
