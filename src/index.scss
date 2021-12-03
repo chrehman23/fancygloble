@@ -767,7 +767,10 @@
 
 .messages-contents {
   height: calc(100vh - 186px);
-  padding-bottom: 30px !important;
+  padding-bottom: 43px !important;
+}
+.chat_massage_container{
+  height: calc(100vh - 153px) !important;
 }
 
 .messages-contents > div::-webkit-scrollbar {
