@@ -1008,7 +1008,21 @@
   -ms-transform: scale(1.3);
   -o-transform: scale(1.3);
 }
-
+.lecture_veido_upload {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px dotted black;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  font-size: 30px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
 .course__teacher-info h5 {
   font-size: 14px;
   color: #53545b;
@@ -1033,6 +1047,10 @@
   background-color: #f7f7f7;
   border-color: #f7f7f7;
   margin-right: 10px;
+  display: flex;
+    justify-content: center;
+    width: 100%;
+
 }
 .lectures_edite_delete button i {
   all: unset !important;
