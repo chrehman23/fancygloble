@@ -355,7 +355,7 @@ class Chat extends Component {
                                 <div className="position-relative h100 bg-image-cover bg-image-center" style={{ backgroundImage: `url("${this.state.user_info && this.state.user_info.profile_cover}")` }}></div>
                                 <div className="pt-0 text-left d-block w-100 position-relative">
                                     <div className='d-flex w-100'>
-                                        <figure className="avatar imageControlermd " style={{ marginTop: `-40px` }}>
+                                        <figure className="avatar imageControlermd " style={{ marginTop: `-40px`,marginLeft:"20px" }}>
                                             <img src={this.state.user_info && this.state.user_info.profile_photo} alt="avater" className="float-right p-1 bg-white rounded-circle w-100 " />
                                         </figure>
                                         <div className='ml-5'>

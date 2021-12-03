@@ -175,7 +175,7 @@ class Postview extends Component {
                                                 }}
                                             >
                                                 <div className='d-flex align-items-center justify-content-center'>
-                                                    
+
                                                     <button className='subscribe-btn'>Paid Post Click to Pay ${allData.paid_amount}</button>
                                                 </div>
                                             </div>
@@ -195,29 +195,29 @@ class Postview extends Component {
                                             <img src='/assets/images/blur.jpg' className="rounded-3 w-100" alt="post" />
                                             <div className='paidPostSeciton'>
                                                 <div className='d-flex align-items-center flex-column justify-content-center'>
-                                                <div className='d-flex align-items-center justify-content-center'>
-                                                {this.state.purchaseLoader && (
-                                                    <button className='subscribe-btn'>Loading....</button>
-                                                )}
-                                                {!this.state.purchaseLoader && (
-                                                    <StripeCheckout
-                                                        token={this.purchasePost}
-                                                        stripeKey={process.env.REACT_APP_STRIP_KEY}
-                                                        // image="https://node.globalfansy.com/assets/user.png"
-                                                        // panelLabel="Give Money" // prepended to the amount in the bottom pay button
-                                                        amount={allData.paid_amount * 100} // cents
-                                                        ComponentClass="div"
-                                                        currency="USD"
-                                                    // name="Three Comma Co." // the pop-in header title
-                                                    // description="Big Data Stuff" // the pop-in header subtitle
-                                                    >
-                                                    <button className='subscribe-btn'>Paid Post Click to Pay ${allData.paid_amount}</button>
-                                                    </StripeCheckout>
+                                                    <div className='d-flex align-items-center justify-content-center'>
+                                                        {this.state.purchaseLoader && (
+                                                            <button className='subscribe-btn'>Loading....</button>
+                                                        )}
+                                                        {!this.state.purchaseLoader && (
+                                                            <StripeCheckout
+                                                                token={this.purchasePost}
+                                                                stripeKey={process.env.REACT_APP_STRIP_KEY}
+                                                                // image="https://node.globalfansy.com/assets/user.png"
+                                                                // panelLabel="Give Money" // prepended to the amount in the bottom pay button
+                                                                amount={allData.paid_amount * 100} // cents
+                                                                ComponentClass="div"
+                                                                currency="USD"
+                                                            // name="Three Comma Co." // the pop-in header title
+                                                            // description="Big Data Stuff" // the pop-in header subtitle
+                                                            >
+                                                                <button className='subscribe-btn'>Paid Post Click to Pay ${allData.paid_amount}</button>
+                                                            </StripeCheckout>
 
-                                                )}
+                                                        )}
 
-                
-                                            </div> 
+
+                                                    </div>
                                                     {/* <div className='w-100'>
                                                         <input type='text' className='p-2 bg-transparent commentInput text-grey-500 fw-500 font-xssss lh-4 ' placeholder='xxx xxx xxx xxx' />
                                                     </div>
@@ -225,7 +225,7 @@ class Postview extends Component {
                                                         <input type='text' className='p-2 bg-transparent commentInput text-grey-500 fw-500 font-xssss lh-4' placeholder='PIN' />
                                                         <input type='text' className='p-2 bg-transparent commentInput text-grey-500 fw-500 font-xssss lh-4' placeholder='Exp' />
                                                     </div> */}
-                                                     
+
                                                 </div>
                                             </div>
                                         </div>
@@ -400,19 +400,9 @@ class Postview extends Component {
                         <i className="text-white feather-message-circle bgthwh btn-round-sm font-xs"></i>
                         <span className="d-none-xss " style={{ marginLeft: "5px" }}>{this.props.commentCount + this.state.commentsCount} Comment</span>
                     </div>
-                    <div className={`pointer ms-auto   d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss ${menuClass}`} id={`dropdownMenu${id}`} data-bs-toggle="dropdown" aria-expanded="false"
-                        // onClick={this.toggleOpen}
-                        onClick={() => {
-                            this.setState({
-                                Share: true
-                            })
-                        }}
-                    >
-                        <i className="far fa-share text-grey-900  btn-round-sm font-lg"></i>
-                        <span className="d-none-xs">
-                            <CopyToClipBoardPost copyText={`${window.location.hostname}/post/${id}`} />
-                        </span>
-                    </div>
+
+                    <CopyToClipBoardPost copyText={`${window.location.hostname}/post/${id}`} />
+
                     <div className={`dropdown-menu d-none dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg right-0 ${menuClass}`} aria-labelledby={`dropdownMenu${id}`} style={{ minWidth: '300px', zIndex: 99 }}>
                         <h4 className="fw-700 font-xss text-grey-900 d-flex align-items-center">Share <i onClick={this.toggleOpen} className="cursor-pointer feather-x ms-auto font-xssss btn-round-xs bg-greylight text-grey-900 me-2"></i></h4>
                         <div className="p-0 card-body d-flex d-none">
