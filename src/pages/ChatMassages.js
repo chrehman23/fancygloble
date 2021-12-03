@@ -138,13 +138,23 @@ class Chat extends Component {
                 <Rightchat />
 
                 <div className="main-content right-chat-active mobile-responsive-for-blackcolor" style={{ height: "100vh !important" }}>
-                    <div className="middle-sidebar-bottom" style={{ padding: "100px 15px 0px" }}>
-                        <div className="middle-sidebar-left pe-0" style={{ maxWidth: "100%" }}>
+                    <div className="middle-sidebar-bottom" style={{ padding: "100px 15px 0px" }}>  
+
+
+                        <div className="middle-sidebar-left pe-0 " style={{ maxWidth: "100%" }}>
                             <div className="row">
                                 <div className="col-lg-12 position-relative">
                                     <div className="chat-wrapper pt-0 w-100 position-relative scroll-bar bg-white theme-dark-bg">
                                         <div className={`chat-body p-3 overflow-hidden ${this.state.timerLoader ? "d-none" : " "}`}>
-
+                                        <div className="row">
+                                        <div className="col-md-12 col-12 ">
+                                    <div className="profile-photo d-none">
+                                    <img src="https://global-fansy.s3.eu-north-1.amazonaws.com/profile/1637307748834242232113_341319634346847_335472291473948382_n.jpg" alt=""/>
+                                    <span><b> Asif Ali</b> </span>
+                                    <span> <i class="fad fa-badge-check"></i></span>
+                                    </div>
+                                        </div>
+                                        </div>
                                             {!this.state.apiLoader && (
                                                 <ScrollToBottom
                                                     animating={false}
@@ -246,9 +256,7 @@ class Chat extends Component {
                                                 </ScrollToBottom>
                                             )}
 
-
-
-                                            <div className="clearfix"></div>
+ 
 
                                         </div>
                                     </div>

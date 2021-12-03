@@ -29,7 +29,7 @@ class Postview extends Component {
             Emojis: false,
             commentsCount: 0,
             EmojisCount: 0,
-            cardAtive: false,
+            cardAtive: true,
             copyClip: false,
             purchaseLoader: false,
 
@@ -175,8 +175,8 @@ class Postview extends Component {
                                                 }}
                                             >
                                                 <div className='d-flex align-items-center justify-content-center'>
-                                                    <p className='mb-0 fw-500 lh-26 font-xssss'>Paid post ${allData.paid_amount}</p>
-                                                    <button className='btn btn-bg-primary'>Click to Pay</button>
+                                                    
+                                                    <button className='subscribe-btn'>Paid Post Click to Pay ${allData.paid_amount}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -195,7 +195,29 @@ class Postview extends Component {
                                             <img src='/assets/images/blur.jpg' className="rounded-3 w-100" alt="post" />
                                             <div className='paidPostSeciton'>
                                                 <div className='d-flex align-items-center flex-column justify-content-center'>
-                                                    <p className='mb-0 fw-500 lh-26 font-xssss'>Payment amount ${allData.paid_amount}</p>
+                                                <div className='d-flex align-items-center justify-content-center'>
+                                                {this.state.purchaseLoader && (
+                                                    <button className='subscribe-btn'>Loading....</button>
+                                                )}
+                                                {!this.state.purchaseLoader && (
+                                                    <StripeCheckout
+                                                        token={this.purchasePost}
+                                                        stripeKey={process.env.REACT_APP_STRIP_KEY}
+                                                        // image="https://node.globalfansy.com/assets/user.png"
+                                                        // panelLabel="Give Money" // prepended to the amount in the bottom pay button
+                                                        amount={allData.paid_amount * 100} // cents
+                                                        ComponentClass="div"
+                                                        currency="USD"
+                                                    // name="Three Comma Co." // the pop-in header title
+                                                    // description="Big Data Stuff" // the pop-in header subtitle
+                                                    >
+                                                    <button className='subscribe-btn'>Paid Post Click to Pay ${allData.paid_amount}</button>
+                                                    </StripeCheckout>
+
+                                                )}
+
+                
+                                            </div> 
                                                     {/* <div className='w-100'>
                                                         <input type='text' className='p-2 bg-transparent commentInput text-grey-500 fw-500 font-xssss lh-4 ' placeholder='xxx xxx xxx xxx' />
                                                     </div>
@@ -203,29 +225,7 @@ class Postview extends Component {
                                                         <input type='text' className='p-2 bg-transparent commentInput text-grey-500 fw-500 font-xssss lh-4' placeholder='PIN' />
                                                         <input type='text' className='p-2 bg-transparent commentInput text-grey-500 fw-500 font-xssss lh-4' placeholder='Exp' />
                                                     </div> */}
-                                                    <div className='text-right w-100'>
-                                                        {this.state.purchaseLoader && (
-                                                            <button className='btn btn-primary '
-                                                            >Loading...</button>
-                                                        )}
-                                                        {!this.state.purchaseLoader && (
-                                                            <StripeCheckout
-                                                                token={this.purchasePost}
-                                                                stripeKey={process.env.REACT_APP_STRIP_KEY}
-                                                                // image="https://node.globalfansy.com/assets/user.png"
-                                                                // panelLabel="Give Money" // prepended to the amount in the bottom pay button
-                                                                amount={allData.paid_amount * 100} // cents
-                                                                ComponentClass="div"
-                                                                currency="USD"
-                                                            // name="Three Comma Co." // the pop-in header title
-                                                            // description="Big Data Stuff" // the pop-in header subtitle
-                                                            >
-                                                                <button className='btn btn-primary'>Pay</button>
-                                                            </StripeCheckout>
-
-                                                        )}
-
-                                                    </div>
+                                                     
                                                 </div>
                                             </div>
                                         </div>

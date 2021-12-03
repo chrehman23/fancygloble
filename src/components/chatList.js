@@ -20,8 +20,8 @@ class chatList extends Component {
                                 </div>
                             </div>
                             <div className='px-2'>
-                                <div className="message-wraps py-0    ">
-                                    <div className='bgthwh p-3 py-2 round-1'>{data.content}</div>
+                                <div className="message-wraps py-0  ">
+                                    <div className=' p-3 py-2 round-1 chat-color'>{data.content}</div>
                                 </div>
                             </div>
                         </div>
