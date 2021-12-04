@@ -306,9 +306,8 @@ class Events extends Component {
                                   class="img-fluid"
                                   src={
                                     value.thumbnail &&
-                                    `${
-                                      value.thumbnail[0] &&
-                                      value.thumbnail[0].picture
+                                    `${value.thumbnail[0] &&
+                                    value.thumbnail[0].picture
                                     }`
                                   }
                                 ></img>
@@ -435,8 +434,8 @@ class Events extends Component {
                   <img
                     src={
                       this.state.eventModalDetails &&
-                      this.state.eventModalDetails.posted_by &&
-                      this.state.eventModalDetails.posted_by.profile_photo !==
+                        this.state.eventModalDetails.posted_by &&
+                        this.state.eventModalDetails.posted_by.profile_photo !==
                         ""
                         ? `${this.state.eventModalDetails.posted_by.profile_photo}`
                         : defaultProfilePhoto
@@ -459,7 +458,7 @@ class Events extends Component {
                 <p className="text-grey-500">
                   {moment(
                     this.state.eventModalDetails &&
-                      this.state.eventModalDetails.created_at
+                    this.state.eventModalDetails.created_at
                   ).fromNow(true)}{" "}
                   ago
                 </p>
@@ -565,14 +564,14 @@ class Events extends Component {
                         <table className="table ">
                           {this.state.eventModalDetails.event_type ==
                             "Physical" && (
-                            <div className="pb-2">
-                              <div className="weight-bold">
-                                <i className="p-0 fas fa-map-marker-smile icons-color-tble pe-2"></i>
-                                location
+                              <div className="pb-2">
+                                <div className="weight-bold">
+                                  <i className="p-0 fas fa-map-marker-smile icons-color-tble pe-2"></i>
+                                  location
+                                </div>
+                                <div>{this.state.eventModalDetails.location}</div>
                               </div>
-                              <div>{this.state.eventModalDetails.location}</div>
-                            </div>
-                          )}
+                            )}
                           {this.state.eventModalDetails.paid_amount > 0 && (
                             <div className="pb-2 event-font">
                               <div className="weight-bold">
@@ -587,30 +586,30 @@ class Events extends Component {
 
                           {this.state.eventModalDetails.seats_status ==
                             "Limited" && (
-                            <>
-                              <div className="pb-2">
-                                <div className="weight-bold">
-                                  {" "}
-                                  <i className="p-0 fad fa-users icons-color-tble pe-2"></i>
-                                  Total Seats
+                              <>
+                                <div className="pb-2">
+                                  <div className="weight-bold">
+                                    {" "}
+                                    <i className="p-0 fad fa-users icons-color-tble pe-2"></i>
+                                    Total Seats
+                                  </div>
+                                  <div>
+                                    {this.state.eventModalDetails.event_seats}
+                                  </div>
                                 </div>
-                                <div>
-                                  {this.state.eventModalDetails.event_seats}
+                                <div className="pb-2">
+                                  <div className="weight-bold">
+                                    {" "}
+                                    <i className="p-0 fad fa-users-crown icons-color-tble pe-2"></i>
+                                    Remaining seats
+                                  </div>
+                                  <div>
+                                    {this.state.eventModalDetails.event_seats -
+                                      this.state.eventModalDetails.booked_seats}
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="pb-2">
-                                <div className="weight-bold">
-                                  {" "}
-                                  <i className="p-0 fad fa-users-crown icons-color-tble pe-2"></i>
-                                  Remaining seats
-                                </div>
-                                <div>
-                                  {this.state.eventModalDetails.event_seats -
-                                    this.state.eventModalDetails.booked_seats}
-                                </div>
-                              </div>
-                            </>
-                          )}
+                              </>
+                            )}
 
                           <div className="pb-2 event-font">
                             <div className="weight-bold">
@@ -652,9 +651,8 @@ class Events extends Component {
                                   className="btn go-live-btn w-25"
                                   onClick={() =>
                                     this.props.history.push(
-                                      `live-event/${
-                                        this.state.eventModalDetails &&
-                                        this.state.eventModalDetails._id
+                                      `live-event/${this.state.eventModalDetails &&
+                                      this.state.eventModalDetails._id
                                       }`
                                     )
                                   }
@@ -666,9 +664,8 @@ class Events extends Component {
                                 <button
                                   onClick={() =>
                                     this.props.history.push(
-                                      `live-event-view/${
-                                        this.state.eventModalDetails &&
-                                        this.state.eventModalDetails._id
+                                      `live-event-view/${this.state.eventModalDetails &&
+                                      this.state.eventModalDetails._id
                                       }`
                                     )
                                   }
@@ -698,19 +695,26 @@ class Events extends Component {
                                   <StripeCheckout
                                     token={this.onToken}
                                     stripeKey={process.env.REACT_APP_STRIP_KEY}
-                                    // image="https://node.globalfansy.com/assets/user.png"
+                                    image={this.state.eventModalDetails &&
+                                      this.state.eventModalDetails.posted_by &&
+                                      this.state.eventModalDetails.posted_by.profile_photo !==
+                                      ""
+                                      ? `${this.state.eventModalDetails.posted_by.profile_photo}`
+                                      : defaultProfilePhoto
+                                    }
                                     // panelLabel="Give Money" // prepended to the amount in the bottom pay button
                                     amount={
                                       this.state.eventModalDetails.paid_amount *
                                       100
                                     } // cents
                                     ComponentClass="div"
-                                    currency="USD"
-                                    // name="Three Comma Co." // the pop-in header title
-                                    // description="Big Data Stuff" // the pop-in header subtitle
+                                    currency="EUR"
+                                    name={this.state.eventModalDetails.posted_by &&
+                                      this.state.eventModalDetails.posted_by.name} // the pop-in header title
+                                  description={`You are paying €${this.state.eventModalDetails.paid_amount} for event`} // the pop-in header subtitle
                                   >
                                     <button className="btn btn-primary">
-                                      Pay $
+                                      Pay €
                                       {this.state.eventModalDetails.paid_amount}{" "}
                                       Now(get ticket)
                                     </button>

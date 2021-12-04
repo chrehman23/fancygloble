@@ -75,7 +75,11 @@ class Userpage extends Component {
                                     {this.state.profileTabs == 1 && (
                                         <>
                                             <div className="col-xl-4 col-xxl-3 col-lg-4 pe-0">
-                                                <Profiledetail about={this.props.Profile.about} />
+                                                <Profiledetail 
+                                                about={this.props.Profile.about}
+                                                user_name={this.props.Profile.name}
+                                                    profile_photo={this.props.Profile.profile_photo}
+                                                 />
                                                 {/* <Profilephoto /> */}
                                                 {/* <Events /> */}
                                             </div>
@@ -84,8 +88,6 @@ class Userpage extends Component {
                                             </div>
                                         </>
                                     )}
-
-
                                     {this.state.profileTabs == 2 && (
                                         <>
                                             {this.props.Profile && this.props.Profile.followers.map((data, index) => {

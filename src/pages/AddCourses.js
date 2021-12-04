@@ -326,7 +326,7 @@ class Courses extends Component {
                                             {/* ******************** */}
                                             <label htmlFor="" className='mb-0 course-title-font'>Regular Price</label>
 
-                                            <input type='number' className='form-control course-input' placeholder='$0'
+                                            <input type='number' className='form-control course-input' placeholder='€0'
                                                 value={this.state.paid_amount}
                                                 onChange={(e) => {
                                                     this.setState({
@@ -340,7 +340,7 @@ class Courses extends Component {
                                                 }}
                                             />
                                             <label htmlFor="" className='mb-0 course-title-font'>Discount Price</label>
-                                            <input type='number' className='form-control course-input' placeholder='$0'
+                                            <input type='number' className='form-control course-input' placeholder='€0'
                                                 value={this.state.discount_amount}
                                                 onChange={(e) => {
                                                     this.setState({

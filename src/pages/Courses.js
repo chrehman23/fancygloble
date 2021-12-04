@@ -254,7 +254,7 @@ class Courses extends Component {
                                                                     <div></div>
                                                                     <div className="price">
                                                                         <div>
-                                                                            <a href="#"><span>${value.paid_amount} <del>{value.discount_amount > 0 && (`$${value.discount_amount}`)}</del></span></a>
+                                                                            <a href="#"><span>€{value.paid_amount} <del>{value.discount_amount > 0 && (`€${value.discount_amount}`)}</del></span></a>
                                                                         </div>
                                                                     </div>
                                                                     <div>

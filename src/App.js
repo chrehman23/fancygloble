@@ -11,11 +11,11 @@ import './style.scss';
 import '../media.scss';
 
 
- 
-import "../public/assets/css/style.css" ;
-import "../public/assets/css/feather.css" ;
-import "../public/assets/css/themify-icons.css" ; //icons
-import "./assets/fontawesome-pro/css/all.min.css" ; //icons
+
+import "../public/assets/css/style.css";
+import "../public/assets/css/feather.css";
+import "../public/assets/css/themify-icons.css"; //icons
+import "./assets/fontawesome-pro/css/all.min.css"; //icons
 
 // Common Layout
 import Demo from './demo/Demo';
@@ -90,8 +90,9 @@ class App extends Component {
 
     }
   }
-  componentDidMount() {
+  
 
+  componentDidMount() {
 
     let token = localStorage.getItem("token")
     if (!token) {
@@ -178,7 +179,7 @@ class App extends Component {
           <Route exact path={`/defaultnotification`} component={Notification} />
           <Route exact path={`/helpbox`} component={Helpbox} />
 
-        
+
 
           <Route exact path={`/shop1`} component={ShopOne} />
           <Route exact path={`/shop2`} component={ShopTwo} />
@@ -186,7 +187,7 @@ class App extends Component {
           <Route exact path={`/singleproduct`} component={Singleproduct} />
           <Route exact path={`/cart`} component={Cart} />
           <Route exact path={`/checkout`} component={Checkout} />
-       
+
 
           <Route exact path={`/defaultjob`} component={Job} />
           <Route exact path={`/defaultevent`} component={Event} />

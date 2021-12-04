@@ -383,7 +383,7 @@ class CoursesDetail extends Component {
                                                     <div className="py-3 course__video-price">
                                                         {!this.state.user_paid && (
                                                             <p>
-                                                                ${this.state.paid_amount} <del>{this.state.discount_amount > 0 && (`$${this.state.discount_amount}`)}</del>
+                                                                €{this.state.paid_amount} <del>{this.state.discount_amount > 0 && (`€ ${this.state.discount_amount}`)}</del>
                                                             </p>
                                                         )}
                                                         {this.state.created_by && this.state.created_by._id == this.props.profile_id && (
@@ -401,15 +401,15 @@ class CoursesDetail extends Component {
                                                                             <StripeCheckout
                                                                                 token={this.onToken}
                                                                                 stripeKey={process.env.REACT_APP_STRIP_KEY}
-                                                                                // image="https://node.globalfansy.com/assets/user.png"
+                                                                                image={this.state.user_details && this.state.user_details.profile_photo}
                                                                                 // panelLabel="Give Money" // prepended to the amount in the bottom pay button
                                                                                 amount={(this.state.paid_amount - this.state.discount_amount) * 100} // cents
                                                                                 ComponentClassName="div"
-                                                                                currency="USD"
-                                                                            // name="Three Comma Co." // the pop-in header title
-                                                                            // description="Big Data Stuff" // the pop-in header subtitle
+                                                                                currency="EUR"
+                                                                                name={this.state.user_details && this.state.user_details.name} // the pop-in header title
+                                                                                description={`Your are paying €${this.state.paid_amount - this.state.discount_amount} for course.`} // the pop-in header subtitle
                                                                             >
-                                                                                <button className='py-2 btn btn-primary btn-sm w-100 bgthwh'>${this.state.paid_amount - this.state.discount_amount} BUY NOW</button>
+                                                                                <button className='py-2 btn btn-primary btn-sm w-100 bgthwh'>€{this.state.paid_amount - this.state.discount_amount} BUY NOW</button>
                                                                             </StripeCheckout>
 
                                                                         )}

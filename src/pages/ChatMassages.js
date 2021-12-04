@@ -355,7 +355,7 @@ class Chat extends Component {
                                 <div className="position-relative h100 bg-image-cover bg-image-center" style={{ backgroundImage: `url("${this.state.user_info && this.state.user_info.profile_cover}")` }}></div>
                                 <div className="pt-0 text-left d-block w-100 position-relative">
                                     <div className='d-flex w-100'>
-                                        <figure className="avatar imageControlermd " style={{ marginTop: `-40px`,marginLeft:"20px" }}>
+                                        <figure className="avatar imageControlermd " style={{ marginTop: `-40px`, marginLeft: "20px" }}>
                                             <img src={this.state.user_info && this.state.user_info.profile_photo} alt="avater" className="float-right p-1 bg-white rounded-circle w-100 " />
                                         </figure>
                                         <div className='ml-5'>
@@ -383,15 +383,15 @@ class Chat extends Component {
                                         <StripeCheckout
                                             token={this.sendSms}
                                             stripeKey="pk_test_51JojOKANqHno2iJnUhvHytI2SsokdRaEZLKmG6ZzZrdcTaOp5PUCQv5d4YNacbvaZTN7Qcdk4psAglMyxdM6xMrw00TcV1mIOI"
-                                            // image="https://node.globalfansy.com/assets/user.png"
+                                            image={this.state.user_info && this.state.user_info.profile_photo}
                                             panelLabel="Pay tip" // prepended to the amount in the bottom pay button
                                             amount={this.state.tip_amount * 100} // cents
                                             ComponentClass="div"
-                                            currency="USD"
-                                        // name="Three Comma Co." // the pop-in header title
-                                        // description="Big Data Stuff" // the pop-in header subtitle
+                                            currency="EUR"
+                                            name={this.state.user_info && this.state.user_info.name} // the pop-in header title
+                                            description={`You are sending €${this.state.tip_amount} tip`} // the pop-in header subtitle
                                         >
-                                            <button className='my-2 float-end btn btn-sm btn-primary'>Send ${this.state.tip_amount} tip</button>
+                                            <button className='my-2 float-end btn btn-sm btn-primary'>Send €{this.state.tip_amount} tip</button>
                                         </StripeCheckout>
 
                                     )}

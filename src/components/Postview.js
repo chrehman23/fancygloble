@@ -176,7 +176,7 @@ class Postview extends Component {
                                             >
                                                 <div className='d-flex align-items-center justify-content-center'>
 
-                                                    <button className='subscribe-btn'>Paid Post Click to Pay ${allData.paid_amount}</button>
+                                                    <button className='subscribe-btn'>Paid Post Click to Pay €{allData.paid_amount}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -203,15 +203,15 @@ class Postview extends Component {
                                                             <StripeCheckout
                                                                 token={this.purchasePost}
                                                                 stripeKey={process.env.REACT_APP_STRIP_KEY}
-                                                                // image="https://node.globalfansy.com/assets/user.png"
-                                                                // panelLabel="Give Money" // prepended to the amount in the bottom pay button
+                                                                image={avater ? avater : "https://node.globalfansy.com/assets/user.png"}
+                                                                // panelLabel={`'You are paying for post ${allData.paid_amount}'`} // prepended to the amount in the bottom pay button
                                                                 amount={allData.paid_amount * 100} // cents
                                                                 ComponentClass="div"
-                                                                currency="USD"
-                                                            // name="Three Comma Co." // the pop-in header title
-                                                            // description="Big Data Stuff" // the pop-in header subtitle
+                                                                currency="EUR"
+                                                                name={user} // the pop-in header title
+                                                                description={`You are paying  €${allData.paid_amount} for post.`} // the pop-in header subtitle
                                                             >
-                                                                <button className='subscribe-btn'>Paid Post Click to Pay ${allData.paid_amount}</button>
+                                                                <button className='subscribe-btn'>Paid Post Click to Pay €{allData.paid_amount}</button>
                                                             </StripeCheckout>
 
                                                         )}

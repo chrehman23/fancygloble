@@ -79,6 +79,18 @@ class Payment extends Component {
         }
     }
 
+    globalfansy_cat = (value) => {
+        if (value > 0) {
+            let fansy_cost = (value * 20) / 100
+            let vat_cost = (fansy_cost * 24) / 100;
+            let total_cost = value - fansy_cost - vat_cost
+            return total_cost.toFixed(3)
+        } else {
+            return 0
+        }
+
+    }
+
 
 
     render() {
@@ -95,13 +107,13 @@ class Payment extends Component {
                         <div className="middle-sidebar-left">
                             <div className="middle-wrap">
 
-                                <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                                    <div className="card-body p-4 w-100 bg-current border-0 d-flex rounded-3">
-                                        <Link to="/defaultsettings" className="d-inline-block mt-2"><i className="ti-arrow-left font-sm text-white"></i></Link>
-                                        <h4 className="font-xs text-white fw-600 ms-4 mb-0 mt-2">Account Balance</h4>
+                                <div className="p-0 mb-4 bg-white border-0 shadow-xs card w-100">
+                                    <div className="p-4 bg-current border-0 card-body w-100 d-flex rounded-3">
+                                        <Link to="/defaultsettings" className="mt-2 d-inline-block"><i className="text-white ti-arrow-left font-sm"></i></Link>
+                                        <h4 className="mt-2 mb-0 text-white font-xs fw-600 ms-4">Account Balance</h4>
                                     </div>
-                                    <div className="card-body   p-1 px-3  w-100 border-0" style={{ minHeight: '500px' }}>
-                                        <div className='eventsTabs smtabs sm mb-3'>
+                                    <div className="p-1 px-3 border-0 card-body w-100" style={{ minHeight: '500px' }}>
+                                        <div className='mb-3 eventsTabs smtabs sm'>
                                             <div className={this.state.Tabs == 1 ? "active" : ""} onClick={() => this.tabChanger(1)} >Account</div>
                                             <div className={this.state.Tabs == 2 ? "active" : ""} onClick={() => this.tabChanger(2)}>All Earning</div>
                                             <div className={this.state.Tabs == 3 ? "active" : ""} onClick={() => this.tabChanger(3)}>Posts Earning</div>
@@ -146,13 +158,13 @@ class Payment extends Component {
                                                                             )}
                                                                         </td>
                                                                         <td>
-                                                                            {data.payment_for == "Post" && "Payment on post"}
+                                                                            {data.payment_for == "Post" && `Payment on post including €${data.amount-this.globalfansy_cat(data.amount)} VAT.`}
                                                                             {data.payment_for == "Event" && "Payment on event"}
                                                                             {data.payment_for == "Course" && "Payment on course"}
                                                                             {data.payment_for == "Tip" && "Payment on tip"}
                                                                             {/* {(!data.payment_for && !data.event_id && !data.post_id) && "payment on tip"} */}
                                                                         </td>
-                                                                        <td>${data.amount}</td>
+                                                                        <td>€{data.amount} ({this.globalfansy_cat(data.amount)})</td>
                                                                         <td>
                                                                             {data.payment_for == "Post" && (<span class="badge badge-primary">Post</span>)}
                                                                             {data.payment_for == "Event" && (<span class="badge badge-secondary">Event</span>)}
@@ -167,8 +179,8 @@ class Payment extends Component {
                                                         </tbody>
                                                     </table>
                                                     {this.state.apiLoader && (
-                                                        <div className="card w-100 text-center   rounded-xxl border-0 p-4 mb-3 mt-3">
-                                                            <div className="snippet mt-2 ms-auto me-auto" data-title=".dot-typing">
+                                                        <div className="p-4 mt-3 mb-3 text-center border-0 card w-100 rounded-xxl">
+                                                            <div className="mt-2 snippet ms-auto me-auto" data-title=".dot-typing">
                                                                 <div className="stage">
                                                                     <div className="dot-typing"></div>
                                                                 </div>
@@ -224,22 +236,22 @@ class Payment extends Component {
                                             <div className="row">
                                                 <div className="col-5">
                                                     {!this.state.apiLoader && (
-                                                        <div className="card border-0 mb-4 shadow-none">
-                                                            <div className="card-body d-block text-left p-0">
-                                                                <div className="item w-100 h150 bg-primary rounded-xxl text-left shadow-md ps-3 pt-2 align-items-end flex-column d-flex">
-                                                                    <div className="card bg-transparent border-0 bg-transparent-card shadow-none p-0 text-left w-100">
+                                                        <div className="mb-4 border-0 shadow-none card">
+                                                            <div className="p-0 text-left card-body d-block">
+                                                                <div className="pt-2 text-left shadow-md item w-100 h150 bg-primary rounded-xxl ps-3 align-items-end flex-column d-flex">
+                                                                    <div className="p-0 text-left bg-transparent border-0 shadow-none card bg-transparent-card w-100">
                                                                         <div className="row">
                                                                             <div className="col-6">
 
-                                                                                <img src="assets/images/b-10.png" alt="icon" className="w40 float-left d-inline-block" />
+                                                                                <img src="assets/images/b-10.png" alt="icon" className="float-left w40 d-inline-block" />
                                                                             </div>
-                                                                            <div className="col-6 text-right pe-4">
-                                                                                <img src="assets/images/chip.png" alt="icon" className="w30 float-right d-inline-block mt-2 me-2 rounded-3" />
+                                                                            <div className="text-right col-6 pe-4">
+                                                                                <img src="assets/images/chip.png" alt="icon" className="float-right mt-2 w30 d-inline-block me-2 rounded-3" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div className="card bg-transparent border-0 bg-transparent-card shadow-none p-0 text-left w-100 mt-auto">
-                                                                        <h4 className="text-white mb-3 font-sm fw-700 mont-font">$ {this.state.account_blacnce}.00<span className="d-block fw-500 text-grey-300 font-xssss mt-1">Account Balance</span></h4>
+                                                                    <div className="p-0 mt-auto text-left bg-transparent border-0 shadow-none card bg-transparent-card w-100">
+                                                                        <h4 className="mb-3 text-white font-sm fw-700 mont-font">€ {this.globalfansy_cat(this.state.account_blacnce)}<span className="mt-1 d-block fw-500 text-grey-300 font-xssss">Account Balance</span></h4>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -247,8 +259,8 @@ class Payment extends Component {
                                                     )}
 
                                                     {this.state.apiLoader && (
-                                                        <div className="card w-100 text-center   rounded-xxl border-0 p-4 mb-3 mt-3">
-                                                            <div className="snippet mt-2 ms-auto me-auto" data-title=".dot-typing">
+                                                        <div className="p-4 mt-3 mb-3 text-center border-0 card w-100 rounded-xxl">
+                                                            <div className="mt-2 snippet ms-auto me-auto" data-title=".dot-typing">
                                                                 <div className="stage">
                                                                     <div className="dot-typing"></div>
                                                                 </div>
