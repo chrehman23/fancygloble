@@ -13085,7 +13085,7 @@ strong,
   .main-content {
     order: 1;
     position: relative;
-    height: calc(100vh - 56px);
+    height: calc(100vh - 56px) !important;
     overflow-x: hidden;
     overflow-y: auto;
   }

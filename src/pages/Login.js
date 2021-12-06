@@ -269,7 +269,6 @@ class Login extends Component {
                     </Form>
                   </Formik>
                   {/* ************************************* */}
-
                   <div
                     className={`col-sm-12 p-0 text-center mt-2 d-flex justify-content-center align-items-center ${
                       !this.state.google_facebook_login_loader ? "d-none" : ""
@@ -296,7 +295,7 @@ class Login extends Component {
                     <GoogleLogin
                       socialId={process.env.REACT_APP_GOOGLE_LOGIN_KEY}
                       className="google-login"
-                      redirectUri={"https://development.globalfansy.com/login"}
+                      redirectUri={"https://globalfansy.com/login"}
                       fetchBasicProfile={true}
                       responseHandler={this.responseGoogle}
                       className="bg-transparent border-0 w-100"

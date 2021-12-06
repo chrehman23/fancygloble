@@ -307,14 +307,7 @@ class Userpage extends Component {
 
                 )}
 
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
+               
 
                 <Popupchat />
                 <Appfooter />
