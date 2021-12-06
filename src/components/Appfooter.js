@@ -6,11 +6,11 @@ import image from '../../public/assets/images/logIcon.png'
 class Appfooter extends Component {
     render() {
         return (
-            <div className="app-footer border-0 shadow-lg bg-primary-gradiant  ">
+            <div className="border-0 shadow-lg app-footer bg-primary-gradiant ">
                 <Link to="/home" className="nav-content-bttn nav-center"><i className="feather-home"></i></Link>
-                <Link to="/defaultvideo" className="nav-content-bttn"><i className="feather-package"></i></Link>
-                <Link to="/defaultlive" className="nav-content-bttn" data-tab="chats"><i className="feather-layout"></i></Link>           
-                <Link to="/shop2" className="nav-content-bttn"><i className="feather-layers"></i></Link>
+                <Link to="/courses" className="nav-content-bttn"><i className="feather-package"></i></Link>
+                <Link to="/users" className="nav-content-bttn" data-tab="chats"><i className="feather-layout"></i></Link>
+                <Link to="/defaultmessage" className="nav-content-bttn"><i className="feather-layers"></i></Link>
                 <Link to="/home" className="nav-content-bttn"><img src={image} alt="user" className="w30 shadow-xss" /></Link>
             </div>        
         );

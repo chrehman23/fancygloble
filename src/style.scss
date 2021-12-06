@@ -176,6 +176,12 @@
 .video-resources button::after {
   display: none !important;
 }
+.header>.content>.image{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
 
 .description-div {
   // padding: 12px 0px 12px 10px;

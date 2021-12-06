@@ -132,9 +132,29 @@ let CourseApi = {
          },
       })
    },
+   updateCourseLecture: (data) => {
+      return axios({
+         url: "/api/users/updateCourseLecture",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
    getLactures: (data) => {
       return axios({
          url: "/api/users/getLactures",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
+   deleteCourseLecture: (data) => {
+      return axios({
+         url: "/api/users/deleteCourseLecture",
          data,
          method: "post",
          headers: {

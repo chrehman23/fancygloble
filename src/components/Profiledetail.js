@@ -35,44 +35,47 @@ class Profiledetail extends Component {
     }
     render() {
         return (
-            <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3">
-                <div className="card-body d-block p-4">
-                    <h4 className="fw-700 mb-3 font-xsss text-grey-900">About</h4>
-                    <p className="fw-500 text-grey-500 lh-24 font-xssss mb-0">
+            <div className="mb-3 border-0 card w-100 shadow-xss rounded-xxl">
+                <div className="p-4 card-body d-block">
+                    <h4 className="mb-3 fw-700 font-xsss text-grey-900">About</h4>
+                    <p className="mb-0 fw-500 text-grey-500 lh-24 font-xssss">
                         {this.props.about ? this.props.about : "No about found."}
                     </p>
                 </div>
                 <div className="card-body border-top-xs d-flex">
                     <i className="feather-lock text-grey-500 me-3 font-lg"></i>
-                    <h4 className="fw-700 text-grey-900 font-xssss mt-0">Private
-                        <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                    <h4 className="mt-0 fw-700 text-grey-900 font-xssss">Private
+                        <span className="mt-1 d-block font-xssss fw-500 lh-3 text-grey-500">
                             Not private profile
                         </span></h4>
                 </div>
-                <div className="card-body d-flex pt-0 cursor-pointer "
-                    onClick={() => {
-                        this.setState({
-                            tipModal: true,
-                            tipError: "",
-                            tip_amount: 0
-                        })
-                    }}
-                >
-                    <i className="feather-credit-card text-grey-500 me-3 font-lg"></i>
-                    <h4 className="fw-700 text-grey-900 font-xssss mt-0">Send Tip <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">You can also send him tip</span></h4>
-                </div>
+                {this.props.profile_id && (
+                    <div className="pt-0 cursor-pointer card-body d-flex "
+                        onClick={() => {
+                            this.setState({
+                                tipModal: true,
+                                tipError: "",
+                                tip_amount: 0
+                            })
+                        }}
+                    >
+                        <i className="feather-credit-card text-grey-500 me-3 font-lg"></i>
+                        <h4 className="mt-0 fw-700 text-grey-900 font-xssss">Send Tip <span className="mt-1 d-block font-xssss fw-500 lh-3 text-grey-500">You can also send him tip</span></h4>
+                    </div>
+                )}
+                
                 {/* 
-                <div className="card-body d-flex pt-0">
+                <div className="pt-0 card-body d-flex">
                     <i className="feather-eye text-grey-500 me-3 font-lg"></i>
-                    <h4 className="fw-700 text-grey-900 font-xssss mt-0">Visble <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">Anyone can find you</span></h4>
+                    <h4 className="mt-0 fw-700 text-grey-900 font-xssss">Visble <span className="mt-1 d-block font-xssss fw-500 lh-3 text-grey-500">Anyone can find you</span></h4>
                 </div>
-                <div className="card-body d-flex pt-0">
+                <div className="pt-0 card-body d-flex">
                     <i className="feather-map-pin text-grey-500 me-3 font-lg"></i>
-                    <h4 className="fw-700 text-grey-900 font-xssss mt-1">Flodia, Austia </h4>
+                    <h4 className="mt-1 fw-700 text-grey-900 font-xssss">Flodia, Austia </h4>
                 </div>
-                <div className="card-body d-flex pt-0">
+                <div className="pt-0 card-body d-flex">
                     <i className="feather-users text-grey-500 me-3 font-lg"></i>
-                    <h4 className="fw-700 text-grey-900 font-xssss mt-1">Genarel Group</h4>
+                    <h4 className="mt-1 fw-700 text-grey-900 font-xssss">Genarel Group</h4>
                 </div> */}
 
                 {/* post View Modal  */}
@@ -93,7 +96,7 @@ class Profiledetail extends Component {
                         )}
 
                         {!this.state.apiLoader && !this.state.tipError && (
-                            <div className="form-control py-3">
+                            <div className="py-3 form-control">
                                 <label htmlFor="">Enter tip amount</label>
                                 <input type="number"
                                     onChange={(e) => {
@@ -106,15 +109,15 @@ class Profiledetail extends Component {
                                     <StripeCheckout
                                         token={this.onToken}
                                         stripeKey="pk_test_51JojOKANqHno2iJnUhvHytI2SsokdRaEZLKmG6ZzZrdcTaOp5PUCQv5d4YNacbvaZTN7Qcdk4psAglMyxdM6xMrw00TcV1mIOI"
-                                        // image="https://node.globalfansy.com/assets/user.png"
+                                        image={this.props.profile_photo}
                                         panelLabel="Pay tip" // prepended to the amount in the bottom pay button
                                         amount={this.state.tip_amount * 100} // cents
                                         ComponentClass="div"
-                                        currency="USD"
-                                    // name="Three Comma Co." // the pop-in header title
-                                    // description="Big Data Stuff" // the pop-in header subtitle
+                                        currency="EUR"
+                                        name={this.props.name} // the pop-in header title
+                                        description={`you are sending €${this.state.tip_amount}`} // the pop-in header subtitle
                                     >
-                                        <button className='float-end btn btn-sm btn-primary my-2'>Send ${this.state.tip_amount} tip</button>
+                                        <button className='my-2 float-end btn btn-sm btn-primary'>Send €{this.state.tip_amount} tip</button>
                                     </StripeCheckout>
 
                                 )}

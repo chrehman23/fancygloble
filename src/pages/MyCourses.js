@@ -192,7 +192,7 @@ class MyCourses extends Component {
                                                         <h2 className="mt-2 mb-1"><a href="/singleproduct" className="text-black fw-700 font-xsss lh-26">{value.title}</a></h2>
                                                         <div className="d-flex justify-content-between">
                                                             <div>
-                                                                <h6 className="font-xsss fw-600 text-grey-500 ls-2">${value.paid_amount} <del>${value.discount_amount}</del> </h6>
+                                                                <h6 className="font-xsss fw-600 text-grey-500 ls-2">€{value.paid_amount} <del>€{value.discount_amount}</del> </h6>
                                                                 <span className='rounded bg-gray'>{value.publish?"Publish":"Unpublish"}</span>
                                                             </div>
                                                             <div>

@@ -57,12 +57,12 @@ class Login extends Component {
   }
   responseGoogle(googleUser) {
     console.log("googleUser", googleUser);
-    let data = googleUser.dt;
+    let data = googleUser.vu;
     console.log(data);
     let googleres = {
-      email: data.Ot,
-      name: data.Se,
-      password: data.fT,
+      email: data.jv,
+      name: data.jf,
+      password: data.sW,
       account_type: "google",
     };
     console.log("googleUser", googleres);
@@ -107,19 +107,19 @@ class Login extends Component {
     return (
       <Fragment>
         <div className="main-wrap">
-          <div className="nav-header bg-transparent shadow-none border-0 bg-mbile-white">
+          <div className="bg-transparent border-0 shadow-none nav-header bg-mbile-white">
             <div className="nav-top w-100 justify-content-start ">
               <Link to="/" className="loginbgImageControl">
                 <img src="assets/images/Logo3.png" style={{ height: "60px" }} />
                 {/* <i className="feather-zap text-success display2-size me-3 ms-0"></i>
-                        <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
+                        <span className="mb-0 text-current d-inline-block fredoka-font ls-3 fw-600 font-xxl logo-text">
                             Sociala.
                         </span> */}
               </Link>
-              {/* <Link to="/"><i className="feather-zap text-success display1-size me-2 ms-0"></i><span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </Link> */}
+              {/* <Link to="/"><i className="feather-zap text-success display1-size me-2 ms-0"></i><span className="mb-0 text-current d-inline-block fredoka-font ls-3 fw-600 font-xxl logo-text">Sociala. </span> </Link> */}
 
-              {/* <Link to="/login" className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">Login</Link> */}
-              {/* <Link to="/register" className="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">Register</Link> */}
+              {/* <Link to="/login" className="p-3 text-center text-white header-btn d-none d-lg-block bg-dark fw-500 font-xsss ms-auto w100 lh-20 rounded-xl">Login</Link> */}
+              {/* <Link to="/register" className="p-3 text-center text-white bg-current header-btn d-none d-lg-block fw-500 font-xsss ms-2 w100 lh-20 rounded-xl">Register</Link> */}
             </div>
           </div>
           <div
@@ -130,15 +130,15 @@ class Login extends Component {
             }}
           >
             <div
-              className="col-xl-7 d-none d-xl-block p-0 "
+              className="p-0 col-xl-7 d-none d-xl-block "
               // bg-image-cover style={{ backgroundImage: `url(${backgroundLogin})` }}
             >
               {/* <img src={loignImage4} className='loginBackGroundImage' /> */}
             </div>
-            <div className="col-xl-5 loginScreenCover h-100 align-items-center d-flex   rounded-3 overflow-hidden">
-              <div className="card shadow-none border-0 bg-transparent ms-auto me-auto login-card">
-                <div className="card-body  rounded-0 text-left mt-5">
-                  <h2 className="fw-700 display1-size display2-md-size mb-3 text-white">
+            <div className="overflow-hidden col-xl-5 loginScreenCover h-100 align-items-center d-flex rounded-3">
+              <div className="bg-transparent border-0 shadow-none card ms-auto me-auto login-card">
+                <div className="mt-5 text-left card-body rounded-0">
+                  <h2 className="mb-3 text-white fw-700 display1-size display2-md-size">
                     Login into <br />
                     your account
                   </h2>
@@ -184,12 +184,12 @@ class Login extends Component {
                     }}
                   >
                     <Form>
-                      <div className="form-group icon-input mb-0 rounded-circle">
+                      <div className="mb-0 form-group icon-input rounded-circle">
                         {/* <i className="font-sm ti-email text-grey-500 pe-0"></i> */}
                         <Field
                           id="email"
                           name="email"
-                          className="style2-input  form-control text-grey-900 font-xsss fw-600"
+                          className="style2-input form-control text-grey-900 font-xsss fw-600"
                           placeholder="Your Email Address"
                         />
                       </div>
@@ -198,13 +198,13 @@ class Login extends Component {
                           <ErrorMessage name="email" />
                         </b>
                       </small>
-                      <div className="form-group icon-input mb-0 mt-3">
+                      <div className="mt-3 mb-0 form-group icon-input">
                         {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
                         <Field
                           id="password"
                           type="password"
                           name="password"
-                          className="style2-input  form-control text-grey-900 font-xsss fw-600"
+                          className="style2-input form-control text-grey-900 font-xsss fw-600"
                           placeholder="Password"
                         />
 
@@ -221,31 +221,31 @@ class Login extends Component {
                           <ErrorMessage name="password" />
                         </b>
                       </small>
-                      <div className="form-check text-left my-3">
+                      <div className="my-3 text-left form-check">
                         <input
                           type="checkbox"
                           className="form-check-input "
                           id="exampleCheck5"
                         />
-                        <label className="form-check-label font-xsss text-white">
+                        <label className="text-white form-check-label font-xsss">
                           Remember me
                         </label>
                         <Link
                           to="/forgot"
-                          className="fw-600 font-xsss     float-right text-white"
+                          className="float-right text-white fw-600 font-xsss"
                         >
                           Forgot your Password?
                         </Link>
                       </div>
-                      <small className="text-danger my-3 ">
+                      <small className="my-3 text-danger ">
                         <b>{this.state.ApiError}</b>
                       </small>
-                      <div className="col-sm-12 p-0 text-left mt-2">
-                        <div className="form-group mb-1">
+                      <div className="p-0 mt-2 text-left col-sm-12">
+                        <div className="mb-1 form-group">
                           {this.state.apiLoader && (
                             <button
                               type="button"
-                              className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 "
+                              className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark "
                             >
                               Loading....
                             </button>
@@ -253,13 +253,13 @@ class Login extends Component {
                           {!this.state.apiLoader && (
                             <button
                               type="submit"
-                              className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 "
+                              className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark "
                             >
                               Login
                             </button>
                           )}
                         </div>
-                        <h6 className=" font-xsss fw-500 mt-0 mb-0 lh-32 text-white">
+                        <h6 className="mt-0 mb-0 text-white font-xsss fw-500 lh-32">
                           Dont have account{" "}
                           <Link to="/register" className="fw-700 ms-1">
                             Register
@@ -283,12 +283,12 @@ class Login extends Component {
                       this.state.google_facebook_login_loader ? "d-none" : ""
                     }`}
                   >
-                    <h6 className="mb-0 d-inline-block   fw-500 font-xsss  mb-3 text-white">
+                    <h6 className="mb-0 mb-3 text-white d-inline-block fw-500 font-xsss">
                       Or, Sign in with your social account{" "}
                     </h6>
                     <p>
                       {" "}
-                      <small className="text-danger mt-3 ">
+                      <small className="mt-3 text-danger ">
                         <b>{this.state.google_facebook_login_error}</b>
                       </small>
                     </p>
@@ -299,14 +299,14 @@ class Login extends Component {
                       redirectUri={"https://development.globalfansy.com/login"}
                       fetchBasicProfile={true}
                       responseHandler={this.responseGoogle}
-                      className="w-100 bg-transparent border-0"
+                      className="bg-transparent border-0 w-100"
                     >
-                      <div className="form-group mb-1">
-                        <div className="form-control text-left style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2">
+                      <div className="mb-1 form-group">
+                        <div className="p-0 mb-2 text-left text-white border-0 form-control style2-input fw-600 bg-facebook">
                           <img
                             src={googleImage}
                             alt="icon"
-                            className="ms-2 w40 mb-1 me-5"
+                            className="mb-1 ms-2 w40 me-5"
                           />{" "}
                           Sign in with Google
                         </div>
@@ -323,9 +323,9 @@ class Login extends Component {
                                                 this.responseFacebook()
                                             }}
                                             render={renderProps => (
-                                                <div onClick={renderProps.onClick} className="form-group cursor-pointer mb-1">
-                                                    <div className="form-control text-left style2-input text-white fw-600 bg-twiiter border-0 p-0 ">
-                                                        <img src="assets/images/icon-3.png" alt="icon" className="ms-2 w40 mb-1 me-5" />
+                                                <div onClick={renderProps.onClick} className="mb-1 cursor-pointer form-group">
+                                                    <div className="p-0 text-left text-white border-0 form-control style2-input fw-600 bg-twiiter ">
+                                                        <img src="assets/images/icon-3.png" alt="icon" className="mb-1 ms-2 w40 me-5" />
                                                         Sign in with Facebook
                                                     </div>
                                                 </div>

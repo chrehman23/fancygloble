@@ -272,7 +272,7 @@ class Createpost extends Component {
                             <div className="p-0 mt-3 mb-3 card-body d-block">
                                 <div className='row'>
                                     <div className='col-12'>
-                                        <video className='vedioPlayer' controls autoplay>
+                                        <video className='vedioPlayer' controls controlsList="nodownload">
                                             <source src={this.state.vedioUrl} type="video/mp4" />
                                             Your browser does not support HTML5 video.
                                         </video>
@@ -443,7 +443,6 @@ class Createpost extends Component {
                                                 fileError: "File size should less then 50MB",
                                             })
                                         } else {
-
                                             if (e.currentTarget.files[0].type.split('/')[0] == "video") {
                                                 this.readVideo(e);
                                             } else {

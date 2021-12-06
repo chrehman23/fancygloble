@@ -196,11 +196,11 @@ class Header extends Component {
                 <Link to="/defaultnotification" className="p-2 text-center ms-3 menu-icon chat-active-btn">
                     <div className='topbar_noti_container'>
                         <span className={this.props.NotifyStatus ? "dot-count bg-warning" : ""}  ></span>
-                    <i className="text-current feather-bell font-xl "></i>
+                        <i className="text-current feather-bell font-xl "></i>
                     </div>
-                    </Link>
+                </Link>
                 {/* <Darkbutton /> */}
-                
+
                 {/* <Link to="/defaultsettings" className="p-0 ms-3 menu-icon"><img src="assets/images/user.png" alt="user" className="w40 mt--1" /></Link> */}
                 <Link to="/defaultsettings" className="p-2 text-center ms-3 menu-icon chat-active-btn">  <i className="feather-menu font-lg text-grey-500 "></i></Link>
 
@@ -238,6 +238,8 @@ class Header extends Component {
                                     <li><Link to="/defaultsettings" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i className="font-sm feather-settings me-3 text-grey-500"></i><span>{t('header.settings')}</span></Link></li>
                                     {/* <li><Link to="/defaultanalytics" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i className="font-sm feather-pie-chart me-3 text-grey-500"></i><span>Analytics</span></Link></li> */}
                                     <li><Link to="/defaultmessage" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i className="font-sm feather-message-square me-3 text-grey-500"></i><span>{t('header.chat')}</span><span className="mt-0 circle-count bg-warning d-none">23</span></Link></li>
+                                    <li><a href="https://sites.google.com/view/globalfansy/home/terms-conditions?authuser=0" target="_blank" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i class="fas fa-assistive-listening-systems font-sm me-3 text-grey-500"></i><span>Terms & Conditions</span><span className="mt-0 circle-count bg-warning d-none">23</span></a></li>
+                                    <li><a href="https://sites.google.com/view/globalfansy/home/privacy-policy?authuser=0" target="_blank" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i class="far fa-user-shield me-3 text-grey-500 font-sm"></i><span>Privacy Policy</span><span className="mt-0 circle-count bg-warning d-none">23</span></a></li>
                                     <li>
                                         <Dropdown className="languageChangerBtn nav-content-bttn open-font">
                                             <Dropdown.Toggle id="dropdown-basic">
@@ -289,18 +291,18 @@ class Header extends Component {
                                                             <div>  <img src={data.user && data.user.profile_photo} alt="" /></div>
                                                         </div>
                                                         <div>
-                                                        
-                                                            <h5 className=''>{data.user && data.user.name}</h5>
-                                                         <div className="d-flex justify-content-between align-items-center p-0">
-                                                         <small className={data.un_read > 0 ? "new" : ""}>
-                                                         {data.last_message && data.last_message.content && data.last_message.content.substring(0, 10)}
-                                                         {data.last_message && data.last_message.content && data.last_message.content && data.last_message.content.length > 10 && "..."}
-                                                         {data.update_at == "" && data.user && data.user.user_name}
-                                                         </small>
-                                                         <span className="chat_date">{data.last_message && moment(data.last_message.updatedAt).fromNow(true)}</span>
-                                                         </div>
 
-                                                                
+                                                            <h5 className=''>{data.user && data.user.name}</h5>
+                                                            <div className="p-0 d-flex justify-content-between align-items-center">
+                                                                <small className={data.un_read > 0 ? "new" : ""}>
+                                                                    {data.last_message && data.last_message.content && data.last_message.content.substring(0, 10)}
+                                                                    {data.last_message && data.last_message.content && data.last_message.content && data.last_message.content.length > 10 && "..."}
+                                                                    {data.update_at == "" && data.user && data.user.user_name}
+                                                                </small>
+                                                                <span className="chat_date">{data.last_message && moment(data.last_message.updatedAt).fromNow(true)}</span>
+                                                            </div>
+
+
                                                         </div>
                                                         {data.online && (
                                                             <div className='online_status'></div>
@@ -310,7 +312,7 @@ class Header extends Component {
                                                                 <div><medium className="chat-numbers-notfication">{data.un_read}</medium></div>
                                                             </div>
                                                         )}
-                                                               
+
                                                     </div>
                                                 </div>
                                             </li>
