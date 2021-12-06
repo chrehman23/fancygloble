@@ -234,7 +234,7 @@ class Payment extends Component {
                                         )}
                                         {this.state.Tabs == 1 && (
                                             <div className="row">
-                                                <div className="col-5">
+                                                <div className="col-12 col-md-5">
                                                     {!this.state.apiLoader && (
                                                         <div className="mb-4 border-0 shadow-none card">
                                                             <div className="p-0 text-left card-body d-block">
