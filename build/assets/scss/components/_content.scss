@@ -22,7 +22,7 @@
     @include media-breakpoint-down(md) {
     	order:1;
     	position: relative;
-	    height: calc(100vh - 56px);
+	    height: calc(100vh - 56px) !important;
 	    overflow-x: hidden;
 	    overflow-y: auto;
 	    // background-color: #f1f7fe;
