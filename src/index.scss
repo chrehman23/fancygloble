@@ -395,11 +395,15 @@
 
 .emojisPictures {
   display: flex;
+  align-items: center;
 }
 
 .emojisPictures > li {
   width: 30px;
-  // padding: 2px;
+  padding-top: 4px;
+}
+.emojisPictures > li:last-child {
+margin-top: 0px !important;
 }
 
 .emojisPictures > li img {

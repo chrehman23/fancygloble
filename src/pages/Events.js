@@ -619,7 +619,7 @@ class Events extends Component {
                             <div>
                               {moment(
                                 this.state.eventModalDetails.start_date
-                              ).format("DD/MMM/YYY hh:mm a")}
+                              ).format("DD/MMM/YY hh:mm a")}
                             </div>
                           </div>
                           <div>
@@ -630,7 +630,7 @@ class Events extends Component {
                             <div className="event-font">
                               {moment(
                                 this.state.eventModalDetails.end_date
-                              ).format("DD/MMM/YYY hh:mm a")}
+                              ).format("DD/MMM/YY hh:mm a")}
                             </div>
                           </div>
                         </table>
