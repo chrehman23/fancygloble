@@ -25,15 +25,15 @@ const formikValidateSchema = Yup.object().shape({
     name: Yup.string().required('Name is required').min(4, "Name should grater then 4 digits."),
     user_name: Yup.string().required('User name is required').min(4, "User name should grater then 4 digits.").max(20, "User name should less then 20 digits."),
     email: Yup.string().required('Email is required.').email('Email is not valid.'),
-    password: Yup.string().required("Password is required.").min(6, "Password should 6 digits."),
+    // password: Yup.string().required("Password is required.").min(6, "Password should 6 digits."),
     termsAndConditions: Yup.boolean().oneOf([true], 'Accept Terms & Conditions is required'),
-    password_confirmation: Yup.string().required("password confirmation is required.").min(6, "password confirmation should 6 digits.").when("password", {
-        is: val => (val && val.length > 0 ? true : false),
-        then: Yup.string().oneOf(
-            [Yup.ref("password")],
-            "Both password need to be the same"
-        )
-    })
+    // password_confirmation: Yup.string().required("password confirmation is required.").min(6, "password confirmation should 6 digits.").when("password", {
+    //     is: val => (val && val.length > 0 ? true : false),
+    //     then: Yup.string().oneOf(
+    //         [Yup.ref("password")],
+    //         "Both password need to be the same"
+    //     )
+    // })
 });
 
 class Register extends Component {
@@ -41,7 +41,8 @@ class Register extends Component {
         super();
         this.state = {
             apiLoader: false,
-            ApiError: ""
+            ApiError: "",
+            account_varification: false,
         }
     }
     render() {
@@ -58,7 +59,7 @@ class Register extends Component {
                         </span> */}
                             </Link>
                             {/* <Link to="/"><i className="feather-zap text-success display1-size me-2 ms-0"></i><span className="mb-0 text-current d-inline-block fredoka-font ls-3 fw-600 font-xxl logo-text">Sociala. </span> </Link> */}
-                            
+
 
                             {/* <Link to="/login" className="p-3 text-center text-white header-btn d-none d-lg-block bg-dark fw-500 font-xsss ms-auto w100 lh-20 rounded-xl">Login</Link> */}
                             {/* <Link to="/register" className="p-3 text-center text-white bg-current header-btn d-none d-lg-block fw-500 font-xsss ms-2 w100 lh-20 rounded-xl">Register</Link> */}
@@ -87,7 +88,7 @@ class Register extends Component {
                                             email: '',
                                             password: '',
                                             password_confirmation: '',
-                                            termsAndConditions:false
+                                            termsAndConditions: false
                                         }}
                                         validationSchema={formikValidateSchema}
                                         onSubmit={async (values) => {
@@ -102,10 +103,14 @@ class Register extends Component {
                                             AuthApi.UserRegister(data).then(res => {
                                                 console.log(res)
                                                 if (res.data.Error == false) {
-                                                    localStorage.setItem("token", res.data.token)
+                                                    // localStorage.setItem("token", res.data.token)
                                                     this.props.removePosts()
-                                                    this.props.loadProfile(res.data.userProfile)
-                                                    this.props.history.push("/")
+                                                    this.setState({
+                                                        account_varification: true,
+                                                        ApiError: res.data.msg
+                                                    })
+                                                    // this.props.loadProfile(res.data.userProfile)
+                                                    // this.props.history.push("/")
                                                 }
                                                 this.setState({
                                                     apiLoader: false,
@@ -149,61 +154,69 @@ class Register extends Component {
                                         }) => (
 
                                             <Form>
-                                                <div className="mb-0 form-group icon-input ">
-                                                    {/* <i className="font-sm ti-user text-grey-500 pe-0"></i> */}
-                                                    <Field id="name" name="name" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Your Name" />
+                                                {!this.state.account_varification && (
+                                                    <>
+                                                        <div className="mb-0 form-group icon-input ">
+                                                            {/* <i className="font-sm ti-user text-grey-500 pe-0"></i> */}
+                                                            <Field id="name" name="name" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Your Name" />
 
-                                                </div>
-                                                <small className='text-danger'><b><ErrorMessage name="name" /></b></small>
+                                                        </div>
+                                                        <small className='text-danger'><b><ErrorMessage name="name" /></b></small>
 
-                                                <div className="mt-3 mb-0 form-group icon-input">
-                                                    {/* <i className="font-sm ti-user text-grey-500 pe-0"></i> */}
-                                                    <Field id="user_name" name="user_name" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="User Name" />
-                                                    {values.user_name ? (
-                                                        <span className='text-white'>
-                                                            @<b>{values.user_name.replace(" ","")}</b> will be your account name
-                                                        </span>
-                                                    ) : ""}
-                                                </div>
-                                                <small className='text-danger'><b><ErrorMessage name="user_name" /></b></small>
+                                                        <div className="mt-3 mb-0 form-group icon-input">
+                                                            {/* <i className="font-sm ti-user text-grey-500 pe-0"></i> */}
+                                                            <Field id="user_name" name="user_name" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="User Name" />
+                                                            {values.user_name ? (
+                                                                <span className='text-white'>
+                                                                    @<b>{values.user_name.replace(" ", "")}</b> will be your account name
+                                                                </span>
+                                                            ) : ""}
+                                                        </div>
+                                                        <small className='text-danger'><b><ErrorMessage name="user_name" /></b></small>
 
-                                                <div className="mt-3 mb-0 form-group icon-input">
-                                                    {/* <i className="font-sm ti-email text-grey-500 pe-0"></i> */}
-                                                    <Field id="email" name="email" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address" />
+                                                        <div className="mt-3 mb-0 form-group icon-input">
+                                                            {/* <i className="font-sm ti-email text-grey-500 pe-0"></i> */}
+                                                            <Field id="email" name="email" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address" />
 
-                                                </div>
-                                                <small className='text-danger'><b><ErrorMessage name="email" /></b></small>
-
-                                                <div className="mt-3 mb-0 form-group icon-input">
-                                                    {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
+                                                        </div>
+                                                        <small className='text-danger'><b><ErrorMessage name="email" /></b></small>
+                                                        {/* 
+                                                <div className="mt-3 mb-0 form-group icon-input"> 
                                                     <Field type='password' id="password" name="password" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Password" />
 
                                                 </div>
                                                 <small className='text-danger'><b><ErrorMessage name="password" /></b></small>
-                                                <div className="mt-3 mb-0 form-group icon-input">
-
-                                                    {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
+                                                <div className="mt-3 mb-0 form-group icon-input"> 
                                                     <Field type='password' id="password_confirmation" name="password_confirmation" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Confirm Password" />
 
                                                 </div>
-                                                <small className='text-danger'><b><ErrorMessage name="password_confirmation" /></b></small>
+                                                <small className='text-danger'><b><ErrorMessage name="password_confirmation" /></b></small> */}
 
-                                                <div className="my-3 text-left form-check ">
-                                                    <Field type='checkbox' name="termsAndConditions" className="cursor-pointer form-check-input" />
+                                                        <div className="my-3 text-left form-check ">
+                                                            <Field type='checkbox' name="termsAndConditions" className="cursor-pointer form-check-input" />
 
-                                                    <label className="text-white form-check-label font-xsss">Accept <a href="https://sites.google.com/view/globalfansy/home/terms-conditions" target="_blank"><u><b>Term and Conditions </b></u></a></label>
-                                                </div>
-                                                <small className='text-danger'><b><ErrorMessage name="termsAndConditions" /></b></small>
+                                                            <label className="text-white form-check-label font-xsss">Accept <a href="https://sites.google.com/view/globalfansy/home/terms-conditions" target="_blank"><u><b>Term and Conditions </b></u></a></label>
+                                                        </div>
+                                                        <small className='text-danger'><b><ErrorMessage name="termsAndConditions" /></b></small>
+
+                                                    </>
+                                                )}
+
+
                                                 <small className='my-3 text-danger '><b>{this.state.ApiError}</b></small>
+
                                                 <div className="p-0 mt-2 text-left col-sm-12">
-                                                    <div className="mb-1 form-group">
-                                                        {this.state.apiLoader && (
-                                                            <button type="button" className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark ">Loading....</button>
-                                                        )}
-                                                        {!this.state.apiLoader && (
-                                                            <button type='submit' className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark ">Register</button>
-                                                        )}
-                                                    </div>
+                                                    {!this.state.account_varification && (
+                                                        <div className="mb-1 form-group">
+                                                            {this.state.apiLoader && (
+                                                                <button type="button" className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark ">Loading....</button>
+                                                            )}
+                                                            {!this.state.apiLoader && (
+                                                                <button type='submit' className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark ">Register</button>
+                                                            )}
+                                                        </div>
+                                                    )}
+
                                                     <h6 className="mt-0 mb-0 text-white font-xsss fw-500 lh-32">Already have account <Link to="/login" className="fw-700 ms-1">Login</Link></h6>
                                                 </div>
                                             </Form>

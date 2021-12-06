@@ -70,35 +70,35 @@ class ChangePassword extends Component {
         return (
             <Fragment>
                 <div className="main-wrap">
-                    <div className="nav-header bg-transparent shadow-none border-0">
+                    <div className="bg-transparent border-0 shadow-none nav-header">
                         <div className="nav-top w-100 justify-content-start ">
                             <Link to="/" className='loginbgImageControl'>
-                                <img src="assets/images/Logo3.png" style={{ height: "60px" }} />
+                                <img src="/assets/images/Logo3.png" style={{ height: "60px" }} />
                                 {/* <i className="feather-zap text-success display2-size me-3 ms-0"></i>
-                        <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
+                        <span className="mb-0 text-current d-inline-block fredoka-font ls-3 fw-600 font-xxl logo-text">
                             Sociala.
                         </span> */}
                             </Link>
-                            {/* <Link to="/"><i className="feather-zap text-success display1-size me-2 ms-0"></i><span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </Link> */}
+                            {/* <Link to="/"><i className="feather-zap text-success display1-size me-2 ms-0"></i><span className="mb-0 text-current d-inline-block fredoka-font ls-3 fw-600 font-xxl logo-text">Sociala. </span> </Link> */}
                             <button className="nav-menu me-0 ms-auto"></button>
 
-                            {/* <Link to="/login" className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl">Login</Link> */}
-                            {/* <Link to="/register" className="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">Register</Link> */}
+                            {/* <Link to="/login" className="p-3 text-center text-white header-btn d-none d-lg-block bg-dark fw-500 font-xsss ms-auto w100 lh-20 rounded-xl">Login</Link> */}
+                            {/* <Link to="/register" className="p-3 text-center text-white bg-current header-btn d-none d-lg-block fw-500 font-xsss ms-2 w100 lh-20 rounded-xl">Register</Link> */}
                         </div>
                     </div>
 
                     <div className="row backgroundImageControler h-100" style={{ backgroundImage: `url(${loignImage5})`, marginLeft: "0px" }}>
-                        {/* <div className="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
+                        {/* <div className="p-0 bg-no-repeat col-xl-5 d-none d-xl-block vh-100 bg-image-cover"
                         style={{backgroundImage: `url("https://via.placeholder.com/800x950.png")`}}></div> */}
 
-                        <div className="col-xl-7 d-none d-xl-block p-0 "
+                        <div className="p-0 col-xl-7 d-none d-xl-block"
                         // bg-image-cover style={{ backgroundImage: `url(${backgroundLogin})` }}
                         >
                             {/* <img src={loignImage4} className='loginBackGroundImage' /> */}
                         </div>
-                        <div className="col-xl-5 vh-100 align-items-center d-flex   loginScreenCover rounded-3 overflow-hidden">
-                            <div className="card bg-transparent shadow-none border-0 ms-auto me-auto login-card">
-                                <div className="card-body text-white bg-transparent rounded-0 text-left">
+                        <div className="overflow-hidden col-xl-5 vh-100 align-items-center d-flex loginScreenCover rounded-3">
+                            <div className="bg-transparent border-0 shadow-none card ms-auto me-auto login-card">
+                                <div className="text-left text-white bg-transparent card-body rounded-0">
                                     {this.state.successApi && (
                                         <>
                                             <p className='text-white'><b>{this.state.successApiMsg}</b></p>
@@ -106,7 +106,7 @@ class ChangePassword extends Component {
                                     )}
                                     {!this.state.successApi && (
                                         <>
-                                            <h2 className="fw-700 display1-size display2-md-size mb-4 text-white">Change <br />your password</h2>
+                                            <h2 className="mb-4 text-white fw-700 display1-size display2-md-size">Update <br />your password</h2>
                                             {this.state.otpEmailVerifing && (
                                                 <>
                                                     <div className='d-flex'>
@@ -190,28 +190,28 @@ class ChangePassword extends Component {
 
                                                             <Form>
 
-                                                                <div className="form-group icon-input mb-0 mt-3">
+                                                                <div className="mt-3 mb-0 form-group icon-input">
                                                                     {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
-                                                                    <Field type='password' id="password" name="password" className="style2-input   form-control text-grey-900 font-xsss fw-600" placeholder="Password" />
+                                                                    <Field type='password' id="password" name="password" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Password" />
 
                                                                 </div>
                                                                 <small className='text-danger'><b><ErrorMessage name="password" /></b></small>
-                                                                <div className="form-group icon-input mb-0 mt-3">
+                                                                <div className="mt-3 mb-0 form-group icon-input">
 
                                                                     {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
-                                                                    <Field type='password' id="password_confirmation" name="password_confirmation" className="style2-input   form-control text-grey-900 font-xsss fw-600" placeholder="Confirm Password" />
+                                                                    <Field type='password' id="password_confirmation" name="password_confirmation" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Confirm Password" />
 
                                                                 </div>
                                                                 <small className='text-danger'><b><ErrorMessage name="password_confirmation" /></b></small>
 
-                                                                <small className='text-danger my-3 '><b>{this.state.ApiError}</b></small>
-                                                                <div className="col-sm-12 p-0 text-left mt-2">
-                                                                    <div className="form-group mb-5 mt-3">
+                                                                <small className='my-3 text-danger '><b>{this.state.ApiError}</b></small>
+                                                                <div className="p-0 mt-2 text-left col-sm-12">
+                                                                    <div className="mt-3 mb-5 form-group">
                                                                         {this.state.apiLoader && (
-                                                                            <button type="button" className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Loading....</button>
+                                                                            <button type="button" className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark ">Loading....</button>
                                                                         )}
                                                                         {!this.state.apiLoader && (
-                                                                            <button type='submit' className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Register</button>
+                                                                            <button type='submit' className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark ">Register</button>
                                                                         )}
                                                                     </div>
 
@@ -226,7 +226,7 @@ class ChangePassword extends Component {
                                         </>
                                     )}
                                    
-                                    <h6 className=" font-xsss fw-500 mt-0 mb-0 lh-32 text-white mt-4">Already have account <Link to="/login" className="fw-700 ms-1">Login</Link></h6>
+                                    <h6 className="mt-0 mt-4 mb-0 text-white font-xsss fw-500 lh-32">Already have account <Link to="/login" className="fw-700 ms-1">Login</Link></h6>
                                    
 
                                 </div>
