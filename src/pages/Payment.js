@@ -112,7 +112,7 @@ class Payment extends Component {
                                         {this.state.Tabs >= 2 && (
                                             <div className="row">
                                                 <div className="col-lg-12">
-                                                    <table className='table text-center border'>
+                                                    <table className='table text-center mt-3'>
                                                         <thead >
                                                             <tr>
                                                                 <th>#</th>
@@ -224,7 +224,7 @@ class Payment extends Component {
                                             <div className="row">
                                                 <div className="col-5">
                                                     {!this.state.apiLoader && (
-                                                        <div className="card border-0 mb-4 shadow-none">
+                                                        <div className="card border-0 mb-4 shadow-none mt-3">
                                                             <div className="card-body d-block text-left p-0">
                                                                 <div className="item w-100 h150 bg-primary rounded-xxl text-left shadow-md ps-3 pt-2 align-items-end flex-column d-flex">
                                                                     <div className="card bg-transparent border-0 bg-transparent-card shadow-none p-0 text-left w-100">
