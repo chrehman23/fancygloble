@@ -311,7 +311,7 @@ class Courses extends Component {
                                                     this.updateCourse(data)
                                                 }}
                                             />
-                                            <label htmlFor="">Course End Date</label>
+                                            <label htmlFor="" className="course-title-font">Course End Date</label>
 
                                             <input type="datetime-local" className='form-control course-input'
                                                 value={this.state.end_date}
@@ -386,14 +386,14 @@ class Courses extends Component {
 
                                                 }}
                                                 className='d-none' />
-                                            <label htmlFor="" className='mb-0 course-title-font'>Intro Course overview</label>
+                                            <label htmlFor="" className='mb-0 course-title-font'>Intro Course Overview</label>
                                             {this.state.video_url == '' && (
                                                 <div className="rounded courseUploadVedio bgthwh">
                                                     <div className='text-center'>
                                                         <button
                                                             onClick={() => { document.getElementById("vedio_c").click() }}
                                                             className='btn btn-danger'>Upload Video</button>
-                                                        <p className='pb-0 mb-0'>File Format:.mp4</p>
+                                                        <p className='pb-0 mb-0'>File Format: .mp4</p>
                                                     </div>
                                                 </div>
                                             )}
@@ -487,7 +487,7 @@ class Courses extends Component {
                                             )}
                                             {!this.state.updateingCourse && this.state.thumbnail && (
                                                 <button
-                                                    className='btn btn-tertiary'
+                                                    className='bgthwh btn btn-sm btn-primary mx-2'
                                                     onClick={() => { document.getElementById("thumbnail").click() }}
                                                 >Update</button>
                                             )}

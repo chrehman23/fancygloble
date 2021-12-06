@@ -307,7 +307,7 @@ class AddEvents extends Component {
                                                                 <div className="courseUploadVedio bgthwh rounded">
                                                                     <div className='text-center' onClick={() => { document.getElementById("thumbnail").click() }}>
                                                                         <button type='button' className='btn btn-danger'>Upload Picture</button>
-                                                                        <p className='mb-0 pb-0'>File Format:.JPG/JPEG/PNG</p>
+                                                                        <p className='mb-0 pb-0'>File Format: .jpg,jpeg,png</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -316,7 +316,7 @@ class AddEvents extends Component {
                                                                     <div className="courseUploadVedio bgthwh rounded">
                                                                         <div className='text-center' onClick={() => { document.getElementById("post_vedio").click() }}>
                                                                             <button type='button' className='btn btn-danger'>Upload Video</button>
-                                                                            <p className='mb-0 pb-0'>File Format:.mp4</p>
+                                                                            <p className='mb-0 pb-0'>File Format: .mp4</p>
                                                                         </div>
                                                                     </div>
                                                                 )}
@@ -349,7 +349,7 @@ class AddEvents extends Component {
                                                             <div className="col-lg-12 mb-3">
                                                                 <div className="form-group">
                                                                     <label className="mont-font fw-600 font-xsss mb-2">Title</label>
-                                                                    <Field id="title" name="title" className="form-control course-input " placeholder="Event title" />
+                                                                    <Field id="title" name="title" className="form-control course-input " placeholder="Event Title" />
                                                                     <ErrorMessage
                                                                         name='title'
                                                                         component="small"
@@ -361,7 +361,7 @@ class AddEvents extends Component {
                                                             <div className="col-lg-12 mb-3">
                                                                 <div className="form-group">
                                                                     <label className="mont-font fw-600 font-xsss mb-2">Description</label>
-                                                                    <Field id="description" name="description" className="form-control course-input " placeholder="Event description" />
+                                                                    <Field id="description" name="description" className="form-control course-input " placeholder="Event Description" />
                                                                     <ErrorMessage
                                                                         name='title'
                                                                         component="small"
@@ -373,7 +373,7 @@ class AddEvents extends Component {
                                                             <div className="col-lg-12 mb-3">
                                                                 {/* {JSON.stringify(this.state.value)} */}
                                                                 <div className="form-group">
-                                                                    <label className="mont-font fw-600 font-xsss mb-2">Start date and time</label>
+                                                                    <label className="mont-font fw-600 font-xsss mb-2">Start Date & Time</label>
                                                                     <input type="datetime-local" className='form-control course-input '
                                                                         onChange={(e) => {
                                                                             console.log(e)
@@ -395,7 +395,7 @@ class AddEvents extends Component {
                                                             <div className="col-lg-12 mb-3">
                                                                 {/* {JSON.stringify(this.state.value)} */}
                                                                 <div className="form-group">
-                                                                    <label className="mont-font fw-600 font-xsss mb-2">End Date and time</label>
+                                                                    <label className="mont-font fw-600 font-xsss mb-2">End Date & Time</label>
                                                                     <input type="datetime-local"
                                                                         onChange={(e) => {
                                                                             console.log(e)

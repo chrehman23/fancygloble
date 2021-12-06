@@ -166,10 +166,11 @@ class CoursesSectionList extends Component {
                                         }}
                                     >
                                         <div
-                                            className="custom_head_collapse lectures-dropdown-arrow"
+                                            className="custom_head_collapse lectures-dropdown-arrow bor-0"
 
                                         >
-                                            <b>1: Introduction</b>
+                                              <label htmlFor="" className='mb-0 course-title-font'>1: Introduction</label>
+                                            {/* <b>1: Introduction</b> */}
                                             <i class="fas fa-chevron-down"></i>
                                         </div>
                                     </Accordion.Toggle>
@@ -334,10 +335,10 @@ class CoursesSectionList extends Component {
                             <Form>
                                 <div className="mb-0 form-group icon-input rounded-circle">
                                     {/* <i className="font-sm ti-email text-grey-500 pe-0"></i> */}
-                                    <label htmlFor="">Section Title</label>
+                                    <label htmlFor="" className="course-title-font">Section Title</label>
                                     <Field
                                         name="section_title"
-                                        className="mb-0 form-control text-grey-900 font-xsss fw-600 course-input"
+                                        className="mb-0 form-control text-grey-900 font-xsss fw-600course-input course-input"
                                         placeholder="Section Title"
                                     />
                                 </div>
@@ -347,7 +348,7 @@ class CoursesSectionList extends Component {
                                     </b>
                                 </small>
                                 <div className="mt-3 mb-0 form-group icon-input">
-                                    <label htmlFor="">Section Description</label>
+                                    <label htmlFor="" className="course-title-font">Section Description</label>
                                     {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
                                     <Field
                                         type='textarea'
@@ -380,7 +381,7 @@ class CoursesSectionList extends Component {
                                         {!this.state.sectoinApiloader && (
                                             <button
                                                 type="submit"
-                                                className="btn btn-primary float-end"
+                                                className="btn btn-primary float-end my-2"
                                             >
                                                 Save
                                             </button>
@@ -403,10 +404,10 @@ class CoursesSectionList extends Component {
 
                     {!this.state.addSection && (
                         <div className='cursor-pointer col-12 bg-greylight'>
-                            <div className='d-flex align-items-center justify-content-between'
+                            <div className='d-flex align-items-center justify-content-between justify-content-center'
                                 onClick={() => this.setState({ addSection: true, ApiError: "" })}
                             >
-                                <div>
+                                <div className="course-title-font">
                                     Add Section
                                 </div>
                                 <div className='p-2'>
