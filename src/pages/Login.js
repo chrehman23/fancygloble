@@ -54,6 +54,24 @@ class Login extends Component {
     if (token) {
       this.props.history.push("/");
     }
+    let data={
+      email:"mrahman9pk@gmail.com",
+      password:"11223344"
+    }
+    AuthApi.login(data)
+      .then((res) => {
+        if (res.data.Error == false) {
+          socketConnection.emit("login", res.data._id);
+          localStorage.setItem("token", res.data.token);
+
+          this.props.removePosts();
+          this.props.loadProfile(res.data.userProfile);
+          this.props.history.push("/");
+        }
+        this.setState({
+          apiLoader: false,
+        });
+      })
   }
   responseGoogle(googleUser) {
     console.log("googleUser", googleUser);

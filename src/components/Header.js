@@ -211,39 +211,47 @@ class Header extends Component {
                                 <div className="nav-caption fw-600 font-xssss text-grey-500"><span>New </span>Feeds</div>
                                 <ul className="mb-1 top-content">
                                     <li className="logo d-none d-xl-block d-lg-block"></li>
-                                    <li><Link to="/home" className="nav-content-bttn open-font"><i className="feather-tv btn-round-md bg-blue-gradiant me-3"></i><span> {t('header.newsfeed')}</span></Link></li>
+                           
+                                    <li><Link to="/home" className="nav-content-bttn open-font"><i className="text-current  fad fa-rss ms-2 me-3"></i><span>{t('header.newsfeed')}</span></Link></li>
+                                    <li><Link to="/users" className="nav-content-bttn open-font"><i className="text-current  fad fa-globe-americas ms-2 me-3"></i><span>{t('header.explore')}</span></Link></li>
+                                    {/* <li><Link to="/home" className="nav-content-bttn open-font"><i className="feather-tv btn-round-md bg-blue-gradiant me-3"></i><span> {t('header.newsfeed')}</span></Link></li> */}
                                     {/* <li><Link to="/defaultbadge" className="nav-content-bttn open-font"><i className="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Badges</span></Link></li> */}
                                     {/* <li><Link to="/" className="nav-content-bttn open-font"><i className="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Badges</span></Link></li> */}
                                     {/* <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Explore Stories</span></Link></li> */}
-                                    <li><Link to="/users" className="nav-content-bttn open-font"><i className="fal fa-globe-europe btn-round-md bg-gold-gradiant me-3"></i><span>{t('header.explore')}</span></Link></li>
+                                    {/* <li><Link to="/users" className="nav-content-bttn open-font"><i className="fal fa-globe-europe btn-round-md bg-gold-gradiant me-3"></i><span>{t('header.explore')}</span></Link></li> */}
                                     {/* <li><Link to="/" className="nav-content-bttn open-font"><i className="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span>Popular Groups</span></Link></li> */}
                                     {/* <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span>Popular Groups</span></Link></li> */}
-                                    <li><Link to="/userpage" className="nav-content-bttn open-font"><i className="feather-user btn-round-md bg-primary-gradiant me-3"></i><span>{t('header.my_profile')}</span></Link></li>
+                                    {/* <li><Link to="/userpage" className="nav-content-bttn open-font"><i className="feather-user  btn-round-md bg-primary-gradiant me-3"></i><span>{t('header.my_profile')}</span></Link></li> */}
+                                    <li><Link to="/userpage" className="nav-content-bttn open-font"><i className="text-current  fad fa-user  ms-2 me-3"></i><span>{t('header.my_profile')}</span></Link></li>
                                 </ul>
                             </div>
 
                             <div className="pt-3 pb-1 mb-2 bg-white nav-wrap bg-transparent-card rounded-xxl shadow-xss">
                                 <div className="nav-caption fw-600 font-xssss text-grey-500">{t('header.more_pages')}</div>
-                                <ul className="mb-3">
+                                <ul className="mb-5">
                                     {/* <li><Link to="/defaultemailbox" className="nav-content-bttn open-font"><i className="text-current font-xl feather-inbox me-3"></i><span>Email Box</span><span className="mt-1 circle-count bg-warning">584</span></Link></li> */}
                                     {/* <li><Link to="/defaulthotel" className="nav-content-bttn open-font"><i className="text-current font-xl feather-home me-3"></i><span>Near Hotel</span></Link></li> */}
-                                    <li><Link to="/events" className="nav-content-bttn open-font"><i className="text-current font-xl feather-map-pin me-3"></i><span>{t('header.latest_events')}</span></Link></li>
-                                    <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="text-current font-xl feather-youtube me-3"></i><span>{t('header.live_stream')}</span></Link></li>
+                                    <li><Link to="/events" className="nav-content-bttn open-font"><i className="text-current  fad fa-calendar-alt  ms-2 me-3"></i><span>{t('header.latest_events')}</span></Link></li>
+                                    {/* <li><Link to="/events" className="nav-content-bttn open-font"><i className="text-current font-xl fad fa-calendar-alt ms-3 me-3"></i><span>{t('header.latest_events')}</span></Link></li> */}
+                                    <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="text-current  fad fa-signal-stream  ms-2 me-3"></i><span>{t('header.live_stream')}</span></Link></li>
+                                    {/* <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="text-current font-xl fad fa-signal-stream me-3"></i><span>{t('header.live_stream')}</span></Link></li> */}
                                 </ul>
                             </div>
                             <div className="pt-3 pb-1 bg-white nav-wrap bg-transparent-card rounded-xxl shadow-xss">
                                 <div className="nav-caption fw-600 font-xssss text-grey-500"><span></span> {t('header.account')}</div>
                                 <ul className="mb-1">
                                     <li className="logo d-none d-xl-block d-lg-block"></li>
-                                    <li><Link to="/defaultsettings" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i className="font-sm feather-settings me-3 text-grey-500"></i><span>{t('header.settings')}</span></Link></li>
+                                    
+                                    <li><Link to="/defaultsettings" className="nav-content-bttn open-font"><i className="text-current  fad fad fa-cog  ms-2 me-3"></i><span>{t('header.settings')}</span></Link></li>
+                                    {/* <li><Link to="/defaultsettings" className="nav-content-bttn open-font"><i className="text-current font-xl fad fad fa-cog me-3"></i><span>{t('header.settings')}</span></Link></li> */}
+                                    
                                     {/* <li><Link to="/defaultanalytics" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i className="font-sm feather-pie-chart me-3 text-grey-500"></i><span>Analytics</span></Link></li> */}
-                                    <li><Link to="/defaultmessage" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i className="font-sm feather-message-square me-3 text-grey-500"></i><span>{t('header.chat')}</span><span className="mt-0 circle-count bg-warning d-none">23</span></Link></li>
-                                    <li><a href="https://sites.google.com/view/globalfansy/home/terms-conditions?authuser=0" target="_blank" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i class="fas fa-assistive-listening-systems font-sm me-3 text-grey-500"></i><span>Terms & Conditions</span><span className="mt-0 circle-count bg-warning d-none">23</span></a></li>
-                                    <li><a href="https://sites.google.com/view/globalfansy/home/privacy-policy?authuser=0" target="_blank" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i class="far fa-user-shield me-3 text-grey-500 font-sm"></i><span>Privacy Policy</span><span className="mt-0 circle-count bg-warning d-none">23</span></a></li>
-                                    <li>
+                                    <li><Link to="/defaultmessage" className="nav-content-bttn open-font"><i className="text-current  fad fa-comments-alt  ms-2 me-3"></i><span>{t('header.chat')}</span></Link></li>
+                                    {/* <li><Link to="/defaultmessage" className="nav-content-bttn open-font"><i className="text-current font-xl fad fa-comments-alt   me-3"></i><span>{t('header.chat')}</span></Link></li> */}
+                                    <li className="py-2">
                                         <Dropdown className="languageChangerBtn nav-content-bttn open-font">
                                             <Dropdown.Toggle id="dropdown-basic">
-                                                <i class="fal fa-globe font-lg text-grey-500"></i><span className='languges_changeers'>Languages</span>
+                                                <i class="fad fa-globe font-sm text-grey-500 ms-2 me-2"></i><span className='languges_changeers'>Languages</span>
                                             </Dropdown.Toggle>
 
                                             <Dropdown.Menu>
@@ -254,17 +262,20 @@ class Header extends Component {
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </li>
+
+                                   
+
+                                    <li><a href="https://sites.google.com/view/globalfansy/home/terms-conditions?authuser=0" target="_blank" className=" pt-2 pb-2 nav-content-bttn open-font"><i class="text-current   fad fa-scroll-old  ms-2 me-3"></i><span>Terms & Conditions</span></a></li>
+                                    <li><a href="https://sites.google.com/view/globalfansy/home/privacy-policy?authuser=0" target="_blank" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i class="text-current  fad fa-user-shield ms-2  me-3 "></i><span>Privacy Policy</span></a></li>
+                                    <li><a href="#" target="_blank" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i class="text-current  fad fa-question-square ms-2  me-4 "></i><span>Help & Support</span></a></li>
+
                                 </ul>
                                 <br></br>
                                 <br></br>
                                 <br></br>
                                 <br></br>
                                 <br></br>
-                                <br></br>
-                                <br></br>
-                                <br></br>
-                                <br></br>
-                                <br></br>
+                               
                             </div>
                         </div>
                     </div>

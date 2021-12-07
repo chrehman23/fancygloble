@@ -259,9 +259,9 @@ class Account extends Component {
                                                                 <div className="mb-3 col-lg-6">
 
                                                                     <div className="form-group">
-                                                                        <label className="mb-2 mont-font fw-600 font-xsss">Name</label>
+                                                                        <label className="mb-2 mont-font fw-600 font-xsss course-title-font">Name</label>
 
-                                                                        <Field id="name" name="name" className="form-control" placeholder="Your Name" />
+                                                                        <Field id="name" name="name" className="form-control course-input" placeholder="Your Name" />
 
                                                                         <ErrorMessage
                                                                             name='name'
@@ -273,9 +273,9 @@ class Account extends Component {
                                                                 </div>
                                                                 <div className="mb-3 col-lg-6">
                                                                     <div className="form-group">
-                                                                        <label className="mb-2 mont-font fw-600 font-xsss">Phone</label>
+                                                                        <label className="mb-2 mont-font fw-600 font-xsss course-title-font">Phone</label>
 
-                                                                        <Field id="phone" name="phone" className="form-control" placeholder="Phone Number" />
+                                                                        <Field id="phone" name="phone" className="form-control course-input" placeholder="Phone Number" />
 
                                                                         <ErrorMessage
                                                                             name='phone'
@@ -286,8 +286,8 @@ class Account extends Component {
                                                                 </div>
                                                                 <div className="mb-3 col-lg-6">
                                                                     <div className="form-group">
-                                                                        <label className="mb-2 mont-font fw-600 font-xsss">Email</label>
-                                                                        <Field id="email" name="email" className="form-control" disabled placeholder="Your Email Address" />
+                                                                        <label className="mb-2 mont-font fw-600 font-xsss course-title-font">Email</label>
+                                                                        <Field id="email" name="email" className="form-control course-input" disabled placeholder="Your Email Address" />
 
                                                                         <ErrorMessage
                                                                             name='email'
@@ -298,9 +298,9 @@ class Account extends Component {
                                                                 </div>
                                                                 <div className="mb-3 col-lg-6">
                                                                     <div className="form-group">
-                                                                        <label className="mb-2 mont-font fw-600 font-xsss">User Name</label>
+                                                                        <label className="mb-2 mont-font fw-600 font-xsss course-title-font">User Name</label>
 
-                                                                        <Field id="user_name" name="user_name" className="form-control" disabled placeholder="User Name" />
+                                                                        <Field id="user_name" name="user_name" className="form-control course-input" disabled placeholder="User Name" />
 
                                                                         <ErrorMessage
                                                                             name='user_name'
@@ -316,9 +316,9 @@ class Account extends Component {
 
                                                                 <div className="mb-3 col-lg-6">
                                                                     <div className="form-group">
-                                                                        <label className="mb-2 mont-font fw-600 font-xsss">Stripe Email</label>
+                                                                        <label className="mb-2 mont-font fw-600 font-xsss course-title-font">Stripe Email</label>
 
-                                                                        <Field id="paypalEmail" name="paypalEmail" className="form-control" placeholder="Stripe Email Address" />
+                                                                        <Field id="paypalEmail" name="paypalEmail" className="form-control course-input" placeholder="Stripe Email Address" />
 
                                                                         <ErrorMessage
                                                                             name='paypalEmail'
@@ -333,9 +333,9 @@ class Account extends Component {
 
                                                                 <div className="mb-3 col-lg-6">
                                                                     <div className="form-group">
-                                                                        <label className="mb-2 mont-font fw-600 font-xsss">Bio</label>
+                                                                        <label className="mb-2 mont-font fw-600 font-xsss course-title-font">Bio</label>
 
-                                                                        <Field id="bio" name="bio" className="form-control" placeholder="Bio" />
+                                                                        <Field id="bio" name="bio" className="form-control course-input" placeholder="Bio" />
 
                                                                         <ErrorMessage
                                                                             name='bio'
@@ -347,7 +347,7 @@ class Account extends Component {
                                                             </div>
                                                             <div className="row">
                                                                 <div className="mb-3 col-lg-12">
-                                                                    <label className="mb-2 mont-font fw-600 font-xsss text-dark">About</label>
+                                                                    <label className="mb-2 mont-font fw-600 font-xsss text-dark course-title-font">About</label>
                                                                     <textarea
                                                                         onChange={(e) => {
                                                                             setFieldValue("about", e.target.value, true)
@@ -357,7 +357,7 @@ class Account extends Component {
                                                                         }}
 
                                                                         value={values.about}
-                                                                        className="p-3 mb-0 form-control h100 lh-16" rows="5" placeholder="Write your message..." >
+                                                                        className="p-2 mb-0 form-control h100 lh-16 course-input" rows="5" placeholder="Write your message..." >
 
                                                                     </textarea>
 

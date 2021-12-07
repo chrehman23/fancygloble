@@ -464,7 +464,7 @@ class AddEvents extends Component {
                                                                     <div className="form-group">
                                                                         <label className="mont-font fw-600 font-xsss mb-2">Event Seats</label>
 
-                                                                        <Field id="event_seats" name="event_seats" type='number' className="form-control course-input " placeholder="Event seats" />
+                                                                        <Field id="event_seats" name="event_seats" type='number' className="form-control course-input " placeholder="Event Seats" />
 
                                                                         <ErrorMessage
                                                                             name='event_seats'
