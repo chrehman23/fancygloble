@@ -173,10 +173,10 @@ class Header extends Component {
                         <input type="text" placeholder="Search...." className="pt-2 pb-2 border-0 bg-grey lh-32 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg" />
                     </div>
                 </form>
-                <NavLink activeClassName="active" to="/home" className="p-2 text-center ms-3 menu-icon center-menu-icon"><i className="feather-home font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
-                <NavLink activeClassName="active" to="/events" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="ti-calendar font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
-                <NavLink activeClassName="active" to="/courses" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-book font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
-                <NavLink activeClassName="active" to="/userpage" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
+                <NavLink activeClassName="active" to="/home" className="p-2 text-center ms-3 menu-icon center-menu-icon"><i className="fad fa-home-lg-alt font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
+                <NavLink activeClassName="active" to="/events" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="fad fa-calendar-alt font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
+                <NavLink activeClassName="active" to="/courses" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="fad fa-books font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
+                <NavLink activeClassName="active" to="/userpage" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="fad fa-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink>
                 {/* <NavLink activeClassName="active" to="/shop2" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 d-flex justify-content-center align-items-center "></i></NavLink> */}
 
 
@@ -191,18 +191,18 @@ class Header extends Component {
                     <h4 className="mb-4 fw-700 font-xss">Notification</h4>
                     <Notify />
                 </div> */}
-                <Link to="/defaultmessage" className="p-2 text-center ms-auto ms-3 menu-icon chat-active-btn"><i className="text-current feather-message-square font-xl"></i></Link>
+                <Link to="/defaultmessage" className="p-2 text-center ms-auto ms-3 menu-icon chat-active-btn"><i className="text-current fad fa-comments-alt font-xl"></i></Link>
 
                 <Link to="/defaultnotification" className="p-2 text-center ms-3 menu-icon chat-active-btn">
                     <div className='topbar_noti_container'>
                         <span className={this.props.NotifyStatus ? "dot-count bg-warning" : ""}  ></span>
-                        <i className="text-current feather-bell font-xl "></i>
+                        <i className="text-current fad fa-bells font-xl "></i>
                     </div>
                 </Link>
                 {/* <Darkbutton /> */}
 
                 {/* <Link to="/defaultsettings" className="p-0 ms-3 menu-icon"><img src="assets/images/user.png" alt="user" className="w40 mt--1" /></Link> */}
-                <Link to="/defaultsettings" className="p-2 text-center ms-3 menu-icon chat-active-btn">  <i className="feather-menu font-lg text-grey-500 "></i></Link>
+                <Link to="/defaultsettings" className="p-2 text-center ms-3 menu-icon chat-active-btn">  <i className="fad fa-bars font-lg text-grey-500 "></i></Link>
 
                 <nav className={`navigation scroll-bar ${navClass} ${this.props.showChat ? "d-none" : ""}`}>
                     <div className="container ps-0 pe-0">
@@ -215,7 +215,7 @@ class Header extends Component {
                                     {/* <li><Link to="/defaultbadge" className="nav-content-bttn open-font"><i className="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Badges</span></Link></li> */}
                                     {/* <li><Link to="/" className="nav-content-bttn open-font"><i className="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Badges</span></Link></li> */}
                                     {/* <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Explore Stories</span></Link></li> */}
-                                    <li><Link to="/users" className="nav-content-bttn open-font"><i className="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>{t('header.explore')}</span></Link></li>
+                                    <li><Link to="/users" className="nav-content-bttn open-font"><i className="fal fa-globe-europe btn-round-md bg-gold-gradiant me-3"></i><span>{t('header.explore')}</span></Link></li>
                                     {/* <li><Link to="/" className="nav-content-bttn open-font"><i className="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span>Popular Groups</span></Link></li> */}
                                     {/* <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span>Popular Groups</span></Link></li> */}
                                     <li><Link to="/userpage" className="nav-content-bttn open-font"><i className="feather-user btn-round-md bg-primary-gradiant me-3"></i><span>{t('header.my_profile')}</span></Link></li>

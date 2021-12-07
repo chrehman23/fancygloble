@@ -318,7 +318,7 @@ class CourseLactures extends Component {
                     aria-labelledby="example-custom-modal-styling-title"
                 >
                     <Modal.Header>
-                        <h4 className='mb-0'>{this.state.update_settings ? "Update" : "Add"} Lacture</h4>
+                        <h4 className='mb-0'>{this.state.update_settings ? "Update" : "Add"} Lecture</h4>
                     </Modal.Header>
                     <Modal.Body>
                         <Formik
@@ -404,15 +404,15 @@ class CourseLactures extends Component {
                                     <form onSubmit={handleSubmit}>
                                         <div className="mb-0 form-group icon-input rounded-circle">
                                             {/* <i className="font-sm ti-email text-grey-500 pe-0"></i> */}
-                                            <label htmlFor="">Title</label>
-                                            <Field id='lacture_title' name="lacture_title" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Title" />
+                                            <label htmlFor="" className="course-title-font">Title</label>
+                                            <Field id='lacture_title' name="lacture_title" className="style2-input form-control text-grey-900 font-xsss  course-input" placeholder="Title" />
 
                                         </div>
                                         <small className='text-danger'><b><ErrorMessage name="lacture_title" /></b></small>
                                         <div className="mt-3 mb-0 form-group icon-input">
-                                            <label htmlFor="">Description</label>
+                                            <label htmlFor="" className="course-title-font">Description</label>
                                             {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
-                                            <Field type='text' name="lacture_des" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Description" />
+                                            <Field type='text' name="lacture_des" className="style2-input form-control text-grey-900 font-xsss fw-600 course-input" placeholder="Description" />
                                         </div>
                                         <small className='text-danger'><b><ErrorMessage name="lacture_des" /></b></small>
                                         <div className='d-flex justify-content-between'>
@@ -423,7 +423,7 @@ class CourseLactures extends Component {
                                                 setFieldValue("lacture_type", false)
                                             }}>
                                                 <div><i class="fal fa-video-plus me-1"></i></div>
-                                                <div>Upload Lecture video.</div>
+                                                <div  className="course-title-font">Upload Lecture video.</div>
                                             </div>
                                             <div className={`d-flex  my-3 cursor-pointer  p-2 ${this.state.streamLacture ? "border" : ""}`}
                                                 onClick={() => {
@@ -434,7 +434,7 @@ class CourseLactures extends Component {
                                                 }}
                                             >
                                                 <div><i class="fal fa-signal-stream me-1"></i></div>
-                                                <div>Live Stream Lecture</div>
+                                                <div className="course-title-font">Live Stream Lecture</div>
                                             </div>
                                         </div>
 
@@ -481,7 +481,7 @@ class CourseLactures extends Component {
 
 
                                             }}
-                                            className='d-none' />
+                                            className='d-none ' />
                                         {!this.state.streamLacture && this.state.vedioUrl && (
                                             <p className='cursor-pointer document_link'
                                                 onClick={() => { document.getElementById("lacture_vedio").click() }}
@@ -503,7 +503,7 @@ class CourseLactures extends Component {
                                             </div>
                                         )}
                                         {!this.state.vedioUrl && !this.state.streamLacture && (
-                                            <div className='mt-2 lecture_veido_upload'
+                                            <div className='mt-2 lecture_veido_upload course-input'
                                                 onClick={() => {
                                                     this.setState({
                                                         streamLacture: false
