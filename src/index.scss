@@ -403,12 +403,48 @@
   padding-top: 4px;
 }
 .emojisPictures > li:last-child {
-margin-top: 0px !important;
+  margin-top: 0px !important;
 }
 
 .emojisPictures > li img {
   width: 95%;
   // padding: 2px;
+}
+.check_coup {
+  border: 1px solid #46237a ;
+  width: 30px;
+  height: 16px;
+  padding: 1px;
+  cursor: pointer;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  position: relative;
+}
+.check_coup span {
+  width: 12px;
+  position: absolute;
+  content: "";
+  display: block;
+  left: 2px ;
+  height: 12px;
+  background-color: #46237a !important;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  transition: 1s all;
+  -webkit-transition: 1s all;
+  -moz-transition: 1s all;
+  -ms-transition: 1s all;
+  -o-transition: 1s all;
+}
+.check_coup span.active {
+  right: 2px !important;
+  left: auto;
 }
 
 .emojiImages {
@@ -773,7 +809,7 @@ margin-top: 0px !important;
   height: calc(100vh - 186px);
   padding-bottom: 43px !important;
 }
-.chat_massage_container{
+.chat_massage_container {
   height: calc(100vh - 153px) !important;
 }
 
@@ -1108,9 +1144,8 @@ margin-top: 0px !important;
   border-color: #f7f7f7;
   margin-right: 10px;
   display: flex;
-    justify-content: center;
-    width: 100%;
-
+  justify-content: center;
+  width: 100%;
 }
 .lectures_edite_delete button i {
   all: unset !important;
@@ -1240,9 +1275,7 @@ margin-top: 0px !important;
   margin-bottom: 8px;
 }
 
-.tutor-course-topics-header
-  .tutor-course-topics-header-right
-  span:not(:first-child) {
+.tutor-course-topics-header .tutor-course-topics-header-right span:not(:first-child) {
   margin-left: 45px;
 }
 

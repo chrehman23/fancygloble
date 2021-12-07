@@ -12,6 +12,7 @@ import ApiLoader from "../components/ApiLoader";
 import CourseApi from "../api/Courses";
 
 import CoursesSectionList from "../components/CoursesSectionList";
+import moment from "moment";
 
 class Courses extends Component {
   constructor() {
@@ -42,6 +43,12 @@ class Courses extends Component {
       start_date: "",
       end_date: "",
       editing: false,
+      coupon: false,
+      coupon_code: "",
+      coupon_type: "",
+      coupon_value: "",
+      coupon_count: 0,
+      coupon_validity: "",
     };
   }
   componentDidMount() {
@@ -75,6 +82,12 @@ class Courses extends Component {
               Course_id: res.data.data._id,
               loadingCourse: false,
               start_date: res.data.data.start_date,
+
+              coupon: res.data.data.coupon,
+              coupon_code: res.data.data.coupon_code,
+              coupon_type: res.data.data.coupon_type,
+              coupon_value: res.data.data.coupon_value,
+              coupon_validity: res.data.data.coupon_validity,
             });
           }
         })
@@ -506,68 +519,183 @@ class Courses extends Component {
                         </div>
                       )}
 
-                      <div className="discount-coupon pt-3">
-                        <div className="form-check form-switch">
-                          <input
-                            className="form-check-input add-coupon"
-                            type="checkbox"
-                            role="switch"
-                            id="flexSwitchCheckDefault"
-                          />
-                          <label
-                            className="form-check-label course-title-font"
-                            for="flexSwitchCheckDefault"
-                          >
-                            Add Discount Coupon
-                          </label>
-                        </div>
-
-                        {/* <label htmlFor="" className='mb-0 course-title-font'>Diccount Type</label>
-                                            <select className="orm-control course-input">
-                                                <option value="">Select Category</option>
-                                                <option value="">Flate Price</option>
-                                                <option value="">Percentage</option>
-                                            </select> */}
-
-                        <label htmlFor="" className="mb-0 course-title-font">
-                          Create Coupon Code
-                        </label>
-                        <input
-                          type="number"
-                          className="form-control course-input"
-                          placeholder="123456"
-                        />
-
-                        <label htmlFor="" className="mb-0 course-title-font">
-                          Discount Type
-                        </label>
-                        <select
-                          name=""
-                          id=""
-                          className="form-control course-input"
+                      <div className="pt-3 discount-coupon">
+                        <div className="mt-1 d-flex align-items-center"
+                          onClick={() => {
+                            this.setState({ coupon: !this.state.coupon }, () => {
+                              let data = new FormData();
+                              data.append("coupon", this.state.coupon);
+                              this.updateCourse(data);
+                            })
+                          }}
                         >
-                          <option value="">Select Discount Type</option>
-                          <option value="">Flate Price</option>
-                          <option value="">Percentage</option>
-                        </select>
+                          <div className='check_coup'>
+                            <span className={this.state.coupon ? "active" : ""}></span>
+                          </div>
+                          <div>
+                            <p className='mb-0 ms-2 font-weight-bold '> <b>Add Discount Coupon</b>  </p>
+                          </div>
+                        </div>
+                        {this.state.coupon && (
+                          <>
+                            <label htmlFor="" className="mb-0 course-title-font">
+                              Create Coupon Code
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control course-input"
+                              placeholder="E24234AD"
+                              value={this.state.coupon_code}
+                              onChange={(e) => {
+                                this.setState({
+                                  coupon_code: e.target.value,
+                                });
+                              }}
+                              onBlur={() => {
+                                let data = new FormData();
+                                data.append("coupon_code", this.state.coupon_code);
+                                this.updateCourse(data);
+                              }}
+                            />
 
-                        <label htmlFor="" className="mb-0 course-title-font">
-                          Flate Price
-                        </label>
-                        <input
-                          type="number"
-                          className="form-control course-input"
-                          placeholder="€0"
-                        />
+                            <label htmlFor="" className="mb-0 course-title-font">
+                              Discount Type
+                            </label>
+                            <select
+                              name=""
+                              id=""
+                              className="form-control course-input"
+                              value={this.state.coupon_type}
+                              onChange={(e) => {
+                                this.setState(
+                                  {
+                                    coupon_type: e.target.value,
+                                  },
+                                  () => {
+                                    let data = new FormData();
+                                    data.append("coupon_type", this.state.coupon_type);
+                                    if (this.state.coupon_value > 99) {
+                                      data.append("coupon_value", 0);
+                                      this.setState({
+                                        coupon_value: 0
+                                      })
+                                    }
+                                    this.updateCourse(data);
+                                  }
+                                );
+                              }}
 
-                        <label htmlFor="" className="mb-0 course-title-font">
-                          Percentage
-                        </label>
-                        <input
-                          type="number"
-                          className="form-control course-input"
-                          placeholder="%"
-                        />
+                            >
+                              <option value="">Select Discount Type</option>
+                              <option value="Flate Price">Flate Price</option>
+                              <option value="Percentage">Percentage</option>
+                            </select>
+
+                            {this.state.coupon_type == "Flate Price" && (
+                              <>
+                                <label htmlFor="" className="mb-0 course-title-font">
+                                  Flate Price
+                                </label>
+                                <input
+                                  type="number"
+                                  className="form-control course-input"
+                                  placeholder="€0"
+                                  value={this.state.coupon_value}
+                                  onChange={(e) => {
+                                    if (e.target.value < this.state.paid_amount){
+                                      this.setState({
+                                        coupon_value: e.target.value,
+                                      });
+                                    }
+                                 
+                                  }}
+                                  onBlur={() => {
+                                    let data = new FormData();
+                                    data.append("coupon_value", this.state.coupon_value);
+                                    this.updateCourse(data);
+                                  }}
+                                />
+                              </>
+                            )}
+                            {this.state.coupon_type == "Percentage" && (
+                              <>
+                                <label htmlFor="" className="mb-0 course-title-font">
+                                  Percentage
+                                </label>
+                                <input
+                                  type="number"
+                                  className="form-control course-input"
+                                  placeholder="%"
+                                  value={this.state.coupon_value}
+                                  onChange={(e) => {
+                                    if (e.target.value < 100) {
+                                      this.setState({
+                                        coupon_value: e.target.value,
+                                      });
+                                    }
+
+                                  }}
+                                  onBlur={() => {
+                                    let data = new FormData();
+                                    data.append("coupon_value", this.state.coupon_value);
+                                    this.updateCourse(data);
+                                  }}
+                                />
+                              </>
+                            )}
+                            {this.state.coupon_type && (
+                              <>
+                                <label htmlFor="" className="mb-0 course-title-font">
+                                  Number Of Uses
+                                </label>
+                                <input
+                                  type="number"
+                                  className="form-control course-input"
+                                  placeholder="Number Of Uses"
+                                  value={this.state.coupon_count}
+                                  onChange={(e) => {
+                                    this.setState({
+                                      coupon_count: e.target.value,
+                                    });
+                                  }}
+                                  onBlur={() => {
+                                    let data = new FormData();
+                                    data.append("coupon_count", this.state.coupon_count);
+                                    this.updateCourse(data);
+                                  }}
+                                />
+                                <label htmlFor="" className="mb-0 course-title-font">
+                                  Valdity Date
+                                </label>
+                                <input
+                                  type="date"
+                                  className="form-control course-input"
+                                  placeholder="Number Of Uses"
+                                  min={moment(new Date()).format("YYYY-MM-DD")}
+                                  value={this.state.coupon_validity}
+                                  onChange={(e) => {
+                                    this.setState({
+                                      coupon_validity: e.target.value,
+                                    });
+                                  }}
+                                  onBlur={() => {
+                                    let data = new FormData();
+                                    data.append("coupon_validity", this.state.coupon_validity);
+                                    this.updateCourse(data);
+                                  }}
+                                />
+                              </>
+                            )}
+
+                         
+
+
+
+
+                          </>
+                        )}
+
+
                       </div>
 
                       <div className="float-right d-flex">
@@ -659,7 +787,7 @@ class Courses extends Component {
                       )}
                       {!this.state.updateingCourse && this.state.thumbnail && (
                         <button
-                          className="bgthwh btn btn-sm btn-primary mx-2"
+                          className="mx-2 bgthwh btn btn-sm btn-primary"
                           onClick={() => {
                             document.getElementById("thumbnail").click();
                           }}
@@ -693,27 +821,29 @@ class Courses extends Component {
 
         {/* ******************************** */}
 
-        {this.state.updateingCourse && (
-          <div className="row">
-            <div className="col-12">
-              <div className="CuruseSavingCotiner">
-                <div className="d-flex align-items-center justify-content-between">
-                  <div className="px-3 py-2">
-                    {" "}
-                    <ApiLoader />{" "}
-                  </div>
-                  <div>
-                    <b className="text-grey-900">Saving Details</b>
+        {
+          this.state.updateingCourse && (
+            <div className="row">
+              <div className="col-12">
+                <div className="CuruseSavingCotiner">
+                  <div className="d-flex align-items-center justify-content-between">
+                    <div className="px-3 py-2">
+                      {" "}
+                      <ApiLoader />{" "}
+                    </div>
+                    <div>
+                      <b className="text-grey-900">Saving Details</b>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )
+        }
 
         <Popupchat />
         <Appfooter />
-      </Fragment>
+      </Fragment >
     );
   }
 }
