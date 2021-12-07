@@ -21,6 +21,12 @@ class CoursesDetail extends Component {
     constructor() {
         super()
         this.state = {
+            coupon_input: "",
+            coupon_discount: 0,
+            coupon_loader: false,
+            coupon_have: false,
+            coupon_info: false,
+
             updateingCourse: false,
             loadingCourse: true,
 
@@ -122,9 +128,10 @@ class CoursesDetail extends Component {
 
     onToken = (token) => {
         let data = {
-            course_id: this.state.Course_id,
-            payment_token: token.id
-        }
+          course_id: this.state.Course_id,
+          payment_token: token.id,
+          coupon_code: this.state.coupon_input,
+        };
         this.setState({ paymentLoader: true })
         CourseApi.coursePayment(data).then(res => {
             console.log(res)
@@ -132,6 +139,26 @@ class CoursesDetail extends Component {
                 this.setState({
                     user_paid: true,
                     paymentLoader: false
+                })
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    checkCourseCoupon = () => {
+        let data = {
+            course_id: this.state.Course_id,
+            coupon_code: this.state.coupon_input
+        }
+        this.setState({ coupon_loader: true })
+        CourseApi.checkCourseCoupon(data).then(res => {
+            console.log(res)
+            if (res.data.Error == false) {
+                this.setState({
+                    coupon_discount: res.data.discount_amount,
+                    coupon_loader: false,
+                    coupon_info: res.data.msg,
                 })
             }
         }).catch(error => {
@@ -383,7 +410,7 @@ class CoursesDetail extends Component {
                                                     <div className="py-3 course__video-price">
                                                         {!this.state.user_paid && (
                                                             <p>
-                                                                €{this.state.paid_amount} <del>{this.state.discount_amount > 0 && (`€ ${this.state.discount_amount}`)}</del>
+                                                                €{this.state.paid_amount - this.state.coupon_discount} <del>{(this.state.discount_amount + this.state.coupon_discount) > 0 && (`€ ${this.state.discount_amount + this.state.paid_amount}`)}</del>
                                                             </p>
                                                         )}
                                                         {this.state.created_by && this.state.created_by._id == this.props.profile_id && (
@@ -393,7 +420,7 @@ class CoursesDetail extends Component {
                                                                 // }}
                                                                 className='py-2 btn btn-primary btn-sm w-100 bgthwh disabled'>Own Course</button>
                                                         )}
-                                                        {this.state.created_by && this.state.created_by._id != this.props.profile_id && (
+                                                        {this.state.created_by && this.state.created_by._id != this.props.profile_id  && (
                                                             <>
                                                                 {this.state.paid_amount > 0 && !this.state.paymentLoader && (
                                                                     <>
@@ -403,13 +430,13 @@ class CoursesDetail extends Component {
                                                                                 stripeKey={process.env.REACT_APP_STRIP_KEY}
                                                                                 image={this.state.user_details && this.state.user_details.profile_photo}
                                                                                 // panelLabel="Give Money" // prepended to the amount in the bottom pay button
-                                                                                amount={(this.state.paid_amount - this.state.discount_amount) * 100} // cents
+                                                                                amount={(this.state.paid_amount - this.state.coupon_discount) * 100} // cents
                                                                                 ComponentClassName="div"
                                                                                 currency="EUR"
                                                                                 name={this.state.user_details && this.state.user_details.name} // the pop-in header title
-                                                                                description={`Your are paying €${this.state.paid_amount - this.state.discount_amount} for course.`} // the pop-in header subtitle
+                                                                                description={`Your are paying €${this.state.paid_amount - this.state.coupon_discount} for course.`} // the pop-in header subtitle
                                                                             >
-                                                                                <button className='py-2 btn btn-primary btn-sm w-100 bgthwh'>€{this.state.paid_amount - this.state.discount_amount} BUY NOW</button>
+                                                                                <button className='py-2 btn btn-primary btn-sm w-100 bgthwh'>€{this.state.paid_amount - this.state.coupon_discount} BUY NOW</button>
                                                                             </StripeCheckout>
 
                                                                         )}
@@ -429,22 +456,39 @@ class CoursesDetail extends Component {
                                                     </div>
                                                     <div className="mb-5 course__video-content">
                                                         <ul className="list-unstyled courses_side_details_bar">
-                                                            
-                                                        <li className="">
- <div class="input-group mb-3">
-     <a href="#" className="text-dark py-2">Have a Coupen Code ?</a>
-  {/* <input type="text" class="form-control" placeholder="Enter Coupen Code" className="course-input w-100 p-1 mb-2" />
-  <button class="py-2 btn btn-primary btn-sm w-50 bgthwh ">Verify</button> */}
 
-
-  <div class="input-group mb-3">
-  <input type="text" class="form-control course-input p-1 m-0 promo-input-group" placeholder="Enter Coupen Code" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
-  {/* <span class="input-group-text btn-sm" id="basic-addon2">Check</span> */}
-  <button class="input-group-text btn-sm btn btn-primary btn-sm  bgthwh">Verify</button>
-</div>
-
- 
-</div>
+                                                            <li className="">
+                                                                <div class="input-group mb-3">
+                                                                    <a href="#" className="py-2 text-dark"
+                                                                        onClick={() => {
+                                                                            this.setState({
+                                                                                coupon_have: !this.state.coupon_have
+                                                                            })
+                                                                        }}
+                                                                    >Have a Coupen Code ?</a>
+                                                                    {this.state.coupon_have && (
+                                                                        <div class="input-group mb-3">
+                                                                            <input type="text" class="form-control course-input p-1 m-0 promo-input-group" placeholder="Enter Coupen Code" aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                                                                onChange={(e) => {
+                                                                                    this.setState({
+                                                                                        coupon_input: e.target.value
+                                                                                    })
+                                                                                }}
+                                                                            />
+                                                                            {/* <span class="input-group-text btn-sm" id="basic-addon2">Check</span> */}
+                                                                            {this.state.coupon_input && (
+                                                                                <button class="input-group-text btn-sm btn btn-primary px-2 btn-sm coupon_btn  bgthwh ms-n1"
+                                                                                    onClick={() => {
+                                                                                        if (this.state.coupon_loader == false) {
+                                                                                            this.checkCourseCoupon()
+                                                                                        }
+                                                                                    }}
+                                                                                >{this.state.coupon_loader ? "loading..." : "Verify"}</button>
+                                                                            )}
+                                                                        </div>
+                                                                    )}
+                                                                    <small className='text-grey-600'>{this.state.coupon_info}</small>
+                                                                </div>
 
                                                             </li>
 
@@ -545,7 +589,7 @@ class CoursesDetail extends Component {
                             <br />
 
 
-                            
+
                             {/* ************************************ */}
                         </div>
                     </div>

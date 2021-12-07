@@ -26,16 +26,16 @@ class ChangePassword extends Component {
     constructor(props) {
         super();
         this.state = {
-            email:"",
-            otp:"",
+            email: "",
+            otp: "",
 
             apiLoader: false,
             ApiError: "",
             otpEmailVerifing: true,
             otpEmailError: false,
 
-            successApi:false,
-            successApiMsg:'',
+            successApi: false,
+            successApiMsg: '',
         }
     }
 
@@ -50,11 +50,11 @@ class ChangePassword extends Component {
         AuthApi.otpVerification(data).then(res => {
             console.log(res.data)
             if (res.data.Error == false) {
-                this.setState({ 
+                this.setState({
                     otpEmailError: false,
-                    email:email,
-                    otp:otp
-                 })
+                    email: email,
+                    otp: otp
+                })
             } else {
                 this.setState({ otpEmailError: true })
             }
@@ -225,9 +225,9 @@ class ChangePassword extends Component {
                                             )}
                                         </>
                                     )}
-                                   
+
                                     <h6 className="mt-0 mt-4 mb-0 text-white font-xsss fw-500 lh-32">Already have account <Link to="/login" className="fw-700 ms-1">Login</Link></h6>
-                                   
+
 
                                 </div>
                             </div>

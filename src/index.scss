@@ -446,7 +446,10 @@
   right: 2px !important;
   left: auto;
 }
-
+.coupon_btn{
+  margin-left: -10px !important;
+  z-index: 999;
+}
 .emojiImages {
   width: 26px;
 }

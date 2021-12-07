@@ -472,5 +472,9 @@ i.far.fa-share.text-grey-900.btn-round-sm.font-lg {
 .promo-input-group{
   line-height: 25px !important;
   font-size: 13px !important;
-  border-radius: 5px 0px 0px 5px !important;
+  border-radius: 5px !important;
+  -webkit-border-radius: 5px !important;
+  -moz-border-radius: 5px !important;
+  -ms-border-radius: 5px !important;
+  -o-border-radius: 5px !important;
 }

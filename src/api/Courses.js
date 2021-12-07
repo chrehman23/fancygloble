@@ -22,6 +22,16 @@ let CourseApi = {
          },
       })
    },
+   checkCourseCoupon: (data) => {
+      return axios({
+         url: "/api/users/checkCourseCoupon",
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+      })
+   },
    courseDetails: (data) => {
       return axios({
          url: "/api/users/courseDetails",
