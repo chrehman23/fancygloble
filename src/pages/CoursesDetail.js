@@ -429,6 +429,26 @@ class CoursesDetail extends Component {
                                                     </div>
                                                     <div className="mb-5 course__video-content">
                                                         <ul className="list-unstyled courses_side_details_bar">
+                                                            
+                                                        <li className="">
+ <div class="input-group mb-3">
+     <a href="#" className="text-dark py-2">Have a Coupen Code ?</a>
+  {/* <input type="text" class="form-control" placeholder="Enter Coupen Code" className="course-input w-100 p-1 mb-2" />
+  <button class="py-2 btn btn-primary btn-sm w-50 bgthwh ">Verify</button> */}
+
+
+  <div class="input-group mb-3">
+  <input type="text" class="form-control course-input p-1 m-0 promo-input-group" placeholder="Enter Coupen Code" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+  {/* <span class="input-group-text btn-sm" id="basic-addon2">Check</span> */}
+  <button class="input-group-text btn-sm btn btn-primary btn-sm  bgthwh">Verify</button>
+</div>
+
+ 
+</div>
+
+                                                            </li>
+
+
                                                             <li className="">
                                                                 <div className="px-2 course__video-icon d-inline-flex">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-house-door" viewBox="0 0 16 16">

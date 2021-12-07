@@ -37,7 +37,7 @@ class Password extends Component {
                                             <h4 className="font-xs text-white fw-600 ms-4 mb-0 mt-2">Change Password</h4>
                                         </div>
 
-                                        <StripeCheckout
+                                        {/* <StripeCheckout
                                             token={this.onToken}
                                             stripeKey="pk_test_51JojOKANqHno2iJnUhvHytI2SsokdRaEZLKmG6ZzZrdcTaOp5PUCQv5d4YNacbvaZTN7Qcdk4psAglMyxdM6xMrw00TcV1mIOI"
                                             image="https://node.globalfansy.com/assets/user.png"
@@ -48,7 +48,7 @@ class Password extends Component {
                                             name="Three Comma Co." // the pop-in header title
                                             description="Big Data Stuff" // the pop-in header subtitle
                                         >PAY
-                                        </StripeCheckout>
+                                        </StripeCheckout> */}
                                         <div className="card-body p-lg-5 p-4 w-100 border-0">
                                             <form action="#">
                                                 <div className="row">
