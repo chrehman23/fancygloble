@@ -478,3 +478,56 @@ i.far.fa-share.text-grey-900.btn-round-sm.font-lg {
   -ms-border-radius: 5px !important;
   -o-border-radius: 5px !important;
 }
+
+
+// About us css
+.about-team-wrapper .card{
+  cursor: pointer;
+}
+
+.about-team-wrapper .team-heading{
+font-size: 30px;
+font-weight: 700;
+margin-bottom: 30px;
+}
+
+
+
+.about-team-wrapper .card:hover{
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2)!important;
+  transition: all .5s;
+}
+
+
+.about-team-wrapper .paragraph-bar::before {
+  content: '';
+  position: absolute;
+  height: 4px;
+  width: 100px;
+  border-radius: 2px;
+  background:#007CFF;
+  bottom: 40px;
+  left: 50%;
+  transform: translate(-50%);
+}
+.about-team-wrapper h5 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  
+  
+}
+
+.about-team-paragraph{
+  color: #7e7e7e;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: 15px !important;
+  font-weight: 400;
+  line-height: 1.7 !important;
+}
+
+
+
+// .about-team-wrapper .card img{
+//   // object-fit: cover;
+ 
+// }

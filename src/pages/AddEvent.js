@@ -19,9 +19,10 @@ import Events from '../api/Events'
 
 let validationSchemaEvent = Yup.object({
     title: Yup.string().required('Title is required.'),
+    description: Yup.string().required('Description is required.'),
     event_type: Yup.string().required('Event type is required.'),
     paid_status: Yup.string().required('Paid/Fee is required.'),
-    start_date: Yup.string().required('start date and time is required.'),
+    start_date: Yup.string().required('Start date and time is required.'),
     end_date: Yup.string().required('End date and time is required.'),
     // dateTime: Yup.array().min(1, 'Start date and end date is required.').required('Start date and end date is required.'),
     thumbnail: Yup.array().required('Thumbnail is required.'),
@@ -37,7 +38,7 @@ let validationSchemaEvent = Yup.object({
     }),
     event_seats: Yup.string().when("seats_status", {
         is: val => (val && val !== "Limited" ? false : true),
-        then: Yup.string().required('Event seats is required.'),
+        then: Yup.string().required('Event seats are required.'),
     }),
     // password: Yup.string().required('Password is Required.').min(6, 'Must be greater then 6 characters.'),
 })
@@ -361,9 +362,9 @@ class AddEvents extends Component {
                                                             <div className="col-lg-12 mb-3">
                                                                 <div className="form-group">
                                                                     <label className="mont-font fw-600 font-xsss mb-2">Description</label>
-                                                                    <Field id="description" name="description" className="form-control course-input " placeholder="Event Description" />
+                                                                    <textarea id="description" name="description" className="form-control course-input " placeholder="Event Description" ></textarea>
                                                                     <ErrorMessage
-                                                                        name='title'
+                                                                        name='description'
                                                                         component="small"
                                                                         className="text-danger"
                                                                     />

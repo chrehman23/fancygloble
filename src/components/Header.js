@@ -211,7 +211,7 @@ class Header extends Component {
                                 <div className="nav-caption fw-600 font-xssss text-grey-500"><span>New </span>Feeds</div>
                                 <ul className="mb-1 top-content">
                                     <li className="logo d-none d-xl-block d-lg-block"></li>
-                           
+                                    <li><Link to="/about" className="nav-content-bttn open-font"><i className="text-current fad fa-info-circle ms-2 me-3"></i><span>About</span></Link></li>
                                     <li><Link to="/home" className="nav-content-bttn open-font"><i className="text-current fad fa-rss ms-2 me-3"></i><span>{t('header.newsfeed')}</span></Link></li>
                                     <li><Link to="/users" className="nav-content-bttn open-font"><i className="text-current fad fa-globe-americas ms-2 me-3"></i><span>{t('header.explore')}</span></Link></li>
                                     {/* <li><Link to="/home" className="nav-content-bttn open-font"><i className="feather-tv btn-round-md bg-blue-gradiant me-3"></i><span> {t('header.newsfeed')}</span></Link></li> */}
@@ -226,9 +226,9 @@ class Header extends Component {
                                 </ul>
                             </div>
 
-                            <div className="pt-3 pb-1 mb-2 bg-white nav-wrap bg-transparent-card rounded-xxl shadow-xss">
+                            <div className="pt-3 bg-white nav-wrap bg-transparent-card rounded-xxl shadow-xss">
                                 <div className="nav-caption fw-600 font-xssss text-grey-500">{t('header.more_pages')}</div>
-                                <ul className="mb-5">
+                                <ul className="mb-2">
                                     {/* <li><Link to="/defaultemailbox" className="nav-content-bttn open-font"><i className="text-current font-xl feather-inbox me-3"></i><span>Email Box</span><span className="mt-1 circle-count bg-warning">584</span></Link></li> */}
                                     {/* <li><Link to="/defaulthotel" className="nav-content-bttn open-font"><i className="text-current font-xl feather-home me-3"></i><span>Near Hotel</span></Link></li> */}
                                     <li><Link to="/events" className="nav-content-bttn open-font"><i className="text-current fad fa-calendar-alt ms-2 me-3"></i><span>{t('header.latest_events')}</span></Link></li>
@@ -268,7 +268,7 @@ class Header extends Component {
                                     <li><a href="https://sites.google.com/view/globalfansy/home/terms-conditions?authuser=0" target="_blank" className="pt-2 pb-2 nav-content-bttn open-font"><i class="text-current   fad fa-scroll-old  ms-2 me-3"></i><span>Terms & Conditions</span></a></li>
                                     <li><a href="https://sites.google.com/view/globalfansy/home/privacy-policy?authuser=0" target="_blank" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i class="text-current  fad fa-user-shield ms-2  me-3 "></i><span>Privacy Policy</span></a></li>
                                     <li><a href="https://sites.google.com/view/globalfansy/home/supporrt" target="_blank" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i class="text-current  fad fa-question-square ms-2  me-4 "></i><span>Help & Support</span></a></li>
-
+                                   
                                 </ul>
                                 <br></br>
                                 <br></br>
