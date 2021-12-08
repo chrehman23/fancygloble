@@ -465,7 +465,8 @@ class CoursesDetail extends Component {
                                                                         <a href="#" className="py-2 text-dark"
                                                                             onClick={() => {
                                                                                 this.setState({
-                                                                                    coupon_have: !this.state.coupon_have
+                                                                                    coupon_have: !this.state.coupon_have,
+                                                                                    coupon_info:""
                                                                                 })
                                                                             }}
                                                                         >Have a Coupen Code ?</a>
@@ -490,7 +491,7 @@ class CoursesDetail extends Component {
                                                                                 )}
                                                                             </div>
                                                                         )}
-                                                                        <small className='text-grey-600'>{this.state.coupon_info}</small>
+                                                                        <small className='text-grey-600'>{this.state.coupon_have && this.state.coupon_info}</small>
                                                                     </div>
 
                                                                 </li>
