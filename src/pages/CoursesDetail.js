@@ -56,7 +56,7 @@ class CoursesDetail extends Component {
             paymentLoader: false,
             created_by: "",
             tabs: 1,
-            apiLoader: true,
+            apiLoader: true, 
         }
 
     }
@@ -420,6 +420,9 @@ class CoursesDetail extends Component {
                                                                 // }}
                                                                 className='py-2 btn btn-primary btn-sm w-100 bgthwh disabled'>Own Course</button>
                                                         )}
+                                                        {this.state.paymentLoader && (
+                                                            <button  className='py-2 btn btn-primary btn-sm w-100 bgthwh disabled'>payment processing... </button>
+                                                        )}
                                                         {this.state.created_by && this.state.created_by._id != this.props.profile_id  && (
                                                             <>
                                                                 {this.state.paid_amount > 0 && !this.state.paymentLoader && (
@@ -456,41 +459,43 @@ class CoursesDetail extends Component {
                                                     </div>
                                                     <div className="mb-5 course__video-content">
                                                         <ul className="list-unstyled courses_side_details_bar">
-
-                                                            <li className="">
-                                                                <div class="input-group mb-3">
-                                                                    <a href="#" className="py-2 text-dark"
-                                                                        onClick={() => {
-                                                                            this.setState({
-                                                                                coupon_have: !this.state.coupon_have
-                                                                            })
-                                                                        }}
-                                                                    >Have a Coupen Code ?</a>
-                                                                    {this.state.coupon_have && (
-                                                                        <div class="input-group mb-3">
-                                                                            <input type="text" class="form-control course-input p-1 m-0 promo-input-group" placeholder="Enter Coupen Code" aria-label="Recipient's username" aria-describedby="basic-addon2"
-                                                                                onChange={(e) => {
-                                                                                    this.setState({
-                                                                                        coupon_input: e.target.value
-                                                                                    })
-                                                                                }}
-                                                                            />
-                                                                            {/* <span class="input-group-text btn-sm" id="basic-addon2">Check</span> */}
-                                                                            {this.state.coupon_input && (
-                                                                                <button class="input-group-text btn-sm btn btn-primary px-2 btn-sm coupon_btn  bgthwh ms-n1"
-                                                                                    onClick={() => {
-                                                                                        if (this.state.coupon_loader == false) {
-                                                                                            this.checkCourseCoupon()
-                                                                                        }
+                                                            {!this.state.user_paid && (
+                                                                <li className="">
+                                                                    <div class="input-group mb-3">
+                                                                        <a href="#" className="py-2 text-dark"
+                                                                            onClick={() => {
+                                                                                this.setState({
+                                                                                    coupon_have: !this.state.coupon_have
+                                                                                })
+                                                                            }}
+                                                                        >Have a Coupen Code ?</a>
+                                                                        {this.state.coupon_have && (
+                                                                            <div class="input-group mb-3">
+                                                                                <input type="text" class="form-control course-input p-1 m-0 promo-input-group" placeholder="Enter Coupen Code" aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                                                                    onChange={(e) => {
+                                                                                        this.setState({
+                                                                                            coupon_input: e.target.value
+                                                                                        })
                                                                                     }}
-                                                                                >{this.state.coupon_loader ? "loading..." : "Verify"}</button>
-                                                                            )}
-                                                                        </div>
-                                                                    )}
-                                                                    <small className='text-grey-600'>{this.state.coupon_info}</small>
-                                                                </div>
+                                                                                />
+                                                                                {/* <span class="input-group-text btn-sm" id="basic-addon2">Check</span> */}
+                                                                                {this.state.coupon_input && (
+                                                                                    <button class="input-group-text btn-sm btn btn-primary px-2 btn-sm coupon_btn  bgthwh ms-n1"
+                                                                                        onClick={() => {
+                                                                                            if (this.state.coupon_loader == false) {
+                                                                                                this.checkCourseCoupon()
+                                                                                            }
+                                                                                        }}
+                                                                                    >{this.state.coupon_loader ? "loading..." : "Verify"}</button>
+                                                                                )}
+                                                                            </div>
+                                                                        )}
+                                                                        <small className='text-grey-600'>{this.state.coupon_info}</small>
+                                                                    </div>
 
-                                                            </li>
+                                                                </li>
+                                                            )}
+                                                           
 
 
                                                             <li className="">
