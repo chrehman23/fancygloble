@@ -9,6 +9,15 @@
   border-radius: 4px 4px 0px 0;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
+.read-more-button{
+  color: #056bd9 !important;
+  cursor: pointer;
+}
+.comment-paragraph{
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0px 10px 20px;
+}
+
 .recommended {
   cursor: pointer;
 }
@@ -527,7 +536,5 @@ margin-bottom: 30px;
 
 
 
-// .about-team-wrapper .card img{
-//   // object-fit: cover;
- 
-// }
+
+

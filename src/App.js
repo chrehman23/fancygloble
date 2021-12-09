@@ -47,6 +47,8 @@ import Payment from './pages/Payment';
 import Notification from './pages/Notification';
 import Helpbox from './pages/Helpbox';
 import Login from './pages/Login';
+import LogiNew from './pages/LogiNew';
+import Terms_Conditions from './pages/Terms_Conditions';
 import Register from './pages/Register';
 import Forgot from './pages/Forgot';
 import Notfound from './pages/Notfound';
@@ -135,6 +137,8 @@ class App extends Component {
         <Switch>
           <Route exact path={`/maintenance`} component={Maintenance} />
           <Route exact path={`/login`} component={Login} />
+          <Route exact path={`/Terms_Conditions`} component={Terms_Conditions} />
+          <Route exact path={`/LogiNew`} component={LogiNew} />
           <Route exact path={`/register`} component={Register} />
           <Route exact path={`/forgot`} component={Forgot} />
           <Route exact path={`/reset-password/:email/:otp`} component={UpdatePassword} />

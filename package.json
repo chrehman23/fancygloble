@@ -96,6 +96,7 @@
     "react-video-tag": "0.0.10",
     "react-visibility-sensor": "^5.1.1",
     "react-waypoint": "^10.1.0",
+    "read-more-react": "^1.0.10",
     "redux": "^4.1.1",
     "resolve": "1.10.0",
     "sass-loader": "^7.3.1",

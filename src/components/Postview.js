@@ -211,7 +211,7 @@ class Postview extends Component {
                                                                 name={user} // the pop-in header title
                                                                 description={`You are paying  €${allData.paid_amount} for post.`} // the pop-in header subtitle
                                                             >
-                                                                <button className='subscribe-btn'>Paid Post Click to Pay €{allData.paid_amount}</button>
+                                                                <button className='piad-post-btn'>Click to Pay €{allData.paid_amount}</button>
                                                             </StripeCheckout>
 
                                                         )}
@@ -346,6 +346,8 @@ class Postview extends Component {
                             : ''}
                     </>
                 )}
+
+                
                 <div className="p-0 mr-2 card-body d-flex" style={{ marginRight: '5px' }}>
                     <div className="emoji-bttn pointer d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2"
                         onClick={() => {
