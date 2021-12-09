@@ -264,8 +264,8 @@ class Header extends Component {
                                     </li>
 
                                    
-                                    <li><Link to="/Terms_Conditions" className="nav-content-bttn open-font"><i className="text-current fad fa-scroll-old ms-2 me-3"></i><span>Terms & Conditions</span></Link></li>     
-                                    <li><a href="https://sites.google.com/view/globalfansy/home/terms-conditions?authuser=0" target="_blank" className="pt-2 pb-2 nav-content-bttn open-font"><i class="text-current   fad fa-scroll-old  ms-2 me-3"></i><span>Terms & Conditions</span></a></li>
+                                    <li><Link to="/Terms_Conditions" className="nav-content-bttn open-font"><i className="text-current fad fa-file-contract ms-2 me-3"></i><span>Terms & Conditions</span></Link></li>     
+                                    {/* <li><a href="https://sites.google.com/view/globalfansy/home/terms-conditions?authuser=0" target="_blank" className="pt-2 pb-2 nav-content-bttn open-font"><i class="text-current   fad fa-scroll-old  ms-2 me-3"></i><span>Terms & Conditions</span></a></li> */}
                                     <li><a href="https://sites.google.com/view/globalfansy/home/privacy-policy?authuser=0" target="_blank" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i class="text-current  fad fa-user-shield ms-2  me-3 "></i><span>Privacy Policy</span></a></li>
                                     <li><a href="https://sites.google.com/view/globalfansy/home/supporrt" target="_blank" className="h-auto pt-2 pb-2 nav-content-bttn open-font"><i class="text-current  fad fa-question-square ms-2  me-4 "></i><span>Help & Support</span></a></li>
                                    
