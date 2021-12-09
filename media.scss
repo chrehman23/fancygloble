@@ -11,6 +11,9 @@
 
 /* Custom Media Query (desktops, less than 1024px)*/
 @media (max-width: 1023.98px) {
+  .about_bg{
+    background-color: white !important;
+  }
   body {
     background-color: black !important;
   }

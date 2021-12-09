@@ -15,7 +15,7 @@ import CoursesSectionList from '../components/CoursesSectionList'
 import moment from 'moment'
 
 class Courses extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       updateingCourse: false,
@@ -51,7 +51,7 @@ class Courses extends Component {
       coupon_validity: ''
     }
   }
-  componentDidMount () {
+  componentDidMount() {
     let Course_id = localStorage.getItem('add_course_id')
     if (Course_id) {
       this.setState({
@@ -135,7 +135,7 @@ class Courses extends Component {
       })
   }
 
-  render () {
+  render() {
     return (
       <Fragment>
         <Header />
@@ -432,10 +432,10 @@ class Courses extends Component {
                           this.updateCourse(data)
                         }}
                       />
-                      
+
                       <h3>
                         €{this.state.paid_amount} €
-                       <del> {this.state.paid_amount + this.state.discount_amount}</del>
+                        <del> {this.state.paid_amount + this.state.discount_amount}</del>
                       </h3>
                       {/* ******************** */}
                     </div>
@@ -576,44 +576,76 @@ class Courses extends Component {
                                 this.updateCourse(data)
                               }}
                             />
-
                             <label
                               htmlFor=''
                               className='mb-0 course-title-font'
                             >
                               Discount Type
                             </label>
-                            <select
-                              name=''
-                              id=''
-                              className='form-control course-input'
-                              value={this.state.coupon_type}
-                              onChange={e => {
-                                this.setState(
-                                  {
-                                    coupon_type: e.target.value
-                                  },
-                                  () => {
-                                    let data = new FormData()
-                                    data.append(
-                                      'coupon_type',
-                                      this.state.coupon_type
+                            <div>
+                              <div class="form-check cursor-pointer">
+                                <input class="form-check-input" type="radio" name="coupon_type" id="coupon_type"
+                                  checked={this.state.coupon_type == "Flate Price" ? true : false}
+                                  onChange={(e) => {
+                                    this.setState(
+                                      {
+                                        coupon_type: e.target.value
+                                      },
+                                      () => {
+                                        let data = new FormData()
+                                        data.append(
+                                          'coupon_type',
+                                          this.state.coupon_type
+                                        )
+                                        if (this.state.coupon_value > 99) {
+                                          data.append('coupon_value', 0)
+                                          this.setState({
+                                            coupon_value: 0
+                                          })
+                                        }
+                                        this.updateCourse(data)
+                                      }
                                     )
-                                    if (this.state.coupon_value > 99) {
-                                      data.append('coupon_value', 0)
-                                      this.setState({
-                                        coupon_value: 0
-                                      })
-                                    }
-                                    this.updateCourse(data)
-                                  }
-                                )
-                              }}
-                            >
-                              <option value=''>Select Discount Type</option>
-                              <option value='Flate Price'>Flate Price</option>
-                              <option value='Percentage'>Percentage</option>
-                            </select>
+                                  }}
+                                  value="Flate Price"
+                                />
+                                <label class="form-check-label" for="coupon_type">
+                                  Flate Price
+                                </label>
+                              </div>
+                              <div class="form-check cursor-pointer">
+                                <input class="form-check-input" type="radio" name="coupon_type" id="coupon_type1"
+                                  checked={this.state.coupon_type == "Percentage" ? true : false}
+                                  onChange={(e) => {
+                                    this.setState(
+                                      {
+                                        coupon_type: e.target.value
+                                      },
+                                      () => {
+                                        let data = new FormData()
+                                        data.append(
+                                          'coupon_type',
+                                          this.state.coupon_type
+                                        )
+                                        if (this.state.coupon_value > 99) {
+                                          data.append('coupon_value', 0)
+                                          this.setState({
+                                            coupon_value: 0
+                                          })
+                                        }
+                                        this.updateCourse(data)
+                                      }
+                                    )
+                                  }}
+                                  value="Percentage"
+                                />
+                                <label class="form-check-label" for="coupon_type1">
+                                  Percentage
+                                </label>
+                              </div>
+                            </div>
+
+
 
                             {this.state.coupon_type == 'Flate Price' && (
                               <>
@@ -632,7 +664,7 @@ class Courses extends Component {
                                     if (
                                       e.target.value <
                                       this.state.paid_amount -
-                                        this.state.discount_amount
+                                      this.state.discount_amount
                                     ) {
                                       this.setState({
                                         coupon_value: e.target.value
@@ -714,12 +746,17 @@ class Courses extends Component {
                                 >
                                   Valdity Date
                                 </label>
+                                {moment(new Date()).format('YYYY-MM-DDTHH:MM:SS')}
                                 <input
-                                  type='date'
+                                  type='datetime-local'
                                   className='form-control course-input'
                                   placeholder='Number Of Uses'
-                                  min={moment(new Date()).format('YYYY-MM-DD')}
+                                  // min="2021-2-18T10:30:55"
+                                  // min="2019-02-18T10:30:55"
+                                  
+                                  // min={moment(new Date()).format('YYYY-MM-DD')}
                                   value={this.state.coupon_validity}
+                                  min={moment(new Date()).format('YYYY-MM-DDTHH:MM:SS')}
                                   onChange={e => {
                                     this.setState({
                                       coupon_validity: e.target.value

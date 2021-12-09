@@ -54,9 +54,9 @@ class Login extends Component {
     if (token) {
       this.props.history.push("/");
     }
-    let data={
-      email:"mrahman9pk@gmail.com",
-      password:"11223344"
+    let data = {
+      email: "mrahman9pk@gmail.com",
+      password: "11223344"
     }
     // AuthApi.login(data)
     //   .then((res) => {
@@ -147,11 +147,7 @@ class Login extends Component {
               marginLeft: "0px",
             }}
           >
-            <div
-              className="p-0 col-xl-7 d-none d-xl-block "
-              // bg-image-cover style={{ backgroundImage: `url(${backgroundLogin})` }}
-            >
-              {/* <img src={loignImage4} className='loginBackGroundImage' /> */}
+            <div className="p-0 col-xl-7 d-none d-xl-block "   >
             </div>
             <div className="overflow-hidden col-xl-5 loginScreenCover h-100 align-items-center d-flex rounded-3">
               <div className="bg-transparent border-0 shadow-none card ms-auto me-auto login-card">
@@ -245,12 +241,12 @@ class Login extends Component {
                           className="form-check-input "
                           id="exampleCheck5"
                         />
-                        <label className="text-white form-check-label font-xsss">
+                        <label className="text-white form-check-label font-xsss pe-2">
                           Remember me
                         </label>
                         <Link
                           to="/forgot"
-                          className="float-right text-white fw-600 font-xsss"
+                          className="float-right text-white fw-600 font-xsss ps-3"
                         >
                           Forgot your Password?
                         </Link>
@@ -288,17 +284,15 @@ class Login extends Component {
                   </Formik>
                   {/* ************************************* */}
                   <div
-                    className={`col-sm-12 p-0 text-center mt-2 d-flex justify-content-center align-items-center ${
-                      !this.state.google_facebook_login_loader ? "d-none" : ""
-                    }`}
+                    className={`col-sm-12 p-0 text-center mt-2 d-flex justify-content-center align-items-center ${!this.state.google_facebook_login_loader ? "d-none" : ""
+                      }`}
                     style={{ height: "200px" }}
                   >
                     <BtnLoader />
                   </div>
                   <div
-                    className={`col-sm-12 p-0 text-center mt-2 ${
-                      this.state.google_facebook_login_loader ? "d-none" : ""
-                    }`}
+                    className={`col-sm-12 p-0 text-center mt-2 ${this.state.google_facebook_login_loader ? "d-none" : ""
+                      }`}
                   >
                     <h6 className="mb-0 mb-3 text-white d-inline-block fw-500 font-xsss">
                       Or, Sign in with your social account{" "}
@@ -310,7 +304,7 @@ class Login extends Component {
                       </small>
                     </p>
 
-                    <GoogleLogin
+                    {/* <GoogleLogin
                       socialId={process.env.REACT_APP_GOOGLE_LOGIN_KEY}
                       className="google-login"
                       redirectUri={"https://globalfansy.com/login"}
@@ -328,7 +322,7 @@ class Login extends Component {
                           Sign in with Google
                         </div>
                       </div>
-                    </GoogleLogin>
+                    </GoogleLogin> */}
                     {/* <FacebookLogin
                                             appId="1088597931155576"
                                             autoLoad={false}
@@ -351,6 +345,21 @@ class Login extends Component {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="row bg-white py-5">
+            <div className="col-md-12">
+              <div className="d-flex justify-content-center w-100">
+                <div className="mx-2"><Link to="/about" className="loginbgImageControl link-dark">   About Us  </Link></div>
+                <div className="mx-2"><a target="_blank" href="https://sites.google.com/view/globalfansy/home/terms-conditions?authuser=0" className="loginbgImageControl link-dark">   Terms &amp; Conditions  </a></div>
+                <div className="mx-2"><a target="_blank" href="https://sites.google.com/view/globalfansy/home/privacy-policy?authuser=0" className="loginbgImageControl link-dark">   Privacy Policy  </a></div>
+                <div className="mx-2"><a target="_blank" href="https://sites.google.com/view/globalfansy/home/supporrt" className="loginbgImageControl link-dark">   Help & Support  </a></div>
+              </div>
+            </div>
+          </div>
+          <div className="row border-top ">
+            <div className="py-2 text-center col-12">
+              <p>© Copyright 2021 Global fansy oy. All Rights Reserved.</p>
             </div>
           </div>
         </div>
