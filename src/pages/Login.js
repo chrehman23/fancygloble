@@ -351,7 +351,7 @@ class Login extends Component {
             <div className="col-md-12">
               <div className="d-flex justify-content-center w-100">
                 <div className="mx-2"><Link to="/about" className="loginbgImageControl link-dark">   About Us  </Link></div>
-                <div className="mx-2"><a target="_blank" href="https://sites.google.com/view/globalfansy/home/terms-conditions?authuser=0" className="loginbgImageControl link-dark">   Terms &amp; Conditions  </a></div>
+                <div className="mx-2"><Link  to="/Terms_Conditions" className="loginbgImageControl link-dark">   Terms &amp; Conditions  </Link></div>
                 <div className="mx-2"><a target="_blank" href="https://sites.google.com/view/globalfansy/home/privacy-policy?authuser=0" className="loginbgImageControl link-dark">   Privacy Policy  </a></div>
                 <div className="mx-2"><a target="_blank" href="https://sites.google.com/view/globalfansy/home/supporrt" className="loginbgImageControl link-dark">   Help & Support  </a></div>
               </div>

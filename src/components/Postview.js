@@ -228,7 +228,7 @@ class Postview extends Component {
                                                 >
                                                     <div className='d-flex align-items-center justify-content-center'>
 
-                                                        <button className='subscribe-btn'>Paid Post Click to Pay €{allData.paid_amount}</button>
+                                                        <button className='piad-post-btn'>Click to Pay €{allData.paid_amount}</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -237,7 +237,7 @@ class Postview extends Component {
 
                                     </div>
                                 </div>
-
+ 
                             )}
                             {this.state.cardAtive && (
                                 <div className="p-0 mb-3 card-body d-block">
@@ -393,8 +393,7 @@ class Postview extends Component {
 
                                     </div>
                                 </div>
-                            )
-
+                            ) 
                                 : ''}
                         </>
                     )}
@@ -418,6 +417,7 @@ class Postview extends Component {
                                 <li onClick={() => this.emojiOnPost(4)}><img src={icon4} alt='icon' /></li>
                                 <li onClick={() => this.emojiOnPost(5)}><img src={icon5} alt='icon' /></li>
                                 {/* <li className="emoji list-inline-item" onClick={() => this.emojiOnPost(1)}><i className="em em---1"></i> </li>
+ 
                             <li className="emoji list-inline-item" onClick={() => this.emojiOnPost(2)}><i className="em em-angry"></i></li>
                             <li className="emoji list-inline-item" onClick={() => this.emojiOnPost(3)}><i className="em em-anguished"></i> </li>
                             <li className="emoji list-inline-item" onClick={() => this.emojiOnPost(4)}><i className="em em-astonished"></i> </li>

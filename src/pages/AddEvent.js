@@ -362,7 +362,9 @@ class AddEvents extends Component {
                                                             <div className="col-lg-12 mb-3">
                                                                 <div className="form-group">
                                                                     <label className="mont-font fw-600 font-xsss mb-2">Description</label>
-                                                                    <textarea id="description" name="description" className="form-control course-input " placeholder="Event Description" ></textarea>
+                                                                    <textarea id="description"
+                                                                    rows={3}
+                                                                    name="description" className="form-control course-input " placeholder="Event Description" ></textarea>
                                                                     <ErrorMessage
                                                                         name='description'
                                                                         component="small"
