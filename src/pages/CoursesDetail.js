@@ -8,6 +8,7 @@ import Popupchat from '../components/Popupchat';
 import ApiLoader from '../components/ApiLoader'
 import { connect } from 'react-redux';
 import ACTIONS from '../store/actions/index.js';
+import SweetAlert from 'react-bootstrap-sweetalert'
 import { Link, withRouter } from 'react-router-dom'
 import CourseApi from '../api/Courses'
 import CopyToClipboard from '../components/CopyToClipBoardPost'
@@ -56,7 +57,10 @@ class CoursesDetail extends Component {
             paymentLoader: false,
             created_by: "",
             tabs: 1,
-            apiLoader: true, 
+            apiLoader: true,
+            payment_notify: false,
+            payment_status: false,
+            pyment_error_msg: " Your card was declined.",
         }
 
     }
@@ -128,9 +132,9 @@ class CoursesDetail extends Component {
 
     onToken = (token) => {
         let data = {
-          course_id: this.state.Course_id,
-          payment_token: token.id,
-          coupon_code: this.state.coupon_input,
+            course_id: this.state.Course_id,
+            payment_token: token.id,
+            coupon_code: this.state.coupon_input,
         };
         this.setState({ paymentLoader: true })
         CourseApi.coursePayment(data).then(res => {
@@ -138,11 +142,32 @@ class CoursesDetail extends Component {
             if (res.data.Error == false) {
                 this.setState({
                     user_paid: true,
-                    paymentLoader: false
+                    paymentLoader: false,
+                    payment_status: res.data.payment_status,
+                    payment_notify: true
                 })
             }
+            if (res.data.error_msg){
+                this.setState({
+                    pyment_error_msg: res.data.error_msg
+                })
+            } else{
+                this.setState({
+                    pyment_error_msg: " Your card was declined. "
+                })
+            }
+            this.setState({
+                paymentLoader: false, 
+                payment_notify: true
+            })
         }).catch(error => {
             console.log(error)
+            this.setState({
+                pyment_error_msg: " Your card was declined. ",
+                paymentLoader: false,
+                payment_status: false,
+                payment_notify: true
+            })
         })
     }
 
@@ -159,6 +184,7 @@ class CoursesDetail extends Component {
                     coupon_discount: res.data.discount_amount,
                     coupon_loader: false,
                     coupon_info: res.data.msg,
+                   
                 })
             }
         }).catch(error => {
@@ -172,10 +198,36 @@ class CoursesDetail extends Component {
                 <Header />
                 <Leftnav />
                 <Rightchat />
+                
+                {this.state.payment_notify && (
+                    <>
+                        {this.state.payment_status ? (
+
+                            <SweetAlert success title="Payment Done!"
+                                customButtons={
+                                    <React.Fragment>
+                                        <button className='px-2 btn btn-primary bgthwh ms-2 btn-sm' onClick={() => this.setState({ payment_notify: false })}>Okay</button>
+                                    </React.Fragment>
+                                }    >
+                                Payment process done enjoy your course.
+                            </SweetAlert>
+                        ): (
+                                <SweetAlert warning title="Payment Error!"
+                                    customButtons={
+                                        <React.Fragment>
+                                            <button className='px-2 btn btn-primary bgthwh ms-2 btn-sm' onClick={() => this.setState({ payment_notify: false })}>Okay</button>
+                                        </React.Fragment>
+                                    }    >
+                                        {this.state.pyment_error_msg}
+                                </SweetAlert>
+                        )}
+                    </>
+                )}
 
                 <div className="main-content right-chat-active">
                     <div className={this.state.apiLoader ? "px-0 middle-sidebar-bottom bg-white" : "px-0 middle-sidebar-bottom course_details_bg"}>
                         <div className="w-100">
+                           
 
                             {/* ************************************************************* */}
                             <section className="course-details">
@@ -421,9 +473,9 @@ class CoursesDetail extends Component {
                                                                 className='py-2 btn btn-primary btn-sm w-100 bgthwh disabled'>Own Course</button>
                                                         )}
                                                         {this.state.paymentLoader && (
-                                                            <button  className='py-2 btn btn-primary btn-sm w-100 bgthwh disabled'>payment processing... </button>
+                                                            <button className='py-2 btn btn-primary btn-sm w-100 bgthwh disabled'>payment processing... </button>
                                                         )}
-                                                        {this.state.created_by && this.state.created_by._id != this.props.profile_id  && (
+                                                        {this.state.created_by && this.state.created_by._id != this.props.profile_id && (
                                                             <>
                                                                 {this.state.paid_amount > 0 && !this.state.paymentLoader && (
                                                                     <>
@@ -466,7 +518,7 @@ class CoursesDetail extends Component {
                                                                             onClick={() => {
                                                                                 this.setState({
                                                                                     coupon_have: !this.state.coupon_have,
-                                                                                    coupon_info:""
+                                                                                    coupon_info: ""
                                                                                 })
                                                                             }}
                                                                         >Have a Coupen Code ?</a>
@@ -496,7 +548,7 @@ class CoursesDetail extends Component {
 
                                                                 </li>
                                                             )}
-                                                           
+
 
 
                                                             <li className="">
