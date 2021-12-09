@@ -7,33 +7,55 @@ import Popupchat from "../components/Popupchat";
 import t1 from "../../public/assets/images/team/t1.png";
 import t2 from "../../public/assets/images/team/t2.png";
 import t3 from "../../public/assets/images/team/t3.png";
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 class ShopOne extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      login: false,
+
+    };
+  }
+
+  componentDidMount() {
+    let token = localStorage.getItem("token");
+    if (token) {
+      this.setState({
+        login: true
+      })
+    }
+
+  }
   render() {
     return (
       <Fragment>
-        <Header />
-        <Leftnav />
-        <Rightchat />
+        {this.state.login && (
+          <>
+            <Header />
+            <Leftnav />
+            <Rightchat />
+          </>
+        )}
 
-        <div className="main-content bg-white right-chat-active about-team-wrapper">
-          <div className="middle-sidebar-bottom">
-            <div className="middle-sidebar-left">
-              <div className="row">
+
+        <div className={this.state.login && "bg-white main-content right-chat-active about-team-wrapper"}>
+          <div className={this.state.login && "middle-sidebar-bottom"}>
+            <div className={this.state.login ? "middle-sidebar-left about_bg" :"container about_bg"}>
+              <div className="mt-3 row">
                 <div className="col-xl-12 col-xxl-12 col-lg-12">
-                  <div className="row">
-                    <div className="col-lg-12">
-                      <div className="card p-md-5 p-4 bg-primary-gradiant rounded-3 shadow-xss bg-pattern border-0 overflow-hidden">
+                  <div className=" row">
+                    <div className="pt-3 col-lg-12">
+                      <div className="p-2 overflow-hidden border-0 card p-md-2 bg-primary-gradiant rounded-3 shadow-xss bg-pattern">
                         <div className="bg-pattern-div"></div>
-                        <h2 className="display2-size display2-md-size fw-700 text-white mb-0 mt-0">
-                        <Link to="/" className="mt-2 d-inline-block text-white"><i className="text-white ti-arrow-left font-sm me-3 font-xl"></i>About Us</Link>
-                       
+                        <h2 className="mt-0 mb-0 text-white display2-size display2-md-size fw-700">
+                          <Link to="/" className="mt-2 text-white d-inline-block"><i className="text-white ti-arrow-left font-sm me-3 font-xl"></i>About Us</Link>
+
                         </h2>
                       </div>
                     </div>
 
-                    <div className="col-md-12 col-12 py-5">
-                      <h2 className="team-heading">What We Provide ?</h2>
+                    <div className="py-5 col-md-12 col-12">
+                      <h2 className="team-heading about_text">What We Provide ?</h2>
                       <p className="py-2 about-team-paragraph">
                         This platform is a social networking website with
                         possibility for digital marketing, selling and producing
@@ -60,7 +82,7 @@ class ShopOne extends Component {
                         consumers of the services we provide and are herein
                         pertained in this Terms and Conditions Agreement.
                         <br></br><br></br>
-                         The
+                        The
                         user acknowledges and agrees that all the services
                         provided and made available through our website and
                         applications, are sole property of Global Fansy Inc.
@@ -74,7 +96,7 @@ class ShopOne extends Component {
                         and/or products and any and all updated, modified or
                         revised services unless otherwise stipulated.
                         stipulated
-                         Global
+                        Global
                         Fansy Inc does hereby reserve the right to cancel and
                         cease offering any of the aforementioned services and/or
                         products. You, as the end user acknowledge, accept and
@@ -87,7 +109,7 @@ class ShopOne extends Component {
                         policies should be made by you to ensure you are aware
                         of all terms and policies currently in effect.
                         <br></br><br></br>
-                         Should
+                        Should
                         you not agree to the updated, modified, revised or
                         modified terms, you must stop using the provided
                         services. Furthermore, the user understands,
@@ -100,27 +122,30 @@ class ShopOne extends Component {
                       </p>
                     </div>
 
-                    <div className="row my-5 ">
+                    <div className="my-5 row ">
                       {/* <h1 className="text-center team-heading">
                         Our Globalfansy Team
                       </h1> */}
 
                       <div className="col-md-4 col-12">
-                        <div className="card text-center ">
+                        <div className="text-center card ">
                           <img src={t1} alt="avater" className=" img-fluid" />
                           <div className="img-heading">
-                            <p className="paragraph-bar pt-2">
+                            <p className="pt-2 paragraph-bar">
                               CEO Founder
                             </p>
                             <h5>- Tanja</h5>
                           </div>
                         </div>
                       </div>
+                      <br></br>
+                      <br></br>
+                      <br></br>
                       {/* <div className="col-md-4 col-12">
-                        <div className="card text-center ">
+                        <div className="text-center card ">
                           <img src={t2} alt="avater" className=" img-fluid" />
                           <div className="img-heading">
-                            <p className="paragraph-bar pt-2">
+                            <p className="pt-2 paragraph-bar">
                               Designation XYZ
                             </p>
                             <h5>- Ville</h5>
@@ -128,10 +153,10 @@ class ShopOne extends Component {
                         </div>
                       </div> */}
                       {/* <div className="col-md-4 col-12">
-                        <div className="card text-center ">
+                        <div className="text-center card ">
                           <img src={t3} alt="avater" className=" img-fluid" />
                           <div className="img-heading">
-                            <p className="paragraph-bar pt-2">
+                            <p className="pt-2 paragraph-bar">
                               Designation XYZ
                             </p>
                             <h5>- Kalle</h5>

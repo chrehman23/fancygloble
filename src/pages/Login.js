@@ -350,11 +350,16 @@ class Login extends Component {
           <div class="row bg-white py-5">
             <div className="col-md-12">
               <div className="d-flex justify-content-center w-100">
-                <div className="mx-2"><Link to="/" className="loginbgImageControl link-dark">   About Us  </Link></div>
+                <div className="mx-2"><Link to="/about" className="loginbgImageControl link-dark">   About Us  </Link></div>
                 <div className="mx-2"><a target="_blank" href="https://sites.google.com/view/globalfansy/home/terms-conditions?authuser=0" className="loginbgImageControl link-dark">   Terms &amp; Conditions  </a></div>
                 <div className="mx-2"><a target="_blank" href="https://sites.google.com/view/globalfansy/home/privacy-policy?authuser=0" className="loginbgImageControl link-dark">   Privacy Policy  </a></div>
                 <div className="mx-2"><a target="_blank" href="https://sites.google.com/view/globalfansy/home/supporrt" className="loginbgImageControl link-dark">   Help & Support  </a></div>
               </div>
+            </div>
+          </div>
+          <div className="row border-top ">
+            <div className="py-2 text-center col-12">
+              <p>© Copyright 2021 Global fansy oy. All Rights Reserved.</p>
             </div>
           </div>
         </div>
