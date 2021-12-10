@@ -7,7 +7,7 @@ import ACTIONS from "../store/actions/index.js";
 import PostSound from "../../public/assets/sounds/post_sound.mp3";
 
 import userDefaultImage from "../../public/assets/images/user.png";
-import ReadMoreReact from "read-more-react";
+import ShowMoreText from "react-show-more-text";
 
 import moment from "moment";
 class Comments extends Component {
@@ -48,8 +48,7 @@ class Comments extends Component {
             commentapi: false,
             commentinput: "",
           });
-        })
-        .catch((error) => {
+        }).catch((error) => {
           console.log(error);
         });
     }
@@ -86,6 +85,9 @@ class Comments extends Component {
         console.log(error);
       });
   };
+  executeOnClick(isExpanded) {
+    console.log(isExpanded);
+  }
 
   render() {
     return (
@@ -122,14 +124,16 @@ class Comments extends Component {
             </div>
           </div>
         )}
-        <div className=" mt-2 pt-2">
+      
+
+        <div className="pt-2 mt-2 ">
           {/* {this.props._id} */}
           {/* {JSON.stringify(this.state.comments,null,2)} */}
 
           {!this.state.commentloader &&
             this.state.comments &&
             !this.state.comments.length && (
-              <div className="text-grey-500 fw-500 font-xssss lh-4 pr-2 text-center my-3">
+              <div className="pr-2 my-3 text-center text-grey-500 fw-500 font-xssss lh-4">
                 No Comment found
               </div>
             )}
@@ -146,10 +150,9 @@ class Comments extends Component {
                             <img
                               src={
                                 data.comment_by && data.comment_by.profile_photo
-                                  ? `${
-                                      data.comment_by &&
-                                      data.comment_by.profile_photo
-                                    }`
+                                  ? `${data.comment_by &&
+                                  data.comment_by.profile_photo
+                                  }`
                                   : userDefaultImage
                               }
                               alt="user"
@@ -172,12 +175,20 @@ class Comments extends Component {
 
                       <div className="flex-grow-1">
                         <h6 class="text-grey-500 fw-500 font-xssss lh-4 comment-paragraph">
-                          <ReadMoreReact
-                            text={data.description}
-                            min={20}
-                            ideal={40}
-                            readMoreText="Read More"
-                          />
+                         
+                          <ShowMoreText
+                            /* Default options */
+                            lines={3}
+                            more="Show more"
+                            less="Show less"
+                            className="content-css"
+                            anchorClass="my-anchor-css-class"
+                            onClick={this.executeOnClick}
+                            expanded={false}
+                            truncatedEndingComponent={"... "}
+                          >
+                            {data.description}
+                          </ShowMoreText>
                         </h6>
                       </div>
                     </div>
@@ -188,7 +199,7 @@ class Comments extends Component {
           )}
           {/* ************************************** */}
           {this.state.commentloader && (
-            <div className="text-grey-500 fw-500 font-xssss lh-4 pr-2 text-center my-3">
+            <div className="pr-2 my-3 text-center text-grey-500 fw-500 font-xssss lh-4">
               Loading....
             </div>
           )}
@@ -198,7 +209,7 @@ class Comments extends Component {
             this.state.comments &&
             this.state.comments.length >= 10 && (
               <div
-                className="text-grey-500 fw-500 font-xssss lh-4 pr-2 text-center my-3 cursor-pointer"
+                className="pr-2 my-3 text-center cursor-pointer text-grey-500 fw-500 font-xssss lh-4"
                 onClick={() => {
                   this.getComments();
                 }}

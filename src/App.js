@@ -55,6 +55,7 @@ import Notfound from './pages/Notfound';
 
 import ShopOne from './pages/ShopOne';
 import About from './pages/About';
+import StripeAccount from './pages/StripeAccount';
 import Maintenance from './pages/Maintenance ';
 import ShopTwo from './pages/ShopTwo';
 import ShopThree from './pages/ShopThree';
@@ -187,6 +188,9 @@ class App extends Component {
 
 
           <Route exact path={`/about`} component={About} />
+          <Route exact path={`/stripe-account`} component={StripeAccount} />
+          {/* <Route exact path={`/stripe-success`} component={StripeAccountSuccess} />
+          <Route exact path={`/stripe-fail`} component={StripeAccountFail} /> */}
           <Route exact path={`/shop2`} component={ShopTwo} />
           <Route exact path={`/shop3`} component={ShopThree} />
           <Route exact path={`/singleproduct`} component={Singleproduct} />
