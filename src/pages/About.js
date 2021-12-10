@@ -4,9 +4,10 @@ import Leftnav from "../components/Leftnav";
 import Rightchat from "../components/Rightchat";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
-import t1 from "../../public/assets/images/team/t1.png";
-import t2 from "../../public/assets/images/team/t2.png";
-import t3 from "../../public/assets/images/team/t3.png";
+import t1 from "../../public/assets/images/team/t1.JPG";
+import t2 from "../../public/assets/images/team/t2.JPG";
+import t3 from "../../public/assets/images/team/t3.JPG";
+import t4 from "../../public/assets/images/team/t4.JPG";
 import { Link } from 'react-router-dom'
 class ShopOne extends Component {
   constructor(props) {
@@ -132,7 +133,7 @@ class ShopOne extends Component {
                           <img src={t1} alt="avater" className=" img-fluid" />
                           <div className="img-heading">
                             <p className="pt-2 paragraph-bar">
-                              CEO Founder
+                            
                             </p>
                             <h5>- Tanja</h5>
                           </div>
@@ -146,7 +147,7 @@ class ShopOne extends Component {
                           <img src={t2} alt="avater" className=" img-fluid" />
                           <div className="img-heading">
                             <p className="pt-2 paragraph-bar">
-                              Designation XYZ
+                             
                             </p>
                             <h5>- Ville</h5>
                           </div>
@@ -157,7 +158,7 @@ class ShopOne extends Component {
                           <img src={t3} alt="avater" className=" img-fluid" />
                           <div className="img-heading">
                             <p className="pt-2 paragraph-bar">
-                              Designation XYZ
+                              
                             </p>
                             <h5>- Kalle</h5>
                           </div>
@@ -165,12 +166,12 @@ class ShopOne extends Component {
                       </div>
                       <div className="col-md-3 col-12">
                         <div className="text-center card ">
-                          <img src={t3} alt="avater" className=" img-fluid" />
+                          <img src={t4} alt="avater" className=" img-fluid" />
                           <div className="img-heading">
                             <p className="pt-2 paragraph-bar">
-                              Designation XYZ
+                            
                             </p>
-                            <h5>- Kalle</h5>
+                            <h5>- Nan</h5>
                           </div>
                         </div>
                       </div>
