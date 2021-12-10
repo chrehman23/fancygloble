@@ -24,29 +24,14 @@ import {
 // Do this two lines only when setting up the application
 // setTranslations(languages);
 // **************************************************************
-import StripeApi from '../api/Stripe'
+
 
 
 
 class Settings extends Component {
-    constructor(props) {
-        super();
-        this.state = {
-            loading: false,
+    
 
-        };
-    }
 
-    makeAccount = () => {
-        this.setState({
-            loading: true
-        })
-        StripeApi.create_connect_account().then(res => {
-            if (res.data.Error == false) {
-                window.location.href = res.data.url;
-            }
-        })
-    }
 
 
     render() {
@@ -80,13 +65,7 @@ class Settings extends Component {
                                                 <div className="nav-caption fw-600 font-xsss text-grey-500 mb-2">{t('settings.acount')}</div>
                                                 <ul className="list-inline mb-4">
                                                     <li className="list-inline-item d-block border-bottom me-0"><Link to="/payment" className="pt-2 pb-2 d-flex align-items-center"><i className="btn-round-md bg-mini-gradiant text-white feather-credit-card font-md me-3"></i> <h4 className="fw-600 font-xsss mb-0 mt-0">{t('settings.my_blance')}</h4><i className="ti-angle-right font-xsss text-grey-500 ms-auto mt-3"></i></Link></li>
-                                                    <li onClick={() => this.makeAccount()} className="list-inline-item d-block border-bottom me-0">
-                                                        <a href="#" className="pt-2 pb-2 d-flex align-items-center">  
-                                                            <i class="fab fa-cc-stripe btn-round-md bg-mini-gradiant text-white   font-md me-3"></i>
-                                                            <h4 className="fw-600 font-xsss mb-0 mt-0">{this.state.loading ? "Loading..............." : "Connect Stripe Account"}</h4>
-                                                            <i className="ti-angle-right font-xsss text-grey-500 ms-auto mt-3"></i>
-                                                        </a>
-                                                    </li>
+                                                    
 
                                                     <li className="list-inline-item d-block  me-0"><Link to="/password" className="pt-2 pb-2 d-flex align-items-center"><i className="btn-round-md bg-blue-gradiant text-white feather-inbox font-md me-3"></i> <h4 className="fw-600 font-xsss mb-0 mt-0">{t('settings.password')}</h4><i className="ti-angle-right font-xsss text-grey-500 ms-auto mt-3"></i></Link></li>
 

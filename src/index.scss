@@ -139,8 +139,8 @@
   text-align: center;
   text-transform: uppercase;
 }
-.piad-post-btn{
-  background: #2CB3D7 !important;
+.piad-post-btn {
+  background: #2cb3d7 !important;
   border: none;
   font-size: 12px;
   padding: 10px 18px;
@@ -152,11 +152,6 @@
   text-align: center;
   text-transform: uppercase;
 }
-
-
-
-
-
 
 // .maltiImgesUpload{
 //   display: flex;
@@ -429,7 +424,7 @@
   // padding: 2px;
 }
 .check_coup {
-  border: 1px solid #46237a ;
+  border: 1px solid #46237a;
   width: 30px;
   height: 16px;
   padding: 1px;
@@ -446,7 +441,7 @@
   position: absolute;
   content: "";
   display: block;
-  left: 2px ;
+  left: 2px;
   height: 12px;
   background-color: #46237a !important;
   border-radius: 50%;
@@ -464,7 +459,7 @@
   right: 2px !important;
   left: auto;
 }
-.coupon_btn{
+.coupon_btn {
   margin-left: -10px !important;
   z-index: 999;
 }
@@ -1440,6 +1435,20 @@ i.fa.fa-tag {
 .tutor-review-individual-item .review-avatar {
   width: 50px;
   float: left;
+}
+.accounts_container {
+  position: relative;
+}
+.connect_account_container {
+  min-height: 400px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffffdb;
+  position: absolute;
+  top: 0;
+  z-index: 999 !important;
 }
 
 .review-avatar .tutor-text-avatar,
