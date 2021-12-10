@@ -458,12 +458,14 @@ i.text-white.feather-message-circle.bgthwh.btn-round-sm.font-xs {
   background: #f2c54c !important;
 }
 
-input.commentInput.text-grey-500.fw-500.font-xssss.lh-4.pr-2 {
-  border-radius: 50px;
+.commentInput{
+  border-radius: 10px;
   background: #e0e0e0;
   box-shadow: inset 20px 20px 43px #eeeeee, inset -20px -20px 43px #ffffff;
-  padding: 7px;
+  padding: 8px !important;
 }
+
+
 i.far.fa-share.text-grey-900.btn-round-sm.font-lg {
   background: #056cdb;
   color: #fff !important;
@@ -542,5 +544,8 @@ margin-bottom: 30px;
 }
 
 
-
+.chat-line-height{
+  line-height: 0px !important;
+  padding: 20px !important;
+}
 

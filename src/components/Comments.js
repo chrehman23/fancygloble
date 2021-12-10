@@ -93,21 +93,23 @@ class Comments extends Component {
     return (
       <>
         {this.state.commentapi && (
-          <div className="py-2 d-flex justify-content-center">
+          <div className="py-2 d-flex justify-content-center align-items-center">
             <ApiLoader />
           </div>
         )}
         {!this.state.commentapi && (
-          <div className="mt-2 d-flex">
-            <div className="pr-2 flex-grow-1">
-              <input
+          <div className="d-flex mt-2">
+            <div className="flex-grow-1 me-2">
+              <textarea
                 type="text"
+                rows={1}
                 value={this.state.commentinput}
                 onChange={(e) => {
                   this.setState({ commentinput: e.target.value });
                 }}
                 placeholder="Write comment....."
-                className="pr-2 commentInput text-grey-500 fw-500 font-xssss lh-4"
+                className="commentInput text-grey-500 fw-500 font-xssss"
+              
               />
             </div>
             <div>
