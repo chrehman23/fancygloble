@@ -154,7 +154,7 @@ class ProfilecardThree extends Component {
 
                                 {followings_status && (<div><small className='btn btn-danger text-white mx-2'
                                     onClick={() => this.cancelFollowingRequest(this.props.Profile._id)}
-                                >UnFollow</small></div>)}
+                                >Unfollow</small></div>)}
 
                                 {followers_status && (<div><small className='btn btn-danger text-white mx-2'
                                     onClick={() => this.cancelFollowerRequest(this.props.Profile._id)}

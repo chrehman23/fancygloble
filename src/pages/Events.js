@@ -398,9 +398,13 @@ class Events extends Component {
                                           );
                                         }}
                                       >
+                                         <button className="btn btn-sm btn-flash me-1">
+                                          Share
+                                        </button>
                                         <button className="btn btn-sm btn-flash">
                                           View
                                         </button>
+                                       
                                       </div>
                                     </div>
                                   </div>

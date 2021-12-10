@@ -123,11 +123,11 @@ class ShopOne extends Component {
                     </div>
 
                     <div className="my-5 row ">
-                      {/* <h1 className="text-center team-heading">
+                      <h1 className="text-center team-heading">
                         Our Globalfansy Team
-                      </h1> */}
+                      </h1>
 
-                      <div className="col-md-4 col-12">
+                      <div className="col-md-3 col-12">
                         <div className="text-center card ">
                           <img src={t1} alt="avater" className=" img-fluid" />
                           <div className="img-heading">
@@ -141,7 +141,7 @@ class ShopOne extends Component {
                       <br></br>
                       <br></br>
                       <br></br>
-                      {/* <div className="col-md-4 col-12">
+                      <div className="col-md-3 col-12">
                         <div className="text-center card ">
                           <img src={t2} alt="avater" className=" img-fluid" />
                           <div className="img-heading">
@@ -151,8 +151,8 @@ class ShopOne extends Component {
                             <h5>- Ville</h5>
                           </div>
                         </div>
-                      </div> */}
-                      {/* <div className="col-md-4 col-12">
+                      </div>
+                      <div className="col-md-3 col-12">
                         <div className="text-center card ">
                           <img src={t3} alt="avater" className=" img-fluid" />
                           <div className="img-heading">
@@ -162,7 +162,18 @@ class ShopOne extends Component {
                             <h5>- Kalle</h5>
                           </div>
                         </div>
-                      </div> */}
+                      </div>
+                      <div className="col-md-3 col-12">
+                        <div className="text-center card ">
+                          <img src={t3} alt="avater" className=" img-fluid" />
+                          <div className="img-heading">
+                            <p className="pt-2 paragraph-bar">
+                              Designation XYZ
+                            </p>
+                            <h5>- Kalle</h5>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
