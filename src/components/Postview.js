@@ -110,45 +110,46 @@ class Postview extends Component {
     purchasePost = (token) => {
         if (this.props.id) {
             let data = {
-                post_id: this.props.id,
-                payment_token: token.id
+                product_id: this.props.id,
+                payment_request_type: "post"
             }
             this.setState({ purchaseLoader: true })
-            PostApi.purchasePost(data).then(res => {
+            PostApi.stripePaymentRequest(data).then(res => {
                 console.log(res.data)
-                if (res.data.Error == false) {
+                if (res.data.Error == false && res.status == 200) {
                     new Audio(PostSound).play();
-                    this.props.purchasePost(res.data)
-                    this.setState({
-                        postImages: res.data.paidPost.post_images,
-                        user_paid: true,
-                        postvideo: res.data.paidPost.video_url,
-                        paymentLoader: false,
-                        payment_status: res.data.payment_status,
-                        payment_notify: true
-                    })
+                    // this.props.purchasePost(res.data)
+                    window.location.href = res.data.payment_url;
+                    // this.setState({
+                    // postImages: res.data.paidPost.post_images,
+                    // user_paid: true,
+                    // postvideo: res.data.paidPost.video_url,
+                    // paymentLoader: false,
+                    // payment_status: res.data.payment_status,
+                    // payment_notify: true
+                    // })
                 }
-                if (res.data.error_msg) {
-                    this.setState({
-                        pyment_error_msg: res.data.error_msg
-                    })
-                } else {
-                    this.setState({
-                        pyment_error_msg: " Your card was declined. "
-                    })
-                }
+                // if (res.data.error_msg) {
+                //     this.setState({
+                //         pyment_error_msg: res.data.error_msg
+                //     })
+                // } else {
+                //     this.setState({
+                //         pyment_error_msg: " Your card was declined. "
+                //     })
+                // }
                 this.setState({
                     paymentLoader: false,
-                    payment_notify: true,
-                    purchaseLoader: false
+                    // payment_notify: true,
+                    // purchaseLoader: false
                 })
             }).catch(error => {
                 this.setState({
-                    purchaseLoader: false,
-                    pyment_error_msg: " Your card was declined. ",
+                    // purchaseLoader: false,
+                    // pyment_error_msg: " Your card was declined. ",
                     paymentLoader: false,
-                    payment_status: false,
-                    payment_notify: true
+                    // payment_status: false,
+                    // payment_notify: true
                 })
                 console.log(error)
             })
@@ -163,7 +164,7 @@ class Postview extends Component {
         const emojiClass = `${this.state.isActive ? " active" : ""}`;
 
         return (
-           <>
+            <>
                 {this.state.payment_notify && (
                     <>
                         {this.state.payment_status ? (
@@ -237,7 +238,7 @@ class Postview extends Component {
 
                                     </div>
                                 </div>
- 
+
                             )}
                             {this.state.cardAtive && (
                                 <div className="p-0 mb-3 card-body d-block">
@@ -252,19 +253,20 @@ class Postview extends Component {
                                                                 <button className='subscribe-btn'>Loading....</button>
                                                             )}
                                                             {!this.state.purchaseLoader && (
-                                                                <StripeCheckout
-                                                                    token={this.purchasePost}
-                                                                    stripeKey={process.env.REACT_APP_STRIP_KEY}
-                                                                    image={avater ? avater : "https://node.globalfansy.com/assets/user.png"}
-                                                                    // panelLabel={`'You are paying for post ${allData.paid_amount}'`} // prepended to the amount in the bottom pay button
-                                                                    amount={allData.paid_amount * 100} // cents
-                                                                    ComponentClass="div"
-                                                                    currency="EUR"
-                                                                    name={user} // the pop-in header title
-                                                                    description={`You are paying  €${allData.paid_amount} for post.`} // the pop-in header subtitle
-                                                                >
-                                                                    <button className='subscribe-btn'>Paid Post Click to Pay €{allData.paid_amount}</button>
-                                                                </StripeCheckout>
+                                                                // <StripeCheckout
+                                                                //     token={this.purchasePost}
+                                                                //     stripeKey={process.env.REACT_APP_STRIP_KEY}
+                                                                //     image={avater ? avater : "https://node.globalfansy.com/assets/user.png"}
+                                                                //     // panelLabel={`'You are paying for post ${allData.paid_amount}'`} // prepended to the amount in the bottom pay button
+                                                                //     amount={allData.paid_amount * 100} // cents
+                                                                //     ComponentClass="div"
+                                                                //     currency="EUR"
+                                                                //     name={user} // the pop-in header title
+                                                                //     description={`You are paying  €${allData.paid_amount} for post.`} // the pop-in header subtitle
+                                                                // >
+                                                                //     <button onClick={this.purchasePost} className='subscribe-btn'>Paid Post Click to Pay €{allData.paid_amount}</button>
+                                                                // </StripeCheckout>
+                                                                <button onClick={this.purchasePost} className='subscribe-btn'>Paid Post Click to Pay €{allData.paid_amount}</button>
 
                                                             )}
 
@@ -393,7 +395,7 @@ class Postview extends Component {
 
                                     </div>
                                 </div>
-                            ) 
+                            )
                                 : ''}
                         </>
                     )}
@@ -508,7 +510,7 @@ class Postview extends Component {
 
 
                 </div>
-           </>
+            </>
         );
 
 

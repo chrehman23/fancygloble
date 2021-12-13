@@ -89,6 +89,18 @@ let Posts = {
 
       })
    },
+   stripePaymentRequest: (data) => {
+      data.created_at = new Date();
+      return axios({
+         url: `/api/users/stripePaymentRequest`,
+         method: "post",
+         data,
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         },
+
+      })
+   },
 
 
 }

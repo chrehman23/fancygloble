@@ -22,22 +22,35 @@ class Payment extends Component {
             account_blacnce: 0,
             Tabs: 1,
             allPayments: [],
-            page: 1
+            page: 1,
+            stripe_url: ""
         }
     }
+ 
     componentDidMount() {
-        this.accountDetails()
+        this.accountDetails() 
     }
+ 
 
     accountDetails = () => {
         this.setState({
             apiLoader: true
         })
-        AuthApi.getUserProfileByToken().then(res => {
-            this.setState({
-                account_blacnce: res.data.profile.account_blance,
-                apiLoader: false
-            })
+        StripeApi.getStripeAccountInfo().then(res => {
+            console.log(res)
+            if (res.status == 200) {
+                let url = "";
+                if (res.data.url && res.data.url !== "") {
+                    url = res.data.url
+                }
+                console.log(url)
+                this.setState({
+                    account_blacnce: res.data.blacnce,
+                    apiLoader: false,
+                    stripe_url: url
+                })
+            }
+
         })
     }
 
@@ -89,17 +102,17 @@ class Payment extends Component {
         } else {
             return 0
         }
-
     }
     makeAccount = () => {
-        this.setState({
-            loading: true
-        })
-        StripeApi.getStripeAccountInfo().then(res => {
-            if (res.data.Error == false) {
-                window.location.href = res.data.url;
-            }
-        })
+        window.location.href = this.state.stripe_url;
+        // this.setState({
+        //     loading: true
+        // })
+        // StripeApi.getStripeAccountInfo().then(res => {
+        //     if (res.data.Error == false) {
+
+        //     }
+        // })
     }
 
 
@@ -116,31 +129,29 @@ class Payment extends Component {
                     <div className="middle-sidebar-bottom">
                         <div className="middle-sidebar-left">
                             <div className="middle-wrap">
-
-
                                 <div className="p-0 mb-4 bg-white border-0 shadow-xs card w-100">
                                     <div className="p-4 bg-current border-0 card-body w-100 d-flex rounded-3">
                                         <Link to="/defaultsettings" className="mt-2 d-inline-block"><i className="text-white ti-arrow-left font-sm"></i></Link>
                                         <h4 className="mt-2 mb-0 text-white font-xs fw-600 ms-4">Account</h4>
                                     </div>
                                     <div className="accounts_container">
-                                        {/* **************stripe acccount connection starts ************************************/} 
-                                        {this.props.stripe_account && this.props.stripe_account.details_submitted && this.props.stripe_account.details_submitted==true  ?  (
+                                        {/* **************stripe acccount connection starts ************************************/}
+                                        {this.state.stripe_url}
+                                        {this.state.stripe_url == "" ? (
                                             <div className="">
-                                                 
                                             </div>
-                                        ): (
-                                                <div className="connect_account_container">
-                                                    <div className="">
-                                                        {this.state.loading && (<button className="btn btn-primary">Loading...</button>)}
-                                                        {!this.state.loading && (<button className="btn btn-primary" onClick={() => this.makeAccount()}>Connect your stripe account</button>)}
-                                                    </div>
+                                        ) : (
+                                            <div className="connect_account_container">
+                                                <div className="">
+                                                    {this.state.loading && (<button className="btn btn-primary">Loading...</button>)}
+                                                    {!this.state.loading && (<button className="btn btn-primary" onClick={() => this.makeAccount()}>Connect your stripe account</button>)}
                                                 </div>
+                                            </div>
                                         )}
-                                       
+
                                         {/* **************stripe acccount connection ends************************** */}
                                         {/* ************** ********************************************** */}
-                                        <div className={this.props.stripe_account && this.props.stripe_account.details_submitted && this.props.stripe_account.details_submitted == true ?  "p-1 px-3 border-0 card-body w-100":"p-1 px-3 border-0 card-body w-100 bg-blure-overly"} style={{ minHeight: '500px' }}>
+                                        <div className={this.state.stripe_url == "" ? "p-1 px-3 border-0 card-body w-100" : "p-1 px-3 border-0 card-body w-100 bg-blure-overly"} style={{ minHeight: '500px' }}>
                                             <div className='mb-3 eventsTabs smtabs sm'>
                                                 <div className={this.state.Tabs == 1 ? "active" : ""} onClick={() => this.tabChanger(1)} >Account</div>
                                                 <div className={this.state.Tabs == 2 ? "active" : ""} onClick={() => this.tabChanger(2)}>All Earning</div>
@@ -279,7 +290,7 @@ class Payment extends Component {
                                                                             </div>
                                                                         </div>
                                                                         <div className="p-0 mt-auto text-left bg-transparent border-0 shadow-none card bg-transparent-card w-100">
-                                                                            <h4 className="mb-3 text-white font-sm fw-700 mont-font">€ {this.globalfansy_cat(this.state.account_blacnce)}<span className="mt-1 d-block fw-500 text-grey-300 font-xssss">Account Balance</span></h4>
+                                                                            <h4 className="mb-3 text-white font-sm fw-700 mont-font">€ {this.state.account_blacnce}<span className="mt-1 d-block fw-500 text-grey-300 font-xssss">Account Balance</span></h4>
                                                                         </div>
                                                                     </div>
                                                                 </div>
