@@ -6,6 +6,7 @@ import ACTIONS from './store/actions/index.js';
 import { withRouter } from 'react-router';
 // Create Import File
 import './main.scss';
+import './login.scss';
 import './index.scss';
 import './style.scss';
 import '../media.scss';
@@ -21,6 +22,8 @@ import "./assets/fontawesome-pro/css/all.min.css"; //icons
 import Demo from './demo/Demo';
 import Home from './pages/Home';
 
+import StripeAccountSuccess from './pages/StripeAccountSuccess';
+import StripeAccountFail from './pages/StripeAccountFail';
 import Badge from './pages/Badge';
 import Group from './pages/Group';
 import Storie from './pages/Storie';
@@ -47,7 +50,6 @@ import Payment from './pages/Payment';
 import Notification from './pages/Notification';
 import Helpbox from './pages/Helpbox';
 import Login from './pages/Login';
-import LogiNew from './pages/LogiNew';
 import Terms_Conditions from './pages/Terms_Conditions';
 import Register from './pages/Register';
 import Forgot from './pages/Forgot';
@@ -139,7 +141,6 @@ class App extends Component {
           <Route exact path={`/maintenance`} component={Maintenance} />
           <Route exact path={`/login`} component={Login} />
           <Route exact path={`/Terms_Conditions`} component={Terms_Conditions} />
-          <Route exact path={`/LogiNew`} component={LogiNew} />
           <Route exact path={`/register`} component={Register} />
           <Route exact path={`/forgot`} component={Forgot} />
           <Route exact path={`/reset-password/:email/:otp`} component={UpdatePassword} />
@@ -189,8 +190,8 @@ class App extends Component {
 
           <Route exact path={`/about`} component={About} />
           <Route exact path={`/stripe-account`} component={StripeAccount} />
-          {/* <Route exact path={`/stripe-success`} component={StripeAccountSuccess} />
-          <Route exact path={`/stripe-fail`} component={StripeAccountFail} /> */}
+          <Route exact path={`/stripe-success`} component={StripeAccountSuccess} />
+          <Route exact path={`/stripe-fail`} component={StripeAccountFail} />
           <Route exact path={`/shop2`} component={ShopTwo} />
           <Route exact path={`/shop3`} component={ShopThree} />
           <Route exact path={`/singleproduct`} component={Singleproduct} />

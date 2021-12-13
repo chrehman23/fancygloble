@@ -3,10 +3,7 @@ import Header from "../components/Header";
 import Leftnav from "../components/Leftnav";
 import Rightchat from "../components/Rightchat";
 import Appfooter from "../components/Appfooter";
-import Popupchat from "../components/Popupchat";
-import t1 from "../../public/assets/images/team/t1.png";
-import t2 from "../../public/assets/images/team/t2.png";
-import t3 from "../../public/assets/images/team/t3.png";
+import Popupchat from "../components/Popupchat"; 
 import { Link } from "react-router-dom";
 class ShopOne extends Component {
   constructor(props) {

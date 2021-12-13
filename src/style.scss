@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,600;0,700;1,500&display=swap");
 .bg-courses {
   background: #f0f2f5 !important;
 }
@@ -9,11 +10,11 @@
   border-radius: 4px 4px 0px 0;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
-.read-more-button{
+.read-more-button {
   color: #056bd9 !important;
   cursor: pointer;
 }
-.comment-paragraph{
+.comment-paragraph {
   border-bottom: 1px solid #ddd;
   padding: 10px 0px 10px 20px;
 }
@@ -185,7 +186,7 @@
 .video-resources button::after {
   display: none !important;
 }
-.header>.content>.image{
+.header > .content > .image {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
@@ -440,7 +441,7 @@ button.btn.btn-sm.btn-flash {
   border: 1px solid #1c1d1f !important;
   margin-bottom: 1.5rem !important;
   padding-top: 10px !important;
-    padding-bottom: 10px !important;
+  padding-bottom: 10px !important;
 }
 
 span.chat_date {
@@ -458,13 +459,12 @@ i.text-white.feather-message-circle.bgthwh.btn-round-sm.font-xs {
   background: #f2c54c !important;
 }
 
-.commentInput{
+.commentInput {
   border-radius: 10px;
   background: #e0e0e0;
   box-shadow: inset 20px 20px 43px #eeeeee, inset -20px -20px 43px #ffffff;
   padding: 8px !important;
 }
-
 
 i.far.fa-share.text-grey-900.btn-round-sm.font-lg {
   background: #056cdb;
@@ -475,15 +475,13 @@ i.far.fa-share.text-grey-900.btn-round-sm.font-lg {
 
 .mobile-profile {
   border-radius: 50%;
-  
 }
 
-.add-coupon{
+.add-coupon {
   cursor: pointer;
-
 }
 
-.promo-input-group{
+.promo-input-group {
   line-height: 25px !important;
   font-size: 13px !important;
   border-radius: 5px !important;
@@ -493,33 +491,29 @@ i.far.fa-share.text-grey-900.btn-round-sm.font-lg {
   -o-border-radius: 5px !important;
 }
 
-
 // About us css
-.about-team-wrapper .card{
+.about-team-wrapper .card {
   cursor: pointer;
 }
 
-.about-team-wrapper .team-heading{
-font-size: 30px;
-font-weight: 700;
-margin-bottom: 30px;
+.about-team-wrapper .team-heading {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 30px;
 }
 
-
-
-.about-team-wrapper .card:hover{
-  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2)!important;
-  transition: all .5s;
+.about-team-wrapper .card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.5s;
 }
-
 
 .about-team-wrapper .paragraph-bar::before {
-  content: '';
+  content: "";
   position: absolute;
   height: 4px;
   width: 100px;
   border-radius: 2px;
-  background:#007CFF;
+  background: #007cff;
   bottom: 40px;
   left: 50%;
   transform: translate(-50%);
@@ -527,25 +521,23 @@ margin-bottom: 30px;
 .about-team-wrapper h5 {
   font-size: 1.25rem;
   font-weight: 500;
-  
-  
 }
 
-.about-team-paragraph{
+.about-team-paragraph {
   color: #7e7e7e;
   font-family: Montserrat, Arial, sans-serif;
   font-size: 15px !important;
   font-weight: 400;
   line-height: 1.7 !important;
 }
-.about-team-paragraph h4{
+.about-team-paragraph h4 {
   font-weight: 700;
   font-size: 20px;
 }
 
-
-.chat-line-height{
+.chat-line-height {
   line-height: 0px !important;
   padding: 20px !important;
 }
 
+ 

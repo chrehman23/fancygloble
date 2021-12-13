@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Link } from 'react-router-dom'
-import Logo2 from '../../public/assets/images/Logo3.png'
+import Logo from '../../public/assets/images/Logo3.png'
 
 import loignImage5 from '../../public/assets/images/login image/login5.jpg'
 
@@ -68,174 +68,209 @@ class ChangePassword extends Component {
     }
     render() {
         return (
-            <Fragment>
-                <div className="main-wrap">
-                    <div className="bg-transparent border-0 shadow-none nav-header">
-                        <div className="nav-top w-100 justify-content-start ">
-                            <Link to="/" className='loginbgImageControl'>
-                                <img src="/assets/images/Logo3.png" style={{ height: "60px" }} />
-                                {/* <i className="feather-zap text-success display2-size me-3 ms-0"></i>
-                        <span className="mb-0 text-current d-inline-block fredoka-font ls-3 fw-600 font-xxl logo-text">
-                            Sociala.
-                        </span> */}
-                            </Link>
-                            {/* <Link to="/"><i className="feather-zap text-success display1-size me-2 ms-0"></i><span className="mb-0 text-current d-inline-block fredoka-font ls-3 fw-600 font-xxl logo-text">Sociala. </span> </Link> */}
-                            <button className="nav-menu me-0 ms-auto"></button>
 
-                            {/* <Link to="/login" className="p-3 text-center text-white header-btn d-none d-lg-block bg-dark fw-500 font-xsss ms-auto w100 lh-20 rounded-xl">Login</Link> */}
-                            {/* <Link to="/register" className="p-3 text-center text-white bg-current header-btn d-none d-lg-block fw-500 font-xsss ms-2 w100 lh-20 rounded-xl">Register</Link> */}
+            <Fragment>
+                <div className="login-wrapper">
+                    <div className="login-nav-bg">
+                        <div className="container">
+                            <nav className="navbar navbar-expand-lg">
+                                <Link to="/" className="navbar-brand" href="#">
+                                    <img src={Logo} style={{ width: "110px" }} />
+                                </Link>
+
+                                <div className="collapse navbar-collapse" id="navbarNav">
+                                    <ul className="navbar-nav ms-auto">
+                                        <li className="nav-item active">
+                                            <Link to="/login" className="nav-link" >
+                                                <button type="button" class="btn btn-login  px-4">Login</button>
+
+                                            </Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link to="/register" className="nav-link" >
+                                                <button type="button" class="btn btn-regsiter  px-4">Register</button>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
                         </div>
                     </div>
+                    <div className="form-wrapper">
+                        <div className="container">
+                            <div className="row d-flex justify-content-center align-items-center">
+                                <div className="col-lg-5 col-12 form-bg  p-md-5 py-5   rounded my-5">
+                                    <div className="text-left">
+                                        <h2 className="font-xxl login-heading pb-2">Update Your Password</h2>
+                                        {this.state.successApi && (
+                                            <>
+                                                <p className='text-success'><p>{this.state.successApiMsg}</p></p>
+                                            </>
+                                        )}
+                                        {!this.state.successApi && (
+                                            <>
+                                                {this.state.otpEmailVerifing && (
+                                                    <>
+                                                        <div className='d-flex'>
+                                                            <div ><ApiLoader /></div>
+                                                            <div style={{ paddingLeft: '5px' }}> verifying link</div>
+                                                        </div>
+                                                    </>
+                                                )}
+                                                {!this.state.otpEmailVerifing && this.state.otpEmailError && (
+                                                    <>
+                                                        <small className='text-danger '><p>Error: link not verified</p></small>
 
-                    <div className="row backgroundImageControler h-100" style={{ backgroundImage: `url(${loignImage5})`, marginLeft: "0px" }}>
-                        {/* <div className="p-0 bg-no-repeat col-xl-5 d-none d-xl-block vh-100 bg-image-cover"
-                        style={{backgroundImage: `url("https://via.placeholder.com/800x950.png")`}}></div> */}
-
-                        <div className="p-0 col-xl-7 d-none d-xl-block"
-                        // bg-image-cover style={{ backgroundImage: `url(${backgroundLogin})` }}
-                        >
-                            {/* <img src={loignImage4} className='loginBackGroundImage' /> */}
-                        </div>
-                        <div className="overflow-hidden col-xl-5 vh-100 align-items-center d-flex loginScreenCover rounded-3">
-                            <div className="bg-transparent border-0 shadow-none card ms-auto me-auto login-card">
-                                <div className="text-left text-white bg-transparent card-body rounded-0">
-                                    {this.state.successApi && (
-                                        <>
-                                            <p className='text-white'><b>{this.state.successApiMsg}</b></p>
-                                        </>
-                                    )}
-                                    {!this.state.successApi && (
-                                        <>
-                                            <h2 className="mb-4 text-white fw-700 display1-size display2-md-size">Update <br />your password</h2>
-                                            {this.state.otpEmailVerifing && (
-                                                <>
-                                                    <div className='d-flex'>
-                                                        <div ><ApiLoader /></div>
-                                                        <div style={{ paddingLeft: '5px' }}> verifying link</div>
-                                                    </div>
-                                                </>
-                                            )}
-                                            {!this.state.otpEmailVerifing && this.state.otpEmailError && (
-                                                <>
-                                                    <small className='text-white '><b>Error: link not verified</b></small>
-
-                                                </>
-                                            )}
-                                            {!this.state.otpEmailVerifing && !this.state.otpEmailError && (
-                                                <>
-                                                    <Formik
-                                                        initialValues={{
-                                                            password: "",
-                                                            password_confirmation: '',
-                                                        }}
-                                                        validationSchema={formikValidateSchema}
-                                                        onSubmit={async (values) => {
-                                                            this.setState({
-                                                                apiLoader: true,
-                                                                ApiError: "",
-                                                            })
-                                                            let data = {
-                                                                email: this.state.email,
-                                                                otp: this.state.otp,
-                                                                password: values.password
-                                                            }
-                                                            AuthApi.resetPassword(data).then(res => {
-                                                                console.log(res)
-                                                                if (res.data.Error == false) {
-                                                                    this.setState({
-                                                                        successApi: true,
-                                                                        successApiMsg: res.data.msg
-                                                                    })
-                                                                }
+                                                    </>
+                                                )}
+                                                {!this.state.otpEmailVerifing && !this.state.otpEmailError && (
+                                                    <>
+                                                        <Formik
+                                                            initialValues={{
+                                                                password: "",
+                                                                password_confirmation: '',
+                                                            }}
+                                                            validationSchema={formikValidateSchema}
+                                                            onSubmit={async (values) => {
                                                                 this.setState({
-                                                                    apiLoader: false,
+                                                                    apiLoader: true,
+                                                                    ApiError: "",
                                                                 })
-
-                                                            }).catch(error => {
-                                                                console.log("error api ", error);
-
-                                                                if (error.response.data.Error == true) {
-                                                                    if (error.response.data.msg == "Validation errors.") {
+                                                                let data = {
+                                                                    email: this.state.email,
+                                                                    otp: this.state.otp,
+                                                                    password: values.password
+                                                                }
+                                                                AuthApi.resetPassword(data).then(res => {
+                                                                    console.log(res)
+                                                                    if (res.data.Error == false) {
                                                                         this.setState({
-                                                                            apiLoader: false,
-                                                                            ApiError: error.response.data.msg
+                                                                            successApi: true,
+                                                                            successApiMsg: res.data.msg
                                                                         })
+                                                                    }
+                                                                    this.setState({
+                                                                        apiLoader: false,
+                                                                    })
+
+                                                                }).catch(error => {
+                                                                    console.log("error api ", error);
+
+                                                                    if (error.response.data.Error == true) {
+                                                                        if (error.response.data.msg == "Validation errors.") {
+                                                                            this.setState({
+                                                                                apiLoader: false,
+                                                                                ApiError: error.response.data.msg
+                                                                            })
+                                                                        } else {
+                                                                            this.setState({
+                                                                                apiLoader: false,
+                                                                                ApiError: error.response.data.msg
+                                                                            })
+                                                                        }
+
                                                                     } else {
                                                                         this.setState({
                                                                             apiLoader: false,
-                                                                            ApiError: error.response.data.msg
+                                                                            ApiError: "Server error."
                                                                         })
                                                                     }
 
-                                                                } else {
-                                                                    this.setState({
-                                                                        apiLoader: false,
-                                                                        ApiError: "Server error."
-                                                                    })
-                                                                }
+                                                                })
+                                                            }}
+                                                        >
+                                                            {({
+                                                                values,
+                                                                errors,
+                                                                touched,
+                                                                handleChange,
+                                                                handleBlur,
+                                                                handleSubmit,
+                                                                isSubmitting,
+                                                                /* and other goodies */
+                                                            }) => (
 
-                                                            })
-                                                        }}
-                                                    >
-                                                        {({
-                                                            values,
-                                                            errors,
-                                                            touched,
-                                                            handleChange,
-                                                            handleBlur,
-                                                            handleSubmit,
-                                                            isSubmitting,
-                                                            /* and other goodies */
-                                                        }) => (
+                                                                <Form>
 
-                                                            <Form>
+                                                                    <div className="mt-3 mb-0 form-group icon-input">
+                                                                        {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
+                                                                        <Field type='password' id="password" name="password" className="form-control input-bg rounded" placeholder="Password" />
 
-                                                                <div className="mt-3 mb-0 form-group icon-input">
-                                                                    {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
-                                                                    <Field type='password' id="password" name="password" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Password" />
-
-                                                                </div>
-                                                                <small className='text-danger'><b><ErrorMessage name="password" /></b></small>
-                                                                <div className="mt-3 mb-0 form-group icon-input">
-
-                                                                    {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
-                                                                    <Field type='password' id="password_confirmation" name="password_confirmation" className="style2-input form-control text-grey-900 font-xsss fw-600" placeholder="Confirm Password" />
-
-                                                                </div>
-                                                                <small className='text-danger'><b><ErrorMessage name="password_confirmation" /></b></small>
-
-                                                                <small className='my-3 text-danger '><b>{this.state.ApiError}</b></small>
-                                                                <div className="p-0 mt-2 text-left col-sm-12">
-                                                                    <div className="mt-3 mb-5 form-group">
-                                                                        {this.state.apiLoader && (
-                                                                            <button type="button" className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark ">Loading....</button>
-                                                                        )}
-                                                                        {!this.state.apiLoader && (
-                                                                            <button type='submit' className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark ">Register</button>
-                                                                        )}
                                                                     </div>
+                                                                    <small className='text-danger'><p><ErrorMessage name="password" /></p></small>
+                                                                    <div className="mt-3 mb-0 form-group icon-input">
 
-                                                                </div>
-                                                            </Form>
-                                                        )}
+                                                                        {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
+                                                                        <Field type='password' id="password_confirmation" name="password_confirmation" className="form-control input-bg rounded" placeholder="Confirm Password" />
 
-                                                    </Formik>
-                                                    {/* ************************************* */}
-                                                </>
-                                            )}
-                                        </>
-                                    )}
+                                                                    </div>
+                                                                    <small className='text-danger'><p><ErrorMessage name="password_confirmation" /></p></small>
 
-                                    <h6 className="mt-0 mt-4 mb-0 text-white font-xsss fw-500 lh-32">Already have account <Link to="/login" className="fw-700 ms-1">Login</Link></h6>
+                                                                    <small className='my-3 text-danger '><p>{this.state.ApiError}</p></small>
+                                                                    <div className="p-0 mt-2 text-left col-sm-12">
+                                                                        <div className="mt-3 mb-5 form-group">
+                                                                            {this.state.apiLoader && (
+                                                                                <button type="button" className="w-100 btn btn-regsiter">Loading....</button>
+                                                                            )}
+                                                                            {!this.state.apiLoader && (
+                                                                                <button type='submit' className="w-100 btn btn-regsiter">Update</button>
+                                                                            )}
+                                                                        </div>
+
+                                                                    </div>
+                                                                </Form>
+                                                            )}
+
+                                                        </Formik>
+                                                        {/* ************************************* */}
+                                                    </>
+                                                )}
+                                            </>
+                                        )}
 
 
+
+
+                                    </div>
+                                    <form>
+
+
+
+                                        <div className="form-group form-check py-3">
+                                            <Link to="/login" className="d-flex justify-content-end align-items-center font-bold">Login your account</Link>
+                                        </div>
+                                        {/* <button type="submit" className="w-100 btn btn-regsiter">Login</button> */}
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="footer-basic">
+                        <footer>
+                            <div className="social">
+                                <a href="#"><i className="fab fa-facebook"></i></a>
+                                <a href="#"><i className="fab fa-twitter"></i></a>
+                                <a href="#"><i className="fab fa-instagram"></i></a>
+                                <a href="#"><i className="fab fa-linkedin-in"></i></a>
+                            </div>
+                            <ul className="list-inline">
+                                <li className="list-inline-item"><Link to='/about'>About</Link></li>
+                                <li className="list-inline-item"><Link to='/Terms_Conditions' >Terms</Link></li>
+                                <li className="list-inline-item"><a href="https://sites.google.com/view/globalfansy/home/privacy-policy?authuser=0" target='_blank'>Privacy Policy</a></li>
+                                <li className="list-inline-item"><a href="https://sites.google.com/view/globalfansy/home/supporrt" target='_blank'>Help & Support</a></li>
 
+
+
+
+                            </ul>
+                            <p className="copyright">© Copyright 2021 Global fansy oy. All Rights Reserved.</p>
+                        </footer>
                     </div>
 
                 </div>
+
+
+
             </Fragment>
         );
     }
