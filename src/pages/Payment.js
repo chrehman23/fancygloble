@@ -95,7 +95,7 @@ class Payment extends Component {
         this.setState({
             loading: true
         })
-        StripeApi.create_connect_account().then(res => {
+        StripeApi.getStripeAccountInfo().then(res => {
             if (res.data.Error == false) {
                 window.location.href = res.data.url;
             }
@@ -116,23 +116,31 @@ class Payment extends Component {
                     <div className="middle-sidebar-bottom">
                         <div className="middle-sidebar-left">
                             <div className="middle-wrap">
-                               
+
 
                                 <div className="p-0 mb-4 bg-white border-0 shadow-xs card w-100">
                                     <div className="p-4 bg-current border-0 card-body w-100 d-flex rounded-3">
                                         <Link to="/defaultsettings" className="mt-2 d-inline-block"><i className="text-white ti-arrow-left font-sm"></i></Link>
-                                        <h4 className="mt-2 mb-0 text-white font-xs fw-600 ms-4">Account Balance</h4>
+                                        <h4 className="mt-2 mb-0 text-white font-xs fw-600 ms-4">Account</h4>
                                     </div>
                                     <div className="accounts_container">
-                                        {/* **************stripe acccount connection starts ************************************/}
-                                        <div className="connect_account_container">
+                                        {/* **************stripe acccount connection starts ************************************/} 
+                                        {this.props.stripe_account && this.props.stripe_account.details_submitted && this.props.stripe_account.details_submitted==true  ?  (
                                             <div className="">
-                                                <button className="btn btn-primary" onClick={() => this.makeAccount()}>Connect your stripe account</button>
+                                                 
                                             </div>
-                                        </div>
+                                        ): (
+                                                <div className="connect_account_container">
+                                                    <div className="">
+                                                        {this.state.loading && (<button className="btn btn-primary">Loading...</button>)}
+                                                        {!this.state.loading && (<button className="btn btn-primary" onClick={() => this.makeAccount()}>Connect your stripe account</button>)}
+                                                    </div>
+                                                </div>
+                                        )}
+                                       
                                         {/* **************stripe acccount connection ends************************** */}
                                         {/* ************** ********************************************** */}
-                                        <div className="p-1 px-3 border-0 card-body w-100" style={{ minHeight: '500px' }}>
+                                        <div className={this.props.stripe_account && this.props.stripe_account.details_submitted && this.props.stripe_account.details_submitted == true ?  "p-1 px-3 border-0 card-body w-100":"p-1 px-3 border-0 card-body w-100 bg-blure-overly"} style={{ minHeight: '500px' }}>
                                             <div className='mb-3 eventsTabs smtabs sm'>
                                                 <div className={this.state.Tabs == 1 ? "active" : ""} onClick={() => this.tabChanger(1)} >Account</div>
                                                 <div className={this.state.Tabs == 2 ? "active" : ""} onClick={() => this.tabChanger(2)}>All Earning</div>
@@ -298,8 +306,8 @@ class Payment extends Component {
                                         </div>
                                         {/* **************stripe acccount account details ends************************** */}
                                     </div>
-                                  
-                                   
+
+
                                 </div>
 
 
@@ -322,7 +330,8 @@ class Payment extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        account_blacnce: state.UserProfile.profile.account_blance
+        account_blacnce: state.UserProfile.profile.account_blance,
+        stripe_account: state.UserProfile.profile.stripe_account
     }
 }
 

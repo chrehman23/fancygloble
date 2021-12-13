@@ -2,9 +2,9 @@ import axios from "../axios";
 
 
 let StripeApi = {   
-   create_connect_account: (data) => {
+   getStripeAccountInfo: (data) => {
       return axios({
-         url: `/api/users/create_connect_account`,
+         url: `/api/users/getStripeAccountInfo`,
          data,
          method: "post",
          headers: {

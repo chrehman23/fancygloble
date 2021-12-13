@@ -84,6 +84,16 @@ let AuthApi = {
          }
       })
    },
+   sendEmailforcourses: (data) => {
+      return axios({
+         url: `/api/users/sendEmailforcourses`,
+         data,
+         method: "post",
+         headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+         }
+      })
+   },
 
 
 }

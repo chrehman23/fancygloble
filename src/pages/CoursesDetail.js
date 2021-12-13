@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Modal } from 'react-bootstrap'
 import Header from '../components/Header';
 import Leftnav from '../components/Leftnav';
 import Rightchat from '../components/Rightchat';
@@ -18,10 +19,29 @@ import moment from "moment";
 import Enroll_users from "../components/Enroll_users";
 import Course_comments from "../components/Course_comments";
 import ContentLoader, { Facebook } from 'react-content-loader'
+import { Formik, ErrorMessage, Field,Form } from 'formik';
+import * as Yup from 'yup';
+import AuthApi from "../api/Auth";
+
+let validationSchemaEmail = Yup.object({
+    email: Yup.string().required("Email is Required.").email("Email is not valid."),
+    name: Yup.string().required("Name is Required.").min(2, "Must be greater then 2 characters."),
+    phone: Yup.string().required("Phone number is Required."),
+    massege: Yup.string().required("massege is Required.").min(5, "Must be greater then 5 characters."),
+});
+
+
+
+
+
+
+
 class CoursesDetail extends Component {
     constructor() {
         super()
         this.state = {
+            emailsending:false,
+            emailsendingmsg:"",
             coupon_input: "",
             coupon_discount: 0,
             coupon_loader: false,
@@ -61,6 +81,7 @@ class CoursesDetail extends Component {
             payment_notify: false,
             payment_status: false,
             pyment_error_msg: " Your card was declined.",
+            emailModal: false,
         }
 
     }
@@ -147,17 +168,17 @@ class CoursesDetail extends Component {
                     payment_notify: true
                 })
             }
-            if (res.data.error_msg){
+            if (res.data.error_msg) {
                 this.setState({
                     pyment_error_msg: res.data.error_msg
                 })
-            } else{
+            } else {
                 this.setState({
                     pyment_error_msg: " Your card was declined. "
                 })
             }
             this.setState({
-                paymentLoader: false, 
+                paymentLoader: false,
                 payment_notify: true
             })
         }).catch(error => {
@@ -184,7 +205,7 @@ class CoursesDetail extends Component {
                     coupon_discount: res.data.discount_amount,
                     coupon_loader: false,
                     coupon_info: res.data.msg,
-                   
+
                 })
             }
         }).catch(error => {
@@ -198,7 +219,7 @@ class CoursesDetail extends Component {
                 <Header />
                 <Leftnav />
                 <Rightchat />
-                
+
                 {this.state.payment_notify && (
                     <>
                         {this.state.payment_status ? (
@@ -211,15 +232,15 @@ class CoursesDetail extends Component {
                                 }    >
                                 Payment process done enjoy your course.
                             </SweetAlert>
-                        ): (
-                                <SweetAlert warning title="Payment Error!"
-                                    customButtons={
-                                        <React.Fragment>
-                                            <button className='px-2 btn btn-primary bgthwh ms-2 btn-sm' onClick={() => this.setState({ payment_notify: false })}>Okay</button>
-                                        </React.Fragment>
-                                    }    >
-                                        {this.state.pyment_error_msg}
-                                </SweetAlert>
+                        ) : (
+                            <SweetAlert warning title="Payment Error!"
+                                customButtons={
+                                    <React.Fragment>
+                                        <button className='px-2 btn btn-primary bgthwh ms-2 btn-sm' onClick={() => this.setState({ payment_notify: false })}>Okay</button>
+                                    </React.Fragment>
+                                }    >
+                                {this.state.pyment_error_msg}
+                            </SweetAlert>
                         )}
                     </>
                 )}
@@ -227,7 +248,7 @@ class CoursesDetail extends Component {
                 <div className="main-content right-chat-active">
                     <div className={this.state.apiLoader ? "px-0 middle-sidebar-bottom bg-white" : "px-0 middle-sidebar-bottom course_details_bg"}>
                         <div className="w-100">
-                           
+
 
                             {/* ************************************************************* */}
                             <section className="course-details">
@@ -480,19 +501,22 @@ class CoursesDetail extends Component {
                                                                 {this.state.paid_amount > 0 && !this.state.paymentLoader && (
                                                                     <>
                                                                         {!this.state.user_paid && (
-                                                                            <StripeCheckout
-                                                                                token={this.onToken}
-                                                                                stripeKey={process.env.REACT_APP_STRIP_KEY}
-                                                                                image={this.state.user_details && this.state.user_details.profile_photo}
-                                                                                // panelLabel="Give Money" // prepended to the amount in the bottom pay button
-                                                                                amount={(this.state.paid_amount - this.state.coupon_discount) * 100} // cents
-                                                                                ComponentClassName="div"
-                                                                                currency="EUR"
-                                                                                name={this.state.user_details && this.state.user_details.name} // the pop-in header title
-                                                                                description={`Your are paying €${this.state.paid_amount - this.state.coupon_discount} for course.`} // the pop-in header subtitle
-                                                                            >
-                                                                                <button className='py-2 btn btn-primary btn-sm w-100 bgthwh'>€{this.state.paid_amount - this.state.coupon_discount} BUY NOW</button>
-                                                                            </StripeCheckout>
+                                                                            // <StripeCheckout
+                                                                            //     token={this.onToken}
+                                                                            //     stripeKey={process.env.REACT_APP_STRIP_KEY}
+                                                                            //     image={this.state.user_details && this.state.user_details.profile_photo}
+                                                                            //     // panelLabel="Give Money" // prepended to the amount in the bottom pay button
+                                                                            //     amount={(this.state.paid_amount - this.state.coupon_discount) * 100} // cents
+                                                                            //     ComponentClassName="div"
+                                                                            //     currency="EUR"
+                                                                            //     name={this.state.user_details && this.state.user_details.name} // the pop-in header title
+                                                                            //     description={`Your are paying €${this.state.paid_amount - this.state.coupon_discount} for course.`} // the pop-in header subtitle
+                                                                            // >
+                                                                            //     <button className='py-2 btn btn-primary btn-sm w-100 bgthwh'>€{this.state.paid_amount - this.state.coupon_discount} BUY NOW</button>
+                                                                            // </StripeCheckout>
+                                                                            <button className='py-2 btn btn-primary btn-sm w-100 bgthwh'
+                                                                                onClick={() => { this.setState({ emailModal: true, emailsendingmsg:""})}}
+                                                                            >Ilmoittaudu valmennukseen</button>
 
                                                                         )}
                                                                         {this.state.user_paid && (
@@ -636,6 +660,148 @@ class CoursesDetail extends Component {
                                 )}
 
                             </div>
+
+
+                            <Modal show={this.state.emailModal} onHide={() => { this.setState({ emailModal:false})}}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Ilmoittaudu sähköpostilla</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <Formik
+                                        initialValues={{
+                                            name: '',
+                                            email: '',
+                                            phone: '',
+                                            massege: '',
+                                            product: `product # ${this.state.Course_id} and ${this.state.titleInput}`, 
+                                        }}
+                                        validationSchema={validationSchemaEmail}
+                                        onSubmit={(values, { setSubmitting }) => {
+                                            console.log(values)
+                                            setSubmitting(true)
+                                            AuthApi.sendEmailforcourses(values).then(res=>{
+                                                if (res.data.Error == false) {
+                                                    this.setState({
+                                                        // emailsendingmsg: res.data.msg,
+                                                        emailsendingmsg:"Kiitos tilauksesta. Saat vahvistuksen sähköpostiisi. Nähdään valmennuksessa!"
+                                                    })
+                                                }
+                                                setSubmitting(false)
+                                            }).catch(error=>{
+                                                setSubmitting(false)
+                                                this.setState({
+                                                    emailsendingmsg: "Ilmoittautuminen epäonnistui"
+                                                })
+                                            })
+
+                                        }}
+                                    >
+                                        {({
+                                            values,
+                                            errors,
+                                            touched,
+                                            handleChange,
+                                            handleBlur,
+                                            handleSubmit,
+                                            isSubmitting,
+                                            setFieldValue
+                                            /* and other goodies */
+                                        }) => (
+                                            <Form>
+                                                <div className="mb-0 form-group icon-input rounded-circle">
+                                                    {/* <i className="font-sm ti-email text-grey-500 pe-0"></i> */}
+                                                    <Field
+                                                        name="name"
+                                                        className="style2-input form-control text-grey-900 font-xsss fw-600"
+                                                        placeholder="Nimi"
+                                                    />
+                                                </div>
+                                                <small className="text-danger">
+                                                    <b>
+                                                        <ErrorMessage name="name" />
+                                                    </b>
+                                                </small>
+                                                <div className="mb-0 form-group icon-input rounded-circle mt-1">
+                                                    {/* <i className="font-sm ti-email text-grey-500 pe-0"></i> */}
+                                                    <Field
+                                                        name="email"
+                                                        className="style2-input form-control text-grey-900 font-xsss fw-600"
+                                                        placeholder="Sähköposti"
+                                                    />
+                                                </div>
+                                                <small className="text-danger">
+                                                    <b>
+                                                        <ErrorMessage name="email" />
+                                                    </b>
+                                                </small>
+                                                <div className="mb-0 form-group icon-input rounded-circle mt-1">
+                                                    {/* <i className="font-sm ti-email text-grey-500 pe-0"></i> */}
+                                                    <Field
+                                                        name="phone"
+                                                        className="style2-input form-control text-grey-900 font-xsss fw-600"
+                                                        placeholder="Puhelinnumero"
+                                                    />
+                                                </div>
+                                                <small className="text-danger">
+                                                    <b>
+                                                        <ErrorMessage name="phone" />
+                                                    </b>
+                                                </small>
+
+                                                <div className="mb-0 form-group icon-input rounded-circle mt-1">
+                                                    <textarea name="massege"
+                                                        placeholder=""
+                                                     className="form-control"
+                                                    onChange={(e)=>{
+                                                        setFieldValue("massege",e.target.value,true)
+                                                    }}
+                                                    >
+
+                                                    </textarea>
+                                                </div>
+                                                <small className="text-danger">
+                                                    <b>
+                                                        <ErrorMessage name="massege" />
+                                                    </b>
+                                                </small>
+                                                <small className="my-3 text-danger ">
+                                                    <b>{this.state.emailsendingmsg}</b>
+                                                </small>
+                                                <br></br>
+                                                <br></br>
+                                                {this.state.emailsendingmsg =="" &&  (
+                                                    <div className="p-0 mt-2 text-left col-sm-12">
+                                                        <div className="mb-1 form-group">
+                                                            {isSubmitting && (
+                                                                <button
+                                                                    type="button"
+                                                                    className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark "
+                                                                >
+                                                                    Lähetetään ilmoittautumista
+                                                                </button>
+                                                            )}
+                                                            {!isSubmitting && (
+                                                                <button
+                                                                    type="submit"
+                                                                    className="p-0 text-center text-white border-0 form-control style2-input fw-600 bg-dark "
+                                                                >
+                                                                    VARAA
+                                                                </button>
+                                                            )}
+                                                        </div>
+
+                                                    </div>
+                                                )}
+                                               
+                                            </Form>
+
+                                        )}
+                                    </Formik>
+                                </Modal.Body>
+                                <Modal.Footer>
+
+                                </Modal.Footer>
+                            </Modal>
                             {/* ************************************************************* */}
 
                             <br />
