@@ -119,7 +119,7 @@ class CoursesSectionList extends Component {
                         customButtons={
                             <div>
                                 {this.state.removing_secitons && (
-                                    <button className='px-2 btn btn-primary bgthwh ms-2 btn-sm'>Loading....</button>
+                                    <button className='px-2 btn btn-primary bgthwh ms-2 btn-sm bgthwh'>Loading....</button>
                                 )}
                                 {!this.state.removing_secitons && (
                                     <>
@@ -169,7 +169,7 @@ class CoursesSectionList extends Component {
                                             className="custom_head_collapse lectures-dropdown-arrow bor-0"
 
                                         >
-                                              <label htmlFor="" className='mb-0 course-title-font'>1: Introduction</label>
+                                            <label htmlFor="" className='mb-0 course-title-font'>1: Introduction</label>
                                             {/* <b>1: Introduction</b> */}
                                             <i class="fas fa-chevron-down"></i>
                                         </div>
@@ -226,7 +226,7 @@ class CoursesSectionList extends Component {
                                                     className="custom_head_collapse lectures-dropdown-arrow"
 
                                                 >
-                                                    <b>{index + 2}: {data.section_title}</b>
+                                                    <label className='course-title-font'>{index + 2}: {data.section_title}</label>
                                                     <i class="fas fa-chevron-down"></i>
                                                 </div>
                                             </Accordion.Toggle>
@@ -381,7 +381,7 @@ class CoursesSectionList extends Component {
                                         {!this.state.sectoinApiloader && (
                                             <button
                                                 type="submit"
-                                                className="btn btn-primary float-end my-2"
+                                                className="btn btn-primary float-end my-2 bgthwh"
                                             >
                                                 Save
                                             </button>
@@ -403,17 +403,16 @@ class CoursesSectionList extends Component {
 
 
                     {!this.state.addSection && (
-                        <div className='cursor-pointer col-12 bg-greylight'>
-                            <div className='d-flex align-items-center justify-content-between justify-content-center'
+                        <div className='cursor-pointer'>
+                            <button className='bgthwh px-2 rounded'
                                 onClick={() => this.setState({ addSection: true, ApiError: "" })}
                             >
-                                <div className="course-title-font">
-                                    Add Section
-                                </div>
-                                <div className='p-2'>
-                                    <i class="far fa-plus p-2 cursor-pointer" onClick={() => this.setState({ TitleEdite: true })}></i>
-                                </div>
-                            </div>
+                                Add Section
+
+
+                                <i class="far fa-plus p-2 cursor-pointer" onClick={() => this.setState({ TitleEdite: true })}></i>
+
+                            </button>
                         </div>
                     )}
 
@@ -430,7 +429,7 @@ class CoursesSectionList extends Component {
                     aria-labelledby="example-custom-modal-styling-title"
                 >
                     <Modal.Header>
-                        <h4 className='mb-0'>Update Section</h4>
+                        <h4 className='mb-0 course-title-font'>Update Section</h4>
                     </Modal.Header>
                     <Modal.Body>
                         {this.state.edite_section && (
@@ -477,10 +476,10 @@ class CoursesSectionList extends Component {
                                 <Form>
                                     <div className="mb-0 form-group icon-input rounded-circle">
                                         {/* <i className="font-sm ti-email text-grey-500 pe-0"></i> */}
-                                        <label htmlFor="">Section Title</label>
+                                        <label htmlFor="" className='course-title-font'>Section Title</label>
                                         <Field
                                             name="section_title"
-                                            className="mb-0 form-control text-grey-900 font-xsss fw-600 course-input"
+                                            className="mb-0 form-control text-grey-900 font-xsss fw-600course-input course-input"
                                             placeholder="Section Title"
                                         />
                                     </div>
@@ -490,7 +489,7 @@ class CoursesSectionList extends Component {
                                         </b>
                                     </small>
                                     <div className="mt-3 mb-0 form-group icon-input">
-                                        <label htmlFor="">Section Description</label>
+                                        <label htmlFor="" className='course-title-font'>Section Description</label>
                                         {/* <i className="font-sm ti-lock text-grey-500 pe-0"></i> */}
                                         <Field
                                             type='textarea'
@@ -515,7 +514,7 @@ class CoursesSectionList extends Component {
                                             {this.state.sectoinApiloader && (
                                                 <button
                                                     type="button"
-                                                    className="btn btn-primary float-end "
+                                                    className="btn btn-primary float-end bgthwh"
                                                 >
                                                     Loading....
                                                 </button>
@@ -523,7 +522,7 @@ class CoursesSectionList extends Component {
                                             {!this.state.sectoinApiloader && (
                                                 <button
                                                     type="submit"
-                                                    className="btn btn-primary float-end"
+                                                    className="btn btn-primary float-end bgthwh"
                                                 >
                                                     Update
                                                 </button>
